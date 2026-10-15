@@ -17,7 +17,7 @@ git clone --branch chore/bootstrap-ubuntu2512 https://github.com/KrisIrving/AI-A
 cd AI-Accelerated-LaserbeamFoam
 mkdir -p validation
 REPORT_DIR=$(mktemp -d "$PWD/validation/round1.XXXXXXXX")
-bash scripts/audit_host.sh --repo "$PWD" > "$REPORT_DIR/audit_host.txt"
+bash scripts/audit_host.sh --repo "$PWD" --disk "$PWD" > "$REPORT_DIR/audit_host.txt"
 printf 'Local report directory: %s\n' "$REPORT_DIR"
 ```
 

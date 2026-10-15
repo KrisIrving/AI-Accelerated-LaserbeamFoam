@@ -4,13 +4,13 @@ Recorded: 2026-10-15 (Asia/Shanghai).
 
 | Item | Value |
 | --- | --- |
-| Upstream | https://github.com/laserbeamfoam/LaserbeamFoam.git |
+| Upstream | <https://github.com/laserbeamfoam/LaserbeamFoam.git> |
 | Upstream branch | `OpenFoam_com_main` |
 | Baseline commit | `3c93f2657e089e22e9a8298648292969e85a4bad` |
 | Baseline commit date | 2026-09-11 17:59:48 UTC |
 | Commit subject | Merge pull request #139 from laserbeamfoam/compressible_reformulation |
 | Upstream HEAD at initialization | Same as baseline; verified by `git ls-remote` |
-| Project origin | https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam.git |
+| Project origin | <https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam.git> |
 | Initialization | Empty target; `main` starts directly at the upstream commit, preserving ancestry. Project additions are proposed on a separate branch. |
 | License | Original `LICENSE`, copyright notices and official documentation retained |
 
