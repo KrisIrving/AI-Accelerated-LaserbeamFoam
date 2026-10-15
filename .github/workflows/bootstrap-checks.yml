@@ -40,5 +40,9 @@ jobs:
         run: bash tests/test_ai_solver_source.sh
       - name: A/B preparation guards (no OpenFOAM)
         run: bash tests/test_prepare_preflight.sh
+      - name: Input manifest order and locale regression (no OpenFOAM)
+        run: bash tests/test_plate2d_inputs.sh
+      - name: Generated Allrun preflight regression (mock utilities only)
+        run: bash tests/test_plate2d_allrun.sh
       - name: ASCII comparison fixture tests (no OpenFOAM)
         run: python3 -m unittest discover -s tests -p 'test_compare_plate2d_ab.py'

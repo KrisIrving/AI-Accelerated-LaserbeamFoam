@@ -21,9 +21,15 @@
 
 `observed-steps.txt` 尚未生成仅因对应 awk 命令未执行，不构成运行失败。已有 `wmkdepend` 依赖扫描诊断作为非致命信息单独保留；没有实际阻断证据，不据此重构源码。
 
+## 新入口：提交 fa039e70（用户回传）
+
+- `laserbeamFoam` 和 `aiLaserbeamFoam` 均在同一 Ubuntu 22.04 / OpenFOAM v2512 环境成功编译，构建报告为 `BUILD_ARTIFACT_CHECKS_PASSED`。
+- `Plate2D-ab-001/A/Allrun` 停在输入清单比较：文件 SHA256 不变，仅记录排列顺序不同；准备端使用 C locale，运行端未固定 locale。尚未生成网格、初场或求解日志；B 未启动。
+- 这属于验证脚本的误判，不是 OpenFOAM、动态库或求解器运行失败的证据。保留旧目录；修复后在 `Plate2D-ab-002` 重新准备 A/B。
+
 ## 明确未完成
 
-- 新 `aiLaserbeamFoam` 的 Ubuntu 编译和运行。
+- 修复脚本后的工作站验证，以及新 `aiLaserbeamFoam` 的实际运行。
 - 两程序相同输入下的串行数值等价性。
 - 4/8核 MPI、一致性或并行性能。
 - 三维 LPBF、数值收敛、物理精度或实验一致性。

@@ -2,6 +2,8 @@
 
 本轮 A 为 `laserbeamFoam`，B 为 `aiLaserbeamFoam`。**B 当前只新增命名隔离的求解器入口，没有学习模型、AI 控制或加速算法。** 目的仅是检查新增入口是否保持原版行为，为以后独立开发建立回归基线；不能据此宣称 AI 加速、物理验证通过或三维 LPBF 可用。
 
+用户已回传 `fa039e70` 两个程序编译通过。旧 `Plate2D-ab-001/A` 在输入清单行序比较处退出，尚未调用 OpenFOAM；保留整个旧目录作为证据。修复统一 C locale，并按相对路径与 SHA256 的完整对应关系核验，不要求原始清单行序相同。下述新报告、新案例仍遵守构建记录与当前 Git HEAD 一致的要求；重新调用 `Allwmake` 可使用现有对象缓存，不运行清理，也不复制旧二进制冒充本次构建。
+
 以下步骤供用户在 Ubuntu 22.04 工作站的交互式 Bash 中运行。编译、案例运行及比较结果均待实机回传；本页不承诺通过。不使用 MPI，不执行 DEM，不运行官方长算例。报告保留本机，公开提交中不放主机信息、用户绝对路径或计算场数据。
 
 ## 1. 同次构建、同套库
@@ -49,7 +51,7 @@ command -v python3
 
 ```bash
 cd -- "$AB_REPO"
-export AB_RUN_DIR="$PWD/runs/Plate2D-ab-001"
+export AB_RUN_DIR="$PWD/runs/Plate2D-ab-002"
 test ! -e "$AB_RUN_DIR"
 test ! -L "$AB_RUN_DIR"
 bash scripts/prepare_plate2d_ab.sh \
@@ -76,11 +78,15 @@ diff -ru -- "$AB_RUN_DIR/A/constant" "$AB_RUN_DIR/B/constant"
 环境保持不变，先 A 后 B。每组 `Allrun` 使用 OpenFOAM `RunFunctions` 依次执行 `blockMesh`、`checkMesh`、`setFields`，随后通过 GNU time 与 timeout 明确调用相应求解器，保存资源和退出码。不要用官方 `Allrun` 覆盖生成脚本。
 
 ```bash
-(cd -- "$AB_RUN_DIR/A" && bash ./Allrun)
-(cd -- "$AB_RUN_DIR/B" && bash ./Allrun)
+(cd -- "$AB_RUN_DIR/A" && bash ./Allrun --strict)
+(cd -- "$AB_RUN_DIR/B" && bash ./Allrun --strict)
 ```
 
 首组失败就停止，不继续把第二组或比较结果当作有效对照。每组检查：
+
+普通 `Allrun` 保留环境、指定程序及库来源、全新目录、输入完整性和失败报告检查。正式 A/B 使用上面的 `--strict`，额外核对 Git 提交/源码状态、全量程序和自定义库哈希及完整动态依赖来源。准备阶段始终要求构建记录与 HEAD 一致；严格校验没有被绕过。A/B 跨案例输入及结果比较仍由独立比较器完成。
+
+所有清单均在 C locale 下生成；输入辅助脚本另对完整记录按路径规范排序后比较，保留 `sha256sum -c`。清单重新排列可通过；改内容、丢文件、额外文件或重复记录均失败。不要手动重写哈希以使失败案例通过。
 
 | 证据 | A | B |
 | --- | --- | --- |
@@ -89,6 +95,8 @@ diff -ru -- "$AB_RUN_DIR/A/constant" "$AB_RUN_DIR/B/constant"
 | 求解资源与退出码 | `solver.time.txt`、`solver.exit.txt` | 同名文件 |
 
 检查实际网格是否均为 3,200 单元、边界及初始场是否一致，两个求解器是否都从零推进至相同终点、完成 10 步并正常结束。求解程序的墙钟限制为 120 秒，收到终止信号后最多再给 10 秒退出；该限制不是整个准备流程的总时间。超时、非零退出码或日志中的异常都需保留现场，不能改成“通过”。资源记录包括 GNU time 的 elapsed wall-clock、CPU 时间和最大 RSS。本轮只有串行短跑，启动与输出开销占比可能很大，时间差不构成加速结论。
+
+前置失败会在终端报告 `ERROR [阶段] 原因`。需要保留终端输出时可用 `(cd "$AB_RUN_DIR/A" && bash ./Allrun --strict) 2>&1 | tee "$AB_RUN_DIR/A/allrun.console.txt"`；B 同理。当前终端已启用 `pipefail`，`tee` 不会掩盖失败。输入错误先回传该输出及 `inputs.verify.txt`、`inputs.runtime.diff.txt`；库错误先回传 `ldd.runtime.txt` 和 `dependencies.runtime*.tsv`。OpenFOAM 准备工具失败回传对应 `log.<工具>`；求解阶段失败回传求解日志和 `solver.exit.txt`。
 
 两组 `Allclean` 仅提示并拒绝自动清理。不要通过它删除现场，也不要重复运行同一组 `Allrun` 来覆盖日志或演化场；重新试验应另建 A/B 根目录。
 
@@ -140,7 +148,8 @@ done
 for variant in A B; do
     for file in log.blockMesh log.checkMesh log.setFields \
         log.laserbeamFoam log.aiLaserbeamFoam solver.time.txt solver.exit.txt \
-        observed-steps.txt execution.txt ldd.runtime.txt dependencies.runtime.tsv \
+        observed-steps.txt execution.txt allrun.console.txt ldd.runtime.txt dependencies.runtime.tsv \
+        inputs.verify.txt inputs.runtime.diff.txt \
         inputs.sha256 mesh.sha256; do
         test ! -f "$AB_RUN_DIR/$variant/$file" || \
             cp "$AB_RUN_DIR/$variant/$file" "$FEEDBACK_DIR/$variant/"

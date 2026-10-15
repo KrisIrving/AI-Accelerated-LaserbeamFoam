@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 # Prepare native OpenFOAM test copies; never build, run a solver, or clean.
-set -euo pipefail
+set -Eeuo pipefail
 export LC_ALL=C
+stage=preparation
+trap 'rc=$?; printf "ERROR [%s] command failed at line %s (exit %s)\n" "$stage" "$LINENO" "$rc" >&2; exit "$rc"' ERR
 usage() { echo 'Usage: bash scripts/prepare_plate2d_ab.sh --run-dir REPO/runs/NEW --build-dir REPO/validation/ROUND/build'; }
 run_arg= build_arg=
 while (($#)); do
@@ -45,9 +47,10 @@ done
 # Load only our generated build activation, never a user shell profile.
 source "$build/env.sh"
 [[ $FOAM_USER_APPBIN == "$build/install/bin" && $FOAM_USER_LIBBIN == "$build/install/lib" ]] || { echo 'Unexpected install paths in build activation.' >&2; exit 2; }
-sha256sum -c "$build/binary.sha256" >/dev/null
-sha256sum -c "$build/custom-libraries.sha256" >/dev/null
-diff -q "$build/dependencies.laserbeamFoam.tsv" "$build/dependencies.aiLaserbeamFoam.tsv" >/dev/null
+stage=build-integrity
+sha256sum -c "$build/binary.sha256" >/dev/null || { echo 'ERROR [build-integrity] Binary checksum failed.' >&2; exit 2; }
+sha256sum -c "$build/custom-libraries.sha256" >/dev/null || { echo 'ERROR [build-integrity] Library checksum failed.' >&2; exit 2; }
+diff -q "$build/dependencies.laserbeamFoam.tsv" "$build/dependencies.aiLaserbeamFoam.tsv" || { echo 'ERROR [build-integrity] A/B dependency origins differ.' >&2; exit 2; }
 mkdir -p -- "$out"
 {
     echo 'schema=plate2d-ab-v1'
@@ -58,6 +61,7 @@ mkdir -p -- "$out"
     cat "$build/binary.sha256" "$build/custom-libraries.sha256"
 } > "$out/manifest.txt"
 for variant in A B; do
+    stage="prepare-$variant"
     solver=laserbeamFoam
     [[ $variant == A ]] || solver=aiLaserbeamFoam
     case_dir="$out/$variant"
@@ -82,42 +86,73 @@ for variant in A B; do
     set_control writePrecision 17
     set_control timePrecision 12
     set_control runTimeModifiable no
-    (cd -- "$case_dir"; find initial constant system -type f -print0 | sort -z | xargs -0 sha256sum) > "$case_dir/inputs.sha256"
+    (cd -- "$case_dir"; find initial constant system -type f -print0 | sort -z | xargs -0 sha256sum --text) > "$case_dir/inputs.sha256"
     {
         printf 'AB_REPO=%q\nAB_BUILD=%q\nAB_SOLVER=%q\nAB_COMMIT=%q\nAB_WM_OPTIONS=%q\n' "$repo" "$build" "$solver" "$commit" "$WM_OPTIONS"
     } > "$case_dir/.ab-env.sh"
     cat > "$case_dir/Allrun" <<'ALLRUN'
 #!/usr/bin/env bash
 # Native case steps with bounded serial execution; no restart or cleanup.
-set -eo pipefail
+set -Eeo pipefail
+export LC_ALL=C
+stage=startup
+fail() { printf 'ERROR [%s] %s\n' "$stage" "$*" >&2; exit 2; }
+trap 'rc=$?; printf "ERROR [%s] command failed at line %s (exit %s); retain this case and its logs\n" "$stage" "$LINENO" "$rc" >&2; exit "$rc"' ERR
 cd -- "$(dirname -- "${BASH_SOURCE[0]}")"
-[[ $# == 0 ]] || { echo 'This A/B fixture is serial-only and accepts no arguments.' >&2; exit 2; }
+strict=no
+if [[ $# == 1 && $1 == --strict ]]; then strict=yes; shift; fi
+[[ $# == 0 ]] || fail 'Usage: ./Allrun [--strict] (serial only)'
+stage=environment
+[[ -f .ab-env.sh ]] || fail 'Missing .ab-env.sh; prepare a new pair.'
 . ./.ab-env.sh
-[[ ${WM_PROJECT_VERSION-} == v2512 && ${WM_OPTIONS-} == "$AB_WM_OPTIONS" ]] || { echo 'Load the matching of2512 environment.' >&2; exit 2; }
+[[ ${WM_PROJECT_VERSION-} == v2512 && ${WM_OPTIONS-} == "$AB_WM_OPTIONS" ]] || fail 'Load the matching of2512 environment.'
+[[ -f $AB_BUILD/env.sh ]] || fail 'Build activation env.sh is missing.'
 . "$AB_BUILD/env.sh"
-[[ $(git -C "$AB_REPO" rev-parse HEAD) == "$AB_COMMIT" ]] || { echo 'Project commit changed since preparation.' >&2; exit 2; }
-for path in 0 constant/polyMesh solver.exit.txt solver.time.txt log.blockMesh log.checkMesh log.setFields "log.$AB_SOLVER"; do
-    [[ ! -e $path && ! -L $path ]] || { echo "Refusing to overwrite $path; prepare a new A/B pair." >&2; exit 2; }
+[[ $FOAM_USER_APPBIN == "$AB_BUILD/install/bin" && $FOAM_USER_LIBBIN == "$AB_BUILD/install/lib" ]] || fail 'Build activation selected unexpected install paths.'
+stage=fresh-case
+for path in 0 constant/polyMesh solver.exit.txt solver.time.txt execution.txt log.blockMesh log.checkMesh log.setFields "log.$AB_SOLVER"; do
+    [[ ! -e $path && ! -L $path ]] || fail "Refusing to overwrite $path; prepare a new A/B pair."
 done
-sha256sum -c inputs.sha256 > inputs.verify.txt
-(find initial constant system -type f -print0 | sort -z | xargs -0 sha256sum) > inputs.runtime.sha256
-diff -u inputs.sha256 inputs.runtime.sha256 > inputs.runtime.diff.txt
-[[ -z $(find initial constant system -type l -print -quit) ]] || { echo 'Unexpected symlinked input.' >&2; exit 2; }
-sha256sum -c "$AB_BUILD/binary.sha256" > binaries.verify.txt
-sha256sum -c "$AB_BUILD/custom-libraries.sha256" > libraries.verify.txt
-ldd "$FOAM_USER_APPBIN/$AB_SOLVER" > ldd.runtime.txt
+stage=inputs
+bash "$AB_REPO/scripts/verify_plate2d_inputs.sh" --case-dir "$PWD"
+stage=executable
+[[ -x $FOAM_USER_APPBIN/$AB_SOLVER ]] || fail 'Selected solver executable is missing.'
+[[ $(command -v "$AB_SOLVER") == "$FOAM_USER_APPBIN/$AB_SOLVER" ]] || fail 'Wrong solver executable on PATH.'
+stage=dependencies
+ldd "$FOAM_USER_APPBIN/$AB_SOLVER" > ldd.runtime.txt 2>&1 || fail 'ldd failed; see ldd.runtime.txt'
+if grep -q 'not found' ldd.runtime.txt; then fail 'Unresolved dynamic library; see ldd.runtime.txt'; fi
 awk '$2 == "=>" && $3 != "not" { print $1 "\t" $3 }' ldd.runtime.txt | sort > dependencies.runtime.tsv
-diff -u "$AB_BUILD/dependencies.$AB_SOLVER.tsv" dependencies.runtime.tsv > dependencies.runtime.diff.txt
-[[ $(command -v "$AB_SOLVER") == "$FOAM_USER_APPBIN/$AB_SOLVER" ]] || { echo 'Wrong solver executable on PATH.' >&2; exit 2; }
+awk -v libdir="$FOAM_USER_LIBBIN" '
+    $1 == "libMTHD.so" || $1 == "liblaserHeatSource.so" {
+        seen++; if ($2 != libdir "/" $1) wrong=1
+    }
+    END { exit (seen != 2 || wrong) }
+' dependencies.runtime.tsv || fail 'Custom libraries did not resolve to this build; see dependencies.runtime.tsv'
+# Formal A/B checks are opt-in. Preparation already verifies the build/commit;
+# daily execution still checks inputs, executable selection and library loading.
+if [[ $strict == yes ]]; then
+    stage=strict-provenance
+    [[ $(git -C "$AB_REPO" rev-parse HEAD) == "$AB_COMMIT" ]] || fail 'Project commit changed since preparation.'
+    git -C "$AB_REPO" diff --quiet HEAD -- src applications || fail 'Uncommitted solver/library source changes.'
+    sha256sum -c "$AB_BUILD/binary.sha256" > binaries.verify.txt 2>&1 || fail 'Binary checksum failed; see binaries.verify.txt'
+    sha256sum -c "$AB_BUILD/custom-libraries.sha256" > libraries.verify.txt 2>&1 || fail 'Library checksum failed; see libraries.verify.txt'
+    sort -- "$AB_BUILD/dependencies.$AB_SOLVER.tsv" > dependencies.expected.sorted.tsv
+    diff -u dependencies.expected.sorted.tsv dependencies.runtime.tsv > dependencies.runtime.diff.txt || fail 'Dependency origins changed; see dependencies.runtime.diff.txt'
+fi
+stage=initialization
 . "${WM_PROJECT_DIR:?}/bin/tools/RunFunctions"
 cp -a -- initial 0
+stage=blockMesh
 runApplication blockMesh
+stage=checkMesh
 runApplication checkMesh
-grep -q 'Mesh OK' log.checkMesh || { echo 'Mesh check did not report Mesh OK.' >&2; exit 1; }
+grep -q 'Mesh OK' log.checkMesh || fail 'Mesh check did not report Mesh OK; see log.checkMesh'
+stage=setFields
 runApplication setFields
 (find constant/polyMesh -type f -print0 | sort -z | xargs -0 sha256sum) > mesh.sha256
-printf 'program=%s\nmpi_ranks=1\nWM_OPTIONS=%s\n' "$FOAM_USER_APPBIN/$AB_SOLVER" "$WM_OPTIONS" > execution.txt
+printf 'program=%s\nmpi_ranks=1\nWM_OPTIONS=%s\nstrict_validation=%s\n' "$FOAM_USER_APPBIN/$AB_SOLVER" "$WM_OPTIONS" "$strict" > execution.txt
 date -u '+started_utc=%Y-%m-%dT%H:%M:%SZ' >> execution.txt
+stage=solver
 if /usr/bin/time -v -o solver.time.txt timeout --signal=TERM --kill-after=10s 120s "$FOAM_USER_APPBIN/$AB_SOLVER" > "log.$AB_SOLVER" 2>&1; then
     rc=0
 else
@@ -126,6 +161,7 @@ fi
 printf '%s\n' "$rc" > solver.exit.txt
 date -u '+finished_utc=%Y-%m-%dT%H:%M:%SZ' >> execution.txt
 awk '/^Time = / { n++ } END { print "observed_steps=" n+0 }' "log.$AB_SOLVER" > observed-steps.txt
+if ((rc != 0)); then printf 'ERROR [solver] exit %s; see log.%s and solver.time.txt\n' "$rc" "$AB_SOLVER" >&2; fi
 exit "$rc"
 ALLRUN
     cat > "$case_dir/Allclean" <<'ALLCLEAN'
@@ -137,4 +173,4 @@ ALLCLEAN
     chmod +x "$case_dir/Allrun" "$case_dir/Allclean"
 done
 echo "Prepared $out/A and $out/B. No mesh, initial-field utility, or solver has run."
-echo 'From the corresponding case directory run ./Allrun, first A then B.'
+echo 'For formal A/B run ./Allrun --strict in A then B; default Allrun retains essential checks.'

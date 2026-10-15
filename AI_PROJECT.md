@@ -2,7 +2,7 @@
 
 本项目基于 [官方 LaserbeamFoam](https://github.com/laserbeamfoam/LaserbeamFoam)，目标是在保留高保真 LPBF 模型和数值校正能力的基础上开发可复现的 AI 加速求解器。
 
-**用户已回传：原生 `laserbeamFoam` 在 Ubuntu 22.04.5 / OpenFOAM.com v2512 编译及 Plate2D 串行十步短跑通过。新 `aiLaserbeamFoam` 是独立命名的同算法入口，其编译及 A/B 一致性待验证；尚无 AI 算法。** Codex 不连接或操作工作站。
+**用户已回传：原生 `laserbeamFoam` 在 Ubuntu 22.04.5 / OpenFOAM.com v2512 编译及 Plate2D 串行十步短跑通过；`fa039e70` 的两个独立求解器均编译通过。新入口仍待实际运行及 A/B 一致性验证；首次 A 被输入清单排序误判阻断，尚未调用 OpenFOAM。尚无 AI 算法。** Codex 不连接或操作工作站。
 
 - [源码来源与版本状态](UPSTREAM_BASELINE.md)
 - [用户回传的原生验证记录](docs/validation/RESULTS.md)

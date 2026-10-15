@@ -26,7 +26,9 @@ Upstream history contains legacy large blobs (including a historical tutorial lo
 | Workstation environment | **USER-REPORTED** Ubuntu 22.04.5 / OpenFOAM.com v2512 |
 | Original solver compile and link | **USER-REPORTED PASSED** at `98f99de8`; `BUILD_ARTIFACT_CHECKS_PASSED` |
 | Original Plate2D serial short run | **USER-REPORTED PASSED**: 3,200 cells, 10 steps to `1e-7 s`, exit 0 |
-| New aiLaserbeamFoam compile / serial A/B | **UNVERIFIED — WAITING FOR UBUNTU** |
+| Both solver compile and link at fa039e70 | **USER-REPORTED PASSED**; `BUILD_ARTIFACT_CHECKS_PASSED` |
+| Serial A/B at fa039e70 | **NOT RUN**; input-manifest ordering guard stopped A before OpenFOAM; B not started |
+| Script fix / new solver run / serial equivalence | **UNVERIFIED — WAITING FOR UBUNTU** |
 | Official 4/8-rank short runs | **UNVERIFIED** |
 | Numerical convergence / experiment agreement | **UNVERIFIED** |
 | AI speedup | **NOT IMPLEMENTED / NOT MEASURED** |

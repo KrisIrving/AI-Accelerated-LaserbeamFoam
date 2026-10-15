@@ -1,6 +1,6 @@
 # Ubuntu 22.04 / OpenFOAM.com v2512：首轮验证
 
-本页保留首轮引导步骤。原生求解器在 `98f99de8` 的工作站编译与 Plate2D 串行短跑已由用户回传通过，见 [RESULTS.md](RESULTS.md)。当前新增入口请改按 [PLATE2D_AB.md](PLATE2D_AB.md) 执行；其编译与一致性尚未验证。官方源码和 `Allwmake` 不改动。
+本页保留首轮引导步骤。原生求解器在 `98f99de8` 的工作站编译与 Plate2D 串行短跑已由用户回传通过；`fa039e70` 的两个求解器也已编译通过，见 [RESULTS.md](RESULTS.md)。当前新增入口请改按 [PLATE2D_AB.md](PLATE2D_AB.md) 执行；实际运行与一致性尚未验证。官方源码和 `Allwmake` 不改动。
 
 ## 1. 新目录检出与只读审计（先做这一组）
 
