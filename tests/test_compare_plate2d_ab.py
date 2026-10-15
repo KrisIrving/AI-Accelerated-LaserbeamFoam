@@ -1,6 +1,7 @@
 """Synthetic parser/comparator checks; these fixtures are not CFD runs."""
 import hashlib
 import importlib.util
+import json
 import tempfile
 import unittest
 from pathlib import Path
@@ -9,6 +10,7 @@ SPEC = importlib.util.spec_from_file_location(
     "compare_plate2d_ab", Path(__file__).resolve().parents[1] / "scripts" / "compare_plate2d_ab.py")
 COMPARE = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(COMPARE)
+TRAPFPE_BANNER = "trapFpe: Floating point exception trapping enabled (FOAM_SIGFPE)."
 
 
 def header(field_class, obj="field", fmt="ascii"):
@@ -80,6 +82,116 @@ class ComparatorTests(unittest.TestCase):
         self.assertTrue(report["logs"]["exact_equal"])
         self.assertTrue(report["fields"]["1e-07"]["T"]["internal"]["exact_equal"])
         self.assertEqual(report["fields"]["1e-07"]["alpha.metal"]["alpha_bounds"]["A"], [0.5, 0.5])
+
+    def test_normal_trapfpe_banner_reaches_field_comparison(self):
+        for case, app in (("A", "laserbeamFoam"), ("B", "aiLaserbeamFoam")):
+            log = self.root / case / ("log." + app)
+            log.write_text(TRAPFPE_BANNER + "\n" + log.read_text())
+        report = self.compare()
+        self.assertEqual(report["status"], "PASS", report["issues"])
+        self.assertTrue(report["fields"]["1e-07"])
+        self.assertIn("1e-07", report["uniform"])
+
+    def assert_fatal_context(self, variant, error_line, marker):
+        app = "laserbeamFoam" if variant == "A" else "aiLaserbeamFoam"
+        log = self.root / variant / ("log." + app)
+        original = log.read_text()
+        try:
+            # Keep exit 0 and End to prove detection, independently of the
+            # other failure checks. A valid startup must not hide a later error.
+            log.write_text(TRAPFPE_BANNER + "\n" + error_line + "\n" + original)
+            report = self.compare()
+            self.assertEqual(report["status"], "FAIL", report)
+            issue = report["issues"][0]
+            self.assertEqual(issue["variant"], variant)
+            self.assertEqual(issue["log_file"], str(log))
+            self.assertEqual(issue["line_number"], 2)
+            self.assertEqual(issue["matched_line"], error_line)
+            self.assertEqual(issue["marker"], marker)
+            self.assertIn(str(log) + ":2", issue["message"])
+            self.assertIn(error_line, issue["message"])
+        finally:
+            log.write_text(original)
+
+    def test_foam_fatal_errors_in_either_run_have_context(self):
+        for variant in ("A", "B"):
+            for line in ("--> FOAM FATAL ERROR: synthetic failure",
+                         "--> FOAM FATAL IO ERROR: synthetic dictionary failure"):
+                with self.subTest(variant=variant, line=line):
+                    self.assert_fatal_context(variant, line, "FOAM FATAL ERROR")
+
+    def test_actual_floating_point_signals_and_stack_are_rejected(self):
+        for line in ("Floating point exception (core dumped)",
+                     "./Allrun: line 90: 1234 Floating point exception (core dumped)",
+                     "[host:1234] Signal: Floating point exception (8)",
+                     "Caught SIGFPE", "#3 Foam::sigFpe::sigHandler(int)"):
+            with self.subTest(line=line):
+                self.assert_fatal_context("B", line, "floating-point exception")
+
+    def test_segmentation_fault_is_rejected(self):
+        self.assert_fatal_context("B", "Segmentation fault (core dumped)", "segmentation fault")
+
+    def test_mpi_abort_is_rejected(self):
+        self.assert_fatal_context("B", "MPI_ABORT was invoked on rank 0", "MPI_ABORT")
+
+    def test_traceback_is_rejected(self):
+        self.assert_fatal_context("B", "Traceback (most recent call last):", "Traceback")
+
+    def test_banner_with_error_on_same_line_is_not_exempt(self):
+        self.assert_fatal_context("A", TRAPFPE_BANNER + " FOAM FATAL ERROR: synthetic failure", "FOAM FATAL ERROR")
+
+    def test_nonzero_exit_with_normal_banner_still_fails(self):
+        log = self.root / "B/log.aiLaserbeamFoam"
+        log.write_text(TRAPFPE_BANNER + "\n" + log.read_text())
+        (self.root / "B/solver.exit.txt").write_text("8\n")
+        report = self.compare()
+        self.assertEqual(report["status"], "FAIL")
+        self.assertIn("nonzero solver exit status", report["issues"][0]["message"])
+
+    def test_nonzero_exit_with_unreadable_log_still_fails(self):
+        (self.root / "B/log.aiLaserbeamFoam").write_bytes(b"\xff")
+        (self.root / "B/solver.exit.txt").write_text("8\n")
+        report = self.compare()
+        self.assertEqual(report["status"], "FAIL")
+        self.assertIn("nonzero solver exit status", report["issues"][0]["message"])
+
+    def test_abnormal_end_with_normal_banner_still_fails(self):
+        log = self.root / "A/log.laserbeamFoam"
+        log.write_text(TRAPFPE_BANNER + "\n" + log.read_text().replace("End\n", "", 1))
+        report = self.compare()
+        self.assertEqual(report["status"], "FAIL")
+        self.assertIn("does not terminate normally with End", report["issues"][0]["message"])
+
+    def test_real_crash_before_end_reports_matching_line_in_files(self):
+        log = self.root / "B/log.aiLaserbeamFoam"
+        line = "Floating point exception (core dumped)"
+        log.write_text(TRAPFPE_BANNER + "\n" + line + "\n")
+        (self.root / "B/solver.exit.txt").write_text("136\n")
+        self.assertEqual(COMPARE.main(["--run-dir", str(self.root)]), 1)
+        report = json.loads((self.root / "comparison.json").read_text(encoding="utf-8"))
+        self.assertEqual(report["issues"][0]["matched_line"], line)
+        self.assertEqual(report["issues"][0]["variant"], "B")
+        self.assertEqual(report["issues"][0]["line_number"], 2)
+        self.assertIn(str(log) + ":2", (self.root / "comparison.txt").read_text(encoding="utf-8"))
+
+    def test_offline_recompare_preserves_old_run_and_ignores_git_head(self):
+        (self.root / "manifest.txt").write_text("project_commit=2664a221\n")
+        for case, app in (("A", "laserbeamFoam"), ("B", "aiLaserbeamFoam")):
+            log = self.root / case / ("log." + app)
+            log.write_text(TRAPFPE_BANNER + "\n" + log.read_text())
+            directory = self.root / case / "1e-7/uniform"
+            directory.mkdir()
+            (directory / "time").write_text(header("dictionary") + "value 1e-7; index 10; deltaT 1e-8;\n")
+        before = {str(path.relative_to(self.root)): path.read_bytes()
+                  for path in self.root.rglob("*") if path.is_file()}
+        self.assertEqual(COMPARE.main(["--run-dir", str(self.root)]), 0)
+        after = {str(path.relative_to(self.root)): path.read_bytes()
+                 for path in self.root.rglob("*")
+                 if path.is_file() and path.name not in ("comparison.txt", "comparison.json")}
+        self.assertEqual(before, after)
+        report = json.loads((self.root / "comparison.json").read_text(encoding="utf-8"))
+        self.assertEqual(set(report["fields"]["1e-07"]), COMPARE.REQUIRED_FIELDS)
+        self.assertTrue(report["uniform"]["1e-07"]["files"]["time"]["dictionary_compared"])
 
     def test_small_difference(self):
         (self.root / "B/1e-7/T").write_text(field(value="nonuniform List<scalar> 2(1e-13 0)"))

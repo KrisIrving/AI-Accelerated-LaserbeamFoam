@@ -26,6 +26,16 @@ LOG_NUMBER = re.compile(
     r"(?<![A-Za-z_\d.])(?:[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?"
     r"|[+-]?(?:nan|inf(?:inity)?))(?![A-Za-z_\d.])", re.I)
 TOKEN = re.compile(r'"(?:\\.|[^"\\])*"|[{}();\[\]]|[^\s{}();\[\]]+')
+TRAPFPE_STARTUP = re.compile(
+    r"trapFpe:\s+Floating point exception trapping enabled(?:\s+\(FOAM_SIGFPE\))?\.?", re.I)
+FATAL_LOG_MARKERS = (
+    ("FOAM FATAL ERROR", re.compile(r"\bFOAM FATAL(?: IO)? ERROR\b", re.I)),
+    ("floating-point exception", re.compile(
+        r"\bFloating point exception\b|\bSIGFPE\b|\bFoam::sigFpe::sigHandler(?:Action)?\b", re.I)),
+    ("segmentation fault", re.compile(r"\bSegmentation fault\b|\bSIGSEGV\b", re.I)),
+    ("MPI_ABORT", re.compile(r"\bMPI_ABORT\b", re.I)),
+    ("Traceback", re.compile(r"(?:^\s*|\]\s*)Traceback\b|\bTraceback\s*\(most recent call last\):", re.I)),
+)
 
 
 class ReviewRequired(Exception):
@@ -33,7 +43,9 @@ class ReviewRequired(Exception):
 
 
 class ComparisonFailure(Exception):
-    pass
+    def __init__(self, message, context=None):
+        super().__init__(message)
+        self.context = context
 
 
 def finite_number(token):
@@ -416,19 +428,42 @@ def check_manifests(a, b):
 def parse_log(case, application):
     exit_file = case / "solver.exit.txt"
     time_file = case / "solver.time.txt"
-    if not exit_file.is_file() or exit_file.read_text().strip() != "0":
-        raise ComparisonFailure("missing/nonzero solver exit status in " + str(case))
+    log = case / ("log." + application)
+
+    def fail_log(message, line_number=None, matched_line=None, marker=None):
+        context = {"variant": case.name, "log_file": str(log)}
+        location = "{}: {}".format(case.name, log)
+        if line_number is not None:
+            context.update(line_number=line_number, matched_line=matched_line, marker=marker)
+            location += ":{}".format(line_number)
+            message += ": " + matched_line
+        raise ComparisonFailure(location + ": " + message, context)
+
+    if not log.is_file():
+        fail_log("missing solver log")
+    exit_ok = exit_file.is_file() and exit_file.read_text().strip() == "0"
+    try:
+        lines = log.read_text(encoding="utf-8", errors="strict").splitlines()
+    except (OSError, UnicodeError):
+        if not exit_ok:
+            fail_log("missing/nonzero solver exit status and unreadable log; see " + str(exit_file))
+        raise
+    # Only the complete known startup line is benign. Never discard a line
+    # merely because it contains trapFpe/FOAM_SIGFPE: it may also contain an error.
+    # Scan before exit/End checks so real crashes retain their first error line.
+    for line_number, line in enumerate(lines, 1):
+        if TRAPFPE_STARTUP.fullmatch(line.strip()):
+            continue
+        for marker, pattern in FATAL_LOG_MARKERS:
+            if pattern.search(line):
+                fail_log("fatal log event ({})".format(marker), line_number, line, marker)
+    if not exit_ok:
+        fail_log("missing/nonzero solver exit status; see " + str(exit_file))
     if not time_file.is_file() or not time_file.read_text().strip():
         raise ReviewRequired("missing solver.time.txt")
-    log = case / ("log." + application)
-    if not log.is_file():
-        raise ComparisonFailure("missing solver log")
-    lines = log.read_text(encoding="utf-8", errors="strict").splitlines()
     nonempty = [line.strip() for line in lines if line.strip()]
     if not nonempty or nonempty[-1] != "End":
-        raise ComparisonFailure("solver log does not terminate normally with End")
-    if re.search(r"FOAM FATAL|Floating point exception|Segmentation fault|MPI_ABORT|Traceback", "\n".join(lines), re.I):
-        raise ComparisonFailure("fatal-error marker in solver log")
+        fail_log("solver log does not terminate normally with End")
     if any(NONFINITE.fullmatch(match[0]) for line in lines for match in LOG_NUMBER.finditer(line)):
         raise ComparisonFailure("non-finite numeric token in solver log")
     events, times, categories = [], [], set()
@@ -521,8 +556,11 @@ def compare_runs(run_dir, atol=1e-12, rtol=1e-10):
               "conservation_note": "Alpha bounds and volume-fraction log events are compared. No phase-flux or thermal-energy budget is integrated."}
     a, b = Path(run_dir) / "A", Path(run_dir) / "B"
 
-    def issue(status, message):
-        report["issues"].append({"status": status, "message": message})
+    def issue(status, message, context=None):
+        item = {"status": status, "message": message}
+        if context:
+            item.update(context)
+        report["issues"].append(item)
         if status == "FAIL" or report["status"] == "PASS":
             report["status"] = status
 
@@ -585,7 +623,7 @@ def compare_runs(run_dir, atol=1e-12, rtol=1e-10):
                 except (ReviewRequired, ValueError, IndexError, TypeError) as exc:
                     issue("REVIEW_REQUIRED", "{}/{}: {}".format(time, name, exc))
     except ComparisonFailure as exc:
-        issue("FAIL", str(exc))
+        issue("FAIL", str(exc), exc.context)
     except (ReviewRequired, OSError, UnicodeError, ValueError, IndexError, TypeError) as exc:
         issue("REVIEW_REQUIRED", str(exc))
     return report

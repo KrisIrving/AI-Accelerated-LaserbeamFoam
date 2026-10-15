@@ -104,6 +104,16 @@ diff -ru -- "$AB_RUN_DIR/A/constant" "$AB_RUN_DIR/B/constant"
 
 `compare_plate2d_ab.py` 使用 Python 3 标准库，只读取结果与准备记录，不启动 OpenFOAM、不重建案例、不修正计算场。两组正常结束后执行，并保留比较器退出码：
 
+若 `Plate2D-ab-002` 已完成，仅更新离线比较器即可复查，不重新编译、准备或运行 A/B。运行时的版本仍以原 `manifest.txt` 和构建记录为准，不要求等于比较器更新后的 Git HEAD。正常的完整 `trapFpe: Floating point exception trapping enabled (FOAM_SIGFPE).` 启动行不会当作异常；真实异常会记录 A/B、日志文件、行号及匹配原文。先在运行根目录中备份旧报告，再重新比较：
+
+```bash
+AB_RUN_DIR="$PWD/runs/Plate2D-ab-002"
+OLD_REPORTS=$(mktemp -d "$AB_RUN_DIR/comparison-before-fix.XXXXXXXX")
+cp -- "$AB_RUN_DIR/comparison.txt" "$AB_RUN_DIR/comparison.json" "$OLD_REPORTS/"
+```
+
+下面的比较命令只更新 `comparison.txt/json`，保留输入、网格、原求解日志、manifest、场及 `uniform/` 字典；不修改容差来取得通过。
+
 ```bash
 cd -- "$AB_REPO"
 if python3 scripts/compare_plate2d_ab.py --run-dir "$AB_RUN_DIR" \
