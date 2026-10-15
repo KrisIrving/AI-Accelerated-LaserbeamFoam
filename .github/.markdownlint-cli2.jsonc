@@ -1,0 +1,7 @@
+{
+  "config": {
+    "default": true,
+    // Chinese prose, links and reproducible shell commands need long lines.
+    "MD013": false
+  }
+}

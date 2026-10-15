@@ -1,4 +1,4 @@
-# Check formatting of markdown files
+# Check project-owned docs without reformatting inherited upstream manuals.
 name: Markdown Lint
 
 on:
@@ -14,10 +14,11 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Run MarkdownLint
         uses: DavidAnson/markdownlint-cli2-action@v18.0.0
         with:
-          globs: "documentation/**/*.md,imported/**/*.md,installation/**/*.md,README.md,about/**/*.md,tutorials/**/*.md,support/**/*.md"
+          config: '.github/.markdownlint-cli2.jsonc'
+          globs: "AI_PROJECT.md,UPSTREAM_BASELINE.md,docs/validation/**/*.md"
           separator: ','

@@ -82,3 +82,13 @@ linuxming*/
 SiCortex*Gcc*/
 solaris*Gcc*/
 SunOS*Gcc*/
+
+# AI project: private workstation reports, isolated installs and test copies.
+/validation/
+/runs/
+/feedback-stage/
+postProcessing/
+*.foam
+*.OpenFOAM
+__pycache__/
+*.pyc

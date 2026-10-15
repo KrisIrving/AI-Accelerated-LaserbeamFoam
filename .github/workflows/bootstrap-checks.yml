@@ -1,0 +1,33 @@
+name: Bootstrap shell checks (no OpenFOAM)
+
+on:
+  push:
+    paths:
+      - 'scripts/**'
+      - 'tests/**'
+      - '.github/workflows/bootstrap-checks.yml'
+  pull_request:
+    paths:
+      - 'scripts/**'
+      - 'tests/**'
+      - '.github/workflows/bootstrap-checks.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  shell-checks:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bash syntax (no compilation or simulation)
+        run: |
+          for script in scripts/*.sh tests/*.sh; do
+            bash -n "$script"
+          done
+      - name: Read-only audit fixture tests
+        run: bash tests/test_audit_host.sh
+      - name: Build preflight guards (no build)
+        run: bash tests/test_build_preflight.sh
