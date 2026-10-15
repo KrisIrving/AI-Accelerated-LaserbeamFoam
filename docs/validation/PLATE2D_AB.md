@@ -139,6 +139,10 @@ cat "$AB_RUN_DIR/comparison.txt"
 
 `uniform/` 递归记录相对路径、目录（包括空目录）和文件类型，拒绝符号链接。已支持的原生字典与场使用 `NUMERICAL_SEMANTIC` 比较；未知状态文件只有原始字节一致时才可按 `BYTE_IDENTICAL` 明确通过，字节不同则要求审查。已知物理场不使用字节回退，非有限值和真实语义差异不能被字节相同掩盖。状态目录的问题会保留具体路径并继续比较物理场，不静默忽略 `functionObjects/`。
 
+`surfaceScalarField` 额外支持顶层 `oriented oriented;`。属性必须为单个枚举词 `unknown`、`oriented` 或 `unoriented`，显式值不同返回 `FAIL`。其他未知顶层属性仍返回 `REVIEW_REQUIRED` 并列出名称和字段路径；体场等其他类没有新增属性白名单。方向属性一致后仍完整比较尺寸、内部/边界面数量、边界条件、有限值及数值，不能仅因文件字节一致就通过。
+
+JSON 中 `fields/<time>/<name>/orientation` 分别记录 A/B 的 `present` 和 `value`。两侧均缺省时保留 `false/null`，不假定某个运行时方向值；一侧缺省另一侧显式时要求审查。依据：[v2512 orientedType.C](https://gitlab.com/openfoam/core/openfoam/-/raw/OpenFOAM-v2512/src/OpenFOAM/orientedType/orientedType.C) 的枚举表及 `read`/`writeEntry` 规定缺省读取为 UNKNOWN、仅 ORIENTED 写出条目；但 [DimensionedFieldIO.C](https://gitlab.com/openfoam/core/openfoam/-/raw/OpenFOAM-v2512/src/OpenFOAM/fields/DimensionedFields/DimensionedField/DimensionedFieldIO.C) 的 `readField` 允许保留构造时已有的 ORIENTED。离线比较器无法仅由缺省条目恢复这一构造上下文，因此不把缺省与显式枚举直接合并。比较器也不沿用枚举读取对非法词的 failsafe 回退。
+
 简明文本报告增加实际时间步数、日志事件数、输入/网格文件数、输出时刻、物理场已比较/发现数量及状态、字节一致数、语义通过数、仅按字节通过数、uniform 嵌套目录状态，以及首个问题的相对路径。完整清单、所有问题及字段最大绝对/相对误差、L2误差仍在 JSON。文件数量按“对应文件对 × 输出时刻”计数；字节一致与语义通过可重叠，不能相加。`NOT_CHECKED` 表示该部分尚未检查，不表示通过。
 
 只有总体 `PASS`、物理场及 uniform 均通过且没有待审查项，才可登记当前 Plate2D 串行短程的数值等价性；不外推到物理精度、收敛性、MPI、三维 LPBF 或 AI 加速。

@@ -165,8 +165,23 @@ def parse_field(path):
     for name in ("dimensions", "internalField", "boundaryField"):
         if name not in data:
             raise ReviewRequired("missing field entry " + name)
-    if set(data) != {"dimensions", "internalField", "boundaryField"}:
-        raise ReviewRequired("unsupported extra top-level field entries")
+    allowed = {"dimensions", "internalField", "boundaryField"}
+    if field_class == "surfaceScalarField":
+        allowed.add("oriented")
+    unknown = sorted(set(data) - allowed)
+    if unknown:
+        raise ReviewRequired("{}: unsupported extra top-level field entries for {}: {}".format(
+            path, field_class, ", ".join(unknown)))
+    orientation = {"present": "oriented" in data, "value": None}
+    if orientation["present"]:
+        entry = data["oriented"]
+        # OpenFOAM-v2512 orientedType.C registers exactly these enum words.
+        # Do not apply its failsafe fallback for unknown words during auditing.
+        if (not isinstance(entry, list) or len(entry) != 1
+                or not isinstance(entry[0], str)
+                or entry[0] not in ("unknown", "oriented", "unoriented")):
+            raise ComparisonFailure("{}: invalid oriented entry {!r}; expected one of: unknown, oriented, unoriented".format(path, entry))
+        orientation["value"] = entry[0]
     dims = data["dimensions"]
     if len(dims) != 1 or not isinstance(dims[0], list) or len(dims[0]) != 7:
         raise ReviewRequired("invalid dimensions")
@@ -175,6 +190,7 @@ def parse_field(path):
         raise ReviewRequired("boundaryField is not a dictionary")
     return {"class": field_class, "location": match[1],
             "components": COMPONENTS[match[2]], "dimensions": dimensions,
+            "orientation": orientation,
             "internal": data["internalField"], "boundary": data["boundaryField"]}
 
 
@@ -310,12 +326,22 @@ def compare_fields(path_a, path_b, geometry, atol, rtol):
     for key in ("class", "dimensions", "components", "location"):
         if a[key] != b[key]:
             raise ComparisonFailure("field " + key + " differs")
+    if a["orientation"]["present"] != b["orientation"]["present"]:
+        # DimensionedFieldIO.C can preserve a constructor-set ORIENTED flag.
+        # A missing entry therefore cannot be mapped to an explicit flag here.
+        raise ReviewRequired("oriented presence differs: A={!r}, B={!r}; missing-entry state cannot be inferred without construction context".format(
+            a["orientation"], b["orientation"]))
+    if a["orientation"]["value"] != b["orientation"]["value"]:
+        raise ComparisonFailure("oriented differs: A={!r}, B={!r}".format(
+            a["orientation"]["value"], b["orientation"]["value"]))
     count = geometry["cells" if a["location"] == "vol" else "internal_faces"]
     element_type = a["class"][len(a["location"]):-len("Field")]
     element_type = element_type[0].lower() + element_type[1:]
     av = expand_field(a["internal"], count, a["components"], element_type)
     bv = expand_field(b["internal"], count, b["components"], element_type)
     result = {"class": a["class"], "internal": numeric_statistics(av, bv, atol, rtol), "patches": {}}
+    if a["class"] == "surfaceScalarField":
+        result["orientation"] = {"A": a["orientation"], "B": b["orientation"]}
     if path_a.name == "alpha.metal":
         result["alpha_bounds"] = {"A": [min(av), max(av)], "B": [min(bv), max(bv)]}
     if set(a["boundary"]) != set(b["boundary"]):
