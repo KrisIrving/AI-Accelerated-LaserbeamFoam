@@ -2,27 +2,30 @@
 
 本项目基于 [官方 LaserbeamFoam](https://github.com/laserbeamfoam/LaserbeamFoam)，目标是在保留高保真 LPBF 模型和数值校正能力的基础上开发可复现的 AI 加速求解器。
 
-**当前仅完成工程引导，尚未开发 AI；Ubuntu 22.04 + OpenFOAM.com v2512 的编译、运行和数值精度均待工作站验证。** Codex 不连接或操作工作站。
+**用户已回传：原生 `laserbeamFoam` 在 Ubuntu 22.04.5 / OpenFOAM.com v2512 编译及 Plate2D 串行十步短跑通过。新 `aiLaserbeamFoam` 是独立命名的同算法入口，其编译及 A/B 一致性待验证；尚无 AI 算法。** Codex 不连接或操作工作站。
 
 - [源码来源与版本状态](UPSTREAM_BASELINE.md)
+- [用户回传的原生验证记录](docs/validation/RESULTS.md)
+- [独立 aiLaserbeamFoam 与 Plate2D A/B 验证](docs/validation/PLATE2D_AB.md)
 - [Ubuntu 首轮环境及编译验证](docs/validation/UBUNTU_2512.md)
 - [官方小案例和后续 LPBF_small 验证](docs/validation/OFFICIAL_CASES.md)
 - [回传格式](docs/validation/FEEDBACK.md)
 
-官方 `README.md`、`LICENSE`、`Allwmake`、求解器、库和教程原样保留。原版文档中的支持描述不等于本项目已验证的支持状态。
+官方 `README.md`、`LICENSE`、`Allwmake`、原求解器、库和教程原样保留。新增入口位于 `applications/solvers/aiLaserbeamFoam`；不是重命名已有二进制，也不替换原源码。两者当前只读共享原生库；未来改库必须先隔离目录和库名。
 
-上游 GitHub OpenFOAM 构建/全教程 CI 保留为手动触发，避免引导提交自动启动完整仿真；新 CI 只检查 Bash 语法与审计夹具，不运行 OpenFOAM。CI 成功不替代工作站验证。
+上游 GitHub OpenFOAM 构建/全教程 CI 保留为手动触发，避免提交自动启动完整仿真；自动 CI 只做脚本/源码一致性及比较器夹具检查，不运行 OpenFOAM。CI 成功不替代工作站验证。
 
 自动 Markdown 检查只覆盖本项目新增文档；继承的官方 README/教程保持原样，不为修复其既有格式告警而改写。
 
 ## 分支及交付
 
 - `main`：从上游基线直接建立，保留其祖先历史；接收经过审查的集成修改。
-- `chore/bootstrap-ubuntu2512`：本轮审计、验证说明和反馈工具；合并前可直接检出该分支测试。
+- `chore/bootstrap-ubuntu2512`：PR #1 已合并，已验证提交 `98f99de8` 保留在历史中。
+- `feat/ai-laserbeamfoam-solver`：从 PR #1 的 merge commit 建立，交付独立入口和串行 A/B；不堆叠在未合并 PR 上。
 - 后续 `fix/...`、`feat/...`、`experiment/...`：独立开发，经 Pull Request 合入；不会向官方上游推送。
 - 测试或编译未验证时可以提交工具和文档，但必须明确记录未验证状态；不得把静态检查改写为运行通过。
 
-第一轮不修改物理模型、数值方法、编译优化参数，不运行 `Allwclean`、`Allclean`、DEM 或完整长时段仿真。CPU + MPI 优先；是否有 GPU 由审计确认。
+当前不修改物理模型、数值方法、编译优化参数，不开发推理或性能埋点，不运行清理、DEM或长时段仿真。本轮只做串行 A/B，MPI 与 LPBF 留待此关通过后安排。
 
 ## 私有验证数据
 

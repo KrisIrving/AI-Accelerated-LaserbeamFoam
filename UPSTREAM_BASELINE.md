@@ -23,14 +23,17 @@ Upstream history contains legacy large blobs (including a historical tutorial lo
 | Evidence level | Status |
 | --- | --- |
 | Static inspection | Top-level `Allwmake` explicitly lists `v2512`, `v2506`, `v2412`. Official README describes v2506; upstream CI matrix currently tests v2506. |
-| Ubuntu 22.04 workstation audit | **NOT YET REPORTED** |
-| Workstation compile and link | **UNVERIFIED** |
-| Official serial short run | **UNVERIFIED** |
+| Workstation environment | **USER-REPORTED** Ubuntu 22.04.5 / OpenFOAM.com v2512 |
+| Original solver compile and link | **USER-REPORTED PASSED** at `98f99de8`; `BUILD_ARTIFACT_CHECKS_PASSED` |
+| Original Plate2D serial short run | **USER-REPORTED PASSED**: 3,200 cells, 10 steps to `1e-7 s`, exit 0 |
+| New aiLaserbeamFoam compile / serial A/B | **UNVERIFIED — WAITING FOR UBUNTU** |
 | Official 4/8-rank short runs | **UNVERIFIED** |
 | Numerical convergence / experiment agreement | **UNVERIFIED** |
 | AI speedup | **NOT IMPLEMENTED / NOT MEASURED** |
 
 No compatibility patch is justified by an observed compile error yet. Initial tests must build the upstream source unchanged using official `Allwmake`.
+
+The original-solver status is based on the user's direct workstation feedback, not execution by Codex or an independently inspected raw log archive. See [recorded results](docs/validation/RESULTS.md). It does not validate the new solver merely because its source is statically equivalent.
 
 ## Static compatibility observations, not a compilation result
 

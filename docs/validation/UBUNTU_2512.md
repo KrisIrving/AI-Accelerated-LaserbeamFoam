@@ -1,6 +1,6 @@
 # Ubuntu 22.04 / OpenFOAM.com v2512：首轮验证
 
-状态：工作站审计、编译、运行均未回传。只做 CPU + MPI 验证，不安装、升级系统或假设存在 GPU。官方源码和 `Allwmake` 不改动。
+本页保留首轮引导步骤。原生求解器在 `98f99de8` 的工作站编译与 Plate2D 串行短跑已由用户回传通过，见 [RESULTS.md](RESULTS.md)。当前新增入口请改按 [PLATE2D_AB.md](PLATE2D_AB.md) 执行；其编译与一致性尚未验证。官方源码和 `Allwmake` 不改动。
 
 ## 1. 新目录检出与只读审计（先做这一组）
 
@@ -40,6 +40,10 @@ bash scripts/validate_build.sh --report-dir "$REPORT_DIR/build" --jobs 8
 封装只调用原版 `./Allwmake -j 8`，临时把 `FOAM_USER_APPBIN`、`FOAM_USER_LIBBIN` 指向该次报告目录下全新的 `install/bin` 和 `install/lib`，不覆盖以前用户目录中的安装。脚本退出不会永久改变父终端环境。源码目录下旧的 `log.Allwmake` 会被官方构建覆盖，但其本次副本保存在报告目录。
 
 预期：`build/summary.txt` 记录本次 SHA、`WM_OPTIONS`、作业数、真实返回码及新安装产物。只有返回码、产物和动态依赖检查通过，才输出 `BUILD_ARTIFACT_CHECKS_PASSED`；仍必须查看日志，状态不代表案例运行或精度验证。上游有嵌套 `tee`，不能只看最后一行成功提示或 PATH 里的旧程序。
+
+当前分支的完整构建会通过原版 `wmake all solvers` 自动发现 `aiLaserbeamFoam/Make/files`。验证封装要求两个独立可执行文件存在，记录其哈希，并检查两者自定义动态库均来自本次隔离安装、解析依赖来源一致。已有同名库在 `LD_LIBRARY_PATH` 后部并不作为正确来源的证据。
+
+若只需单独构建某个入口，在已建立本次隔离库、并 source 对应 `env.sh` 后，可以使用标准命令 `wmake -j 8 applications/solvers/laserbeamFoam` 或 `wmake -j 8 applications/solvers/aiLaserbeamFoam`。这不会编译缺失的所有共享库；首轮 A/B 推荐完整 `Allwmake` 同次构建，不复制或重命名旧二进制。
 
 完整输出为 `build/build.stdout-stderr.txt`；归档子日志以 `.txt` 结尾。不要把它们改名成 `log.Allwmake` 放在 checkout 内：官方构建会递归搜索这个确切名字，历史失败报告可能干扰下一次判断。
 
