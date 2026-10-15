@@ -2,8 +2,8 @@
 """Conservative, offline comparison of the prepared Plate2D A/B runs.
 
 This checks rename equivalence, not conservation closure or CFD validation.
-Only native, uncompressed ASCII OpenFOAM fields on the same serial mesh are
-supported. Anything not understood is REVIEW_REQUIRED, never a silent pass.
+Native ASCII fields are compared on the same serial mesh. Unsupported uniform
+state files may pass by explicit byte identity; unsupported fields never do.
 """
 import argparse
 import hashlib
@@ -275,7 +275,10 @@ def numeric_statistics(a, b, atol, rtol):
         l2 = math.hypot(l2, difference)
     if not math.isfinite(l2):
         raise ComparisonFailure("non-finite difference norm")
+    relative = [d / max(abs(x), abs(y)) if max(abs(x), abs(y)) else 0.0
+                for x, y, d in zip(a, b, differences)]
     return {"count": len(a), "max_abs": max(differences, default=0.0),
+            "max_relative": max(relative, default=0.0),
             "l2": l2, "within_tolerance": passed,
             "exact_equal": all(x == y for x, y in zip(a, b))}
 
@@ -507,6 +510,8 @@ def parse_log(case, application):
 def result_times(case):
     result = {}
     for path in case.iterdir():
+        if path.is_symlink() and NUMBER.fullmatch(path.name):
+            raise ComparisonFailure("symlink output time directory: " + str(path))
         if path.is_dir() and NUMBER.fullmatch(path.name):
             time = finite_number(path.name)
             if time > 0:
@@ -518,41 +523,123 @@ def result_times(case):
     return result
 
 
-def compare_uniform_directory(directory_a, directory_b, atol, rtol):
-    """Compare native dictionary artifacts; never silently skip uniform/."""
-    if directory_a.exists() != directory_b.exists():
-        raise ComparisonFailure("uniform subdirectory presence differs")
-    if not directory_a.exists():
-        return {"present": False, "files": {}}
-    if not directory_a.is_dir() or not directory_b.is_dir():
-        raise ComparisonFailure("uniform must be a directory")
-    paths_a = {p.name: p for p in directory_a.iterdir()}
-    paths_b = {p.name: p for p in directory_b.iterdir()}
-    if set(paths_a) != set(paths_b):
-        raise ComparisonFailure("uniform file sets differ")
-    result = {"present": True, "files": {}, "exclusions": []}
-    for name in sorted(paths_a):
-        pa, pb = paths_a[name], paths_b[name]
-        if pa.is_symlink() or pb.is_symlink():
-            raise ComparisonFailure("symlink in uniform subdirectory")
-        if not pa.is_file() or not pb.is_file():
-            raise ReviewRequired("nested/non-file uniform artifact: " + name)
+def uniform_inventory(directory):
+    """Record directories (including empty ones) without following links."""
+    entries = {}
+
+    def visit(path, relative):
+        if path.is_symlink():
+            location = "uniform/" + relative
+            raise ComparisonFailure(location + ": symlink is not accepted", {"path": location})
+        if path.is_dir():
+            entries[relative] = "directory"
+            for child in sorted(path.iterdir()):
+                visit(child, relative + "/" + child.name if relative else child.name)
+        elif path.is_file():
+            entries[relative] = "file"
+        else:
+            raise ReviewRequired("uniform/{}: unsupported non-regular entry".format(relative))
+
+    visit(directory, "")
+    return entries
+
+
+def uniform_file_comparison(pa, pb, geometry, atol, rtol):
+    """Interpret supported data first; byte fallback is limited to state files."""
+    data_a, data_b = pa.read_bytes(), pb.read_bytes()
+    identical = data_a == data_b
+
+    def class_hint(data):
+        # Classification only, also for binary fields. The actual field must
+        # still pass the native parser, never a byte-only shortcut.
+        text = re.sub(rb"/\*.*?\*/|//[^\n]*", b" ", data, flags=re.S)
+        header = re.search(rb"\bFoamFile\s*\{([^}]*)\}", text)
+        match = re.search(rb"\bclass\s+([^;\s]+)\s*;", header[1]) if header else None
+        return match[1].decode("ascii", errors="replace") if match else ""
+
+    classes = [class_hint(data) for data in (data_a, data_b)]
+    if any(re.fullmatch(r"(?:vol|surface)\w*Field", value) for value in classes):
+        if geometry is None:
+            raise ReviewRequired("mesh geometry is required for native uniform field")
+        result = compare_fields(pa, pb, geometry, atol, rtol)
+        stats = [result["internal"]] + [stat for patch in result["patches"].values() for stat in patch["values"].values()]
+        result.update(method="NUMERICAL_SEMANTIC", byte_identical=identical,
+                      status="PASS" if all(stat["within_tolerance"] for stat in stats) else "FAIL")
+        return result
+
+    def byte_fallback(reason):
+        return {"method": "BYTE_IDENTICAL" if identical else "UNSUPPORTED",
+                "status": "PASS" if identical else "REVIEW_REQUIRED",
+                "byte_identical": identical, "reason": reason}
+
+    try:
         parser_a, parser_b = Parser(read_ascii(pa)), Parser(read_ascii(pb))
         ha, hb = parser_a.header(), parser_b.header()
-        if ha["class"] != hb["class"]:
-            raise ComparisonFailure("uniform artifact class differs: " + name)
-        da, db = parser_a.dictionary(), parser_b.dictionary()
-        compare_tree(da, db, atol, rtol, "uniform/" + name)
-        # No runtime metadata entries are discarded; if a future solver writes
-        # nondeterministic data here it requires an explicit reviewed policy.
-        result["files"][name] = {"class": ha["class"][0], "dictionary_compared": True,
-                                "exact_equal_tokens": da == db}
+    except ReviewRequired as exc:
+        return byte_fallback(str(exc))
+    if ha["class"] != hb["class"]:
+        raise ComparisonFailure("uniform artifact class differs")
+    if ha["class"][0] not in ("dictionary", "IOdictionary"):
+        return byte_fallback("unsupported uniform class: " + ha["class"][0])
+    # Malformed supported dictionaries and non-finite/numerically different
+    # values must not be concealed by identical bytes.
+    da, db = parser_a.dictionary(), parser_b.dictionary()
+    compare_tree(da, db, atol, rtol, "dictionary")
+    return {"class": ha["class"][0], "method": "NUMERICAL_SEMANTIC",
+            "status": "PASS", "byte_identical": identical,
+            "dictionary_compared": True, "exact_equal_tokens": da == db}
+
+
+def compare_uniform_directory(directory_a, directory_b, atol, rtol, geometry=None):
+    """Check structure separately from content and retain all local issues."""
+    result = {"present": directory_a.exists() or directory_b.exists(), "status": "PASS",
+              "files": {}, "directories": [], "issues": [], "exclusions": []}
+
+    def issue(status, path, message):
+        result["issues"].append({"status": status, "path": path, "message": message})
+        if status == "FAIL" or result["status"] == "PASS":
+            result["status"] = status
+
+    try:
+        if directory_a.is_symlink() or directory_b.is_symlink():
+            raise ComparisonFailure("uniform: symlink is not accepted")
+        if directory_a.exists() != directory_b.exists():
+            raise ComparisonFailure("uniform: subdirectory presence differs")
+        if not result["present"]:
+            return result
+        if not directory_a.is_dir() or not directory_b.is_dir():
+            raise ComparisonFailure("uniform: must be a directory on both sides")
+        paths_a, paths_b = uniform_inventory(directory_a), uniform_inventory(directory_b)
+        for name in sorted(set(paths_a) | set(paths_b)):
+            path = "uniform/" + name
+            if paths_a.get(name) != paths_b.get(name):
+                issue("FAIL", path, "path/type differs: A={}, B={}".format(paths_a.get(name), paths_b.get(name)))
+            elif paths_a[name] == "directory":
+                if name:
+                    result["directories"].append(name)
+            else:
+                try:
+                    compared = uniform_file_comparison(directory_a / name, directory_b / name, geometry, atol, rtol)
+                    result["files"][name] = compared
+                    if compared["status"] != "PASS":
+                        issue(compared["status"], path, compared.get("reason", "native field exceeds tolerance"))
+                except ComparisonFailure as exc:
+                    result["files"][name] = {"status": "FAIL", "method": "NUMERICAL_SEMANTIC", "reason": str(exc)}
+                    issue("FAIL", path, str(exc))
+                except (ReviewRequired, OSError, ValueError, IndexError, TypeError) as exc:
+                    result["files"][name] = {"status": "REVIEW_REQUIRED", "method": "UNSUPPORTED", "reason": str(exc)}
+                    issue("REVIEW_REQUIRED", path, str(exc))
+    except ComparisonFailure as exc:
+        issue("FAIL", (exc.context or {}).get("path", "uniform"), str(exc))
+    except (ReviewRequired, OSError) as exc:
+        issue("REVIEW_REQUIRED", "uniform", str(exc))
     return result
 
 
 def compare_runs(run_dir, atol=1e-12, rtol=1e-10):
     report = {"status": "PASS", "scope": "pure-copy rename equivalence; no physical conservation closure",
               "atol": atol, "rtol": rtol, "issues": [], "fields": {}, "uniform": {},
+              "output_files": {}, "fields_complete": False,
               "conservation_note": "Alpha bounds and volume-fraction log events are compared. No phase-flux or thermal-energy budget is integrated."}
     a, b = Path(run_dir) / "A", Path(run_dir) / "B"
 
@@ -565,6 +652,8 @@ def compare_runs(run_dir, atol=1e-12, rtol=1e-10):
             report["status"] = status
 
     try:
+        if a.is_symlink() or b.is_symlink():
+            raise ComparisonFailure("A/B case directory must not be a symlink")
         if not a.is_dir() or not b.is_dir():
             raise ComparisonFailure("run directory must contain A and B")
         report["manifests"] = check_manifests(a, b)
@@ -597,36 +686,95 @@ def compare_runs(run_dir, atol=1e-12, rtol=1e-10):
             raise ComparisonFailure("result time directory sets differ")
         if not set(ta).issubset(set(la["times"])):
             raise ComparisonFailure("output time is absent from solver Time trajectory")
+        fields_valid = True
         for time in sorted(ta):
-            if any(p.is_symlink() for directory in (ta[time], tb[time]) for p in directory.iterdir()):
-                raise ComparisonFailure("symlink in result directory")
-            files_a = {p.name for p in ta[time].iterdir() if p.is_file()}
-            files_b = {p.name for p in tb[time].iterdir() if p.is_file()}
+            for directory in (ta[time], tb[time]):
+                for path in directory.iterdir():
+                    relative = path.relative_to(directory.parent).as_posix()
+                    if path.is_symlink():
+                        raise ComparisonFailure("symlink in result directory: " + relative, {"path": relative})
+                    if path.is_dir() and path.name != "uniform":
+                        issue("REVIEW_REQUIRED", "unsupported result subdirectory: " + relative, {"path": relative})
+                    elif not path.is_dir() and not path.is_file():
+                        issue("REVIEW_REQUIRED", "unsupported non-regular result entry: " + relative, {"path": relative})
+            files_a = {p.name for p in ta[time].iterdir() if p.is_file() and p.name != "uniform"}
+            files_b = {p.name for p in tb[time].iterdir() if p.is_file() and p.name != "uniform"}
+            report["output_files"][str(time)] = {"A": sorted(files_a), "B": sorted(files_b)}
             if files_a != files_b:
-                raise ComparisonFailure("field file sets differ at time " + str(time))
-            if not REQUIRED_FIELDS.issubset(files_a):
-                raise ComparisonFailure("missing required fields at time {}: {}".format(time, sorted(REQUIRED_FIELDS - files_a)))
-            if any(p.is_dir() and p.name != "uniform" for p in ta[time].iterdir()) or any(p.is_dir() and p.name != "uniform" for p in tb[time].iterdir()):
-                raise ReviewRequired("unexpected result subdirectory; dynamic/distributed meshes are unsupported")
-            report["uniform"][str(time)] = compare_uniform_directory(ta[time] / "uniform", tb[time] / "uniform", atol, rtol)
+                fields_valid = False
+                for name in sorted(files_a ^ files_b):
+                    path = "{}/{}".format(time, name)
+                    issue("FAIL", "field missing from {}: {}".format("B" if name in files_a else "A", path), {"path": path, "stage": "fields"})
+            missing = REQUIRED_FIELDS - (files_a & files_b)
+            if missing:
+                fields_valid = False
+                issue("FAIL", "missing required fields at time {}: {}".format(time, sorted(missing)),
+                      {"path": "{}/{}".format(time, sorted(missing)[0]), "stage": "fields"})
+            uniform = compare_uniform_directory(ta[time] / "uniform", tb[time] / "uniform", atol, rtol, ga)
+            report["uniform"][str(time)] = uniform
+            for problem in uniform["issues"]:
+                path = "{}/{}".format(time, problem["path"])
+                issue(problem["status"], path + ": " + problem["message"], {"path": path, "stage": "uniform"})
             report["fields"][str(time)] = {}
-            for name in sorted(files_a):
+            for name in sorted(files_a & files_b):
+                path = "{}/{}".format(time, name)
                 try:
                     field_report = compare_fields(ta[time] / name, tb[time] / name, ga, atol, rtol)
-                    report["fields"][str(time)][name] = field_report
                     stats = [field_report["internal"]]
                     stats.extend(stat for patch in field_report["patches"].values() for stat in patch["values"].values())
-                    if not all(stat["within_tolerance"] for stat in stats):
-                        issue("FAIL", "field exceeds tolerance: {}/{}".format(time, name))
+                    passed = all(stat["within_tolerance"] for stat in stats)
+                    field_report.update(method="NUMERICAL_SEMANTIC", status="PASS" if passed else "FAIL",
+                                        byte_identical=(ta[time] / name).read_bytes() == (tb[time] / name).read_bytes())
+                    report["fields"][str(time)][name] = field_report
+                    if not passed:
+                        fields_valid = False
+                        issue("FAIL", "field exceeds tolerance: " + path, {"path": path, "stage": "fields"})
                 except ComparisonFailure as exc:
-                    issue("FAIL", "{}/{}: {}".format(time, name, exc))
-                except (ReviewRequired, ValueError, IndexError, TypeError) as exc:
-                    issue("REVIEW_REQUIRED", "{}/{}: {}".format(time, name, exc))
+                    fields_valid = False
+                    report["fields"][str(time)][name] = {"status": "FAIL", "method": "NUMERICAL_SEMANTIC", "reason": str(exc)}
+                    issue("FAIL", path + ": " + str(exc), {"path": path, "stage": "fields"})
+                except (ReviewRequired, OSError, ValueError, IndexError, TypeError) as exc:
+                    fields_valid = False
+                    report["fields"][str(time)][name] = {"status": "REVIEW_REQUIRED", "method": "UNSUPPORTED", "reason": str(exc)}
+                    issue("REVIEW_REQUIRED", path + ": " + str(exc), {"path": path, "stage": "fields"})
+        report["fields_complete"] = fields_valid
     except ComparisonFailure as exc:
         issue("FAIL", str(exc), exc.context)
     except (ReviewRequired, OSError, UnicodeError, ValueError, IndexError, TypeError) as exc:
         issue("REVIEW_REQUIRED", str(exc))
+    report["summary"] = comparison_summary(report)
     return report
+
+
+def comparison_summary(report):
+    """Counts describe completed checks, never infer success from byte counts."""
+    fields = [entry for files in report["fields"].values() for entry in files.values()]
+    uniform = [entry for result in report["uniform"].values() for entry in result["files"].values()]
+    all_files = fields + uniform
+    uniform_status = "NOT_CHECKED"
+    if report["uniform"]:
+        statuses = {result["status"] for result in report["uniform"].values()}
+        uniform_status = "FAIL" if "FAIL" in statuses else "REVIEW_REQUIRED" if "REVIEW_REQUIRED" in statuses else "PASS"
+    field_status = "NOT_CHECKED"
+    if report["output_files"]:
+        field_status = "PASS" if report["fields_complete"] else "REVIEW_REQUIRED"
+        if any(p.get("stage") == "fields" and p["status"] == "FAIL" for p in report["issues"]):
+            field_status = "FAIL"
+    return {"simulation_steps": len(report.get("logs", {}).get("times", [])),
+            "log_events": report.get("logs", {}).get("compared_events", 0),
+            "input_files": report.get("manifests", {}).get("inputs.sha256", {}).get("verified_files"),
+            "mesh_files": report.get("manifests", {}).get("mesh.sha256", {}).get("verified_files"),
+            "output_times": sorted(report["output_files"], key=float),
+            "physical_field_files": sum(len(set(files["A"]) | set(files["B"])) for files in report["output_files"].values()),
+            "physical_field_files_compared": sum("internal" in entry for entry in fields),
+            "physical_fields_status": field_status, "uniform_status": uniform_status,
+            "uniform_files": len(uniform),
+            "uniform_directories": sum(len(result["directories"]) for result in report["uniform"].values()),
+            "byte_identical_files": sum(entry.get("byte_identical", False) for entry in all_files),
+            "byte_only_files": sum(entry.get("method") == "BYTE_IDENTICAL" for entry in all_files),
+            "semantic_pass_files": sum(entry.get("method") == "NUMERICAL_SEMANTIC" and entry["status"] == "PASS" for entry in all_files),
+            "issue_count": len(report["issues"]),
+            "first_issue": report["issues"][0] if report["issues"] else None}
 
 
 def main(argv=None):
@@ -641,9 +789,21 @@ def main(argv=None):
         parser.error("tolerances must be finite and non-negative")
     report = compare_runs(args.run_dir, args.atol, args.rtol)
     (args.run_dir / "comparison.json").write_text(json.dumps(report, indent=2, ensure_ascii=False, allow_nan=False) + "\n", encoding="utf-8")
+    summary = report["summary"]
     lines = ["Status: " + report["status"], "Scope: " + report["scope"],
              "Tolerance: atol={}, rtol={}".format(args.atol, args.rtol), report["conservation_note"]]
-    lines.extend("{}: {}".format(item["status"], item["message"]) for item in report["issues"])
+    lines.extend([
+        "Simulation steps: {}; compared log events: {}".format(summary["simulation_steps"], summary["log_events"]),
+        "Inputs/mesh: {} / {} verified matching files (None = not completed)".format(summary["input_files"], summary["mesh_files"]),
+        "Output times: {} ({})".format(len(summary["output_times"]), ", ".join(summary["output_times"])),
+        "Physical fields: {} / {} compared; numerical status: {}".format(summary["physical_field_files_compared"], summary["physical_field_files"], summary["physical_fields_status"]),
+        "Byte-identical files: {}; semantic passes: {}; byte-only passes: {}".format(summary["byte_identical_files"], summary["semantic_pass_files"], summary["byte_only_files"]),
+        "Uniform tree: {}; files: {}; nested directories: {}".format(summary["uniform_status"], summary["uniform_files"], summary["uniform_directories"]),
+        "Issues: {}".format(summary["issue_count"]),
+    ])
+    if summary["first_issue"]:
+        item = summary["first_issue"]
+        lines.append("First issue: {}: {}".format(item["status"], item["message"]))
     lines.append("Detailed internal/patch errors, manifests and log counts: comparison.json")
     (args.run_dir / "comparison.txt").write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(report["status"])

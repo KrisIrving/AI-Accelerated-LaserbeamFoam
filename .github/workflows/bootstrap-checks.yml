@@ -45,4 +45,4 @@ jobs:
       - name: Generated Allrun preflight regression (mock utilities only)
         run: bash tests/test_plate2d_allrun.sh
       - name: ASCII comparison fixture tests (no OpenFOAM)
-        run: python3 -m unittest discover -s tests -p 'test_compare_plate2d_ab.py'
+        run: python3 -m unittest discover -s tests -p 'test_compare*.py'

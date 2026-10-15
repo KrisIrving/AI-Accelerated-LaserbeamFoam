@@ -107,6 +107,7 @@ diff -ru -- "$AB_RUN_DIR/A/constant" "$AB_RUN_DIR/B/constant"
 若 `Plate2D-ab-002` 已完成，仅更新离线比较器即可复查，不重新编译、准备或运行 A/B。运行时的版本仍以原 `manifest.txt` 和构建记录为准，不要求等于比较器更新后的 Git HEAD。正常的完整 `trapFpe: Floating point exception trapping enabled (FOAM_SIGFPE).` 启动行不会当作异常；真实异常会记录 A/B、日志文件、行号及匹配原文。先在运行根目录中备份旧报告，再重新比较：
 
 ```bash
+AB_REPO="$(pwd -P)"
 AB_RUN_DIR="$PWD/runs/Plate2D-ab-002"
 OLD_REPORTS=$(mktemp -d "$AB_RUN_DIR/comparison-before-fix.XXXXXXXX")
 cp -- "$AB_RUN_DIR/comparison.txt" "$AB_RUN_DIR/comparison.json" "$OLD_REPORTS/"
@@ -123,8 +124,10 @@ else
     AB_COMPARE_RC=$?
 fi
 printf 'comparison_exit_code=%s\n' "$AB_COMPARE_RC"
-test "$AB_COMPARE_RC" -eq 0
+cat "$AB_RUN_DIR/comparison.txt"
 ```
+
+不要在交互式终端随后用 `test "$AB_COMPARE_RC" -eq 0` 或 `exit "$AB_COMPARE_RC"` 结束会话。上面的 `if` 保留比较器的0/1/2退出码，同时避免 `set -e` 因数值不通过而关闭终端；非零结果仍需调查。
 
 查看根目录的 `comparison.json`、`comparison.txt`。比较范围包括输入与准备网格一致性、时间步和输出时刻、残差/迭代记录及连续性信息、体积分数范围，以及最终相同时刻的原生 ASCII 场数值。必需场为 `T`、`p_rgh`、`U`、`alpha.metal`、`epsilon1`、`Deposition`、`phi`；官方 Plate2D 启用了电磁场，因此也要求 `H`、`pH`、`B`、`J`、`Joulesource`、`JcrossB`。其他对应的自动写出场也应比较，不能只取两组文件的交集。标量、矢量和表面场的 `uniform`/`nonuniform` 表示先归一化，避免把等值的不同存储形式误判为不同解。相体积分数和连续性日志只作 A/B 对照，当前不计算独立的质量或热能闭合误差。
 
@@ -132,7 +135,13 @@ test "$AB_COMPARE_RC" -eq 0
 
 首次比较优先检查是否逐位一致；上面的绝对/相对容差只用于发现和定位数值差异。即使差异很小且落在容差内，也先调查其来源，包括输入、库、编译选项、输出精度与计算顺序，不自动放宽容差来获得通过。若数据解析器能力不足，应修复比较方法或提交明确记录，不转换结果来掩盖差异。
 
-`exact_equal` 表示解析后的数值完全相等，文件字节或二进制并不一定相同；`uniform/` 中的原生状态字典也会比较。不支持的状态文件会要求人工审查。
+数值统计中的 `exact_equal` 表示解析后的数值完全相等；文件级 `byte_identical` 表示原始字节完全相等，两者分别记录。所有对应输出时刻、全部自动写出场的集合、internalField 和 boundaryField 都要检查，不能只比较预选的13个文件。
+
+`uniform/` 递归记录相对路径、目录（包括空目录）和文件类型，拒绝符号链接。已支持的原生字典与场使用 `NUMERICAL_SEMANTIC` 比较；未知状态文件只有原始字节一致时才可按 `BYTE_IDENTICAL` 明确通过，字节不同则要求审查。已知物理场不使用字节回退，非有限值和真实语义差异不能被字节相同掩盖。状态目录的问题会保留具体路径并继续比较物理场，不静默忽略 `functionObjects/`。
+
+简明文本报告增加实际时间步数、日志事件数、输入/网格文件数、输出时刻、物理场已比较/发现数量及状态、字节一致数、语义通过数、仅按字节通过数、uniform 嵌套目录状态，以及首个问题的相对路径。完整清单、所有问题及字段最大绝对/相对误差、L2误差仍在 JSON。文件数量按“对应文件对 × 输出时刻”计数；字节一致与语义通过可重叠，不能相加。`NOT_CHECKED` 表示该部分尚未检查，不表示通过。
+
+只有总体 `PASS`、物理场及 uniform 均通过且没有待审查项，才可登记当前 Plate2D 串行短程的数值等价性；不外推到物理精度、收敛性、MPI、三维 LPBF 或 AI 加速。
 
 ## 5. 私下回传的最小证据
 

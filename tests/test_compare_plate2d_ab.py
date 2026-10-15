@@ -310,12 +310,14 @@ class ComparatorTests(unittest.TestCase):
         (directory / "time").write_text(header("dictionary") + "value 1e-7;\n")
         self.assertEqual(self.compare()["status"], "FAIL")
 
-    def test_uniform_unsupported_list_requires_review(self):
+    def test_uniform_unsupported_identical_list_is_explicit_byte_pass(self):
         for case in ("A", "B"):
             directory = self.root / case / "1e-7/uniform"
             directory.mkdir()
             (directory / "other").write_text(header("labelList") + "1(0)\n")
-        self.assertEqual(self.compare()["status"], "REVIEW_REQUIRED")
+        report = self.compare()
+        self.assertEqual(report["status"], "PASS", report["issues"])
+        self.assertEqual(report["uniform"]["1e-07"]["files"]["other"]["method"], "BYTE_IDENTICAL")
 
     def test_control_dictionary_only_normalizes_application(self):
         case = self.root / "B"

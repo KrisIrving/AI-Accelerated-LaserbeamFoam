@@ -28,8 +28,8 @@ Upstream history contains legacy large blobs (including a historical tutorial lo
 | Original Plate2D serial short run | **USER-REPORTED PASSED**: 3,200 cells, 10 steps to `1e-7 s`, exit 0 |
 | Both solver compile and link at fa039e70 | **USER-REPORTED PASSED**; `BUILD_ARTIFACT_CHECKS_PASSED` |
 | Serial A/B at fa039e70 | **NOT RUN**; input-manifest ordering guard stopped A before OpenFOAM; B not started |
-| Plate2D-ab-002 execution | **USER-REPORTED COMPLETED**; inputs/mesh match; old comparator falsely rejected normal trapFpe startup |
-| Corrected offline comparison / serial equivalence | **UNVERIFIED — WAITING FOR UBUNTU RECOMPARISON** |
+| Plate2D-ab-002 execution | **USER-REPORTED COMPLETED**; ten steps, 263 equal log events, 13 final key fields byte-identical |
+| Full offline comparison / serial equivalence | **UNVERIFIED — WAITING FOR UBUNTU RECOMPARISON**; nested uniform support fixed, contents not yet inspected |
 | Official 4/8-rank short runs | **UNVERIFIED** |
 | Numerical convergence / experiment agreement | **UNVERIFIED** |
 | AI speedup | **NOT IMPLEMENTED / NOT MEASURED** |
