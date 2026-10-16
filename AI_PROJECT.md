@@ -32,7 +32,7 @@
 - `chore/bootstrap-ubuntu2512`：PR #1 已合并，已验证提交 `98f99de8` 保留在历史中。
 - `feat/ai-laserbeamfoam-solver`：从 PR #1 的 merge commit 建立，交付独立入口和串行 A/B；不堆叠在未合并 PR 上。
 - PR #2 已由用户合并（`532ed068`）；随后从更新的main建立 `feat/research-plan-smoke-benchmark`，交付PR #3。
-- PR #3 已由负责人合并（`5e08097d`）；新的 `feat/threeD-progressive-m-exploration` 从最新main开发DEC-006授权的M1/M2/M3探索，通过新Draft PR交付，不自动合并。原研究顺序与正式M待批准状态不变。
+- PR #3 已由负责人合并（`5e08097d`）；新的 `feat/threeD-progressive-m-exploration` 从最新main开发DEC-006授权的M1/M2/M3探索，通过[Draft PR #4](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/pull/4)交付，不自动合并。原研究顺序与正式M待批准状态不变。
 - 后续 `fix/...`、`feat/...`、`experiment/...`：独立开发，经 Pull Request 合入；不会向官方上游推送。
 - 测试或编译未验证时可以提交工具和文档，但必须明确记录未验证状态；不得把静态检查改写为运行通过。
 

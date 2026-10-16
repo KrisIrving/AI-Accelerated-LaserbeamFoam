@@ -48,3 +48,4 @@
 - 保留约束：不覆盖DEC-004，不批准其余未选定候选、不选定正式M、不改材料/功率/dt来制造熔化、不改S输入或原生求解器/库/教程；固定dt失稳如实记录。无熔化、达到固相线、非零液相率、可辨熔融区、界面运动与多次反射分开判定。字段自检查不等于独立参考验证。
 - 路线不变：阶段0串行基线→阶段1三维开发→阶段2瓶颈→阶段3 AI模块→阶段4代表性粉末床；本次不宣告阶段1完成或进入阶段2，正式M选型仍待实测及批准。
 - Git追溯：起点main合并5e08097d420af3cfb746eda8ec1833da1d068395（PR #3）；本条实施提交通过`git log -- docs/research/DECISION_LOG.md`和新Draft PR定位，不写自引用伪SHA。
+- 交付追溯补充：实现提交15df5607b51427b96e46b3db27c345169a345590，见[Draft PR #4](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/pull/4)；真实M运行仍UNVERIFIED，不将交付提交当作尚未发生的运行SHA。

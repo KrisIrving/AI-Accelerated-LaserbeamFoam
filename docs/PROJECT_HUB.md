@@ -33,7 +33,7 @@
 
 ## GitHub 状态与版本追溯
 
-截至上述核对日期：[PR #3](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/pull/3) 已由负责人手动合并，合并提交5e08097d420af3cfb746eda8ec1833da1d068395已核验属于main历史；PR #2亦已合并。本轮从最新main新建`feat/threeD-progressive-m-exploration`，通过新的Draft PR交付，不继续使用已合并PR #3分支，不自动合并。
+截至上述核对日期：[PR #3](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/pull/3) 已由负责人手动合并，合并提交5e08097d420af3cfb746eda8ec1833da1d068395已核验属于main历史；PR #2亦已合并。本轮从最新main新建`feat/threeD-progressive-m-exploration`，通过[Draft PR #4](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/pull/4)交付，OPEN / DRAFT / 未合并。新M工具与本页更新目前位于该分支，不代表main已接收；不继续使用已合并PR #3分支，不自动合并。
 
 | 关键提交 | 含义与边界 |
 | --- | --- |
@@ -44,6 +44,7 @@
 | [7c094679](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/commit/7c094679016a2458282c9fcb261d7d55983496bb) | S原始运行/构建记录匹配的版本；亦含S说明与文献候选 |
 | [87061fe9](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/commit/87061fe9a83a51e3bf9c6ad3058979715b06658e) | 自动反馈工具核对版本；本次实机归档已验收，不是原始运行SHA |
 | [5e08097d](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/commit/5e08097d420af3cfb746eda8ec1833da1d068395) | PR #3合并到main；本轮三级M开发起点 |
+| [15df5607](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/commit/15df5607b51427b96e46b3db27c345169a345590) | DEC-006授权的M1/M2/M3配置、运行/多时刻检查/反馈工具；真实M运行UNVERIFIED |
 
 当前分支后续提交以 PR 提交列表为准；上表仅列关键既有节点，不作为构建匹配记录。CI 的语法、合成夹具和 Markdown 通过不等于 OpenFOAM 编译、实测或物理验证。
 
