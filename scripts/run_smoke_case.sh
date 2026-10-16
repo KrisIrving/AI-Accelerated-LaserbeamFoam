@@ -64,6 +64,10 @@ run_step() {
     [[ ! -e log.$stage && ! -L log.$stage ]] || fail 'Refusing to overwrite stage log'
     if /usr/bin/time -v -o "time.$stage.txt" timeout --signal=TERM --kill-after=10s "${limit}s" "$@" > "log.$stage" 2>&1; then rc=0; else rc=$?; fi
     printf '%s\n' "$rc" > "exit.$stage.txt"
+    if [[ $stage == "$solver" ]]; then
+        cp "exit.$stage.txt" solver.exit.txt
+        cp "time.$stage.txt" solver.time.txt
+    fi
     ((rc == 0)) || { printf 'ERROR [%s] exit %s; see log.%s and time.%s.txt\n' "$stage" "$rc" "$stage" "$stage" >&2; exit "$rc"; }
 }
 if [[ $action == mesh ]]; then
@@ -91,8 +95,6 @@ else
     mkdir .solve-started
     printf 'program=%s\nmpi_ranks=1\nthreads=1\nsolver_timeout_seconds=%s\n' "$program" "$solver_timeout" > execution.txt
     run_step "$solver" "$solver_timeout" "$program"
-    cp "exit.$solver.txt" solver.exit.txt
-    cp "time.$solver.txt" solver.time.txt
     stage=smoke-check
     python3 "$repo/scripts/check_smoke_case.py" --case-dir "$PWD"
 fi

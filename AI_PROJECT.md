@@ -15,6 +15,8 @@
 - [基准候选与Ubuntu分阶段命令](docs/research/BENCHMARK_DESIGN.md)
 - [追加式决策记录](docs/research/DECISION_LOG.md)
 - [追加式实验记录](docs/research/EXPERIMENT_LOG.md)
+- [S首次运行核对与最小反馈](docs/validation/THREED_SMOKE_FIRST_RUN.md)
+- [实验文献及V验证候选（非受控、PROPOSED）](docs/research/LITERATURE_VALIDATION_CANDIDATES.md)
 
 官方 `README.md`、`LICENSE`、`Allwmake`、原求解器、库和教程原样保留。新增入口位于 `applications/solvers/aiLaserbeamFoam`；不是重命名已有二进制，也不替换原源码。两者当前只读共享原生库；未来改库必须先隔离目录和库名。
 

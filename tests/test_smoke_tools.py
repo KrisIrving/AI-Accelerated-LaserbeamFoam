@@ -163,6 +163,44 @@ class SmokeChecks(unittest.TestCase):
             self.skipTest("symlink creation not available")
         self.assertEqual(smoke.check(self.case)["status"], "FAIL")
 
+    def test_gnu_wall_rss_and_budget_reporting(self):
+        (self.case / "time.laserbeamFoam.txt").write_text(
+            "Elapsed (wall clock) time (h:mm:ss or m:ss): 2:00.01\n"
+            "Maximum resident set size (kbytes): 123456\n")
+        report = smoke.check(self.case)
+        self.assertEqual(report["status"], "SMOKE_CHECKS_PASSED")
+        self.assertFalse(report["resources"]["solver_within_approx_120s_budget"])
+        self.assertEqual(report["resources"]["stages"]["laserbeamFoam"]["max_rss_kib"], 123456)
+        self.assertEqual(report["resources"]["whole_workflow_budget"], "UNVERIFIED")
+
+    def test_hour_time_and_missing_or_invalid_timing(self):
+        path = self.case / "timing.txt"
+        self.assertEqual(smoke.gnu_time_record(path)["status"], "UNVERIFIED")
+        path.write_text("Elapsed (wall clock) time (h:mm:ss or m:ss): 1:02:03.5\nMaximum resident set size (kbytes): 4\n")
+        self.assertEqual(smoke.gnu_time_record(path)["wall_seconds"], 3723.5)
+        path.write_text("Elapsed (wall clock) time (h:mm:ss or m:ss): nan\n")
+        self.assertEqual(smoke.gnu_time_record(path)["status"], "UNVERIFIED")
+
+    def test_completed_wrapper_scope_budget(self):
+        (self.case / "preparation.time.txt").write_text("preparation_wall_seconds=1.5\n")
+        for name, elapsed in (("mesh", "0:05.0"), ("solve", "1:55.0")):
+            (self.case / ("time.workflow." + name + ".txt")).write_text(
+                "Elapsed (wall clock) time (h:mm:ss or m:ss): " + elapsed + "\nMaximum resident set size (kbytes): 40\n")
+        result = smoke.resources(self.case, "laserbeamFoam")
+        self.assertEqual(result["recorded_workflow_wall_seconds"], 121.5)
+        self.assertEqual(result["whole_workflow_budget"], "RECORDED_SCOPE_OVER_TARGET")
+
+    def test_path_evidence_and_gas_not_claimed_as_melt(self):
+        log = self.case / "log.laserbeamFoam"
+        text = log.read_text().replace("End\n", "Laser: laser0\nTotal rays: 150, local particles: 150\nEnd\n")
+        log.write_text(text)
+        (self.case / "1e-7/alpha.metal").write_text(fixtures.field(value="nonuniform List<scalar> 2(1 0)"))
+        (self.case / "1e-7/epsilon1").write_text(fixtures.field(value="nonuniform List<scalar> 2(0 1)"))
+        report = smoke.check(self.case)
+        self.assertEqual(report["path_evidence"]["logged_lasers"], ["laser0"])
+        self.assertEqual(report["metal_observations"]["liquid_fraction_range"], [0, 0])
+        self.assertEqual(report["path_evidence"]["steady_melt_pool"], "NOT_ESTABLISHED")
+
 
 if __name__ == "__main__":
     unittest.main()

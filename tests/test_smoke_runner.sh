@@ -94,6 +94,7 @@ run_case mesh
 [[ $rc != 0 ]] || fail 'mesh overwritten'
 run_case solve
 [[ $rc == 23 && $(cat "$case_dir/exit.laserbeamFoam.txt") == 23 ]] || fail 'solver failure lost'
+[[ $(cat "$case_dir/solver.exit.txt") == 23 && -s $case_dir/solver.time.txt ]] || fail 'canonical failure feedback missing'
 run_case solve
 [[ $rc != 0 ]] || fail 'failed solver silently retried'
 printf 'PASS: smoke runner environment/library/mesh/solver/overwrite guards (mocks only)\n'

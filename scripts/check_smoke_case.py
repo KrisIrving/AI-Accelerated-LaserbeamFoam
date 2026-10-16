@@ -11,6 +11,63 @@ from pathlib import Path
 import compare_plate2d_ab as native
 
 
+def gnu_time_record(path):
+    """Report missing/non-GNU timing honestly; it never changes numerical gates."""
+    record = {"status": "UNVERIFIED", "wall_seconds": None, "max_rss_kib": None}
+    try:
+        for line in path.read_text(encoding="utf-8").splitlines():
+            if "Elapsed (wall clock) time" in line:
+                parts = line.rsplit(": ", 1)[1].strip().split(":")
+                if not 1 <= len(parts) <= 3:
+                    raise ValueError("unsupported wall-time format")
+                seconds = 0.0
+                for part in parts:
+                    seconds = 60 * seconds + float(part)
+                if not math.isfinite(seconds) or seconds < 0:
+                    raise ValueError("invalid wall time")
+                record["wall_seconds"] = seconds
+            elif "Maximum resident set size (kbytes):" in line:
+                rss = int(line.rsplit(":", 1)[1].strip())
+                if rss < 0:
+                    raise ValueError("negative RSS")
+                record["max_rss_kib"] = rss
+        if all(record[k] is not None for k in ("wall_seconds", "max_rss_kib")):
+            record["status"] = "RECORDED"
+    except (OSError, ValueError, IndexError) as exc:
+        record["note"] = str(exc)
+    return record
+
+
+def resources(case, solver):
+    stages = {name: gnu_time_record(case / ("time." + name + ".txt"))
+              for name in ("blockMesh", "checkMesh", "setFields", solver)}
+    measured = stages[solver]
+    budget = None if measured["wall_seconds"] is None else measured["wall_seconds"] <= 120
+    result = {"stages": stages, "solver_within_approx_120s_budget": budget,
+            "budget_note": "120s is the approximate solver-time goal, separate from configurable timeout. "
+                           "Complete preparation/preflight/checker workflow time is not inferred from solver time.",
+            "whole_workflow_budget": "UNVERIFIED",
+            "rss_note": "GNU time maximum RSS for each timed serial command; not a sum or whole-workstation memory."}
+    wrappers = {name: gnu_time_record(case / ("time.workflow." + name + ".txt"))
+                for name in ("mesh", "solve")}
+    result["workflow_wrappers"] = wrappers
+    # Optional user-side wrapper timing is complete only after Allrun returns.
+    # Rechecking offline can then include it without rerunning any CFD.
+    if all(r["status"] == "RECORDED" for r in wrappers.values()):
+        try:
+            preparation = float((case / "preparation.time.txt").read_text().strip().split("=", 1)[1])
+            if not math.isfinite(preparation) or preparation < 0:
+                raise ValueError("invalid preparation wall time")
+            total = preparation + sum(r["wall_seconds"] for r in wrappers.values())
+            result.update(recorded_workflow_wall_seconds=total,
+                          whole_workflow_budget="RECORDED_SCOPE_WITHIN_TARGET" if total <= 120 else "RECORDED_SCOPE_OVER_TARGET",
+                          workflow_scope="Recorded preparation body plus mesh/solve wrappers, including their preflights/checks; "
+                                         "excludes build, Git, operator waiting, Python preparation startup and final offline report rerun.")
+        except (OSError, ValueError, IndexError):
+            pass
+    return result
+
+
 def check_inputs(case):
     """Validate the complete initialized inventory, including extra-file checks."""
     expected = {}
@@ -42,10 +99,12 @@ def check_inputs(case):
 
 def check(case):
     case = Path(case)
-    manifest = json.loads((case / "manifest.json").read_text())
+    manifest = json.loads((case / "manifest.json").read_text(encoding="utf-8"))
     config = manifest["config"]
     report = {"status": "REVIEW_REQUIRED", "accuracy": "UNVERIFIED",
               "reference": "NOT_ESTABLISHED", "fields": {}, "issues": []}
+    report["resources"] = resources(case, manifest["solver"])
+    report["initialization"] = "RECORDED_COMPLETE" if (case / ".mesh-complete").is_file() else "UNVERIFIED"
     try:
         log = native.parse_log(case, manifest["solver"])
         expected = math.prod(config["cells"])
@@ -95,6 +154,30 @@ def check(case):
         report["execution_time_samples"] = re.findall(
             r"ExecutionTime\s*=\s*([0-9.eE+-]+)\s+s\s+ClockTime\s*=\s*([0-9.eE+-]+)\s+s",
             (case / ("log." + manifest["solver"])).read_text())
+        text = (case / ("log." + manifest["solver"])).read_text(encoding="utf-8")
+        report["path_evidence"] = {
+            "logged_lasers": sorted(set(re.findall(r"^\s*Laser:\s*(\S+)", text, re.M))),
+            "seed_counts": [[int(a), int(b)] for a, b in re.findall(
+                r"Total rays:\s*(\d+),\s*local particles:\s*(\d+)", text)],
+            "vof_diagnostics": "vof" in log["categories"],
+            "liquid_fraction_iteration_diagnostics": "epsilon" in log["categories"],
+            "temperature_linear_solves": any(e["kind"] == "linear" and
+                                             "Solving for T," in e["label"] for e in log["events"]),
+            "pressure_linear_solves": any(e["kind"] == "linear" and
+                                          "Solving for p_rgh," in e["label"] for e in log["events"]),
+            "positive_deposition": True,
+            "multiple_reflections": "NOT_ESTABLISHED",
+            "steady_melt_pool": "NOT_ESTABLISHED",
+            "note": "Log evidence confirms execution, not physical accuracy or all difficult regimes."}
+        def scalar_values(name):
+            field = native.parse_field(directory / name)
+            return native.expand_field(field["internal"], geometry["cells"], 1, "scalar")
+        alpha, temperature, liquid = map(scalar_values, ("alpha.metal", "T", "epsilon1"))
+        metal = [i for i, a in enumerate(alpha) if a > 0.5]
+        report["metal_observations"] = {"selection": "alpha.metal > 0.5", "cells": len(metal),
+            "max_temperature_K": max((temperature[i] for i in metal), default=None),
+            "liquid_fraction_range": [min(liquid[i] for i in metal), max(liquid[i] for i in metal)] if metal else None,
+            "note": "Only final metal-dominated cells; gas liquid fraction is not used as proof of melting."}
         report.update(status="SMOKE_CHECKS_PASSED", cells=geometry["cells"],
                       steps=len(log["times"]), final_time=log["times"][-1],
                       diagnostic_events=len(log["events"]))
@@ -120,6 +203,15 @@ def main():
         text = "Status: {}\nAccuracy: UNVERIFIED; reference: NOT_ESTABLISHED\nFields checked: {}\n".format(
             report["status"], len(report["fields"]))
         text += "\n".join(report["issues"]) + "\n"
+        timed = report["resources"]["stages"][json.loads(
+            (args.case_dir / "manifest.json").read_text(encoding="utf-8"))["solver"]]
+        text += "Solver wall seconds: {}; max RSS KiB: {}\nSolver within approximate 120s budget: {}\n".format(
+            timed["wall_seconds"], timed["max_rss_kib"], report["resources"]["solver_within_approx_120s_budget"])
+        text += "Recorded workflow budget: {}; seconds: {}\n".format(
+            report["resources"]["whole_workflow_budget"], report["resources"].get("recorded_workflow_wall_seconds"))
+        text += "Scope excludes build/operator waiting/final offline report; smoke is not physical validation or a steady melt-pool prediction.\n"
+        text += "T range K: {}; alpha range: {}; Deposition range: {}\n".format(
+            report.get("T_range"), report.get("alpha_bounds"), report.get("Deposition_range"))
         (args.case_dir / "smoke.txt").write_text(text)
         print(text, end="")
         return {"SMOKE_CHECKS_PASSED": 0, "FAIL": 1, "REVIEW_REQUIRED": 2}[report["status"]]
