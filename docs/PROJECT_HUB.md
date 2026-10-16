@@ -10,7 +10,7 @@
 | --- | --- | --- |
 | 正式阶段 | 阶段1：低成本三维开发案例，CURRENT / IN_PROGRESS | [开发计划](research/DEVELOPMENT_PLAN.md) |
 | Plate2D 串行 A/B | 用户实测 PASS；仅当前短程数值等价 | [RESULTS](validation/RESULTS.md)、[EXP-000](research/EXPERIMENT_LOG.md) |
-| 三维 S | 工具已提交；真实 OpenFOAM 运行 UNVERIFIED；配置仍为 PROPOSED 探针 | [首次实测说明](validation/THREED_SMOKE_FIRST_RUN.md)、[基准设计](research/BENCHMARK_DESIGN.md) |
+| 三维 S | 用户实测 SMOKE_CHECKS_PASSED；未观察到熔化；溯源待补；仍为 PROPOSED 探针 | [EXP-001](research/EXPERIMENT_LOG.md)、[首次实测说明](validation/THREED_SMOKE_FIRST_RUN.md) |
 | M | 候选待成本测量及负责人批准，未建立正式参考 | [基准设计](research/BENCHMARK_DESIGN.md)、[DEC-004](research/DECISION_LOG.md) |
 | 论文物理验证 V | 候选研究，PROPOSED；没有新增强制阶段或已实现案例 | [文献与实验候选库](research/LITERATURE_VALIDATION_CANDIDATES.md) |
 | AI 模块 | NOT_STARTED；尚未选择或实现 | [开发计划](research/DEVELOPMENT_PLAN.md) |
@@ -18,15 +18,15 @@
 
 ## 已完成、正在执行与下一步
 
-已完成的重要里程碑：独立 aiLaserbeamFoam 源码与编译入口；用户回传 v2512 双求解器编译及 Plate2D 串行短程 A/B PASS；正式研究治理文件；S 分阶段准备/运行/离线检查工具及文献候选库。工具和文档提交不等于完成三维实测。
+已完成的重要里程碑：独立 aiLaserbeamFoam 源码与编译入口；用户回传 v2512 双求解器编译及 Plate2D 串行短程 A/B PASS；正式研究治理文件；S 工具及文献候选库；用户回传 S 三维基础运行通过。S 依据本轮用户实测摘要，Codex未取得原始归档，不能宣称逐行核验。
 
-当前执行：阶段1的 S 首次实测准备与等待反馈。S 为五激光三维平基板衍生探针：2048 单元、10 步至 1e-7 s，无 DEM 或离散粉末；不是稳态熔池预测。
+当前执行：阶段1的 S 实测登记、显式离线反馈打包与 M 候选审核准备。S 为五激光三维平基板衍生探针：2048 单元、10 步至 1e-7 s，无 DEM 或离散粉末；不是稳态熔池预测。
 
-下一个可执行任务：由用户按[三维 S 首次实测说明](validation/THREED_SMOKE_FIRST_RUN.md)，在 Ubuntu 上核对匹配的隔离构建并准备全新运行副本，**先 mesh/初始化并检查，再单独 solve**，回传离线检查报告、实际路径证据、墙钟及最大 RSS。约 2 分钟只是预算目标；`SMOKE_CHECKS_PASSED` 不表示物理精度通过。Codex 不操作工作站。
+下一个可执行任务：由用户按[反馈导出说明](validation/THREED_SMOKE_FIRST_RUN.md)，复用 threeD-smoke-002 结果显式离线检查并生成脱敏反馈包，补录原始manifest/build summary中的运行和构建SHA；不重编译、不重跑CFD。随后审核[M探索提案](research/M_CASE_NEXT_PROPOSAL.md)，未批准前不实施。`SMOKE_CHECKS_PASSED` 不表示物理精度通过。
 
 当前待补证据与批准事项：
 
-- S 实际网格、初始化、有限值、沉积/温度/体积分数、计算路径及资源耗用尚待实机报告，不阻止已批准的准备工作。
+- S 用户报告：19场/173事件、solver=0.35 s、最大RSS=127488 KiB；准备主体加两workflow约1.9197 s，在该记录范围内达到约2分钟预算。T最高330.293 K、金属液相率0；无熔化、无热点排名。原始归档与完整SHA尚待核验，PROVENANCE_PENDING。
 - Plate2D-ab-002 的实际构建/求解 SHA 待原 manifest 和构建摘要补录；不能用离线比较器提交替代。
 - M 正式选型被实测成本及负责人批准所阻塞；V 选择/实施仍待批准。不得自动提升候选为正式基准或改变阶段顺序。
 
@@ -57,6 +57,7 @@
 | [BENCHMARK_DESIGN.md](research/BENCHMARK_DESIGN.md) | S/M 候选定义、预算与比较设计 |
 | [MPI_RISKS.md](research/MPI_RISKS.md) | 已知并行风险与定向验证依据 |
 | [LITERATURE_VALIDATION_CANDIDATES.md](research/LITERATURE_VALIDATION_CANDIDATES.md) | 非受控文献/实验数据候选、V1/V2 提案及缺失输入 |
+| [M_CASE_NEXT_PROPOSAL.md](research/M_CASE_NEXT_PROPOSAL.md) | S实测后的非受控M探索建议，PROPOSED、待批准 |
 | [THREED_SMOKE_FIRST_RUN.md](validation/THREED_SMOKE_FIRST_RUN.md) | S 分阶段 Ubuntu 命令和最小反馈 |
 | [RESULTS.md](validation/RESULTS.md) | 用户回传的编译、运行、串行数值基线及局限 |
 | [PLATE2D_AB.md](validation/PLATE2D_AB.md) | 原生场、边界、日志和 uniform 的 A/B 比较方法 |
@@ -69,7 +70,7 @@
 
 ## 仍然 UNVERIFIED 的结论
 
-- S 的实际成功运行、预算达标、相变/多次反射/困难非线性等路径覆盖，以及 M 成本和参考。
+- S 完整溯源与原始报告独立核验、多次反射/困难非线性路径覆盖，以及 M 成本和参考；本次S未观察到熔化，不把路径调用当作目标物理出现。
 - 网格/时间收敛、物理精度、实验一致性、MPI 正确性与三维代表性 LPBF 能力。
 - 性能瓶颈、AI 净收益、端到端数倍加速及训练成本摊销。
 - 外部实验的完整输入、可追溯材料参数、数据版本与再发布权限；逐项状态以候选库为准。

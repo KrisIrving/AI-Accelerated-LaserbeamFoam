@@ -78,10 +78,10 @@ else
 fi
 ```
 
-外层GNU time在Allrun返回后才写完；因此再运行一次**纯离线**检查，汇入完整wrapper计时，不重跑CFD：
+外层GNU time在Allrun返回后才写完；因此再显式运行一次**纯离线**检查和反馈导出，汇入完整wrapper计时，不重跑CFD。若要保留已有smoke.txt/json，先备份（下方另有复用002的完整说明）：
 
 ```bash
-if python3 scripts/check_smoke_case.py --case-dir runs/threeD-smoke-002; then
+if python3 scripts/check_smoke_case.py --case-dir runs/threeD-smoke-002 --feedback-bundle; then
     cat runs/threeD-smoke-002/smoke.txt
 else
     rc=$?; printf 'Offline report status is non-PASS (%s); retain smoke.txt/json.\n' "$rc"
@@ -106,4 +106,73 @@ fi
 
 solve后：smoke.txt/json、solver.exit.txt、time.laserbeamFoam.txt、time.workflow.mesh/solve.txt、preparation.time.txt；如日志/字段不支持或异常，再给log.laserbeamFoam及具体错误路径。输入/构建/工具SHA按manifest原记录，公开回传先脱敏；完整manifest有私有路径，不直接上传GitHub。
 
-**SMOKE_CHECKS_PASSED只代表本探针的运行/基本数值检查；不代表物理精度、稳态熔池、网格收敛、MPI或AI效果。** 未收到用户实测前不追加成功实验记录。
+**SMOKE_CHECKS_PASSED只代表本探针的运行/基本数值检查；不代表物理精度、稳态熔池、网格收敛、MPI或AI效果。** 本轮已按用户实测摘要登记[EXP-001](../research/EXPERIMENT_LOG.md)，原始归档未交给Codex，完整SHA待补；未据此批准M。
+
+## 复用现有002：一次离线检查并导出反馈
+
+本节仅用于已经完成mesh/solve的`runs/threeD-smoke-002/`。不再运行Allrun、编译、初始化或更改计算场；离线工具读取原manifest，不要求其版本等于修复工具后的HEAD。实际构建/求解版本从原记录提取，缺失时保留UNVERIFIED / PROVENANCE_PENDING，不能补写当前HEAD。新建案例时的严格构建匹配契约不变。
+
+在仓库根目录更新PR #3分支，更新失败先停止：
+
+```bash
+if git fetch origin && git switch feat/research-plan-smoke-benchmark && git pull --ff-only; then
+    git rev-parse HEAD
+else
+    printf 'STOP: code update failed; retain existing results.\n'
+fi
+```
+
+覆盖旧smoke报告前建议备份。该操作只复制旧报告，使用全新目录；失败先停止，不删除或清理原结果：
+
+```bash
+python3 - <<'PY'
+from pathlib import Path
+import shutil
+import uuid
+case = Path('runs/threeD-smoke-002')
+backup = case / ('report-backup.' + uuid.uuid4().hex)
+backup.mkdir()
+for name in ('smoke.txt', 'smoke.json'):
+    source = case / name
+    if source.is_symlink():
+        raise SystemExit('STOP: symlinked report: ' + name)
+    if source.is_file():
+        shutil.copy2(source, backup / name)
+print('Saved previous reports:', backup)
+PY
+```
+
+之后显式离线检查并导出。使用if捕获非零码，适用于已启用set-e的交互终端：
+
+```bash
+if python3 scripts/check_smoke_case.py \
+    --case-dir runs/threeD-smoke-002 --feedback-bundle; then
+    check_rc=0
+else
+    check_rc=$?
+fi
+printf 'Offline check exit: %s (0=smoke pass, 1=FAIL, 2=REVIEW_REQUIRED)\n' "$check_rc"
+```
+
+stdout给出归档**绝对路径及字节数**，位于`runs/threeD-smoke-002/feedback/threeD-smoke-feedback.<UTC+UUID>.tar.gz`，每次唯一，不覆盖旧包。同目录生成`.files.txt`清单和归档`.sha256`校验文件；可在feedback目录执行`sha256sum -c <对应文件>.sha256`。不自动上传。
+
+`Allrun solve`内部检查仍不默认打包；最终归档必须等外层solve计时结束后显式生成。归档内`bundle.json`分别记录检查状态/退出码、导出状态、收集完整性和计时完整性。缺失/未完整写出的外层计时或准备计时标`INCOMPLETE_TIMING`，不改变原数值检查结果。完整只指当前白名单和记录范围，不包含编译、Git、人工等待或本次离线检查本身。
+
+若求解失败或只有mesh日志，可独立导出现有证据，不检查场、不运行CFD、不改旧smoke报告：
+
+```bash
+if python3 scripts/export_smoke_feedback.py \
+    --case-dir runs/threeD-smoke-002 --diagnostics-only; then
+    printf 'Diagnostic archive exported; original check may still be FAIL or unknown.\n'
+else
+    export_rc=$?; printf 'Archive FAILED (%s); keep original diagnostics locally.\n' "$export_rc"
+fi
+```
+
+独立导出命令退出0仅表示打包成功；保存的检查状态不变，缺少smoke.json则UNVERIFIED，按报告推得的检查退出码注明INFERRED_FROM_SAVED_REPORT，非本次检查结果。联合命令始终返回原检查码：即使数值PASS而归档失败仍返回0，并明确输出`archive_status=FAILED`；因此上传前还须确认归档导出成功，不能仅看shell退出码。打包失败不能把FAIL/REVIEW_REQUIRED变成PASS。
+
+白名单仅包括smoke报告、solver.exit/time、preparation.time、mesh/solve外层计时、blockMesh/checkMesh/setFields及两种支持求解器的log/exit/time。不存在的文件列为缺失，异常/过大/非文本/符号链接文件列为omitted，收集状态PARTIAL；不将部分包说成完整反馈。单文件上限4 MiB、文本总量16 MiB、压缩包8 MiB；超过归档上限则导出失败，无有效归档交付。
+
+不递归收集0、时间目录、polyMesh、processor或VTK，不打包原manifest/build summary。`provenance.json`只取必要配置与原记录版本，交叉检查源/构建SHA；它不重新认证已执行二进制。build summary丢失或移出本仓库validation时不探测其他目录，记录缺口；config哈希为规范化JSON哈希，不代替输入文件哈希。工具版本为smoke-feedback-v1。
+
+归档使用脱敏副本：尽力移除绝对路径、用户名/主机提示及IP，原日志不改；打包后会重新打开并核对内容。内含`FILES.txt`与`SHA256SUMS`（后者覆盖其余归档文件，不自校验），哈希针对**归档中的脱敏字节**。脱敏不是匿名性保证，上传ChatGPT前请查看包内文本；不要将包或原日志自动提交公开GitHub。若失败，先回传smoke状态、bundle.json中的omitted/missing_required及首个问题，不必上传原始场。

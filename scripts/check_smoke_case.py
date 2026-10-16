@@ -6,6 +6,7 @@ import json
 import math
 import re
 import sys
+import tarfile
 from pathlib import Path
 
 import compare_plate2d_ab as native
@@ -99,13 +100,14 @@ def check_inputs(case):
 
 def check(case):
     case = Path(case)
-    manifest = json.loads((case / "manifest.json").read_text(encoding="utf-8"))
-    config = manifest["config"]
     report = {"status": "REVIEW_REQUIRED", "accuracy": "UNVERIFIED",
-              "reference": "NOT_ESTABLISHED", "fields": {}, "issues": []}
-    report["resources"] = resources(case, manifest["solver"])
-    report["initialization"] = "RECORDED_COMPLETE" if (case / ".mesh-complete").is_file() else "UNVERIFIED"
+              "reference": "NOT_ESTABLISHED", "fields": {}, "issues": [], "resources": {}}
     try:
+        manifest = json.loads((case / "manifest.json").read_text(encoding="utf-8"))
+        config = manifest["config"]
+        report["solver"] = manifest["solver"]
+        report["resources"] = resources(case, manifest["solver"])
+        report["initialization"] = "RECORDED_COMPLETE" if (case / ".mesh-complete").is_file() else "UNVERIFIED"
         log = native.parse_log(case, manifest["solver"])
         expected = math.prod(config["cells"])
         geometry = native.mesh_geometry(case)
@@ -192,32 +194,49 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--case-dir", required=True, type=Path)
     parser.add_argument("--inputs-only", action="store_true")
+    parser.add_argument("--feedback-bundle", action="store_true",
+                        help="explicitly export redacted diagnostics after the outer solve timer finishes")
     args = parser.parse_args()
+    if args.inputs_only and args.feedback_bundle:
+        parser.error("--inputs-only cannot be combined with --feedback-bundle")
+    from export_smoke_feedback import safe_directory, export_feedback, print_result
+
+    def finish(code):
+        if args.feedback_bundle:
+            try:
+                print_result(export_feedback(args.case_dir, check_exit_code=code))
+            except (OSError, ValueError, TypeError, tarfile.TarError) as exc:
+                print("ERROR [feedback] archive_status=FAILED; check exit unchanged: " + str(exc), file=sys.stderr)
+        return code
+
     try:
+        args.case_dir = safe_directory(args.case_dir)
+        for name in ("smoke.txt", "smoke.json"):
+            if (args.case_dir / name).is_symlink():
+                raise ValueError("refusing to overwrite symlinked report: " + name)
         if args.inputs_only:
             check_inputs(args.case_dir)
             print("PASS [initialized-inputs] complete path/hash inventory")
             return 0
         report = check(args.case_dir)
-        (args.case_dir / "smoke.json").write_text(json.dumps(report, indent=2) + "\n")
+        (args.case_dir / "smoke.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
         text = "Status: {}\nAccuracy: UNVERIFIED; reference: NOT_ESTABLISHED\nFields checked: {}\n".format(
             report["status"], len(report["fields"]))
         text += "\n".join(report["issues"]) + "\n"
-        timed = report["resources"]["stages"][json.loads(
-            (args.case_dir / "manifest.json").read_text(encoding="utf-8"))["solver"]]
+        timed = report["resources"].get("stages", {}).get(report.get("solver"), {})
         text += "Solver wall seconds: {}; max RSS KiB: {}\nSolver within approximate 120s budget: {}\n".format(
-            timed["wall_seconds"], timed["max_rss_kib"], report["resources"]["solver_within_approx_120s_budget"])
+            timed.get("wall_seconds"), timed.get("max_rss_kib"), report["resources"].get("solver_within_approx_120s_budget"))
         text += "Recorded workflow budget: {}; seconds: {}\n".format(
-            report["resources"]["whole_workflow_budget"], report["resources"].get("recorded_workflow_wall_seconds"))
+            report["resources"].get("whole_workflow_budget", "UNVERIFIED"), report["resources"].get("recorded_workflow_wall_seconds"))
         text += "Scope excludes build/operator waiting/final offline report; smoke is not physical validation or a steady melt-pool prediction.\n"
         text += "T range K: {}; alpha range: {}; Deposition range: {}\n".format(
             report.get("T_range"), report.get("alpha_bounds"), report.get("Deposition_range"))
-        (args.case_dir / "smoke.txt").write_text(text)
+        (args.case_dir / "smoke.txt").write_text(text, encoding="utf-8")
         print(text, end="")
-        return {"SMOKE_CHECKS_PASSED": 0, "FAIL": 1, "REVIEW_REQUIRED": 2}[report["status"]]
+        return finish({"SMOKE_CHECKS_PASSED": 0, "FAIL": 1, "REVIEW_REQUIRED": 2}[report["status"]])
     except (OSError, ValueError, KeyError) as exc:
         print("ERROR [smoke-check] " + str(exc), file=sys.stderr)
-        return 2
+        return finish(2)
 
 
 if __name__ == "__main__":
