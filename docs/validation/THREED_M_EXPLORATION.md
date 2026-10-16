@@ -1,6 +1,6 @@
 # 阶段1三维 M 分级探索：Ubuntu 执行与反馈
 
-授权：[DEC-006](../research/DECISION_LOG.md)。这是探索工具开发与用户显式试运行的范围，不是正式M基准批准。阶段1仍IN_PROGRESS；无AI、物理精度或模块热点结论。当前工具只有合成测试，真实M1/M2/M3运行均UNVERIFIED；Codex和CI不运行OpenFOAM。
+授权：[DEC-006](../research/DECISION_LOG.md)。这是探索工具开发与用户显式试运行的范围，不是正式M基准批准。阶段1仍IN_PROGRESS；无AI、物理精度或模块热点结论。M1已实测原生求解成功并观察熔化，原离线状态因uniform类不支持而REVIEW_REQUIRED，见[EXP-002](../research/EXPERIMENT_LOG.md)。已有M1用户直接使用[离线复核及M3预检](M1_RECHECK_M3_PREFLIGHT.md)，不要重跑下面的M1首次执行步骤。M2暂缓，M3待M1真实复核PASS后条件性准备；Codex和CI不运行OpenFOAM。
 
 ## 固定负载与分级
 
@@ -95,7 +95,7 @@ printf 'M1 offline status: %s (0=checks passed, 1=FAIL, 2=REVIEW_REQUIRED)\n' "$
 
 ## C. M1分析后，用户分别启动 M2 / M3
 
-两组均不自动运行。先确认M1全部数值检查通过、实际计时/RSS/数据量可接受且有具体研究问题。M2用于有依据的更长热积累/后续演化，不为凑运行时长；M3用于同物理时间的网格敏感性。即使M1已有熔化，M2仍需明确后续演化目的。
+两组均不自动运行。根据本次M1实测反馈，优先M3同物理时间空间敏感性，M2暂缓；以下M2命令仅保留为后续条件选项，不是当前下一步。先确认M1全部检查真实通过、原场未在复核中变化、实际计时/RSS/数据量可接受且构建匹配。M2用于有依据的更长热积累/后续演化；M3用于同物理时间的网格敏感性，不能以两级网格证明收敛。
 
 ```bash
 if python3 scripts/prepare_m_case.py --experiment M2 \
@@ -124,7 +124,7 @@ fi
 ## 数值状态、物理活动和成本的解释
 
 - 基础检查：三维网格/质量、退出0与End、精确预期时间步和全部输出时刻；全部实际字段的internal/boundary解析、尺寸、有限性，alpha边界/有界性、必要字段与uniform。未知格式不得静默略过。自比较只是解析与有限性检查，不是独立原版A/B或物理验证。
-- M的uniform状态必须有可解析的原生字段/字典语义；支持OpenFOAM函数状态的无FoamFile头字典。单文件与自身逐字节相同没有验证意义，未支持的状态或声明class仍REVIEW_REQUIRED；不改变S或独立A/B比较器已有行为。
+- M的uniform状态必须有可解析的原生字段/字典语义；支持OpenFOAM函数状态的无FoamFile头字典，以及v2512的uniformDimensionedScalarField。后者要求对象名匹配文件名、七个有限数值量纲指数和单个有限value；cumulativeContErr按官方AUTO_WRITE定义要求存在且无量纲。符号单位表达式等未支持语法仍REVIEW_REQUIRED；未知格式不跳过，单文件与自身逐字节相同没有验证意义。不改变S或独立A/B比较器行为。
 - 每时刻观测：全域及alpha>0.5金属区域T、液相率、速度、金属体积及相对初始变化、液态金属体积估计、Deposition量纲与积分；保留日志中的激光/射线、VOF、温度、压力、相变及残差/迭代证据。不按未知阈值宣称已收敛或无界面误差。
 - 热沉积、温升、达到1928.15 K固相线、非零金属液相率、可辨液相区域、显著自由面运动、多次反射分别记录。液相线1978 K。无熔化可以是有效探索结果，不通过改功率/材料/容差制造熔池；也不能只因T超过固相线就宣布形成可信熔池。
 - 积分由实际网格体积和原字段dimensions解释；Deposition最大值不是总吸收功率，快照的体积积分不是累计吸收能量或能量闭合。粗网格包围盒/液态体积只是观测，不是实验熔池尺寸验证。

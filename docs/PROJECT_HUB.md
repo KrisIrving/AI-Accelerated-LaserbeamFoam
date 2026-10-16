@@ -11,7 +11,7 @@
 | 正式阶段 | 阶段1：低成本三维开发案例，CURRENT / IN_PROGRESS | [开发计划](research/DEVELOPMENT_PLAN.md) |
 | Plate2D 串行 A/B | 用户实测 PASS；仅当前短程数值等价 | [RESULTS](validation/RESULTS.md)、[EXP-000](research/EXPERIMENT_LOG.md) |
 | 三维 S | 用户实测 SMOKE_CHECKS_PASSED；归档COMPLETE、源/构建记录RECORDS_MATCH；未观察到熔化；仍为 PROPOSED 探针 | [EXP-001及ADD-01](research/EXPERIMENT_LOG.md)、[首次实测说明](validation/THREED_SMOKE_FIRST_RUN.md) |
-| M探索 | DEC-006授权M1/M2/M3三级配置及工具开发；待用户首次实测，正式M仍未批准/未建立参考 | [分级操作说明](validation/THREED_M_EXPLORATION.md)、[DEC-006](research/DECISION_LOG.md) |
+| M探索 | M1原生求解完成并观察到熔化；原离线检查REVIEW_REQUIRED，仅已报uniform类不支持；修复待Ubuntu复核。M3条件性优先、M2暂缓；正式M未批准 | [EXP-002](research/EXPERIMENT_LOG.md)、[复核与预检](validation/M1_RECHECK_M3_PREFLIGHT.md)、[DEC-006](research/DECISION_LOG.md) |
 | 论文物理验证 V | 候选研究，PROPOSED；没有新增强制阶段或已实现案例 | [文献与实验候选库](research/LITERATURE_VALIDATION_CANDIDATES.md) |
 | AI 模块 | NOT_STARTED；尚未选择或实现 | [开发计划](research/DEVELOPMENT_PLAN.md) |
 | MPI 固定验证矩阵 | 已撤销为强制开发门槛；保留定向验证及已知风险 | [DEC-002](research/DECISION_LOG.md)、[MPI 风险](research/MPI_RISKS.md) |
@@ -20,15 +20,16 @@
 
 已完成的重要里程碑：独立 aiLaserbeamFoam 源码与编译入口；用户回传 v2512 双求解器编译及 Plate2D 串行短程 A/B PASS；正式研究治理文件；S 工具及文献候选库；用户回传 S 三维基础运行及自动归档验收。S归档核验来自用户提供的ChatGPT检查结果，Codex未取得原包，不能宣称直接核验。
 
-当前执行：阶段1的三级M探索工具交付与M1实测准备，阶段1整体尚未完成。S证据已收尾，仍作为2048单元/10步五激光平基板调试探针保留，不是稳态熔池预测。
+当前执行：阶段1的M1实测分析、uniformDimensionedScalarField检查器修复和离线复核准备，阶段1整体尚未完成。Codex已直接核验M1诊断包的清单/哈希和报告；未取得原始网格/场，不能宣称修复后复核已PASS。S仍作为2048单元/10步五激光平基板探针保留。
 
-下一个可执行任务：用户按[M执行说明](validation/THREED_M_EXPLORATION.md)，一次隔离构建后优先M1（32000单元/1000步），先mesh检查再单独solve，最后显式离线报告及打包；100/500步由同次运行写出，不重复短跑。M2（同网格3000步）和M3（256000单元1000步）仅在M1证据/成本预检通过、有明确目的时由用户分别启动。无需再批准工具开发，但正式M基准仍待实测与明确批准；不自动启动CFD、进入阶段2或开发AI。
+下一个可执行任务：按[M1离线复核与M3预检](validation/M1_RECHECK_M3_PREFLIGHT.md)备份旧报告，用新工具检查现有M1全部10时刻并生成新包，无需重新编译或重跑M1。真实PASS后，优先准备M3同物理时间空间敏感性探索；新HEAD须匹配新隔离构建，不冒充原运行版本。M2暂缓，正式M仍待明确批准；不自动启动CFD、进入阶段2或开发AI。
 
 当前待补证据与批准事项：
 
 - S 用户提供的ChatGPT核验结果：23个归档文件/22条内部哈希、清单通过；源/构建完整SHA均为7c094679016a2458282c9fcb261d7d55983496bb。solver=0.35 s、最大RSS=127488 KiB，已记录流程范围1.919696505 s；归档标识和SHA256见EXP-001-ADD-01。RECORDS_MATCH不等于重验实际二进制和动态库，工具87061fe9不等于原运行版本。物理/性能证据缺口仍保留。
 - Plate2D-ab-002 的实际构建/求解 SHA 待原 manifest 和构建摘要补录；不能用离线比较器提交替代。
-- M1/M2/M3真实数值状态、熔化/界面活动、耗时/RSS/数据量及热点仍UNVERIFIED；工具合成CI不替代实机。墙钟护栏1800/2700/3600秒，8 GiB RSS/3 GiB数据仅MONITORED_ONLY；不得承诺运行时强制内存/磁盘上限。
+- M1实测32000单元、1000步/10 μs，solver退出0，190场检查记录、29491日志事件；3 μs采样首次熔化，7 μs采样超过配置Tvap；solver214.50 s、RSS240452 KiB、数据约121.05 MB，流程范围322.623874 s、离线检查95.90 s分别记录。原状态仍REVIEW_REQUIRED，不能用合成测试替代实机复核。
+- M1阈值熔化区y方向仅一层，物理精度/收敛/显著界面活动/真实多次反射与热点均未建立。M2/M3真实成本和状态UNVERIFIED。墙钟护栏1800/2700/3600秒，8 GiB RSS/3 GiB数据仅MONITORED_ONLY；不得承诺运行时强制内存/磁盘上限。
 - M正式选型仍待实测成本及负责人批准；V选择/实施仍待批准。DEC-006只批准三级探索工具范围，不自动批准其余候选或改变阶段顺序。
 
 ## GitHub 状态与版本追溯
@@ -45,6 +46,7 @@
 | [87061fe9](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/commit/87061fe9a83a51e3bf9c6ad3058979715b06658e) | 自动反馈工具核对版本；本次实机归档已验收，不是原始运行SHA |
 | [5e08097d](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/commit/5e08097d420af3cfb746eda8ec1833da1d068395) | PR #3合并到main；本轮三级M开发起点 |
 | [15df5607](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/commit/15df5607b51427b96e46b3db27c345169a345590) | DEC-006授权的M1/M2/M3配置、运行/多时刻检查/反馈工具；真实M运行UNVERIFIED |
+| [1d32b6fd](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/commit/1d32b6fda86d730b8e18b1d9f50e1752fffa5416) | M1原始运行/构建记录SHA；solver成功、原离线uniform格式REVIEW_REQUIRED，详见EXP-002 |
 
 当前分支后续提交以 PR 提交列表为准；上表仅列关键既有节点，不作为构建匹配记录。CI 的语法、合成夹具和 Markdown 通过不等于 OpenFOAM 编译、实测或物理验证。
 
@@ -63,6 +65,7 @@
 | [LITERATURE_VALIDATION_CANDIDATES.md](research/LITERATURE_VALIDATION_CANDIDATES.md) | 非受控文献/实验数据候选、V1/V2 提案及缺失输入 |
 | [M_CASE_NEXT_PROPOSAL.md](research/M_CASE_NEXT_PROPOSAL.md) | S实测后的历史提案与研究依据；100步建议不再是当前入口 |
 | [THREED_M_EXPLORATION.md](validation/THREED_M_EXPLORATION.md) | DEC-006三级M探索配置、一次构建与M1/条件M2/M3执行和反馈 |
+| [M1_RECHECK_M3_PREFLIGHT.md](validation/M1_RECHECK_M3_PREFLIGHT.md) | 已完成M1的离线复核、报告备份、条件性M3资源/版本预检；不重跑M1 |
 | [THREED_SMOKE_FIRST_RUN.md](validation/THREED_SMOKE_FIRST_RUN.md) | S 分阶段 Ubuntu 命令和最小反馈 |
 | [RESULTS.md](validation/RESULTS.md) | 用户回传的编译、运行、串行数值基线及局限 |
 | [PLATE2D_AB.md](validation/PLATE2D_AB.md) | 原生场、边界、日志和 uniform 的 A/B 比较方法 |
@@ -75,7 +78,7 @@
 
 ## 仍然 UNVERIFIED 的结论
 
-- S全部实际二进制/动态依赖的独立重验、多次反射/困难非线性路径覆盖，以及M成本和参考；源/构建记录已补齐，但不外推这些未验证结论。本次S未观察到熔化。
+- S/M全部实际二进制/动态依赖的独立重验、真实多次反射及困难路径覆盖；S未观察到熔化，M1已观察到熔化但原离线格式阻塞尚待修复后实机复核。M2/M3成本和正式参考未建立。
 - 网格/时间收敛、物理精度、实验一致性、MPI 正确性与三维代表性 LPBF 能力。
 - 性能瓶颈、AI 净收益、端到端数倍加速及训练成本摊销。
 - 外部实验的完整输入、可追溯材料参数、数据版本与再发布权限；逐项状态以候选库为准。

@@ -332,6 +332,81 @@ def field_check(path, geometry, initial=False):
     return parsed, values, {"status": "PARSED_FINITE_INTERNAL_BOUNDARY_SIZE_CHECKED", "class": result["class"]}
 
 
+def parse_uniform_dimensioned_scalar(path):
+    """Validate the canonical v2512 scalar state, without self-byte evidence.
+
+    UniformDimensionedField::writeData writes dimensions and value, not an
+    internalField/boundaryField. initContinuityErrs.H declares cumulativeContErr
+    dimensionless. Other dimension/unit syntaxes remain explicitly unsupported.
+    """
+    parser = native.Parser(native.read_ascii(path))
+    header = parser.header()
+    if header["class"] != ["uniformDimensionedScalarField"]:
+        raise native.ComparisonFailure("expected uniformDimensionedScalarField class")
+    if header.get("object") != [path.name]:
+        raise native.ComparisonFailure("FoamFile object must match state filename: " + path.name)
+    body_tokens = parser.tokens[parser.index:]
+    data = parser.dictionary()
+    parser.done()
+    missing = {"dimensions", "value"} - set(data)
+    if missing:
+        raise native.ComparisonFailure("missing uniform scalar entries: " + ", ".join(sorted(missing)))
+    unknown = set(data) - {"dimensions", "value"}
+    dimensions = data["dimensions"]
+    if (not isinstance(dimensions, list) or len(dimensions) != 1
+            or not isinstance(dimensions[0], list) or len(dimensions[0]) != 7
+            or body_tokens[body_tokens.index("dimensions") + 1] != "["):
+        raise native.ReviewRequired("uniform scalar dimensions require seven numeric exponents")
+    dimensions = [native.finite_number(token) for token in dimensions[0]]
+    if path.name == "cumulativeContErr" and dimensions != [0] * 7:
+        raise native.ComparisonFailure("cumulativeContErr must have dimensionless dimensions")
+    value = data["value"]
+    if not isinstance(value, list) or len(value) != 1 or not isinstance(value[0], str):
+        raise native.ComparisonFailure("uniform scalar value must be exactly one numeric scalar")
+    value = native.finite_number(value[0])
+    if unknown:
+        raise native.ReviewRequired("unsupported uniform scalar entries: " + ", ".join(sorted(unknown)))
+    return {"status": "PASS", "method": "NUMERICAL_SEMANTIC_UNIFORM_DIMENSIONED_SCALAR",
+        "class": "uniformDimensionedScalarField", "object": path.name,
+        "dimensions": dimensions, "value": value, "finite": True}
+
+
+def check_uniform_directory(directory, geometry):
+    """Keep shared structure checks; extend only this M self-check's grammar."""
+    uniform = native.compare_uniform_directory(directory, directory, 1e-12, 1e-10, geometry)
+    if "cumulativeContErr" not in uniform["files"]:
+        uniform["status"] = "FAIL"
+        uniform["issues"].append({"status": "FAIL", "path": "uniform/cumulativeContErr",
+            "message": "missing required v2512 AUTO_WRITE cumulative continuity state"})
+    for relative, compared in uniform["files"].items():
+        path = directory / relative
+        scalar_state = (path.name == "cumulativeContErr" or compared.get("reason") ==
+                        "unsupported uniform class: uniformDimensionedScalarField")
+        try:
+            if scalar_state:
+                compared.update(parse_uniform_dimensioned_scalar(path))
+                compared.pop("reason", None)
+            elif compared.get("method") == "BYTE_IDENTICAL":
+                # A file is trivially byte-identical to itself. Parse native
+                # state instead; function-state dictionaries may be headerless.
+                state_text = native.read_ascii(path)
+                if re.search(r"\bFoamFile\s*\{", state_text):
+                    raise native.ReviewRequired(compared.get("reason", "unsupported declared state class"))
+                parser = native.Parser(state_text)
+                state = parser.dictionary()
+                parser.done()
+                native.compare_tree(state, state, 1e-12, 1e-10, "uniform/" + relative)
+                compared.update(method="NUMERICAL_SEMANTIC_HEADERLESS", dictionary_compared=True)
+        except (native.ComparisonFailure, native.ReviewRequired, OSError, ValueError, IndexError, TypeError) as exc:
+            status = "FAIL" if isinstance(exc, native.ComparisonFailure) else "REVIEW_REQUIRED"
+            compared.update(status=status, method="UNSUPPORTED", reason=str(exc))
+            if status == "FAIL" or uniform["status"] != "FAIL":
+                uniform["status"] = status
+            message = str(exc) if scalar_state else "Self-byte identity is not state validation: " + str(exc)
+            uniform["issues"].append({"status": status, "path": "uniform/" + relative, "message": message})
+    return uniform
+
+
 def observations(directory, fields, values, volumes, centres, initial_volume, time_s, initial_alpha):
     if fields["Deposition"]["dimensions"] != DEPOSITION_DIMENSIONS:
         raise native.ComparisonFailure("Deposition dimensions {} cannot support volume-integrated power in W".format(
@@ -363,6 +438,8 @@ def observations(directory, fields, values, volumes, centres, initial_volume, ti
         "deposition_power_W": math.fsum(q * v for q, v in zip(values["Deposition"], volumes)),
         "alpha_min": min(alpha), "alpha_max": max(alpha),
         "mixed_cells_count": sum(0 < a < 1 for a in alpha),
+        "mixed_cells_strict_001_099_count": sum(0.01 < a < 0.99 for a in alpha),
+        "mixed_cells_note": "Counts use 0<alpha<1 and 0.01<alpha<0.99; numerical tails affect the former. Observations only, not acceptance thresholds or interface-motion evidence.",
         "alpha_change_from_initial_max_abs": max(abs(a - a0) for a, a0 in zip(alpha, initial_alpha)),
         "alpha_change_from_initial_L1_volume_m3": math.fsum(abs(a - a0) * v for a, a0, v in zip(alpha, initial_alpha, volumes)),
         "solidus_reached": max(temperature[i] for i in metal) >= 1928.15,
@@ -435,6 +512,7 @@ def check(case, mesh_only=False):
             raise native.ComparisonFailure("checkMesh did not report Mesh OK")
         geometry, volumes, centres, summary = mesh_metrics(case, config)
         report["mesh"] = summary
+        report["cells"] = geometry["cells"]
         initial_files = {p.name for p in (case / "0").iterdir() if p.name != "uniform"}
         if not INITIAL_REQUIRED <= initial_files:
             raise native.ComparisonFailure("missing initial fields: " + ", ".join(sorted(INITIAL_REQUIRED - initial_files)))
@@ -511,25 +589,7 @@ def check(case, mesh_only=False):
             try:
                 if not (directory / "uniform").is_dir():
                     raise native.ComparisonFailure("missing uniform runtime-state directory")
-                uniform = native.compare_uniform_directory(directory / "uniform", directory / "uniform", 1e-12, 1e-10, geometry)
-                # Unlike A/B comparison, a file is trivially byte-identical to
-                # itself. Require parsing instead of treating that as evidence.
-                # OpenFOAM function-state dictionaries may omit FoamFile headers.
-                for relative, compared in uniform["files"].items():
-                    if compared.get("method") == "BYTE_IDENTICAL":
-                        try:
-                            state_text = native.read_ascii(directory / "uniform" / relative)
-                            if re.search(r"\bFoamFile\s*\{", state_text):
-                                raise native.ReviewRequired(compared.get("reason", "unsupported declared state class"))
-                            parser = native.Parser(state_text)
-                            state = parser.dictionary()
-                            native.compare_tree(state, state, 1e-12, 1e-10, "uniform/" + relative)
-                            compared.update(method="NUMERICAL_SEMANTIC_HEADERLESS", dictionary_compared=True)
-                        except (native.ReviewRequired, OSError, ValueError, IndexError, TypeError) as exc:
-                            compared.update(status="REVIEW_REQUIRED", method="UNSUPPORTED", reason=str(exc))
-                            uniform["status"] = "REVIEW_REQUIRED" if uniform["status"] != "FAIL" else "FAIL"
-                            uniform["issues"].append({"status": "REVIEW_REQUIRED", "path": "uniform/" + relative,
-                                "message": "Self-byte identity is not state validation: " + str(exc)})
+                uniform = check_uniform_directory(directory / "uniform", geometry)
                 report["uniform"][directory.name] = uniform
                 if uniform["status"] != "PASS":
                     issue(report, uniform["status"], directory.name + "/uniform: " + str(uniform["issues"]))

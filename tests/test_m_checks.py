@@ -91,6 +91,10 @@ class MChecks(unittest.TestCase):
             output = self.case / directory
             (output / "uniform/functionObjects/nested").mkdir(parents=True)
             (output / "uniform/time").write_text(fixtures.header("dictionary") + "value " + directory + ";\n")
+            # Source-derived v2512 initContinuityErrs.H AUTO_WRITE state.
+            (output / "uniform/cumulativeContErr").write_text(
+                "FoamFile {version 2.0; format ascii; class uniformDimensionedScalarField; "
+                "object cumulativeContErr;}\ndimensions [0 0 0 0 0 0 0];\nvalue 0;\n")
             (output / "uniform/functionObjects/nested/state").write_text("reader { lastTime 0; }\n")
             for name in m.REQUIRED | {"B"}:
                 value = {"T": "nonuniform List<scalar> 2(600 1000)",
@@ -142,6 +146,7 @@ class MChecks(unittest.TestCase):
         self.assertEqual(len(report["fields"]), 2)
         self.assertEqual(sum(len(fields) for fields in report["fields"].values()), 16)
         self.assertEqual(report["steps"], 4)
+        self.assertEqual(report["cells"], 2)
         self.assertEqual(report["accuracy"], "UNVERIFIED")
         self.assertAlmostEqual(report["mesh"]["total_volume_m3"], 1.08e-10)
         self.assertAlmostEqual(report["initial_metal_volume_m3"], 5.4e-11)
