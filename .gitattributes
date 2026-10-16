@@ -7,3 +7,6 @@
 /applications/solvers/aiLaserbeamFoam/** text eol=lf
 /scripts/*.py text eol=lf
 /tests/*.py text eol=lf
+/docs/research/*.md text eol=lf
+/benchmarks/**/*.json text eol=lf
+/AGENTS.md text eol=lf
