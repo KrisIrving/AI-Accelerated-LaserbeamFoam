@@ -179,6 +179,14 @@ class FeedbackTests(unittest.TestCase):
         self.assertEqual(provenance["build_commit"], "UNVERIFIED")
         self.assertEqual(provenance["provenance_status"], "PROVENANCE_PENDING")
 
+    def test_config_hash_is_independent_of_key_order(self):
+        first = json.loads(self.contents(feedback.export_feedback(self.case))["provenance.json"])
+        manifest = json.loads((self.case / "manifest.json").read_text())
+        manifest["config"] = dict(reversed(list(manifest["config"].items())))
+        (self.case / "manifest.json").write_text(json.dumps(manifest))
+        second = json.loads(self.contents(feedback.export_feedback(self.case))["provenance.json"])
+        self.assertEqual(first["config_canonical_sha256"], second["config_canonical_sha256"])
+
     def test_original_build_records_are_cross_checked(self):
         (ROOT / "validation").mkdir(exist_ok=True)
         with tempfile.TemporaryDirectory(dir=ROOT / "validation") as tmp:

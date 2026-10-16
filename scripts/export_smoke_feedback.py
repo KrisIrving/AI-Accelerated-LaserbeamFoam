@@ -134,7 +134,8 @@ def export_feedback(case, check_exit_code=None):
         config = {}
     config_summary = {k: config[k] for k in ("schema", "status", "source_commit", "cells", "steps",
                      "delta_t", "end_time", "mesh_timeout_seconds", "solver_timeout_seconds") if k in config}
-    config_digest = hashlib.sha256(json_bytes(config)).hexdigest() if config else "UNVERIFIED"
+    config_digest = hashlib.sha256(json.dumps(config, sort_keys=True, separators=(",", ":"),
+                                            ensure_ascii=False, allow_nan=False).encode("utf-8")).hexdigest() if config else "UNVERIFIED"
     provenance = {"schema": TOOL_VERSION, "source_commit": source, "build_commit": built,
         "manifest_build_commit": declared, "provenance_status": "RECORDS_MATCH" if verified else "PROVENANCE_PENDING",
         "provenance_note": "Original manifest/build summary records only; no current HEAD or environment substitution. "
