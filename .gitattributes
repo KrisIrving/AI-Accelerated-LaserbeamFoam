@@ -4,3 +4,6 @@
 /docs/validation/*.md text eol=lf
 /AI_PROJECT.md text eol=lf
 /UPSTREAM_BASELINE.md text eol=lf
+/applications/solvers/aiLaserbeamFoam/** text eol=lf
+/scripts/*.py text eol=lf
+/tests/*.py text eol=lf

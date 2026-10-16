@@ -63,12 +63,29 @@ while IFS= read -r -d '' file; do
 done < <(find src applications -type f -name log.Allwmake -print0)
 failed=0
 ((build_rc == 0)) || failed=1
-for app in laserbeamFoam laserMeltFoam compressibleLaserbeamFoam microstructureFoam setSolidFraction TesselateFoam; do
+: > "$out/binary.sha256"
+: > "$out/custom-libraries.sha256"
+for app in laserbeamFoam aiLaserbeamFoam laserMeltFoam compressibleLaserbeamFoam microstructureFoam setSolidFraction TesselateFoam; do
     if [[ -x $FOAM_USER_APPBIN/$app ]]; then
         printf 'artifact_%s=present_in_new_install\n' "$app" >> "$out/summary.txt"
+        sha256sum "$FOAM_USER_APPBIN/$app" >> "$out/binary.sha256"
         if ! ldd "$FOAM_USER_APPBIN/$app" > "$out/ldd.$app.txt" 2>&1 || grep -q 'not found' "$out/ldd.$app.txt"; then
             printf 'dependencies_%s=REVIEW_REQUIRED\n' "$app" >> "$out/summary.txt"
             failed=1
+        fi
+        awk '$2 == "=>" && $3 != "not" { print $1 "\t" $3 }' "$out/ldd.$app.txt" |
+            sort > "$out/dependencies.$app.tsv"
+        if [[ $app == laserbeamFoam || $app == aiLaserbeamFoam ]]; then
+            # LD_LIBRARY_PATH can otherwise silently select an old same-name library.
+            if ! awk -v libdir="$FOAM_USER_LIBBIN" '
+                $1 == "libMTHD.so" || $1 == "liblaserHeatSource.so" {
+                    seen++; if ($2 != libdir "/" $1) wrong=1
+                }
+                END { exit (seen != 2 || wrong) }
+            ' "$out/dependencies.$app.tsv"; then
+                printf 'project_library_origin_%s=REVIEW_REQUIRED\n' "$app" >> "$out/summary.txt"
+                failed=1
+            fi
         fi
     else
         printf 'artifact_%s=MISSING\n' "$app" >> "$out/summary.txt"
@@ -79,8 +96,16 @@ for lib in geometricVoFLMFOAM laserHeatSource MTHD laserbeamFoamFunctionObjects 
     if [[ ! -f $FOAM_USER_LIBBIN/lib$lib.so ]]; then
         printf 'library_%s=MISSING\n' "$lib" >> "$out/summary.txt"
         failed=1
+    else
+        sha256sum "$FOAM_USER_LIBBIN/lib$lib.so" >> "$out/custom-libraries.sha256"
     fi
 done
+if [[ -s $out/dependencies.laserbeamFoam.tsv && -s $out/dependencies.aiLaserbeamFoam.tsv ]]; then
+    if ! diff -u "$out/dependencies.laserbeamFoam.tsv" "$out/dependencies.aiLaserbeamFoam.tsv" > "$out/dependencies.ab.diff.txt"; then
+        echo 'AB_dynamic_dependency_origins=DIFFERENT_REVIEW_REQUIRED' >> "$out/summary.txt"
+        failed=1
+    fi
+fi
 if grep -En 'fatal error:|undefined reference to|\*\*\*.*(Error|Stop)|\*\* BUILD ERROR \*\*' "$out/build.stdout-stderr.txt" > "$out/build-error-matches.txt"; then
     failed=1
 fi

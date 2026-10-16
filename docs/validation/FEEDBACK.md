@@ -2,6 +2,8 @@
 
 请先发小文本摘要，必要时再发日志。环境审计做了路径掩码，但原始编译、OpenFOAM和GNU time日志可能含用户名、路径和主机名，请自行审阅。不要附加 `env` 全量输出、SSH配置、凭证、IP或仿真场文件。
 
+新增入口的串行 A/B 请按 [PLATE2D_AB.md](PLATE2D_AB.md) 回传两组日志及 `comparison.txt/json`，不要只发其中一个程序的成功信息。原生 `98f99de8` 通过记录见 [RESULTS.md](RESULTS.md)。
+
 复制下列格式为私有 `feedback.txt`：
 
 ```text
