@@ -2,7 +2,7 @@
 
 本项目基于 [官方 LaserbeamFoam](https://github.com/laserbeamfoam/LaserbeamFoam)，目标是在保留高保真 LPBF 模型和数值校正能力的基础上开发可复现的 AI 加速求解器。
 
-**用户已回传：两个独立求解器均编译通过；Plate2D 串行 A/B 均完成十步，263个日志事件相等，最终时刻13个关键场文件逐字节一致。全部输出与嵌套 uniform 状态的自动比较仍待完成，尚未登记整体数值等价 PASS。尚无 AI 算法。** Codex 不连接或操作工作站。
+**用户已回传 Plate2D 串行 A/B 数值等价性 PASS：3,200单元、10步、263个日志事件、30/30物理场及嵌套 uniform 均通过，Issues=0。最终比较器为 `baeb8107`；实际构建/求解 SHA 待原 manifest 与构建摘要补录。MPI、三维 LPBF、物理精度及加速性能仍未验证。尚无 AI 算法。** Codex 不连接或操作工作站。
 
 - [源码来源与版本状态](UPSTREAM_BASELINE.md)
 - [用户回传的原生验证记录](docs/validation/RESULTS.md)
@@ -22,10 +22,11 @@
 - `main`：从上游基线直接建立，保留其祖先历史；接收经过审查的集成修改。
 - `chore/bootstrap-ubuntu2512`：PR #1 已合并，已验证提交 `98f99de8` 保留在历史中。
 - `feat/ai-laserbeamfoam-solver`：从 PR #1 的 merge commit 建立，交付独立入口和串行 A/B；不堆叠在未合并 PR 上。
+- PR #2 的串行验收结果已登记；按用户要求不自动合并。待用户合并后，从更新的 `main` 创建独立 `feat/plate2d-mpi-validation`，不向 PR #2 追加 MPI 工具开发。
 - 后续 `fix/...`、`feat/...`、`experiment/...`：独立开发，经 Pull Request 合入；不会向官方上游推送。
 - 测试或编译未验证时可以提交工具和文档，但必须明确记录未验证状态；不得把静态检查改写为运行通过。
 
-当前不修改物理模型、数值方法、编译优化参数，不开发推理或性能埋点，不运行清理、DEM或长时段仿真。本轮只做串行 A/B，MPI 与 LPBF 留待此关通过后安排。
+当前不修改物理模型、数值方法或编译优化参数。串行关卡已有用户回传 PASS；下一关为4/8进程 MPI 正确性。在 PR #2 合并前先做只读审计和验证设计，MPI 工具/独立 PR 等待分支前提满足；LPBF_small、AI、性能埋点及加速研究后置。
 
 ## 私有验证数据
 
