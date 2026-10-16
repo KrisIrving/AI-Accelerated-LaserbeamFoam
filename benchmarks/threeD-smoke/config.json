@@ -1,0 +1,13 @@
+{
+  "schema": "threeD-smoke-v1",
+  "status": "PROPOSED",
+  "source": "tutorials/laserbeamFoam/fiveLasersOnSubstrate",
+  "source_commit": "3c93f2657e089e22e9a8298648292969e85a4bad",
+  "cells": [16, 8, 16],
+  "delta_t": "1e-8",
+  "steps": 10,
+  "end_time": "1e-7",
+  "mesh_timeout_seconds": 180,
+  "solver_timeout_seconds": 120,
+  "purpose": "Exploratory 3D code-path smoke test, not a converged LPBF benchmark"
+}

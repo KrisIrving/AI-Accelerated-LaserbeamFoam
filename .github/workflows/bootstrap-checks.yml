@@ -7,12 +7,14 @@ on:
       - 'tests/**'
       - '.github/workflows/bootstrap-checks.yml'
       - 'applications/solvers/aiLaserbeamFoam/**'
+      - 'benchmarks/**'
   pull_request:
     paths:
       - 'scripts/**'
       - 'tests/**'
       - '.github/workflows/bootstrap-checks.yml'
       - 'applications/solvers/aiLaserbeamFoam/**'
+      - 'benchmarks/**'
   workflow_dispatch:
 
 permissions:
@@ -45,4 +47,6 @@ jobs:
       - name: Generated Allrun preflight regression (mock utilities only)
         run: bash tests/test_plate2d_allrun.sh
       - name: ASCII comparison fixture tests (no OpenFOAM)
-        run: python3 -m unittest discover -s tests -p 'test_compare*.py'
+        run: python3 -m unittest discover -s tests -p 'test_*.py'
+      - name: Three-dimensional smoke stage guards (mock utilities only)
+        run: bash tests/test_smoke_runner.sh
