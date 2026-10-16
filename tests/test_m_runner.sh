@@ -136,7 +136,7 @@ run_case mesh
 export MOCK_SOLVER_TIMEOUT=yes
 run_case solve
 [[ $rc == 124 && $(cat "$case_dir/solver.exit.txt") == 124 ]] || fail 'timeout exit not preserved'
-[[ -s $case_dir/solver.time.txt && -f $case_dir/.solve-started ]] || fail 'timeout evidence missing'
+[[ -s $case_dir/solver.time.txt && -d $case_dir/.solve-started ]] || fail 'timeout evidence missing'
 grep -q 'resource_policy=MONITORED_ONLY' "$case_dir/execution.txt" || fail 'resource policy not explicit'
 unset MOCK_SOLVER_TIMEOUT
 run_case solve
