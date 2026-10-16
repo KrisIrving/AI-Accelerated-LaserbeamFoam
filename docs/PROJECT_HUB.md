@@ -11,7 +11,7 @@
 | 正式阶段 | 阶段1：低成本三维开发案例，CURRENT / IN_PROGRESS | [开发计划](research/DEVELOPMENT_PLAN.md) |
 | Plate2D 串行 A/B | 用户实测 PASS；仅当前短程数值等价 | [RESULTS](validation/RESULTS.md)、[EXP-000](research/EXPERIMENT_LOG.md) |
 | 三维 S | 用户实测 SMOKE_CHECKS_PASSED；归档COMPLETE、源/构建记录RECORDS_MATCH；未观察到熔化；仍为 PROPOSED 探针 | [EXP-001及ADD-01](research/EXPERIMENT_LOG.md)、[首次实测说明](validation/THREED_SMOKE_FIRST_RUN.md) |
-| M | 候选待成本测量及负责人批准，未建立正式参考 | [基准设计](research/BENCHMARK_DESIGN.md)、[DEC-004](research/DECISION_LOG.md) |
+| M探索 | DEC-006授权M1/M2/M3三级配置及工具开发；待用户首次实测，正式M仍未批准/未建立参考 | [分级操作说明](validation/THREED_M_EXPLORATION.md)、[DEC-006](research/DECISION_LOG.md) |
 | 论文物理验证 V | 候选研究，PROPOSED；没有新增强制阶段或已实现案例 | [文献与实验候选库](research/LITERATURE_VALIDATION_CANDIDATES.md) |
 | AI 模块 | NOT_STARTED；尚未选择或实现 | [开发计划](research/DEVELOPMENT_PLAN.md) |
 | MPI 固定验证矩阵 | 已撤销为强制开发门槛；保留定向验证及已知风险 | [DEC-002](research/DECISION_LOG.md)、[MPI 风险](research/MPI_RISKS.md) |
@@ -20,19 +20,20 @@
 
 已完成的重要里程碑：独立 aiLaserbeamFoam 源码与编译入口；用户回传 v2512 双求解器编译及 Plate2D 串行短程 A/B PASS；正式研究治理文件；S 工具及文献候选库；用户回传 S 三维基础运行及自动归档验收。S归档核验来自用户提供的ChatGPT检查结果，Codex未取得原包，不能宣称直接核验。
 
-当前执行：阶段1的 S 证据补录收尾与 M 候选审核准备，阶段1整体尚未完成。S 为五激光三维平基板衍生探针：2048 单元、10 步至 1e-7 s，无 DEM 或离散粉末；不是稳态熔池预测。
+当前执行：阶段1的三级M探索工具交付与M1实测准备，阶段1整体尚未完成。S证据已收尾，仍作为2048单元/10步五激光平基板调试探针保留，不是稳态熔池预测。
 
-下一个可执行任务：负责人审核[M探索提案](research/M_CASE_NEXT_PROPOSAL.md)中32000单元/100步的参数、输出、资源上限及检查清单；明确授权后再生成独立探索配置与必要工具支持，真实CFD仍由用户显式执行。无需重跑S或再次导出已验收归档；不据此批准正式M。`SMOKE_CHECKS_PASSED` 不表示物理精度通过。
+下一个可执行任务：用户按[M执行说明](validation/THREED_M_EXPLORATION.md)，一次隔离构建后优先M1（32000单元/1000步），先mesh检查再单独solve，最后显式离线报告及打包；100/500步由同次运行写出，不重复短跑。M2（同网格3000步）和M3（256000单元1000步）仅在M1证据/成本预检通过、有明确目的时由用户分别启动。无需再批准工具开发，但正式M基准仍待实测与明确批准；不自动启动CFD、进入阶段2或开发AI。
 
 当前待补证据与批准事项：
 
 - S 用户提供的ChatGPT核验结果：23个归档文件/22条内部哈希、清单通过；源/构建完整SHA均为7c094679016a2458282c9fcb261d7d55983496bb。solver=0.35 s、最大RSS=127488 KiB，已记录流程范围1.919696505 s；归档标识和SHA256见EXP-001-ADD-01。RECORDS_MATCH不等于重验实际二进制和动态库，工具87061fe9不等于原运行版本。物理/性能证据缺口仍保留。
 - Plate2D-ab-002 的实际构建/求解 SHA 待原 manifest 和构建摘要补录；不能用离线比较器提交替代。
-- M 正式选型被实测成本及负责人批准所阻塞；V 选择/实施仍待批准。不得自动提升候选为正式基准或改变阶段顺序。
+- M1/M2/M3真实数值状态、熔化/界面活动、耗时/RSS/数据量及热点仍UNVERIFIED；工具合成CI不替代实机。墙钟护栏1800/2700/3600秒，8 GiB RSS/3 GiB数据仅MONITORED_ONLY；不得承诺运行时强制内存/磁盘上限。
+- M正式选型仍待实测成本及负责人批准；V选择/实施仍待批准。DEC-006只批准三级探索工具范围，不自动批准其余候选或改变阶段顺序。
 
 ## GitHub 状态与版本追溯
 
-截至上述核对日期：[PR #3](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/pull/3) 为 **OPEN / DRAFT / 未合并**，分支为 `feat/research-plan-smoke-benchmark`。本入口随该分支维护；合并前不代表 `main` 已包含这些资料。[PR #2](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/pull/2) 已合并。
+截至上述核对日期：[PR #3](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/pull/3) 已由负责人手动合并，合并提交5e08097d420af3cfb746eda8ec1833da1d068395已核验属于main历史；PR #2亦已合并。本轮从最新main新建`feat/threeD-progressive-m-exploration`，通过新的Draft PR交付，不继续使用已合并PR #3分支，不自动合并。
 
 | 关键提交 | 含义与边界 |
 | --- | --- |
@@ -42,6 +43,7 @@
 | [ba94bf88](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/commit/ba94bf8854d1b7a42ff4481237937d34d55d5e31) | 受控路线与 S 探针工具；没有真实三维运行结论 |
 | [7c094679](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/commit/7c094679016a2458282c9fcb261d7d55983496bb) | S原始运行/构建记录匹配的版本；亦含S说明与文献候选 |
 | [87061fe9](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/commit/87061fe9a83a51e3bf9c6ad3058979715b06658e) | 自动反馈工具核对版本；本次实机归档已验收，不是原始运行SHA |
+| [5e08097d](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/commit/5e08097d420af3cfb746eda8ec1833da1d068395) | PR #3合并到main；本轮三级M开发起点 |
 
 当前分支后续提交以 PR 提交列表为准；上表仅列关键既有节点，不作为构建匹配记录。CI 的语法、合成夹具和 Markdown 通过不等于 OpenFOAM 编译、实测或物理验证。
 
@@ -58,7 +60,8 @@
 | [BENCHMARK_DESIGN.md](research/BENCHMARK_DESIGN.md) | S/M 候选定义、预算与比较设计 |
 | [MPI_RISKS.md](research/MPI_RISKS.md) | 已知并行风险与定向验证依据 |
 | [LITERATURE_VALIDATION_CANDIDATES.md](research/LITERATURE_VALIDATION_CANDIDATES.md) | 非受控文献/实验数据候选、V1/V2 提案及缺失输入 |
-| [M_CASE_NEXT_PROPOSAL.md](research/M_CASE_NEXT_PROPOSAL.md) | S实测后的非受控M探索建议，PROPOSED、待批准 |
+| [M_CASE_NEXT_PROPOSAL.md](research/M_CASE_NEXT_PROPOSAL.md) | S实测后的历史提案与研究依据；100步建议不再是当前入口 |
+| [THREED_M_EXPLORATION.md](validation/THREED_M_EXPLORATION.md) | DEC-006三级M探索配置、一次构建与M1/条件M2/M3执行和反馈 |
 | [THREED_SMOKE_FIRST_RUN.md](validation/THREED_SMOKE_FIRST_RUN.md) | S 分阶段 Ubuntu 命令和最小反馈 |
 | [RESULTS.md](validation/RESULTS.md) | 用户回传的编译、运行、串行数值基线及局限 |
 | [PLATE2D_AB.md](validation/PLATE2D_AB.md) | 原生场、边界、日志和 uniform 的 A/B 比较方法 |

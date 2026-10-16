@@ -50,3 +50,5 @@ jobs:
         run: python3 -m unittest discover -s tests -p 'test_*.py'
       - name: Three-dimensional smoke stage guards (mock utilities only)
         run: bash tests/test_smoke_runner.sh
+      - name: Progressive M stage guards (mock utilities only)
+        run: bash tests/test_m_runner.sh
