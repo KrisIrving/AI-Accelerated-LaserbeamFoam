@@ -91,7 +91,7 @@ class MChecks(unittest.TestCase):
             output = self.case / directory
             (output / "uniform/functionObjects/nested").mkdir(parents=True)
             (output / "uniform/time").write_text(fixtures.header("dictionary") + "value " + directory + ";\n")
-            (output / "uniform/functionObjects/nested/state").write_text("unparsed identical opaque state\n")
+            (output / "uniform/functionObjects/nested/state").write_text("reader { lastTime 0; }\n")
             for name in m.REQUIRED | {"B"}:
                 value = {"T": "nonuniform List<scalar> 2(600 1000)",
                     "alpha.metal": "nonuniform List<scalar> 2(1 0)",
@@ -232,6 +232,17 @@ class MChecks(unittest.TestCase):
     def test_missing_uniform_fails(self):
         shutil.rmtree(self.case / "2e-8/uniform")
         self.assert_status("FAIL")
+
+    def test_opaque_uniform_self_identity_requires_review(self):
+        path = self.case / "2e-8/uniform/functionObjects/nested/state"
+        path.write_text("unparsed identical opaque state\n")
+        report = self.assert_status("REVIEW_REQUIRED")
+        self.assertTrue(any("Self-byte identity" in item["message"] for item in report["issues"]))
+
+    def test_unknown_declared_uniform_class_is_not_headerless_dictionary(self):
+        path = self.case / "2e-8/uniform/functionObjects/nested/state"
+        path.write_text(fixtures.header("unrecognizedStateClass") + "value 0;\n")
+        self.assert_status("REVIEW_REQUIRED")
 
     def test_changed_inputs_fail(self):
         (self.case / "0/T").write_text(field("T", "uniform 350"))

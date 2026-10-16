@@ -512,6 +512,24 @@ def check(case, mesh_only=False):
                 if not (directory / "uniform").is_dir():
                     raise native.ComparisonFailure("missing uniform runtime-state directory")
                 uniform = native.compare_uniform_directory(directory / "uniform", directory / "uniform", 1e-12, 1e-10, geometry)
+                # Unlike A/B comparison, a file is trivially byte-identical to
+                # itself. Require parsing instead of treating that as evidence.
+                # OpenFOAM function-state dictionaries may omit FoamFile headers.
+                for relative, compared in uniform["files"].items():
+                    if compared.get("method") == "BYTE_IDENTICAL":
+                        try:
+                            state_text = native.read_ascii(directory / "uniform" / relative)
+                            if re.search(r"\bFoamFile\s*\{", state_text):
+                                raise native.ReviewRequired(compared.get("reason", "unsupported declared state class"))
+                            parser = native.Parser(state_text)
+                            state = parser.dictionary()
+                            native.compare_tree(state, state, 1e-12, 1e-10, "uniform/" + relative)
+                            compared.update(method="NUMERICAL_SEMANTIC_HEADERLESS", dictionary_compared=True)
+                        except (native.ReviewRequired, OSError, ValueError, IndexError, TypeError) as exc:
+                            compared.update(status="REVIEW_REQUIRED", method="UNSUPPORTED", reason=str(exc))
+                            uniform["status"] = "REVIEW_REQUIRED" if uniform["status"] != "FAIL" else "FAIL"
+                            uniform["issues"].append({"status": "REVIEW_REQUIRED", "path": "uniform/" + relative,
+                                "message": "Self-byte identity is not state validation: " + str(exc)})
                 report["uniform"][directory.name] = uniform
                 if uniform["status"] != "PASS":
                     issue(report, uniform["status"], directory.name + "/uniform: " + str(uniform["issues"]))
