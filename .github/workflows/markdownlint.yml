@@ -20,5 +20,30 @@ jobs:
         uses: DavidAnson/markdownlint-cli2-action@v18.0.0
         with:
           config: '.github/.markdownlint-cli2.jsonc'
-          globs: "AGENTS.md,AI_PROJECT.md,UPSTREAM_BASELINE.md,docs/validation/**/*.md,docs/research/**/*.md"
+          globs: "AGENTS.md,AI_PROJECT.md,UPSTREAM_BASELINE.md,docs/PROJECT_HUB.md,docs/validation/**/*.md,docs/research/**/*.md"
           separator: ','
+
+      - name: Check project navigation targets
+        run: |
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+          from urllib.parse import unquote, urlsplit
+
+          root = Path.cwd().resolve()
+          checked = 0
+          errors = []
+          for name in ("AGENTS.md", "AI_PROJECT.md", "docs/PROJECT_HUB.md"):
+              source = root / name
+              for destination in re.findall(r"\[[^\]]+\]\(([^\s)]+)\)", source.read_text(encoding="utf-8")):
+                  link = urlsplit(destination)
+                  if link.scheme or link.netloc or not link.path:
+                      continue
+                  target = (source.parent / unquote(link.path)).resolve()
+                  if not target.is_relative_to(root) or not target.is_file():
+                      errors.append(f"{name}: invalid navigation target: {destination}")
+                  checked += 1
+          if errors:
+              raise SystemExit("\n".join(errors))
+          print(f"Navigation targets verified: {checked}")
+          PY

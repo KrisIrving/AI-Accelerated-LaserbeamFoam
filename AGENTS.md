@@ -1,8 +1,10 @@
 # Project execution rules
 
-Before a new development task, read `docs/research/RESEARCH_CHARTER.md`,
-`docs/research/DEVELOPMENT_PLAN.md`, and relevant entries in
-`docs/research/DECISION_LOG.md`. State which approved stage authorizes the task.
+Before a new task, read this file, [PROJECT_HUB](docs/PROJECT_HUB.md),
+`docs/research/RESEARCH_CHARTER.md`, `docs/research/DEVELOPMENT_PLAN.md`, and
+relevant entries in `docs/research/DECISION_LOG.md`, then task-specific sources
+and detailed docs. State which approved stage or explicit owner instruction
+authorizes the task. The hub is a navigation summary, not plan or raw evidence.
 Also follow the existing `.agents/skills/laserbeamfoam/SKILL.md` conventions.
 
 - Approved goals, stage priorities, acceptance thresholds and benchmark
@@ -23,6 +25,11 @@ Also follow the existing `.agents/skills/laserbeamfoam/SKILL.md` conventions.
   are authorized in the current implementation round.
 - Use new run directories; keep raw data and private paths in ignored runs/ and
   validation/. CI/mock success is not OpenFOAM execution or physical validation.
+- Check PROJECT_HUB at new PRs, major feature completion, registered workstation
+  results, approved decisions, benchmark validation and confirmed/resolved key
+  bugs. Update material status changes with evidence in the corresponding PR;
+  do not create a documentation commit for every chat. Check navigation links
+  when adding or moving docs. This does not authorize controlled plan changes.
 - Read the charted change process before treating a new chat suggestion as a
   plan amendment. The charter and Git history are the lasting authority;
   AGENTS.md only assists execution.

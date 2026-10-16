@@ -4,6 +4,7 @@
 
 **用户已回传 Plate2D 串行 A/B 数值等价性 PASS：3,200单元、10步、263个日志事件、30/30物理场及嵌套 uniform 均通过，Issues=0。最终比较器为 `baeb8107`；实际构建/求解 SHA 待原 manifest 与构建摘要补录。MPI、三维 LPBF、物理精度及加速性能仍未验证。尚无 AI 算法。** Codex 不连接或操作工作站。
 
+- [项目资料入口：当前状态、下一步、证据与完整导航](docs/PROJECT_HUB.md)
 - [源码来源与版本状态](UPSTREAM_BASELINE.md)
 - [用户回传的原生验证记录](docs/validation/RESULTS.md)
 - [独立 aiLaserbeamFoam 与 Plate2D A/B 验证](docs/validation/PLATE2D_AB.md)
@@ -35,7 +36,7 @@
 
 当前正式路线（负责人2026-10-16明确批准）：阶段0串行基线COMPLETED；阶段1低成本三维开发案例CURRENT；阶段2真实剖析、阶段3一个AI模块、阶段4代表性粉末床PLANNED。取消固定MPI矩阵与MPI前置门槛，保留定向并行验证和既有风险记录。不修改物理模型/优化等级，本轮不开发AI或埋点。S三维探针和M/粉末具体选型仍为PROPOSED，未测预算UNVERIFIED。
 
-正式目标/路线/精度/基准变更须负责人显式批准并追加DECISION_LOG；聊天建议不自动改计划。开始开发前读取根AGENTS.md和研究章程/计划，不能依赖会话记忆。
+正式目标/路线/精度/基准变更须负责人显式批准并追加DECISION_LOG；聊天建议不自动改计划。新任务先读取根AGENTS.md、PROJECT_HUB和研究章程/计划，再读相关源码及详细文档，不能依赖会话记忆。
 
 ## 私有验证数据
 
