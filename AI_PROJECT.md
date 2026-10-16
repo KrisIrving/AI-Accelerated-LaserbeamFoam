@@ -37,13 +37,13 @@
 - 后续 `fix/...`、`feat/...`、`experiment/...`：独立开发，经 Pull Request 合入；不会向官方上游推送。
 - 测试或编译未验证时可以提交工具和文档，但必须明确记录未验证状态；不得把静态检查改写为运行通过。
 
-当前正式路线（负责人2026-10-16明确批准）：阶段0串行基线COMPLETED；阶段1低成本三维开发案例CURRENT；阶段2真实剖析、阶段3一个AI模块、阶段4代表性粉末床PLANNED。取消固定MPI矩阵与MPI前置门槛，保留定向并行验证和既有风险记录。不修改物理模型/优化等级，本轮不开发AI或埋点。S仅为已实测探针；M1/M2/M3探索开发按DEC-006获准，正式M/粉末选型未批准。M1实测结果和离线格式阻塞见EXP-002，M2/M3仍UNVERIFIED。
+当前正式路线（负责人2026-10-16明确批准）：阶段0串行基线COMPLETED；阶段1低成本三维开发案例CURRENT；阶段2真实剖析、阶段3一个AI模块、阶段4代表性粉末床PLANNED。取消固定MPI矩阵与MPI前置门槛，保留定向并行验证和既有风险记录。不修改物理模型/优化等级，本轮不开发AI或埋点。S仅为已实测探针；M1/M2/M3探索开发按DEC-006获准，正式M/粉末选型未批准。M1实测及修复后复核PASS见EXP-002/ADD-01，M2/M3仍UNVERIFIED。
 
 正式目标/路线/精度/基准变更须负责人显式批准并追加DECISION_LOG；聊天建议不自动改计划。新任务先读取根AGENTS.md、PROJECT_HUB和研究章程/计划，再读相关源码及详细文档，不能依赖会话记忆。
 
 阶段1用户实测：threeD-smoke-002 的三维基础检查 SMOKE_CHECKS_PASSED，2048单元、10步；用户提供的ChatGPT归档核验结果补齐源/构建SHA为7c094679016a2458282c9fcb261d7d55983496bb，归档COMPLETE、记录RECORDS_MATCH。Codex未取得原包；记录匹配不等于重验二进制/动态依赖。未观察到熔化，物理精度与热点剖析未建立。来源及界限见[EXP-001和ADD-01](docs/research/EXPERIMENT_LOG.md)，不据此批准M或完成阶段1。
 
-M1已真实完成32000单元/1000步，观察到熔化；solver墙钟214.50秒、最大RSS240452 KiB。Codex直接核验用户提供诊断包的哈希/报告，未取得原始场；原检查因uniformDimensionedScalarField不支持而REVIEW_REQUIRED。新严格解析需用户复用原结果离线复核，不重编译/重跑M1。通过后优先条件性M3（256000单元1000步）空间敏感性，M2暂缓；均不自动执行。见[EXP-002](docs/research/EXPERIMENT_LOG.md)及[复核指令](docs/validation/M1_RECHECK_M3_PREFLIGHT.md)。正式M、物理精度、网格收敛及热点未建立。
+M1已真实完成32000单元/1000步，观察到熔化；solver墙钟214.50秒、最大RSS240452 KiB。2026-10-17补录用户提供的ChatGPT核验：工具b5e429b1复核10时刻/190场及10个uniform/cumulativeContErr全部PASS，约96.63秒。新包非Codex直接核验，不含原场或前后SHA快照，不能独立认证原场复核期间未变；原运行/构建仍1d32b6fd，原REVIEW历史保留。下一步用户准备并分阶段运行M3（256000单元1000步）空间敏感性，M2暂缓。见[EXP-002及ADD-01](docs/research/EXPERIMENT_LOG.md)及[M3指令](docs/validation/M1_RECHECK_M3_PREFLIGHT.md)。阶段1未完成，正式M、物理精度、网格收敛及热点未建立。
 
 ## 私有验证数据
 
