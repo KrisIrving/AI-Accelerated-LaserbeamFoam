@@ -106,7 +106,7 @@ fi
 
 solve后：smoke.txt/json、solver.exit.txt、time.laserbeamFoam.txt、time.workflow.mesh/solve.txt、preparation.time.txt；如日志/字段不支持或异常，再给log.laserbeamFoam及具体错误路径。输入/构建/工具SHA按manifest原记录，公开回传先脱敏；完整manifest有私有路径，不直接上传GitHub。
 
-**SMOKE_CHECKS_PASSED只代表本探针的运行/基本数值检查；不代表物理精度、稳态熔池、网格收敛、MPI或AI效果。** 本轮已按用户实测摘要登记[EXP-001](../research/EXPERIMENT_LOG.md)，原始归档未交给Codex，完整SHA待补；未据此批准M。
+**SMOKE_CHECKS_PASSED只代表本探针的运行/基本数值检查；不代表物理精度、稳态熔池、网格收敛、MPI或AI效果。** 用户提供的ChatGPT核验结果已补录[EXP-001-ADD-01](../research/EXPERIMENT_LOG.md)：002归档及原运行/构建记录匹配，自动反馈通过一次真实Ubuntu验收；Codex未取得原包。无需重复002求解或打包，未据此批准M。本页以下命令保留作今后独立离线导出的说明。
 
 ## 复用现有002：一次离线检查并导出反馈
 

@@ -10,7 +10,7 @@
 | --- | --- | --- |
 | 正式阶段 | 阶段1：低成本三维开发案例，CURRENT / IN_PROGRESS | [开发计划](research/DEVELOPMENT_PLAN.md) |
 | Plate2D 串行 A/B | 用户实测 PASS；仅当前短程数值等价 | [RESULTS](validation/RESULTS.md)、[EXP-000](research/EXPERIMENT_LOG.md) |
-| 三维 S | 用户实测 SMOKE_CHECKS_PASSED；未观察到熔化；溯源待补；仍为 PROPOSED 探针 | [EXP-001](research/EXPERIMENT_LOG.md)、[首次实测说明](validation/THREED_SMOKE_FIRST_RUN.md) |
+| 三维 S | 用户实测 SMOKE_CHECKS_PASSED；归档COMPLETE、源/构建记录RECORDS_MATCH；未观察到熔化；仍为 PROPOSED 探针 | [EXP-001及ADD-01](research/EXPERIMENT_LOG.md)、[首次实测说明](validation/THREED_SMOKE_FIRST_RUN.md) |
 | M | 候选待成本测量及负责人批准，未建立正式参考 | [基准设计](research/BENCHMARK_DESIGN.md)、[DEC-004](research/DECISION_LOG.md) |
 | 论文物理验证 V | 候选研究，PROPOSED；没有新增强制阶段或已实现案例 | [文献与实验候选库](research/LITERATURE_VALIDATION_CANDIDATES.md) |
 | AI 模块 | NOT_STARTED；尚未选择或实现 | [开发计划](research/DEVELOPMENT_PLAN.md) |
@@ -18,15 +18,15 @@
 
 ## 已完成、正在执行与下一步
 
-已完成的重要里程碑：独立 aiLaserbeamFoam 源码与编译入口；用户回传 v2512 双求解器编译及 Plate2D 串行短程 A/B PASS；正式研究治理文件；S 工具及文献候选库；用户回传 S 三维基础运行通过。S 依据本轮用户实测摘要，Codex未取得原始归档，不能宣称逐行核验。
+已完成的重要里程碑：独立 aiLaserbeamFoam 源码与编译入口；用户回传 v2512 双求解器编译及 Plate2D 串行短程 A/B PASS；正式研究治理文件；S 工具及文献候选库；用户回传 S 三维基础运行及自动归档验收。S归档核验来自用户提供的ChatGPT检查结果，Codex未取得原包，不能宣称直接核验。
 
-当前执行：阶段1的 S 实测登记、显式离线反馈打包与 M 候选审核准备。S 为五激光三维平基板衍生探针：2048 单元、10 步至 1e-7 s，无 DEM 或离散粉末；不是稳态熔池预测。
+当前执行：阶段1的 S 证据补录收尾与 M 候选审核准备，阶段1整体尚未完成。S 为五激光三维平基板衍生探针：2048 单元、10 步至 1e-7 s，无 DEM 或离散粉末；不是稳态熔池预测。
 
-下一个可执行任务：由用户按[反馈导出说明](validation/THREED_SMOKE_FIRST_RUN.md)，复用 threeD-smoke-002 结果显式离线检查并生成脱敏反馈包，补录原始manifest/build summary中的运行和构建SHA；不重编译、不重跑CFD。随后审核[M探索提案](research/M_CASE_NEXT_PROPOSAL.md)，未批准前不实施。`SMOKE_CHECKS_PASSED` 不表示物理精度通过。
+下一个可执行任务：负责人审核[M探索提案](research/M_CASE_NEXT_PROPOSAL.md)中32000单元/100步的参数、输出、资源上限及检查清单；明确授权后再生成独立探索配置与必要工具支持，真实CFD仍由用户显式执行。无需重跑S或再次导出已验收归档；不据此批准正式M。`SMOKE_CHECKS_PASSED` 不表示物理精度通过。
 
 当前待补证据与批准事项：
 
-- S 用户报告：19场/173事件、solver=0.35 s、最大RSS=127488 KiB；准备主体加两workflow约1.9197 s，在该记录范围内达到约2分钟预算。T最高330.293 K、金属液相率0；无熔化、无热点排名。原始归档与完整SHA尚待核验，PROVENANCE_PENDING。
+- S 用户提供的ChatGPT核验结果：23个归档文件/22条内部哈希、清单通过；源/构建完整SHA均为7c094679016a2458282c9fcb261d7d55983496bb。solver=0.35 s、最大RSS=127488 KiB，已记录流程范围1.919696505 s；归档标识和SHA256见EXP-001-ADD-01。RECORDS_MATCH不等于重验实际二进制和动态库，工具87061fe9不等于原运行版本。物理/性能证据缺口仍保留。
 - Plate2D-ab-002 的实际构建/求解 SHA 待原 manifest 和构建摘要补录；不能用离线比较器提交替代。
 - M 正式选型被实测成本及负责人批准所阻塞；V 选择/实施仍待批准。不得自动提升候选为正式基准或改变阶段顺序。
 
@@ -40,7 +40,8 @@
 | [baeb8107](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/commit/baeb810719a6f24693672d266905da2ef1587c9c) | 用户完成串行 A/B 验证所用离线比较器；不是实际求解 SHA |
 | [532ed068](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/commit/532ed0683890ea4e7b368d0fec7ea668d6e6afa8) | PR #2 合并，独立求解器及串行回归基础 |
 | [ba94bf88](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/commit/ba94bf8854d1b7a42ff4481237937d34d55d5e31) | 受控路线与 S 探针工具；没有真实三维运行结论 |
-| [7c094679](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/commit/7c094679016a2458282c9fcb261d7d55983496bb) | S 反馈工具/说明及 PROPOSED 文献验证候选 |
+| [7c094679](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/commit/7c094679016a2458282c9fcb261d7d55983496bb) | S原始运行/构建记录匹配的版本；亦含S说明与文献候选 |
+| [87061fe9](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/commit/87061fe9a83a51e3bf9c6ad3058979715b06658e) | 自动反馈工具核对版本；本次实机归档已验收，不是原始运行SHA |
 
 当前分支后续提交以 PR 提交列表为准；上表仅列关键既有节点，不作为构建匹配记录。CI 的语法、合成夹具和 Markdown 通过不等于 OpenFOAM 编译、实测或物理验证。
 
@@ -70,7 +71,7 @@
 
 ## 仍然 UNVERIFIED 的结论
 
-- S 完整溯源与原始报告独立核验、多次反射/困难非线性路径覆盖，以及 M 成本和参考；本次S未观察到熔化，不把路径调用当作目标物理出现。
+- S全部实际二进制/动态依赖的独立重验、多次反射/困难非线性路径覆盖，以及M成本和参考；源/构建记录已补齐，但不外推这些未验证结论。本次S未观察到熔化。
 - 网格/时间收敛、物理精度、实验一致性、MPI 正确性与三维代表性 LPBF 能力。
 - 性能瓶颈、AI 净收益、端到端数倍加速及训练成本摊销。
 - 外部实验的完整输入、可追溯材料参数、数据版本与再发布权限；逐项状态以候选库为准。

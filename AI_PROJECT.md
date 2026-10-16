@@ -38,7 +38,7 @@
 
 正式目标/路线/精度/基准变更须负责人显式批准并追加DECISION_LOG；聊天建议不自动改计划。新任务先读取根AGENTS.md、PROJECT_HUB和研究章程/计划，再读相关源码及详细文档，不能依赖会话记忆。
 
-阶段1新增用户实测摘要：threeD-smoke-002 的三维基础检查 SMOKE_CHECKS_PASSED，2048单元、10步；未观察到熔化，物理精度与热点剖析未建立，完整运行/构建SHA仍待补录。来源及局限见[EXP-001](docs/research/EXPERIMENT_LOG.md)，不据此批准M或完成阶段1。
+阶段1用户实测：threeD-smoke-002 的三维基础检查 SMOKE_CHECKS_PASSED，2048单元、10步；用户提供的ChatGPT归档核验结果补齐源/构建SHA为7c094679016a2458282c9fcb261d7d55983496bb，归档COMPLETE、记录RECORDS_MATCH。Codex未取得原包；记录匹配不等于重验二进制/动态依赖。未观察到熔化，物理精度与热点剖析未建立。来源及界限见[EXP-001和ADD-01](docs/research/EXPERIMENT_LOG.md)，不据此批准M或完成阶段1。
 
 ## 私有验证数据
 
