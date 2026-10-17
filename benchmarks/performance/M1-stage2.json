@@ -1,0 +1,70 @@
+{
+  "id": "M1_NATIVE_PERFORMANCE_V1",
+  "status": "APPROVED_FIXED_PERFORMANCE_WORKLOAD",
+  "decision": "DEC-011",
+  "physical_reference": "UNVERIFIED",
+  "grid_convergence_reference": "UNVERIFIED",
+  "profile": "benchmarks/threeD-exploration/M1.json",
+  "legacy_profile_sha256": "444a268ffc0ba3a42ca3649b32277e95ba9234e8c83e6842a0150750b0f6e14d",
+  "native_source_ref": "21f3c578b24ab2a3426aef00fa01fd6aec380ded",
+  "native_git_objects": {
+    "src": "711ac074d22461cc72e715d4e2a704ae545df3af",
+    "applications": "6f9bac7ef814a1e202239c86a48d024e1c25d954",
+    "Allwmake": "7928602c808ae452e59e5c17ae217a47941d4975"
+  },
+  "baseline_runs": 3,
+  "conditional_sampling_runs_max": 1,
+  "solver": "laserbeamFoam",
+  "cells": [
+    40,
+    20,
+    40
+  ],
+  "steps": 1000,
+  "delta_t_s": "1e-8",
+  "end_time_s": "1e-5",
+  "write_interval_steps": 100,
+  "mpi_ranks": 1,
+  "numeric_threads": 1,
+  "cpu_affinity": [
+    0
+  ],
+  "solver_timeout_seconds": 1800,
+  "batch_budget_seconds": 1800,
+  "max_rss_kib_warning": 8388608,
+  "max_new_data_bytes_warning": 3221225472,
+  "memory_data_policy": "MONITORED_ONLY",
+  "stability_gate": {
+    "solver_cv_max": 0.05,
+    "solver_range_over_median_max": 0.1,
+    "role": "sampling eligibility only; never relaxes numerical checks"
+  },
+  "input_sha256": {
+    "constant/LaserProperties": "46257c413304deb08e601f4585d67a4a33e5a42d1f666a52baa444f2858aec18",
+    "constant/g": "5a7ebc9ea548bd1c1bc1328888a229a535ace6aa5a09ef749645efb751cbc366",
+    "constant/timeVsLaserPosition0": "1f3e5b2d16eb4d17d429777cbf3f0cbcd553a36df3ffc3595cfcc09fb15a856b",
+    "constant/timeVsLaserPosition1": "4a31a66d44b7036652fa9fc25b8452869ce294819280f1322edb1d5bdf514aea",
+    "constant/timeVsLaserPosition2": "535627a3af6c0d29bddda28e39aa89aa3ad080bdb8aab0d37b58ddb2bb14d810",
+    "constant/timeVsLaserPosition3": "7e301697ffa5ddc901bc7e39a118b08e368611d561c9893fdef7d23240208217",
+    "constant/timeVsLaserPosition4": "84df68e5d597d234cabc77bdb294e651cf46b5ed86b6892a2ffd563c70145149",
+    "constant/timeVsLaserPower0": "93f2091c1499aba1cbbe8454697a62a16085f8bebf8ff436e14ef63372b012bc",
+    "constant/timeVsLaserPower1": "93f2091c1499aba1cbbe8454697a62a16085f8bebf8ff436e14ef63372b012bc",
+    "constant/timeVsLaserPower2": "93f2091c1499aba1cbbe8454697a62a16085f8bebf8ff436e14ef63372b012bc",
+    "constant/timeVsLaserPower3": "93f2091c1499aba1cbbe8454697a62a16085f8bebf8ff436e14ef63372b012bc",
+    "constant/timeVsLaserPower4": "93f2091c1499aba1cbbe8454697a62a16085f8bebf8ff436e14ef63372b012bc",
+    "constant/transportProperties": "f5ce7aa1481e3c7652b24c16e07667e50c8daaa535b5c2c788f7e9f68b03db47",
+    "constant/turbulenceProperties": "0baab4aa39e68fe04a21a5768b3c32bf1d4179f1f84b44067f9d8558f1132081",
+    "initial/Laser_boundary": "de8605986a8dfc1f027753f657ae69c09d2a5dfa529a14c00e7e5009708dc301",
+    "initial/T": "5512b73c789cfca475adb9c6bfc6e0f47e8093d99073bcd794b5f252e3490e63",
+    "initial/U": "53459cbec8f5f53bad5d5170820ae9238fb0ab883a351e5e73732881edbd9c13",
+    "initial/alpha.metal": "7a41306d317d68e3fe479a0fe5f8adc27b66705252f70c4c064f74c8cdac3da7",
+    "initial/p_rgh": "7ee371e13effc3c2bb01eba46dff4e54dfc20926ed7e9489495d6d3ec72d6596",
+    "system/blockMeshDict": "7b1f92711dbdd69e2abfd188093399a108502bcef0591e7ed587b49086c15dd9",
+    "system/controlDict": "8dfd63b337c8be18f9d082e9017334530e5ef8f052e69e8e32fbc60de2f89c8a",
+    "system/decomposeParDict": "a997334d25e0ea293c69ee4e261c52be9efa6aa175be8763055bbb031074dadb",
+    "system/fvSchemes": "bc9603132c27e48553db8f1bfc23b73bcaee89cda185843a175b8bc6db19e70c",
+    "system/fvSolution": "b4e2690ad8abfc920e259318f7aff974639b3c104a9c913c4c85613e58f101f9",
+    "system/setFieldsDict": "bfab15e74e8aa5fe3845b5506e0447088d08bc72fb9c6e99f0116972fe7b23d5"
+  },
+  "freezing_rule": "One isolated current-HEAD build for entire batch; actual binary/library/dependency and native mesh/initial hashes captured before first solve and required identical for subsequent solves. Immutable inputs match approved original M1 hashes."
+}

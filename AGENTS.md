@@ -20,9 +20,11 @@ Also follow the existing `.agents/skills/laserbeamfoam/SKILL.md` conventions.
 - The current stage is low-cost 3D case development. MPI matrices are not gates
   to AI research. Validate MPI when an actual change or workload requires it;
   retain known communication/ray-transfer risks.
-- Preserve upstream solvers, libraries and tutorials. No AI, physics changes,
-  DEM, full powder runs, workstation access, system changes or automatic cleanup
-  are authorized in the current implementation round.
+- Preserve upstream solvers, libraries and tutorials. DEC-011 explicitly
+  authorizes local Ubuntu execution of three fresh native M1 performance runs
+  and at most one conditional external sampling run within its guards.
+  No AI, physics changes, DEM, full powder runs, system changes or automatic
+  cleanup are authorized; earlier experiments and raw data remain protected.
 - Use new run directories; keep raw data and private paths in ignored runs/ and
   validation/. CI/mock success is not OpenFOAM execution or physical validation.
 - Check PROJECT_HUB at new PRs, major feature completion, registered workstation
