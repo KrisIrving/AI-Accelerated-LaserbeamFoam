@@ -47,7 +47,7 @@
 
 M1已真实完成32000单元/1000步，观察到熔化；solver墙钟214.50秒、最大RSS240452 KiB。2026-10-17补录用户提供的ChatGPT核验：工具b5e429b1复核10时刻/190场及10个uniform/cumulativeContErr全部PASS，约96.63秒。新包非Codex直接核验，不含原场或前后SHA快照，不能独立认证原场复核期间未变；原运行/构建仍1d32b6fd，原REVIEW历史保留。见[EXP-002及ADD-01](docs/research/EXPERIMENT_LOG.md)。阶段1未完成，正式M、物理精度、网格收敛及热点未建立。
 
-最新M3已由用户实测完成并检查PASS：原生源/构建8f60695a，256000单元/1000步/10 μs，solver2872.64秒；数据及核验来自用户提供的ChatGPT结果，Codex未收到新包/原场。早期熔化/温度与M1差异显著，用户回传原场比较已确认初始面105/97.5 μm及早期沉积错层，消费源读取窗口哈希稳定，详见EXP-003-ADD-01。当前按DEC-007开发[单次M1-IC受控探索](docs/validation/M1_IC_CONTROLLED_EXPERIMENT.md)，实际运行UNVERIFIED；不重跑M1/M3，不运行M2。[短程新候选](docs/research/SHORT_GEOMETRY_DIAGNOSTIC_PROPOSAL.md)仅PROPOSED，无配置或执行；阶段1及原有物理/收敛/热点限制保持，详见EXP-003。
+最新M3已由用户实测完成并检查PASS：原生源/构建8f60695a，256000单元/1000步/10 μs，solver2872.64秒；原登记来自用户提供的ChatGPT结果，详见EXP-003-ADD-01。2026-10-17本轮在另一个本机既有工作区实际找到M1/M3/M1-IC原场及三方报告，直接核验旧诊断包，保留早期沉积错层和IC未复现M3的结论；未重新完成原场数值审计。按DEC-008直接完成一次新S的真实本机自动化，详见[EXP-004实证](docs/validation/LOCAL_CODEX_CFD_AUTOMATION_20261017.md)。[静态审查及下一项只读验证建议](docs/research/ALPHA_DEPOSITION_STATIC_REVIEW.md)聚焦alpha过滤、0.5门槛及沉积资格，本轮未追加CFD；不重跑M1/M3/IC、不运行M2。[短程新候选](docs/research/SHORT_GEOMETRY_DIAGNOSTIC_PROPOSAL.md)仍PROPOSED；阶段1及物理/收敛/热点限制保持。
 
 ## 私有验证数据
 

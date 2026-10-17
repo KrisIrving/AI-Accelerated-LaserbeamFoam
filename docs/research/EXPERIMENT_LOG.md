@@ -180,3 +180,15 @@ solver耗时比13.392，超过8倍单元增幅；按单元步数归一仍约1.67
 - M3峰值约4.11倍、有效支撑体积约24%；M3沉积层映射到粗90–105 μm单元，M1沉积层在105–120 μm单元。用户按积分及体积加权L1计算1/2/3 μs正沉积空间重叠约0（数值精度内）。这是粗共同支撑上的空间诊断，非连续介质亚单元交集证明。
 - 结论：INITIAL_INTERFACE_DISCRETIZATION_DIFFERS与EARLY_DEPOSITION_LAYER_MISMATCH有原场证据。总功率相同不等于局部能量输入相同；几何、热源分配与分辨率耦合。不能宣称初始界面独立解释全部早期温差或存在求解器Bug；PHYSICAL_ACCURACY_UNVERIFIED、GRID_CONVERGENCE_NOT_ESTABLISHED、HOTSPOT_NOT_ESTABLISHED、AI_NOT_STARTED。
 - 后续仅按新增DEC-007交付独立[M1-IC受控探索](../validation/M1_IC_CONTROLLED_EXPERIMENT.md)。新实验尚未初始化或运行，结果UNVERIFIED；不预填其起熔时刻/温度/沉积/耗时，不覆盖M1/M3原场或报告，阶段1仍IN_PROGRESS。
+
+## EXP-004 — Codex Ubuntu 本机自主 S smoke 验证
+
+- 日期：2026-10-17（Asia/Shanghai）；阶段1、DEC-008明确授权。Codex直接执行本机终端及真实OpenFOAM，LOCAL_CODEX_CFD_AUTOMATION_VERIFIED；既有实验历史不覆盖。详情见[实证报告](../validation/LOCAL_CODEX_CFD_AUTOMATION_20261017.md)及[脱敏指标/哈希JSON](../validation/local-codex-S-20261017-summary.json)。
+- 运行/构建/工具SHA：07496d15d1eebcb99f618d148a54af3729210669；批准时PR #4远端HEAD=a5f53b9158871f363a669c16a2a1a631103674b9。Ubuntu22.04.5、OpenFOAM.com v2512、linux64GccDPInt32Opt、GCC11.4.0；新隔离构建通过，二进制/库哈希及实际依赖来源守卫通过。原生源码、库、教程、脚本及S/M配置未改。
+- 新案例local-codex-S-20261017-001：原版laserbeamFoam，2048单元，固定dt1e-8 s、10步至1e-7 s；rank1/数值库线程1并限制单逻辑CPU亲和。solver超时120 s、唯一一次尝试，未重试/续算/启动其他CFD。
+- blockMesh/checkMesh/setFields/solver均退出0；Mesh OK，3有效方向，1280初始金属单元；SMOKE_CHECKS_PASSED，19场、173日志事件，issues=[]。最终显式离线检查与归档成功；既有S的cumulativeContErr字节自比较回退另用已有M严格语义解析器补查，有限value=8.641891144171712e-10、无量纲，PASS；未改标准。
+- GNU墙钟/RSS：隔离构建185.44 s/1230492 KiB（8作业，最大进程值不等于并发内存总量）；solver0.36 s/126568 KiB；准备主体+mesh/solve wrapper范围1.875943304 s；最终离线检查/导出另计0.61 s/20736 KiB。范围不含构建、Git、阶段间等待和准备Python启动，不重复加总嵌套阶段。原始输入/网格/初终场57文件1163232 bytes，采集时案例合计1276402 bytes。
+- 反馈包threeD-smoke-feedback.20261017T121903Z.5a055feb3a9143e998ab753f13b1f3fa.tar.gz；SHA256=78573716e1c99ff20fe3320bd8454c61eea5f4db2e0bd3c1fb729f749ec0c58c，11240 bytes。EXPORTED/COMPLETE/RECORDED_SCOPE/RECORDS_MATCH；本轮直接核对23文件/22内部哈希及FILES通过，missing_required=[]、omitted={}。包与原始场/日志/私有路径均只留本地。
+- 最终金属最高T330.293282 K，液相率0，MELTING_NOT_OBSERVED；正沉积、五激光、VOF、温度/压力路径有日志依据。PHYSICAL_ACCURACY_UNVERIFIED、GRID_CONVERGENCE_NOT_ESTABLISHED、HOTSPOT_NOT_ESTABLISHED、AI_NOT_STARTED。
+- 旧原始数据实际在另一既有本机工作区存在（M1/M3/M1-IC），RAW_DATA_PRESENT。本轮只清点文件并核验已有诊断包，不宣称重新完成原场数值审计。既有IC报告在1/3 μs最高金属T1113.62/1957.76 K，M3为2274.19/4086.86 K，保留“初态干预未复现M3”；详情及旧归档哈希见[静态审查](ALPHA_DEPOSITION_STATIC_REVIEW.md)。
+- 后续建议仅为PROPOSED：利用已有原场做只读0.5阈值资格/法向/沉积层审计，先单时刻、零新增CFD；未自动执行。DEC-008是本次执行模式授权，不变更阶段路线、正式M、物理或验收。PR #4保留Draft，不合并。

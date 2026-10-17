@@ -10,8 +10,8 @@
 | --- | --- | --- |
 | 正式阶段 | 阶段1：低成本三维开发案例，CURRENT / IN_PROGRESS | [开发计划](research/DEVELOPMENT_PLAN.md) |
 | Plate2D 串行 A/B | 用户实测 PASS；仅当前短程数值等价 | [RESULTS](validation/RESULTS.md)、[EXP-000](research/EXPERIMENT_LOG.md) |
-| 三维 S | 用户实测 SMOKE_CHECKS_PASSED；归档COMPLETE、源/构建记录RECORDS_MATCH；未观察到熔化；仍为 PROPOSED 探针 | [EXP-001及ADD-01](research/EXPERIMENT_LOG.md)、[首次实测说明](validation/THREED_SMOKE_FIRST_RUN.md) |
-| M探索 | M1/M3基础运行及离线检查用户实测PASS，均观察熔化；早期空间敏感性显著，原场诊断已确认初始几何差异与早期沉积错层；单次M1-IC工具按DEC-007获批，实机UNVERIFIED。M2暂缓，正式M未批准 | [EXP-002/003](research/EXPERIMENT_LOG.md)、[跨网格离线比较](validation/M1_M3_SPATIAL_COMPARISON.md)、[DEC-006](research/DECISION_LOG.md) |
+| 三维 S | 新一次Codex本机真实执行通过：LOCAL_CODEX_CFD_AUTOMATION_VERIFIED，19场检查及23文件归档核验通过；未观察到熔化，仍为PROPOSED探针；旧S历史保留 | [EXP-004](research/EXPERIMENT_LOG.md)、[本机实证](validation/LOCAL_CODEX_CFD_AUTOMATION_20261017.md) |
+| M探索 | M1/M3早期沉积错层结论保留；本机找到M1/M3/M1-IC原场及既有三方报告，IC未复现M3早期响应；本轮核验旧诊断包，未重做原场数值审计。M2暂缓，正式M未批准 | [EXP-002/003/004](research/EXPERIMENT_LOG.md)、[静态审查与历史衔接](research/ALPHA_DEPOSITION_STATIC_REVIEW.md) |
 | 论文物理验证 V | 候选研究，PROPOSED；没有新增强制阶段或已实现案例 | [文献与实验候选库](research/LITERATURE_VALIDATION_CANDIDATES.md) |
 | AI 模块 | NOT_STARTED；尚未选择或实现 | [开发计划](research/DEVELOPMENT_PLAN.md) |
 | MPI 固定验证矩阵 | 已撤销为强制开发门槛；保留定向验证及已知风险 | [DEC-002](research/DECISION_LOG.md)、[MPI 风险](research/MPI_RISKS.md) |
@@ -20,17 +20,18 @@
 
 已完成的重要里程碑：独立 aiLaserbeamFoam 源码与编译入口；用户回传 v2512 双求解器编译及 Plate2D 串行短程 A/B PASS；正式研究治理文件；S 工具及文献候选库；用户回传 S 三维基础运行及自动归档验收。S归档核验来自用户提供的ChatGPT检查结果，Codex未取得原包，不能宣称直接核验。
 
-当前执行：阶段1独立M1-IC受控探索工具开发与实机准备，见[DEC-007](research/DECISION_LOG.md)。M1/M3原场空间比较已由用户回传COMPARISON_COMPLETED；源数据与归档核验是用户提供的ChatGPT结果，Codex未取得该包/原场。S仍为2048单元/10步探针；阶段1整体尚未完成。
+当前完成：按[DEC-008](research/DECISION_LOG.md)，Codex在Ubuntu直接完成一次全新2048单元/10步S的隔离构建→mesh→solve→检查→归档，[本机实证](validation/LOCAL_CODEX_CFD_AUTOMATION_20261017.md)记录完整SHA与成本。另一个既有工作区实际存在M1/M3/M1-IC原场和诊断报告；本轮直接核验旧诊断包，不重跑CFD或冒充全套原场重审。阶段1整体尚未完成。
 
-下一个可执行任务：按[M1-IC说明](validation/M1_IC_CONTROLLED_EXPERIMENT.md)，先新HEAD隔离构建、读取现有M1/M3生成限制参考，随后用户单独执行mesh并审阅受控alpha初始化，才启动唯一一次32000单元/300步/3 μs求解。之后全场离线检查/归档和三方1/2/3 μs比较。仅新案例alpha干预，原M1/M3只读；不自动重跑/续算/扩大规模。108000单元候选仍PROPOSED，M2暂缓，正式M未批准；不进入阶段2或开发AI。
+下一项建议（PROPOSED）：利用现有原场只读审计alpha在0.5附近的浮点值、过滤/法向资格及早期沉积支撑，先一个时刻、零新增CFD，详见[科学验证设计](research/ALPHA_DEPOSITION_STATIC_REVIEW.md)。不再次启动已完成的M1-IC；108000单元候选仍PROPOSED，M2暂缓，正式M未批准；不进入阶段2或开发AI。
 
 当前待补证据与批准事项：
 
 - S 用户提供的ChatGPT核验结果：23个归档文件/22条内部哈希、清单通过；源/构建完整SHA均为7c094679016a2458282c9fcb261d7d55983496bb。solver=0.35 s、最大RSS=127488 KiB，已记录流程范围1.919696505 s；归档标识和SHA256见EXP-001-ADD-01。RECORDS_MATCH不等于重验实际二进制和动态库，工具87061fe9不等于原运行版本。物理/性能证据缺口仍保留。
+- 新S本机实证EXP-004：源/构建07496d15d1eebcb99f618d148a54af3729210669，solver0.36 s/126568 KiB，准备及mesh/solve范围1.875943304 s，构建另计185.44 s，最终离线检查/导出0.61 s；二进制/动态库来源守卫通过，归档COMPLETE。原始数据本地保留，仅公开脱敏摘要及哈希；不替代旧S运行记录或物理验证。
 - Plate2D-ab-002 的实际构建/求解 SHA 待原 manifest 和构建摘要补录；不能用离线比较器提交替代。
 - M1实测32000单元、1000步/10 μs，solver退出0，190场检查记录、29491日志事件；3 μs采样首次熔化，7 μs采样超过配置Tvap。原solver214.50 s、RSS240452 KiB、约121.05 MB数据与322.623874 s流程范围保持原记录。工具b5e429b1复核10时刻/190场和10个cumulativeContErr均PASS，离线约96.63 s；原95.90 s/REVIEW记录保留，来源及新包哈希见EXP-002-ADD-01。
 - M3源/构建8f60695a，256000单元/1000步，190场及10时刻uniform通过；solver2872.64 s、RSS1104420 KiB、工作流范围3983.762 s、显式离线724.874 s、数据902667461字节。原生与后处理范围不混加。M3温度/起熔时序与M1差异显著，终点熔化区y有4层；不证明收敛或物理准确性。
-- 用户回传原场比较：105/97.5 μm二值初始面及7.02e-11/7.29e-11 m³体积已由原生alpha确认，1/2/3 μs早期沉积在共同粗格上重叠约0，1 μs总功率均755.601608 W但细格源峰值约4.11倍。10时刻、原生8→1映射及消费文件读取窗口前后SHA通过，离线154.70 s，见EXP-003-ADD-01及归档哈希。不能独立解释全部温差。M1-IC尚未实测；其分数alpha不证明精确VOF重构面。M2未运行。RSS/数据仍MONITORED_ONLY，多次反射/显著界面运动/热点/实验准确性未建立。
+- 用户回传原场比较：105/97.5 μm二值初始面及7.02e-11/7.29e-11 m³体积已由原生alpha确认，1/2/3 μs早期沉积在共同粗格上重叠约0，1 μs总功率均755.601608 W但细格源峰值约4.11倍。10时刻、原生8→1映射及消费文件读取窗口前后SHA通过，离线154.70 s，见EXP-003-ADD-01。本轮核验本地旧包与该哈希一致。既有IC报告3 μs最高金属T1957.76 K，M3为4086.86 K，初态干预未复现M3；其分数alpha不证明精确VOF重构面或独立解释全部温差。本轮未重审原场。M2未运行，多次反射/显著界面运动/热点/实验准确性未建立。
 - M正式选型仍待实测成本及负责人批准；V选择/实施仍待批准。DEC-006批准三级探索，DEC-007仅增加单次M1-IC受控配置/工具，不自动批准其余候选或改变阶段顺序。
 
 ## GitHub 状态与版本追溯
@@ -73,6 +74,8 @@
 | [M1_M3_SPATIAL_COMPARISON.md](validation/M1_M3_SPATIAL_COMPARISON.md) | 已有原场只读比较、8→1坐标/体积映射、指标定义、JSON/CSV与反馈命令 |
 | [SHORT_GEOMETRY_DIAGNOSTIC_PROPOSAL.md](research/SHORT_GEOMETRY_DIAGNOSTIC_PROPOSAL.md) | 108000单元/300步诊断的PROPOSED科学设计与成本，不是已批准配置 |
 | [THREED_SMOKE_FIRST_RUN.md](validation/THREED_SMOKE_FIRST_RUN.md) | S 分阶段 Ubuntu 命令和最小反馈 |
+| [LOCAL_CODEX_CFD_AUTOMATION_20261017.md](validation/LOCAL_CODEX_CFD_AUTOMATION_20261017.md) | DEC-008授权的新S真实本机自动化、资源、归档与哈希 |
+| [ALPHA_DEPOSITION_STATIC_REVIEW.md](research/ALPHA_DEPOSITION_STATIC_REVIEW.md) | 旧原场/报告实际存在、IC结论、过滤与射线门槛静态审查和最低成本后续建议 |
 | [RESULTS.md](validation/RESULTS.md) | 用户回传的编译、运行、串行数值基线及局限 |
 | [PLATE2D_AB.md](validation/PLATE2D_AB.md) | 原生场、边界、日志和 uniform 的 A/B 比较方法 |
 | [FEEDBACK.md](validation/FEEDBACK.md) | 实机反馈格式与日志管理 |
@@ -84,7 +87,7 @@
 
 ## 仍然 UNVERIFIED 的结论
 
-- S/M全部实际二进制/动态依赖的独立重验、真实多次反射及困难路径覆盖；S未观察到熔化，M1/M3已观察熔化并完成基础离线检查，已有跨网格结果及读取窗口哈希证据（用户回传），仍不证明原场全部历史未变。M1-IC实际初始化/求解/三方比较、M2成本和正式参考未建立。
+- 历史S/M全部实际二进制/动态依赖的独立重验、真实多次反射及困难路径覆盖；新S有本轮直接执行与依赖守卫证据。M1/M3及IC既有报告不证明原场全部历史未变，本轮没有重做原场数值审计；M2成本和正式参考未建立。
 - 网格/时间收敛、物理精度、实验一致性、MPI 正确性与三维代表性 LPBF 能力。
 - 性能瓶颈、AI 净收益、端到端数倍加速及训练成本摊销。
 - 外部实验的完整输入、可追溯材料参数、数据版本与再发布权限；逐项状态以候选库为准。
