@@ -35,11 +35,11 @@
 - `chore/bootstrap-ubuntu2512`：PR #1 已合并，已验证提交 `98f99de8` 保留在历史中。
 - `feat/ai-laserbeamfoam-solver`：从 PR #1 的 merge commit 建立，交付独立入口和串行 A/B；不堆叠在未合并 PR 上。
 - PR #2 已由用户合并（`532ed068`）；随后从更新的main建立 `feat/research-plan-smoke-benchmark`，交付PR #3。
-- PR #3 已由负责人合并（`5e08097d`）；新的 `feat/threeD-progressive-m-exploration` 从最新main开发DEC-006授权的M1/M2/M3探索，通过[Draft PR #4](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/pull/4)交付，不自动合并。原研究顺序与正式M待批准状态不变。
+- PR #3 已由负责人合并（`5e08097d`）；新的 `feat/threeD-progressive-m-exploration` 从最新main开发DEC-006授权的M探索，通过[Draft PR #4](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/pull/4)交付，不自动合并。后续DEC-011批准原M1固定性能用途和限定阶段2，保留物理/网格参考缺口，原阶段顺序不变。
 - 后续 `fix/...`、`feat/...`、`experiment/...`：独立开发，经 Pull Request 合入；不会向官方上游推送。
 - 测试或编译未验证时可以提交工具和文档，但必须明确记录未验证状态；不得把静态检查改写为运行通过。
 
-当前正式路线（负责人2026-10-16明确批准）：阶段0串行基线COMPLETED；阶段1低成本三维开发案例CURRENT；阶段2真实剖析、阶段3一个AI模块、阶段4代表性粉末床PLANNED。取消固定MPI矩阵与MPI前置门槛，保留定向并行验证和既有风险记录。不修改物理模型/优化等级，本轮不开发AI或埋点。S仅为已实测探针；M1/M2/M3探索开发按DEC-006获准，正式M/粉末选型未批准。M1/M3实测见EXP-002/003，M2仍UNVERIFIED。
+当前正式路线：阶段0串行基线COMPLETED；2026-10-17按DEC-011将原M1确定为固定性能开发负载，阶段2限定执行三次新原版基线及条件外部采样；物理准确性/网格参考仍UNVERIFIED。阶段3 AI及阶段4代表性粉末床未授权执行。取消固定MPI矩阵前置门槛、保留定向验证；不改物理/优化等级或自动开发AI/埋点。S只作探针，M2/M3不在本批，旧实验历史保留。
 
 正式目标/路线/精度/基准变更须负责人显式批准并追加DECISION_LOG；聊天建议不自动改计划。新任务先读取根AGENTS.md、PROJECT_HUB和研究章程/计划，再读相关源码及详细文档，不能依赖会话记忆。
 
@@ -52,6 +52,8 @@ M1已真实完成32000单元/1000步，观察到熔化；solver墙钟214.50秒�
 随后DEC-009/EXP-005直接完成[1 μs光学阈值原场审计](docs/validation/OPTICAL_THRESHOLD_AUDIT_20261017.md)：THRESHOLD_HYPOTHESIS_SUPPORTED。IC半填充层1600单元的保存alpha_filtered均比0.5低约1.28–1.44e-15，有rayQ支撑但无沉积，内部重建法向约0.99999998；64项前后SHA一致，48.41 s/458.85 MiB，零新增CFD。这升级了限定时刻/字段的证据，不是全场历史审计、实时逐射线事件或全部温差唯一因果证明。下一项仅建议只读抽样回查限制权重与光学门槛的不交换性，尚未执行。
 
 DEC-010/EXP-006已完成[最后一次限制诊断](docs/validation/RESTRICTION_FINAL_DIAGNOSIS_20261017.md)，五父/40子、7.57 s/159.20 MiB，21项SHA一致，保存值逐位复现；最后求和/除法未造成门槛跨越，精确算术也存在不交换性。THRESHOLD_EXPLORATION_CLOSED。此后仅提交[正式M候选与阶段2剖析方案](docs/research/M_SELECTION_STAGE2_PROPOSAL.md)，优先提请批准原M1为固定性能开发负载，物理参考用途未验证；方案PROPOSED，未运行新的模拟/剖析或开发AI。
+
+DEC-011/EXP-007随后直接完成[阶段2原M1三次独立基线](docs/validation/STAGE2_M1_PERFORMANCE_20261017.md)：同一隔离构建、25项输入/10个网格初态文件冻结，190场三例逐字节一致，solver205.96/206.52/204.95 s，CV0.3866%，批次15分49秒。全部原检查及归档通过。perf被paranoid=4拒绝，条件第四例未运行，采样开销未测、内部模块排名和AI候选不选定；阶段2热点证据未完成。物理/网格准确性未验证，不自动开发AI或启动M2/M3。
 
 ## 私有验证数据
 

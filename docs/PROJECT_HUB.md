@@ -8,10 +8,10 @@
 
 | 项目 | 当前状态 | 依据 |
 | --- | --- | --- |
-| 正式阶段 | 阶段1：低成本三维开发案例，CURRENT / IN_PROGRESS | [开发计划](research/DEVELOPMENT_PLAN.md) |
+| 正式阶段 | 阶段2 CURRENT：三次固定原M1基线通过，条件调用栈采样权限BLOCKED；热点证据未完成 | [EXP-007](research/EXPERIMENT_LOG.md)、[阶段2实测](validation/STAGE2_M1_PERFORMANCE_20261017.md) |
 | Plate2D 串行 A/B | 用户实测 PASS；仅当前短程数值等价 | [RESULTS](validation/RESULTS.md)、[EXP-000](research/EXPERIMENT_LOG.md) |
 | 三维 S | 新一次Codex本机真实执行通过：LOCAL_CODEX_CFD_AUTOMATION_VERIFIED，19场检查及23文件归档核验通过；未观察到熔化，仍为PROPOSED探针；旧S历史保留 | [EXP-004](research/EXPERIMENT_LOG.md)、[本机实证](validation/LOCAL_CODEX_CFD_AUTOMATION_20261017.md) |
-| M探索 | M1/M3早期沉积错层、IC未复现M3结论保留；1 μs定向原场审计THRESHOLD_HYPOTHESIS_SUPPORTED：IC半填充层全低于0.5，rayQ有支撑但无沉积，内部法向重建通过。M2暂缓，正式M未批准 | [EXP-005](research/EXPERIMENT_LOG.md)、[直接原场审计](validation/OPTICAL_THRESHOLD_AUDIT_20261017.md) |
+| M负载与历史探索 | 原M1已批准固定性能开发用途；物理准确性/网格收敛参考未批准。早期沉积错层、IC阈值证据保留，阈值探索结束；M2/M3不在本批执行范围 | [DEC-011](research/DECISION_LOG.md)、[EXP-005/006](research/EXPERIMENT_LOG.md) |
 | 论文物理验证 V | 候选研究，PROPOSED；没有新增强制阶段或已实现案例 | [文献与实验候选库](research/LITERATURE_VALIDATION_CANDIDATES.md) |
 | AI 模块 | NOT_STARTED；尚未选择或实现 | [开发计划](research/DEVELOPMENT_PLAN.md) |
 | MPI 固定验证矩阵 | 已撤销为强制开发门槛；保留定向验证及已知风险 | [DEC-002](research/DECISION_LOG.md)、[MPI 风险](research/MPI_RISKS.md) |
@@ -26,7 +26,7 @@
 
 阈值问题已结束：DEC-010/EXP-006最后一次五父/40子只读诊断7.57 s/159.20 MiB、21项SHA一致，限制结果逐位复现。精确保存坐标/体积下仍略低于0.5，最后fsum/除法没有造成跨越；即使理想精确等体积，限制与二值光学资格仍不交换。THRESHOLD_EXPLORATION_CLOSED，见[最后诊断](validation/RESTRICTION_FINAL_DIAGNOSIS_20261017.md)，不继续阈值实验链。
 
-下一项转向[正式M候选选择与阶段2提案](research/M_SELECTION_STAGE2_PROPOSAL.md)：优先提请批准原M1作为固定性能开发负载，保留物理/网格证据缺口；三次无埋点基线及一次原版外部采样仅为PROPOSED，未运行。正式M及阶段2执行仍待明确批准；108000单元/M2不在本次范围，不重复IC或smoke，不自动模拟、剖析、埋点或开发AI。
+当前实测EXP-007：按DEC-011完成三个新目录原M1，190场/10时刻/uniform全部通过，190个物理输出场三例逐字节一致；solver205.96/206.52/204.95 s，中位205.96 s、CV0.3866%，批次15分49秒。25项准备输入及10个原生网格/初态文件冻结且匹配原M1；[阶段2报告](validation/STAGE2_M1_PERFORMANCE_20261017.md)记录完整资源/I/O/检查成本。perf实际探测被paranoid=4拒绝，第四例未执行；采样开销未测，内部模块份额/首个AI候选不选定，不宣称阶段2全部完成。原[提案](research/M_SELECTION_STAGE2_PROPOSAL.md)保留历史，不自动进入AI、M2/M3、IC或smoke。
 
 当前待补证据与批准事项：
 
@@ -36,7 +36,7 @@
 - M1实测32000单元、1000步/10 μs，solver退出0，190场检查记录、29491日志事件；3 μs采样首次熔化，7 μs采样超过配置Tvap。原solver214.50 s、RSS240452 KiB、约121.05 MB数据与322.623874 s流程范围保持原记录。工具b5e429b1复核10时刻/190场和10个cumulativeContErr均PASS，离线约96.63 s；原95.90 s/REVIEW记录保留，来源及新包哈希见EXP-002-ADD-01。
 - M3源/构建8f60695a，256000单元/1000步，190场及10时刻uniform通过；solver2872.64 s、RSS1104420 KiB、工作流范围3983.762 s、显式离线724.874 s、数据902667461字节。原生与后处理范围不混加。M3温度/起熔时序与M1差异显著，终点熔化区y有4层；不证明收敛或物理准确性。
 - 用户回传原场比较：105/97.5 μm二值初始面及7.02e-11/7.29e-11 m³体积已由原生alpha确认，1/2/3 μs早期沉积在共同粗格上重叠约0，1 μs总功率均755.601608 W但细格源峰值约4.11倍。10时刻、原生8→1映射及消费文件读取窗口前后SHA通过，离线154.70 s，见EXP-003-ADD-01。EXP-004核验本地旧包与该哈希一致；EXP-005另直接审计1 μs的限定光学字段，不是全时刻重审。既有IC报告3 μs最高金属T1957.76 K，M3为4086.86 K，初态干预未复现M3；分数alpha不证明精确VOF重构面或独立解释全部温差。M2未运行，多次反射/显著界面运动/热点/实验准确性未建立。
-- M正式选型仍待实测成本及负责人批准；V选择/实施仍待批准。DEC-006批准三级探索，DEC-007仅增加单次M1-IC受控配置/工具，不自动批准其余候选或改变阶段顺序。
+- DEC-011已正式批准原M1固定性能开发用途，EXP-007完成三次成本/重复性测量；物理准确性/网格参考及V选择/实施仍未批准。DEC-006/007历史范围保留，不自动批准其余候选、AI或阶段3。
 
 ## GitHub 状态与版本追溯
 
@@ -82,7 +82,8 @@
 | [ALPHA_DEPOSITION_STATIC_REVIEW.md](research/ALPHA_DEPOSITION_STATIC_REVIEW.md) | 旧原场/报告实际存在、IC结论、过滤与射线门槛静态审查和最低成本后续建议 |
 | [OPTICAL_THRESHOLD_AUDIT_20261017.md](validation/OPTICAL_THRESHOLD_AUDIT_20261017.md) | 1 μs三组原场阈值审计、半填充层数值、内部法向重建、JSON/CSV和证据边界 |
 | [RESTRICTION_FINAL_DIAGNOSIS_20261017.md](validation/RESTRICTION_FINAL_DIAGNOSIS_20261017.md) | 最后一次五父/40子体积与精确算术诊断，阈值探索结束 |
-| [M_SELECTION_STAGE2_PROPOSAL.md](research/M_SELECTION_STAGE2_PROPOSAL.md) | 正式M性能开发候选与阶段2最小测量提案，未批准执行 |
+| [M_SELECTION_STAGE2_PROPOSAL.md](research/M_SELECTION_STAGE2_PROPOSAL.md) | 阶段2历史提案；后续DEC-011批准范围与原始方案边界 |
+| [STAGE2_M1_PERFORMANCE_20261017.md](validation/STAGE2_M1_PERFORMANCE_20261017.md) | 三次原M1基线、冻结、资源/I/O/检查成本、重复性与采样阻塞，AI未选定 |
 | [RESULTS.md](validation/RESULTS.md) | 用户回传的编译、运行、串行数值基线及局限 |
 | [PLATE2D_AB.md](validation/PLATE2D_AB.md) | 原生场、边界、日志和 uniform 的 A/B 比较方法 |
 | [FEEDBACK.md](validation/FEEDBACK.md) | 实机反馈格式与日志管理 |
