@@ -1,0 +1,323 @@
+{
+  "status": "THRESHOLD_HYPOTHESIS_SUPPORTED",
+  "hypothesis": "IC half layer is below inclusive alpha_filtered>=0.5 optical gate at saved 1us state",
+  "time_s": 1e-06,
+  "tool_commit": "ba6f73f6af56dc16e0f34b24984166a88fb61b83",
+  "cases": {
+    "M1": {
+      "run_commit": "1d32b6fda86d730b8e18b1d9f50e1752fffa5416",
+      "cells": 32000,
+      "dep_cutoffs": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "saved_n_filtered_present": false,
+      "mesh": "VERIFIED_CARTESIAN_HEXAHEDRA",
+      "gradient_scheme": "Gauss linear",
+      "deltaN_m_inverse": 0.0006666666666666663,
+      "normal_boundary_cells_excluded": 6008,
+      "positive_deposition_W": 755.6016078368726,
+      "peak_deposition_W_m3": 2202245158729651.5,
+      "deposition_y_centroid_um": 112.5,
+      "positive_deposition_cells": 346,
+      "positive_deposition_below_cutoff_cells": 0,
+      "positive_deposition_without_positive_rayQ": 0,
+      "positive_deposition_interior_normal_gt_half": 346,
+      "initial_half_layer_cells": 0,
+      "filter_internal_rule_max_abs_error": 0.0,
+      "vtk": [
+        {
+          "laser": 0,
+          "points": 0,
+          "lines": 0
+        },
+        {
+          "laser": 1,
+          "points": 0,
+          "lines": 0
+        },
+        {
+          "laser": 2,
+          "points": 0,
+          "lines": 0
+        },
+        {
+          "laser": 3,
+          "points": 0,
+          "lines": 0
+        },
+        {
+          "laser": 4,
+          "points": 0,
+          "lines": 0
+        }
+      ],
+      "runtime_sources": {
+        "applications/solvers/laserbeamFoam/laserbeamFoam.C": {
+          "runtime_sha256": "ebbb6768fb47c5940d7253c7285a9fc5a34095d7100d49a5db0cd701977e9110",
+          "matches_audited_checkout": true
+        },
+        "applications/solvers/laserbeamFoam/updateProps.H": {
+          "runtime_sha256": "c8f260a46675cca76729aaff0b168f55e617d11cc8ccbdf47a17ff4f024c2d8b",
+          "matches_audited_checkout": true
+        },
+        "applications/solvers/laserbeamFoam/createFields.H": {
+          "runtime_sha256": "69a36578b1f99b468c4d34aff0529e751d591bd8c3b25f9afb2d041e8c8f7ea6",
+          "matches_audited_checkout": true
+        },
+        "applications/solvers/laserbeamFoam/pEqn.H": {
+          "runtime_sha256": "f09dbd0b7fd6ae8bf55fca80a561c19ee7745ac21191f8ee3203eb40ecc4ffca",
+          "matches_audited_checkout": true
+        },
+        "src/laserHeatSource/laserHeatSource.C": {
+          "runtime_sha256": "e30cc5709cf67d774f3aee48418d0162ac0aef048add9c72cc2caf745de65f43",
+          "matches_audited_checkout": true
+        },
+        "src/laserHeatSource/laserRayParticle.C": {
+          "runtime_sha256": "b69ff4b4a0e4fc41e1c0cd8529880d046b9409aa944b092c4f84125c151bf83a",
+          "matches_audited_checkout": true
+        }
+      }
+    },
+    "M1-IC": {
+      "run_commit": "a5f53b9158871f363a669c16a2a1a631103674b9",
+      "cells": 32000,
+      "dep_cutoffs": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "saved_n_filtered_present": false,
+      "mesh": "VERIFIED_CARTESIAN_HEXAHEDRA",
+      "gradient_scheme": "Gauss linear",
+      "deltaN_m_inverse": 0.0006666666666666663,
+      "normal_boundary_cells_excluded": 6008,
+      "positive_deposition_W": 755.6016078368726,
+      "peak_deposition_W_m3": 2202245158729651.5,
+      "deposition_y_centroid_um": 112.5,
+      "positive_deposition_cells": 346,
+      "positive_deposition_below_cutoff_cells": 0,
+      "positive_deposition_without_positive_rayQ": 0,
+      "positive_deposition_interior_normal_gt_half": 346,
+      "initial_half_layer_cells": 1600,
+      "filter_internal_rule_max_abs_error": 0.0,
+      "vtk": [
+        {
+          "laser": 0,
+          "points": 0,
+          "lines": 0
+        },
+        {
+          "laser": 1,
+          "points": 0,
+          "lines": 0
+        },
+        {
+          "laser": 2,
+          "points": 0,
+          "lines": 0
+        },
+        {
+          "laser": 3,
+          "points": 0,
+          "lines": 0
+        },
+        {
+          "laser": 4,
+          "points": 0,
+          "lines": 0
+        }
+      ],
+      "runtime_sources": {
+        "applications/solvers/laserbeamFoam/laserbeamFoam.C": {
+          "runtime_sha256": "ebbb6768fb47c5940d7253c7285a9fc5a34095d7100d49a5db0cd701977e9110",
+          "matches_audited_checkout": true
+        },
+        "applications/solvers/laserbeamFoam/updateProps.H": {
+          "runtime_sha256": "c8f260a46675cca76729aaff0b168f55e617d11cc8ccbdf47a17ff4f024c2d8b",
+          "matches_audited_checkout": true
+        },
+        "applications/solvers/laserbeamFoam/createFields.H": {
+          "runtime_sha256": "69a36578b1f99b468c4d34aff0529e751d591bd8c3b25f9afb2d041e8c8f7ea6",
+          "matches_audited_checkout": true
+        },
+        "applications/solvers/laserbeamFoam/pEqn.H": {
+          "runtime_sha256": "f09dbd0b7fd6ae8bf55fca80a561c19ee7745ac21191f8ee3203eb40ecc4ffca",
+          "matches_audited_checkout": true
+        },
+        "src/laserHeatSource/laserHeatSource.C": {
+          "runtime_sha256": "e30cc5709cf67d774f3aee48418d0162ac0aef048add9c72cc2caf745de65f43",
+          "matches_audited_checkout": true
+        },
+        "src/laserHeatSource/laserRayParticle.C": {
+          "runtime_sha256": "b69ff4b4a0e4fc41e1c0cd8529880d046b9409aa944b092c4f84125c151bf83a",
+          "matches_audited_checkout": true
+        }
+      }
+    },
+    "M3": {
+      "run_commit": "8f60695ac39dd7c5ce096ad5781528c229f08ce3",
+      "cells": 256000,
+      "dep_cutoffs": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "saved_n_filtered_present": false,
+      "mesh": "VERIFIED_CARTESIAN_HEXAHEDRA",
+      "gradient_scheme": "Gauss linear",
+      "deltaN_m_inverse": 0.0013333333333333326,
+      "normal_boundary_cells_excluded": 24808,
+      "positive_deposition_W": 755.6016078368696,
+      "peak_deposition_W_m3": 9060463501997016.0,
+      "deposition_y_centroid_um": 101.25000000000001,
+      "positive_deposition_cells": 556,
+      "positive_deposition_below_cutoff_cells": 0,
+      "positive_deposition_without_positive_rayQ": 0,
+      "positive_deposition_interior_normal_gt_half": 556,
+      "initial_half_layer_cells": 0,
+      "filter_internal_rule_max_abs_error": 0.0,
+      "vtk": [
+        {
+          "laser": 0,
+          "points": 0,
+          "lines": 0
+        },
+        {
+          "laser": 1,
+          "points": 0,
+          "lines": 0
+        },
+        {
+          "laser": 2,
+          "points": 0,
+          "lines": 0
+        },
+        {
+          "laser": 3,
+          "points": 0,
+          "lines": 0
+        },
+        {
+          "laser": 4,
+          "points": 0,
+          "lines": 0
+        }
+      ],
+      "runtime_sources": {
+        "applications/solvers/laserbeamFoam/laserbeamFoam.C": {
+          "runtime_sha256": "ebbb6768fb47c5940d7253c7285a9fc5a34095d7100d49a5db0cd701977e9110",
+          "matches_audited_checkout": true
+        },
+        "applications/solvers/laserbeamFoam/updateProps.H": {
+          "runtime_sha256": "c8f260a46675cca76729aaff0b168f55e617d11cc8ccbdf47a17ff4f024c2d8b",
+          "matches_audited_checkout": true
+        },
+        "applications/solvers/laserbeamFoam/createFields.H": {
+          "runtime_sha256": "69a36578b1f99b468c4d34aff0529e751d591bd8c3b25f9afb2d041e8c8f7ea6",
+          "matches_audited_checkout": true
+        },
+        "applications/solvers/laserbeamFoam/pEqn.H": {
+          "runtime_sha256": "f09dbd0b7fd6ae8bf55fca80a561c19ee7745ac21191f8ee3203eb40ecc4ffca",
+          "matches_audited_checkout": true
+        },
+        "src/laserHeatSource/laserHeatSource.C": {
+          "runtime_sha256": "e30cc5709cf67d774f3aee48418d0162ac0aef048add9c72cc2caf745de65f43",
+          "matches_audited_checkout": true
+        },
+        "src/laserHeatSource/laserRayParticle.C": {
+          "runtime_sha256": "b69ff4b4a0e4fc41e1c0cd8529880d046b9409aa944b092c4f84125c151bf83a",
+          "matches_audited_checkout": true
+        }
+      }
+    }
+  },
+  "sources_sha256": {
+    "M1/manifest.json": "1d0e2a888e8b48077ed0d28bdcc24011b8676485ea3f8a7c17ccd154b33b437c",
+    "M1/system/fvSchemes": "bc9603132c27e48553db8f1bfc23b73bcaee89cda185843a175b8bc6db19e70c",
+    "M1/constant/LaserProperties": "46257c413304deb08e601f4585d67a4a33e5a42d1f666a52baa444f2858aec18",
+    "M1/0/alpha.metal": "79b630d93d055d5ed3618807ae4bef36d7e440d13f7facce7183c25f16b7b482",
+    "M1/constant/polyMesh/points": "a0eef20a15a2bb0350a8183229807db8e3358f239e2e5851948360aa6df2126e",
+    "M1/constant/polyMesh/faces": "9da2b2db53a50cafa77d8e5e987555b506ef08948cc3a6b7a551f822ac0b88e3",
+    "M1/constant/polyMesh/owner": "29827f52b360a443022384cf87cdec5b809870a122ce5c7d8929a88fd8a45d50",
+    "M1/constant/polyMesh/neighbour": "c18da4978cb19619c3a985636d70a9bb0140e4bacbd9fb524fea5d23bcff12c7",
+    "M1/constant/polyMesh/boundary": "59f9ac317f89cec7e62de9fa85d8ea084c172b19bc2e1d596d40f7f2b13d6df9",
+    "M1/1e-06/alpha.metal": "a67e6dfbe153961c5f39c44213076f9df63f7e1c546191f0cf86d15f1d081a82",
+    "M1/1e-06/alpha_filtered": "e8ba76c7e4d2155e3304279573fd647fa789ff1b8a2d1c8af9dfcac77c030de2",
+    "M1/1e-06/rayQ": "a478bb64e30f2f603a50486c57c34a19ab1c61c235ba032591b1c54c3e30b444",
+    "M1/1e-06/Deposition": "2e8cb6f0664ea6d2d322c3c4d66ae0fb4bf0b2e05a251f7bc7d057e28d70a034",
+    "M1/VTKs/rays_laser0_1e-06.vtk": "1cc1e9804e31b676f9779508da35bbb11306f66c622be2b615477646bccbb5fa",
+    "M1/VTKs/rays_laser1_1e-06.vtk": "1cc1e9804e31b676f9779508da35bbb11306f66c622be2b615477646bccbb5fa",
+    "M1/VTKs/rays_laser2_1e-06.vtk": "1cc1e9804e31b676f9779508da35bbb11306f66c622be2b615477646bccbb5fa",
+    "M1/VTKs/rays_laser3_1e-06.vtk": "1cc1e9804e31b676f9779508da35bbb11306f66c622be2b615477646bccbb5fa",
+    "M1/VTKs/rays_laser4_1e-06.vtk": "1cc1e9804e31b676f9779508da35bbb11306f66c622be2b615477646bccbb5fa",
+    "M1-IC/manifest.json": "7bdfb801f183ac1df1a3b60e3d2f9526f11bc2ed61e045ea1a6bdace96c0758e",
+    "M1-IC/system/fvSchemes": "bc9603132c27e48553db8f1bfc23b73bcaee89cda185843a175b8bc6db19e70c",
+    "M1-IC/constant/LaserProperties": "46257c413304deb08e601f4585d67a4a33e5a42d1f666a52baa444f2858aec18",
+    "M1-IC/0/alpha.metal": "18289568146b6e2a99c9534e3802148f1a35419c8a59008747754fbb20936666",
+    "M1-IC/constant/polyMesh/points": "a0eef20a15a2bb0350a8183229807db8e3358f239e2e5851948360aa6df2126e",
+    "M1-IC/constant/polyMesh/faces": "9da2b2db53a50cafa77d8e5e987555b506ef08948cc3a6b7a551f822ac0b88e3",
+    "M1-IC/constant/polyMesh/owner": "29827f52b360a443022384cf87cdec5b809870a122ce5c7d8929a88fd8a45d50",
+    "M1-IC/constant/polyMesh/neighbour": "c18da4978cb19619c3a985636d70a9bb0140e4bacbd9fb524fea5d23bcff12c7",
+    "M1-IC/constant/polyMesh/boundary": "59f9ac317f89cec7e62de9fa85d8ea084c172b19bc2e1d596d40f7f2b13d6df9",
+    "M1-IC/1e-06/alpha.metal": "b61206c49c2a7ae422d017b6bdce4bf9b4a79fff2cb5c2ac35c7f96d6284ea20",
+    "M1-IC/1e-06/alpha_filtered": "ccf5550a0144b8b33a5ad64f7a248e6d7ae80749c5d4da53166ea3261cb74048",
+    "M1-IC/1e-06/rayQ": "a478bb64e30f2f603a50486c57c34a19ab1c61c235ba032591b1c54c3e30b444",
+    "M1-IC/1e-06/Deposition": "2e8cb6f0664ea6d2d322c3c4d66ae0fb4bf0b2e05a251f7bc7d057e28d70a034",
+    "M1-IC/VTKs/rays_laser0_1e-06.vtk": "1cc1e9804e31b676f9779508da35bbb11306f66c622be2b615477646bccbb5fa",
+    "M1-IC/VTKs/rays_laser1_1e-06.vtk": "1cc1e9804e31b676f9779508da35bbb11306f66c622be2b615477646bccbb5fa",
+    "M1-IC/VTKs/rays_laser2_1e-06.vtk": "1cc1e9804e31b676f9779508da35bbb11306f66c622be2b615477646bccbb5fa",
+    "M1-IC/VTKs/rays_laser3_1e-06.vtk": "1cc1e9804e31b676f9779508da35bbb11306f66c622be2b615477646bccbb5fa",
+    "M1-IC/VTKs/rays_laser4_1e-06.vtk": "1cc1e9804e31b676f9779508da35bbb11306f66c622be2b615477646bccbb5fa",
+    "M3/manifest.json": "7151aa37516cdaebd211bd522100d777bfd85c2fd8970b1d1411cfea5c004d1e",
+    "M3/system/fvSchemes": "bc9603132c27e48553db8f1bfc23b73bcaee89cda185843a175b8bc6db19e70c",
+    "M3/constant/LaserProperties": "46257c413304deb08e601f4585d67a4a33e5a42d1f666a52baa444f2858aec18",
+    "M3/0/alpha.metal": "11eb8b79ab5d8fd64db9bead3b342f27c46a80f5b9e4ece5c09f80de6a0e99c8",
+    "M3/constant/polyMesh/points": "3b35e538566088ff0e7fc8dada88354ba689226a8f85f605a4aa517291fd8b49",
+    "M3/constant/polyMesh/faces": "1278d7c8e0520f779db164c934308958af152a0ed823e98593e08522f2d35e02",
+    "M3/constant/polyMesh/owner": "a780733b2397a81aa4e8dec939d8b04ee9ff05e2ffe277e6aa6934304d3c3303",
+    "M3/constant/polyMesh/neighbour": "8fe3d713ae9bc8f5f6d938fcf84229158da06438c64703ea745eeded6feb9e78",
+    "M3/constant/polyMesh/boundary": "c065fff6b87d46c8717bfc1e9acdd6f7591943e9f1b08504b68aad856b9bf9f1",
+    "M3/1e-06/alpha.metal": "08c9c03129ec9beb4b824836dda8f712d3a33d5c9045569dccee5c7a473f7945",
+    "M3/1e-06/alpha_filtered": "7c665471d3799a6929638b96a37af78d4a1e2d28ae1f44100b4c508d7a8ef9bf",
+    "M3/1e-06/rayQ": "7da825c557ee79d86182d7f17975f6d1f55680309065aa605fede2539050fb74",
+    "M3/1e-06/Deposition": "8f1cde0bda60cf7d6ea309a5ae0939c5b6f0273bb78ec62a2b881e3f0002c185",
+    "M3/VTKs/rays_laser0_1e-06.vtk": "1cc1e9804e31b676f9779508da35bbb11306f66c622be2b615477646bccbb5fa",
+    "M3/VTKs/rays_laser1_1e-06.vtk": "1cc1e9804e31b676f9779508da35bbb11306f66c622be2b615477646bccbb5fa",
+    "M3/VTKs/rays_laser2_1e-06.vtk": "1cc1e9804e31b676f9779508da35bbb11306f66c622be2b615477646bccbb5fa",
+    "M3/VTKs/rays_laser3_1e-06.vtk": "1cc1e9804e31b676f9779508da35bbb11306f66c622be2b615477646bccbb5fa",
+    "M3/VTKs/rays_laser4_1e-06.vtk": "1cc1e9804e31b676f9779508da35bbb11306f66c622be2b615477646bccbb5fa",
+    "tool/applications/solvers/laserbeamFoam/laserbeamFoam.C": "ebbb6768fb47c5940d7253c7285a9fc5a34095d7100d49a5db0cd701977e9110",
+    "tool/applications/solvers/laserbeamFoam/updateProps.H": "c8f260a46675cca76729aaff0b168f55e617d11cc8ccbdf47a17ff4f024c2d8b",
+    "tool/applications/solvers/laserbeamFoam/createFields.H": "69a36578b1f99b468c4d34aff0529e751d591bd8c3b25f9afb2d041e8c8f7ea6",
+    "tool/applications/solvers/laserbeamFoam/pEqn.H": "f09dbd0b7fd6ae8bf55fca80a561c19ee7745ac21191f8ee3203eb40ecc4ffca",
+    "tool/src/laserHeatSource/laserHeatSource.C": "e30cc5709cf67d774f3aee48418d0162ac0aef048add9c72cc2caf745de65f43",
+    "tool/src/laserHeatSource/laserRayParticle.C": "b69ff4b4a0e4fc41e1c0cd8529880d046b9409aa944b092c4f84125c151bf83a",
+    "tool/scripts/audit_optical_threshold.py": "f7bacff807721db1771b9547f6b23c1b7f3ce8a9495a77ef9c3ac381e55b8853",
+    "tool/scripts/check_m_case.py": "c86e72b4e9f48bef32bb3a734aff7c83cefa2766a4155ea5613222080c809552",
+    "tool/scripts/compare_m1_m3.py": "1c93613aa10a662f944eb0760475e1d44e9c7ec5d18ae4cb181ef4c05adf8636",
+    "tool/scripts/compare_plate2d_ab.py": "a22cf66517e292dfe7311c5aabea8ba78128fa64de95174b24bc6a9800fb7f28"
+  },
+  "source_hashes_unchanged": true,
+  "budgets": {
+    "wall_seconds": 120,
+    "rss_bytes": 1073741824,
+    "stronger_virtual_memory_limit_bytes": 1073741824
+  },
+  "limitations": [
+    "Internal cells only; normal reconstructed from saved alpha_filtered on verified Cartesian Gauss-linear stencil, not saved/live n_filtered",
+    "rayQ is an accumulated traversal diagnostic, not unique ray events or deposited power; declared dimensions [1,0,-3,0,0,0,0]",
+    "Empty VTK paths cannot establish first-hit positions, branch identity, escapingInterface, Fresnel coefficient or per-ray energy budget",
+    "Single saved time does not establish every previous heat-source call or exclusive explanation of temperature differences"
+  ],
+  "changed_sources": [],
+  "wall_seconds_including_final_hashes": 48.40625570388511,
+  "max_rss_kib": 469860
+}

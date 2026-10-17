@@ -49,6 +49,8 @@ M1已真实完成32000单元/1000步，观察到熔化；solver墙钟214.50秒�
 
 最新M3已由用户实测完成并检查PASS：原生源/构建8f60695a，256000单元/1000步/10 μs，solver2872.64秒；原登记来自用户提供的ChatGPT结果，详见EXP-003-ADD-01。2026-10-17本轮在另一个本机既有工作区实际找到M1/M3/M1-IC原场及三方报告，直接核验旧诊断包，保留早期沉积错层和IC未复现M3的结论；未重新完成原场数值审计。按DEC-008直接完成一次新S的真实本机自动化，详见[EXP-004实证](docs/validation/LOCAL_CODEX_CFD_AUTOMATION_20261017.md)。[静态审查及下一项只读验证建议](docs/research/ALPHA_DEPOSITION_STATIC_REVIEW.md)聚焦alpha过滤、0.5门槛及沉积资格，本轮未追加CFD；不重跑M1/M3/IC、不运行M2。[短程新候选](docs/research/SHORT_GEOMETRY_DIAGNOSTIC_PROPOSAL.md)仍PROPOSED；阶段1及物理/收敛/热点限制保持。
 
+随后DEC-009/EXP-005直接完成[1 μs光学阈值原场审计](docs/validation/OPTICAL_THRESHOLD_AUDIT_20261017.md)：THRESHOLD_HYPOTHESIS_SUPPORTED。IC半填充层1600单元的保存alpha_filtered均比0.5低约1.28–1.44e-15，有rayQ支撑但无沉积，内部重建法向约0.99999998；64项前后SHA一致，48.41 s/458.85 MiB，零新增CFD。这升级了限定时刻/字段的证据，不是全场历史审计、实时逐射线事件或全部温差唯一因果证明。下一项仅建议只读抽样回查限制权重与光学门槛的不交换性，尚未执行。
+
 ## 私有验证数据
 
 本地使用 `validation/` 保存审计、编译日志、隔离安装；使用 `runs/` 保存隔离案例。两者均忽略。不得将主机详情、未审阅日志、压缩反馈包或 CFD 输出加入公开提交。
