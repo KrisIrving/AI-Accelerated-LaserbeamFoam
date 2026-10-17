@@ -1,5 +1,7 @@
 # M1 离线复核与条件性 M3 准备
 
+最新状态（2026-10-17）：M3已由用户运行并检查PASS，见[EXP-003](../research/EXPERIMENT_LOG.md)。**已有M1/M3不要重跑本页CFD指令**；当前下一步是[原场只读空间比较](M1_M3_SPATIAL_COMPARISON.md)。以下保留为首次运行操作参考，不代表需要再次执行。
+
 授权与限制见[DEC-006](../research/DECISION_LOG.md)；完整执行惯例见[M 探索说明](THREED_M_EXPLORATION.md)。2026-10-17已收到M1修复后实机PASS，来源及边界见[EXP-002-ADD-01](../research/EXPERIMENT_LOG.md)。**M1无需重跑；M2暂缓；下列M3构建、准备、mesh、solve由用户分阶段执行，Codex/CI不启动真实CFD。** 不改变正式阶段、基准或检查标准。
 
 ## 1. 更新工具，不重新编译 M1

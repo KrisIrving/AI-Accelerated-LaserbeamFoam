@@ -1,6 +1,6 @@
 # 阶段1三维 M 分级探索：Ubuntu 执行与反馈
 
-授权：[DEC-006](../research/DECISION_LOG.md)。这是探索工具开发与用户显式试运行的范围，不是正式M基准批准。阶段1仍IN_PROGRESS；无AI、物理精度或模块热点结论。M1原生求解成功并观察熔化，2026-10-17已回传修复后离线PASS，见[EXP-002及ADD-01](../research/EXPERIMENT_LOG.md)，原REVIEW历史保留。已有M1用户直接使用[M3预检与分阶段运行](M1_RECHECK_M3_PREFLIGHT.md)第1及3–5节，不重跑下面的M1首次执行步骤。M2暂缓，M3仍须匹配当前HEAD的新隔离构建/资源预检；Codex和CI不运行OpenFOAM。
+授权：[DEC-006](../research/DECISION_LOG.md)。这是探索工具开发与用户显式试运行的范围，不是正式M基准批准。阶段1仍IN_PROGRESS；无AI、物理精度或模块热点结论。2026-10-17已回传M1修复后及M3实测PASS，见[EXP-002/003](../research/EXPERIMENT_LOG.md)，原REVIEW历史保留。**已有M1/M3不要重跑下面的首次执行步骤**，当前直接进行[原场只读空间比较](M1_M3_SPATIAL_COMPARISON.md)；M2暂缓。下面及[M3执行说明](M1_RECHECK_M3_PREFLIGHT.md)保留作操作参考，Codex和CI不运行OpenFOAM。
 
 ## 固定负载与分级
 
