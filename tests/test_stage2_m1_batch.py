@@ -34,7 +34,8 @@ class Stage2BatchTests(unittest.TestCase):
             out=Path(tmp)
             (out/'perf-permission-probe.exit.txt').write_text('255\n')
             (out/'perf-permission-probe.log').write_text('permission denied\n')
-            with patch.object(batch.subprocess,'Popen') as popen:
+            with patch.object(batch.subprocess,'Popen') as popen, patch.object(
+                    batch.subprocess,'check_output',return_value=b'unit-test-source-sha\n'):
                 popen.return_value.poll.return_value=1
                 popen.return_value.returncode=1
                 self.assertEqual(batch.run_batch(out),2)
