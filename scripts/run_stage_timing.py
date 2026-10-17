@@ -162,8 +162,10 @@ def run(out):
         state['generated_source_sha256']=digest(build/'laserbeamFoam.C')
         deps=command('dependencies',['ldd',exe],env=env)
         deptext=(out/'dependencies.log').read_text();assert 'not found' not in deptext
-        for lib in ('liblaserHeatSource.so','libMTHD.so','libgeometricVoF.so'):
-            assert str(BASE/'install/lib'/lib) in deptext
+        origins={line.split()[0]:line.split()[2] for line in deptext.splitlines() if ' => ' in line}
+        expected=dict(line.split() for line in (BASE/'dependencies.laserbeamFoam.tsv').read_text().splitlines())
+        assert origins==expected, 'dynamic library origins differ from original baseline'
+        state['dependency_origins_match_baseline']=True
         for label,ref in (('S',SREF),('M1',MREF)):
             case=ROOT/'runs'/f'{out.name}-{label}';case.mkdir()
             runrec={'id':label,'status':'PREPARING','actual_executable':'laserbeamFoamStageTiming'}
