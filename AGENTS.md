@@ -34,6 +34,9 @@ Also follow the existing `.agents/skills/laserbeamfoam/SKILL.md` conventions.
   required, batch deadline 20 minutes. No AI/physics/tolerance changes.
 - DEC-015 permits only read-only dependency audit and a single proposed candidate/
   protocol; no new CFD, optimization implementation, AI or numerical changes.
+- DEC-016 authorizes only T_LOCAL_NATIVE_MAG_GRADALPHA native-field tests first;
+  stop without CFD if its conservative cost screen rejects a 2% solver gain.
+  Only otherwise one S and one M1 OFF/ON pair, with unchanged exact checks.
 - Use new run directories; keep raw data and private paths in ignored runs/ and
   validation/. CI/mock success is not OpenFOAM execution or physical validation.
 - Check PROJECT_HUB at new PRs, major feature completion, registered workstation
