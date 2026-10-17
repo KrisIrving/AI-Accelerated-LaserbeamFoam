@@ -17,7 +17,7 @@ Also follow the existing `.agents/skills/laserbeamfoam/SKILL.md` conventions.
 - Every approved plan change appends a dated decision with old/new scope,
   rationale, approval evidence and Git traceability. Never erase historical
   decisions or lower accuracy requirements to make a failed test pass.
-- The current stage is low-cost 3D case development. MPI matrices are not gates
+- The current stage is limited Stage 2 performance analysis. MPI matrices are not gates
   to AI research. Validate MPI when an actual change or workload requires it;
   retain known communication/ray-transfer risks.
 - Preserve upstream solvers, libraries and tutorials. DEC-011 explicitly
@@ -27,6 +27,8 @@ Also follow the existing `.agents/skills/laserbeamfoam/SKILL.md` conventions.
   and at most one frozen M1 observation run; original sources/results stay read-only.
   No AI, physics changes, DEM, full powder runs, system changes or automatic
   cleanup are authorized; earlier experiments and raw data remain protected.
+- DEC-013 authorizes only read-only T/p source/log analysis and one future
+  PROPOSED experiment plan; no new CFD. Completed DEC-011/012 runs are not renewed.
 - Use new run directories; keep raw data and private paths in ignored runs/ and
   validation/. CI/mock success is not OpenFOAM execution or physical validation.
 - Check PROJECT_HUB at new PRs, major feature completion, registered workstation

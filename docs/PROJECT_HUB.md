@@ -30,6 +30,8 @@
 
 最新EXP-008：DEC-012授权的一次隔离计时S门槛通过后，唯一完整M1 solver205.07 s/RSS233.14 MiB，对全部三次基线190场/10时刻/30个uniform文件逐字节一致，2009项保护SHA不变。互斥阶段计时闭合：T38.5752%、p30.0516%、激光沉积11.4613%、U9.2683%、VOF4.2397%；未归入物理模块0.99924%。相对205.96 s为−0.4321%，单次观测不能分离计时净开销；295项测试通过。可信的是固定M1的粗阶段成本，不是内部线性求解或AI收益；下一步只读审查T/p源码和既有求解事件，不自动新CFD/AI。见[完整计时报告](validation/STAGE2_M1_TIMING_20261017.md)。
 
+最新EXP-009完成[T/p内部只读分析及唯一提案](validation/M1_TP_INTERNAL_ANALYSIS_20261017.md)：零新CFD，四份M1的T/p/epsilon事件序列一致。T7244调用/8705迭代，p3000/16099；后3 μs占T调用77.28%，不是时间份额。发现258步达到21次热校正后epsilon1变化残差仍>1e-6，原检查PASS契约未要求此项收敛，不能当已收敛物理/AI真值。内部7处切换点提案及开销尺度已说明，后续实验仅PROPOSED、未实现/未运行；不更改循环/容差或进入AI。
+
 当前待补证据与批准事项：
 
 - S 用户提供的ChatGPT核验结果：23个归档文件/22条内部哈希、清单通过；源/构建完整SHA均为7c094679016a2458282c9fcb261d7d55983496bb。solver=0.35 s、最大RSS=127488 KiB，已记录流程范围1.919696505 s；归档标识和SHA256见EXP-001-ADD-01。RECORDS_MATCH不等于重验实际二进制和动态库，工具87061fe9不等于原运行版本。物理/性能证据缺口仍保留。
@@ -87,6 +89,7 @@
 | [M_SELECTION_STAGE2_PROPOSAL.md](research/M_SELECTION_STAGE2_PROPOSAL.md) | 阶段2历史提案；后续DEC-011批准范围与原始方案边界 |
 | [STAGE2_M1_PERFORMANCE_20261017.md](validation/STAGE2_M1_PERFORMANCE_20261017.md) | 三次原M1基线、冻结、资源/I/O/检查成本、重复性与采样阻塞，AI未选定 |
 | [STAGE2_M1_TIMING_20261017.md](validation/STAGE2_M1_TIMING_20261017.md) | 隔离轻量计时、S/M1逐字节一致性、模块成本及未归因/开销边界 |
+| [M1_TP_INTERNAL_ANALYSIS_20261017.md](validation/M1_TP_INTERNAL_ANALYSIS_20261017.md) | T/p源码/求解事件时间演化、原版校正上限退出、唯一PROPOSED内部计时方案 |
 | [RESULTS.md](validation/RESULTS.md) | 用户回传的编译、运行、串行数值基线及局限 |
 | [PLATE2D_AB.md](validation/PLATE2D_AB.md) | 原生场、边界、日志和 uniform 的 A/B 比较方法 |
 | [FEEDBACK.md](validation/FEEDBACK.md) | 实机反馈格式与日志管理 |

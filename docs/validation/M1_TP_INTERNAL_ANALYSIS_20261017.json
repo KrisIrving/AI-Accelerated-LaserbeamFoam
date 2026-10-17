@@ -1,0 +1,369 @@
+{
+  "schema": "m1-tp-readonly-analysis-v1",
+  "decision": "DEC-013",
+  "status": "READ_ONLY_TP_ANALYSIS_PASSED",
+  "analysis_commit": "37d4400d572dd4023477d08255ed252812214b6c",
+  "cfd_runs_started": 0,
+  "input_sha256": {
+    "applications/solvers/laserbeamFoam/TEqn.H": "8542f190581444d0be58cc497ae6a7f1d524eed0998958abb35cd777940c92f2",
+    "applications/solvers/laserbeamFoam/pEqn.H": "f09dbd0b7fd6ae8bf55fca80a561c19ee7745ac21191f8ee3203eb40ecc4ffca",
+    "applications/solvers/laserbeamFoam/readControls.H": "64da838052840665f30f49280dfcccaf60e8dc40f86245698d951bd8b654e3da",
+    "applications/solvers/laserbeamFoam/updateProps.H": "c8f260a46675cca76729aaff0b168f55e617d11cc8ccbdf47a17ff4f024c2d8b",
+    "runs/stage2-M1-20261017-001-baseline-1/manifest.json": "be323752750c1fe61a9e5991a859ae770041faf53f471b8bdaf9e3a3669769de",
+    "runs/stage2-M1-20261017-001-baseline-1/log.laserbeamFoam": "2827eb2fd62b574f36e95444428ccacf27a1b77ed8e075759a747e8dee9c1b58",
+    "runs/stage2-M1-20261017-001-baseline-1/system/fvSolution": "b4e2690ad8abfc920e259318f7aff974639b3c104a9c913c4c85613e58f101f9",
+    "runs/stage2-M1-20261017-001-baseline-2/manifest.json": "be323752750c1fe61a9e5991a859ae770041faf53f471b8bdaf9e3a3669769de",
+    "runs/stage2-M1-20261017-001-baseline-2/log.laserbeamFoam": "2dda7375d5670d50db7e6c9e17800ddf51b980123920b2aad9188454d7d042de",
+    "runs/stage2-M1-20261017-001-baseline-2/system/fvSolution": "b4e2690ad8abfc920e259318f7aff974639b3c104a9c913c4c85613e58f101f9",
+    "runs/stage2-M1-20261017-001-baseline-3/manifest.json": "be323752750c1fe61a9e5991a859ae770041faf53f471b8bdaf9e3a3669769de",
+    "runs/stage2-M1-20261017-001-baseline-3/log.laserbeamFoam": "3fe9e395296dc1e22b079238520c8d9225cb51ef5c2a248616ef2101474adaec",
+    "runs/stage2-M1-20261017-001-baseline-3/system/fvSolution": "b4e2690ad8abfc920e259318f7aff974639b3c104a9c913c4c85613e58f101f9",
+    "runs/stage2-timing-20261017-002-M1/manifest.json": "e899db989d9bbd38d2f03a318b6af7788af7dfc36c1bf53190a1cb91fea74455",
+    "runs/stage2-timing-20261017-002-M1/log.laserbeamFoam": "81c94ed9920cde76e2d67e97f52cdfe084077e0eb642e9018687866012eda499",
+    "runs/stage2-timing-20261017-002-M1/system/fvSolution": "b4e2690ad8abfc920e259318f7aff974639b3c104a9c913c4c85613e58f101f9",
+    "runs/stage2-timing-20261017-002-M1/numeric-check.json": "9a944190fdaf03bdffe47e25987508112c115cba8a4ae3622997c376b5a508a0",
+    "docs/validation/stage2-M1-timing-20261017-summary.json": "d585ff551e581bc8bf04e652b3e4a1384c0991d24f625f2c7079f2de30e7c0b0"
+  },
+  "all_four_event_traces_identical": true,
+  "source_sha_unchanged": true,
+  "analysis_seconds": 14.472365064080805,
+  "thermal_features": {
+    "first_step_multiple_T_solves": {
+      "step": 228,
+      "time_s": 2.28e-06,
+      "T_solves": 3
+    },
+    "max_correctors_per_step": 21,
+    "steps_21_correctors": 258,
+    "steps_last_epsilon_residual_gt_1e_6": 258,
+    "last_epsilon_residual_max": 1.0,
+    "first_unresolved_step": {
+      "step": 738,
+      "time_s": 7.38e-06,
+      "T_solves": 21,
+      "last_max_epsilon_residual": 0.07114668063610671
+    }
+  },
+  "time_bins": [
+    {
+      "step_first": 1,
+      "step_last": 100,
+      "time_end_us": 1.0,
+      "T_solves": 100,
+      "T_iterations": 201,
+      "T_zero_iterations": 0,
+      "T_correctors_max": 1,
+      "T_final_epsilon_over_1e_6_steps": 0,
+      "p_solves": 300,
+      "p_iterations": 89,
+      "p_zero_iterations": 245
+    },
+    {
+      "step_first": 101,
+      "step_last": 200,
+      "time_end_us": 2.0,
+      "T_solves": 100,
+      "T_iterations": 200,
+      "T_zero_iterations": 0,
+      "T_correctors_max": 1,
+      "T_final_epsilon_over_1e_6_steps": 0,
+      "p_solves": 300,
+      "p_iterations": 66,
+      "p_zero_iterations": 239
+    },
+    {
+      "step_first": 201,
+      "step_last": 300,
+      "time_end_us": 3.0,
+      "T_solves": 246,
+      "T_iterations": 418,
+      "T_zero_iterations": 0,
+      "T_correctors_max": 3,
+      "T_final_epsilon_over_1e_6_steps": 0,
+      "p_solves": 300,
+      "p_iterations": 591,
+      "p_zero_iterations": 129
+    },
+    {
+      "step_first": 301,
+      "step_last": 400,
+      "time_end_us": 4.0,
+      "T_solves": 300,
+      "T_iterations": 500,
+      "T_zero_iterations": 0,
+      "T_correctors_max": 3,
+      "T_final_epsilon_over_1e_6_steps": 0,
+      "p_solves": 300,
+      "p_iterations": 1662,
+      "p_zero_iterations": 16
+    },
+    {
+      "step_first": 401,
+      "step_last": 500,
+      "time_end_us": 5.0,
+      "T_solves": 300,
+      "T_iterations": 500,
+      "T_zero_iterations": 0,
+      "T_correctors_max": 3,
+      "T_final_epsilon_over_1e_6_steps": 0,
+      "p_solves": 300,
+      "p_iterations": 2156,
+      "p_zero_iterations": 0
+    },
+    {
+      "step_first": 501,
+      "step_last": 600,
+      "time_end_us": 6.0,
+      "T_solves": 300,
+      "T_iterations": 500,
+      "T_zero_iterations": 0,
+      "T_correctors_max": 3,
+      "T_final_epsilon_over_1e_6_steps": 0,
+      "p_solves": 300,
+      "p_iterations": 2394,
+      "p_zero_iterations": 0
+    },
+    {
+      "step_first": 601,
+      "step_last": 700,
+      "time_end_us": 7.0,
+      "T_solves": 300,
+      "T_iterations": 499,
+      "T_zero_iterations": 0,
+      "T_correctors_max": 3,
+      "T_final_epsilon_over_1e_6_steps": 0,
+      "p_solves": 300,
+      "p_iterations": 2381,
+      "p_zero_iterations": 0
+    },
+    {
+      "step_first": 701,
+      "step_last": 800,
+      "time_end_us": 8.0,
+      "T_solves": 1415,
+      "T_iterations": 1533,
+      "T_zero_iterations": 10,
+      "T_correctors_max": 21,
+      "T_final_epsilon_over_1e_6_steps": 61,
+      "p_solves": 300,
+      "p_iterations": 2399,
+      "p_zero_iterations": 0
+    },
+    {
+      "step_first": 801,
+      "step_last": 900,
+      "time_end_us": 9.0,
+      "T_solves": 2083,
+      "T_iterations": 2154,
+      "T_zero_iterations": 29,
+      "T_correctors_max": 21,
+      "T_final_epsilon_over_1e_6_steps": 97,
+      "p_solves": 300,
+      "p_iterations": 2184,
+      "p_zero_iterations": 0
+    },
+    {
+      "step_first": 901,
+      "step_last": 1000,
+      "time_end_us": 10.0,
+      "T_solves": 2100,
+      "T_iterations": 2200,
+      "T_zero_iterations": 0,
+      "T_correctors_max": 21,
+      "T_final_epsilon_over_1e_6_steps": 100,
+      "p_solves": 300,
+      "p_iterations": 2177,
+      "p_zero_iterations": 0
+    }
+  ],
+  "pressure_corrector_positions": {
+    "1": {
+      "solves": 1000,
+      "iterations_total": 2747,
+      "iterations_max": 9,
+      "iterations_per_solve": 2.747,
+      "zero_iteration_solves": 87,
+      "iteration_histogram": {
+        "0": 87,
+        "1": 110,
+        "2": 180,
+        "3": 263,
+        "4": 329,
+        "5": 20,
+        "6": 7,
+        "7": 3,
+        "9": 1
+      },
+      "solves_per_step_min": 1,
+      "solves_per_step_max": 1,
+      "solves_per_step_mean": 1.0,
+      "solves_per_step_histogram": {
+        "1": 1000
+      }
+    },
+    "2": {
+      "solves": 1000,
+      "iterations_total": 5540,
+      "iterations_max": 10,
+      "iterations_per_solve": 5.54,
+      "zero_iteration_solves": 227,
+      "iteration_histogram": {
+        "0": 227,
+        "1": 33,
+        "2": 3,
+        "3": 24,
+        "4": 94,
+        "5": 41,
+        "6": 34,
+        "7": 61,
+        "8": 138,
+        "9": 337,
+        "10": 8
+      },
+      "solves_per_step_min": 1,
+      "solves_per_step_max": 1,
+      "solves_per_step_mean": 1.0,
+      "solves_per_step_histogram": {
+        "1": 1000
+      }
+    },
+    "3": {
+      "solves": 1000,
+      "iterations_total": 7812,
+      "iterations_max": 25,
+      "iterations_per_solve": 7.812,
+      "zero_iteration_solves": 315,
+      "iteration_histogram": {
+        "0": 315,
+        "6": 1,
+        "7": 1,
+        "8": 43,
+        "9": 110,
+        "10": 126,
+        "11": 92,
+        "12": 59,
+        "13": 135,
+        "14": 65,
+        "15": 40,
+        "16": 9,
+        "17": 3,
+        "25": 1
+      },
+      "solves_per_step_min": 1,
+      "solves_per_step_max": 1,
+      "solves_per_step_mean": 1.0,
+      "solves_per_step_histogram": {
+        "1": 1000
+      }
+    }
+  },
+  "common_statistics": {
+    "T": {
+      "solves": 7244,
+      "iterations_total": 8705,
+      "iterations_max": 3,
+      "iterations_per_solve": 1.201684152401988,
+      "zero_iteration_solves": 39,
+      "iteration_histogram": {
+        "0": 39,
+        "1": 5706,
+        "2": 1498,
+        "3": 1
+      },
+      "solves_per_step_min": 1,
+      "solves_per_step_max": 21,
+      "solves_per_step_mean": 7.244,
+      "solves_per_step_histogram": {
+        "1": 227,
+        "3": 510,
+        "11": 2,
+        "12": 1,
+        "17": 1,
+        "18": 1,
+        "21": 258
+      }
+    },
+    "p_rgh": {
+      "solves": 3000,
+      "iterations_total": 16099,
+      "iterations_max": 25,
+      "iterations_per_solve": 5.366333333333333,
+      "zero_iteration_solves": 629,
+      "iteration_histogram": {
+        "0": 629,
+        "1": 143,
+        "2": 183,
+        "3": 287,
+        "4": 423,
+        "5": 61,
+        "6": 42,
+        "7": 65,
+        "8": 181,
+        "9": 448,
+        "10": 134,
+        "11": 92,
+        "12": 59,
+        "13": 135,
+        "14": 65,
+        "15": 40,
+        "16": 9,
+        "17": 3,
+        "25": 1
+      },
+      "solves_per_step_min": 3,
+      "solves_per_step_max": 3,
+      "solves_per_step_mean": 3.0,
+      "solves_per_step_histogram": {
+        "3": 1000
+      }
+    }
+  },
+  "event_traces": [
+    {
+      "case_id": "stage2-M1-20261017-001-baseline-1",
+      "event_trace_sha256": "4c36dd0e972911d793fb61a5bcbe246add2491623623a0f367f7b43f8c62f319"
+    },
+    {
+      "case_id": "stage2-M1-20261017-001-baseline-2",
+      "event_trace_sha256": "4c36dd0e972911d793fb61a5bcbe246add2491623623a0f367f7b43f8c62f319"
+    },
+    {
+      "case_id": "stage2-M1-20261017-001-baseline-3",
+      "event_trace_sha256": "4c36dd0e972911d793fb61a5bcbe246add2491623623a0f367f7b43f8c62f319"
+    },
+    {
+      "case_id": "stage2-timing-20261017-002-M1",
+      "event_trace_sha256": "4c36dd0e972911d793fb61a5bcbe246add2491623623a0f367f7b43f8c62f319"
+    }
+  ],
+  "analysis_tool_sha256": "243186e5438d4b7d07f7b5ba8782743342c65cdf960686148eee1b55278fdaf8",
+  "timer_microbenchmark": {
+    "kind": "NON_CFD_TIMER_MICROBENCH",
+    "calls_per_trial": 2000000,
+    "trials": 5,
+    "nanoseconds_per_enter": [
+      28.2436,
+      28.2726,
+      28.2293,
+      28.2509,
+      28.3077
+    ],
+    "median_ns": 28.2509,
+    "proposed_extra_transitions": 37976,
+    "estimated_extra_clock_seconds": 0.0010728561784000001,
+    "scope": "Existing StageTiming::enter hot-loop microbenchmark, includes loop/branch. Does not measure future binned implementation, cache or compiler/layout effects; projected CFD overhead UNVERIFIED.",
+    "source_sha256": "e24ceaa529ca2a764c4b9f8a26837326f082d56ae0111a8a5f9be09949c923e1",
+    "existing_header_sha256": "206cb22f7a903b91da5a7198b16f13423ee707aa4e45488b35b032f5d897dfcd"
+  },
+  "local_openfoam_source": {
+    "logical_name": "OpenFOAM-v2512/pimpleControl/pimpleControlI.H",
+    "sha256": "6d67922c547b306cd92c2e19b1461c041ce0f47376846b9f543fb64a84a1b8a8",
+    "read_window_unchanged": true
+  },
+  "limits": {
+    "per_internal_component_wall_seconds": "UNMEASURED",
+    "counts_to_time_conversion": "PROHIBITED",
+    "future_experiment": "PROPOSED_NOT_AUTHORIZED_NOT_RUN",
+    "AI_development": "NOT_STARTED"
+  }
+}

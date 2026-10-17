@@ -244,3 +244,15 @@ solver耗时比13.392，超过8倍单元增幅；按单元步数归一仍约1.67
 - 有效批次348.735 s（隔离构建46.362 s、S/M1及检查/哈希），此前预检另48.851 s，合397.586 s，报告/Git不计；M1全检查92.224 s单列，不进入模块分母。有效本地目录/两案例约128.61 MB，M1案例约120.96 MB；MONITORED_ONLY，无RSS/磁盘硬隔离，未达8 GiB/3 GiB观察警戒。
 - 2009项受保护原版源码/教程、旧S/三次M1全案例及原安装内容SHA前后一致；清单SHA均`b99a49fe1ceaa6f58d4647546dbf8d62a54811e825e44dddf493559daddfd2f3`。原始结果/日志留Ubuntu，原版src/applications/tutorials/冻结输入未改，不清理/覆盖旧数据。
 - 脱敏[实测报告](../validation/STAGE2_M1_TIMING_20261017.md)、[JSON](../validation/stage2-M1-timing-20261017-summary.json)（14780字节，SHA256=`d585ff551e581bc8bf04e652b3e4a1384c0991d24f625f2c7079f2de30e7c0b0`）、[CSV](../validation/stage2-M1-timing-20261017-modules.csv)（542字节，SHA256=`93c09dd88d7bbdb72389fae265fc0bbb99f331a9a1b0afb241914e86c5c1b530`）。二进制SHA=`650762c4dbd47efc68b4dc4ceb73e0e18f62db0a4806b5e434df76917f71ea33`，生成main SHA=`c169b241914a780f5d95ca1803e4f738f7f49b4b7c13bfa3045e4aaff10e4211`，源码溯源见JSON。PR #4保持Draft，不合并。
+
+## EXP-009 — T/p内部只读工作量与时间演化审查
+
+- 日期：2026-10-17；授权DEC-013；状态READ_ONLY_TP_ANALYSIS_PASSED；零新增CFD、原版/容差/AI均未改。起点37d4400d572dd4023477d08255ed252812214b6c；新解析工具独立SHA记录在JSON，交付版本查git历史，不冒充起点已有代码。
+- 原mc.parse_log/scan_log验证四份既有M1（三次原版+一次粗计时），1000步T/p/epsilon1完整事件序列SHA一致。只读分析14.472 s，18项消费文件前后SHA不变；本机v2512控制代码另有读取窗口SHA。T/p内部时间份额仍UNMEASURED，既有T38.58%/p30.05%仅为父阶段墙钟。
+- T7244调用/8705线性迭代，平均1.2017/最大3，39次0迭代；每步1–21次T校正。p3000调用/16099迭代，平均5.3663/最大25，629次0迭代；每步固定3调用。p校正位置1/2/3的迭代分别2747/5540/7812；第三次Final字典relTol0，其余0.05，不按次数换算时间。
+- T首个多校正步228（2.28 μs）；(7,10] μs占T调用77.28%。p早期大量0迭代、后期迭代工作增加，只有次数演化，没有子模块时间演化。
+- 新增数值背景：258步达到21次热校正且最终max epsilon1变化残差>1e-6，首次步738/7.38 μs（0.07114668063610671），各步最终残差最大1。TEqn do-while中iter从0开始、尾部++iter及<=20允许21次；四日志相同。原检查契约没有要求该残差每步收敛，因此原PASS及字节一致性保留；不把这批后期状态称作已收敛相变参考/AI真值，不自行改循环或容差。
+- 最小后续测点为T四处（组装、solve、相变后处理、其余）/p三处（组装、solve、更新），加现有父边界组成互斥8类，约37976次新增切换。5批200万次的非CFD计时器微基准中位28.2509 ns/次，对应约0.001073 s调用量级；未来分箱/编译布局等净开销仍UNVERIFIED。
+- 唯一PROPOSED方案：隔离可关闭副本，先一次S门槛再最多一次冻结M1；190场/10时刻/30 uniform对三原版一致并复核事件序列/保护SHA、纳秒和闭合，>5%墙钟增加不排名。solver预算S120/M11800 s、整次20分钟，RSS8 GiB/数据3 GiB MONITORED_ONLY；独立Ubuntu进程与系统timeout。本轮未实现/运行，不是执行批准。
+- 研究优先级是区分T重复组装/相变与solve、p预测/更新与solve；低T线性迭代和p零迭代都不能证明求解API便宜。初值/预条件/复用只是潜在假设，未选AI；后期相变收敛缺口保持公开，不凭调用数分配成本或宣称收益。
+- [报告与唯一提案](../validation/M1_TP_INTERNAL_ANALYSIS_20261017.md)、[JSON](../validation/M1_TP_INTERNAL_ANALYSIS_20261017.json)（11364字节；SHA256=1a38b5bfd56c1178e4b7645767b530c7969b79e4a0f406437b50026be4021b10）、[10箱CSV](../validation/M1_TP_INTERNAL_TIME_BINS_20261017.csv)（549字节；SHA256=4d919b3cc5db0efb90a18778b3c928ff565785093600b09b003682221ba97f73）。原日志/逐步事件/微基准源和原始输出留Ubuntu。2项针对性测试通过，不启动CFD；PR #4仍Draft。
