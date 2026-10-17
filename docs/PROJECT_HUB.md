@@ -1,6 +1,6 @@
 # 项目资料入口 · AI-Accelerated-LaserbeamFoam
 
-状态核对日期：2026-10-16。本页是导航与状态摘要，不替代正式计划或原始证据。各主题以导航表中的权威文件为准；发生冲突时回查正式文件和 Git 历史，不根据本页自行改计划。
+状态核对日期：2026-10-18。本页是导航与状态摘要，不替代正式计划或原始证据。各主题以导航表中的权威文件为准；发生冲突时回查正式文件和 Git 历史，不根据本页自行改计划。
 
 ## 目标与 Current Status
 
@@ -8,10 +8,10 @@
 
 | 项目 | 当前状态 | 依据 |
 | --- | --- | --- |
-| 正式阶段 | 阶段1：低成本三维开发案例，CURRENT / IN_PROGRESS | [开发计划](research/DEVELOPMENT_PLAN.md) |
+| 正式阶段 | 阶段2 CURRENT：三原M1基线与DEC-014内部互斥计时通过；T组装/准备及p预测/更新成本更大，AI净收益未测 | [EXP-007/008/010](research/EXPERIMENT_LOG.md)、[内部计时](validation/M1_TP_INTERNAL_TIMING_20261018.md) |
 | Plate2D 串行 A/B | 用户实测 PASS；仅当前短程数值等价 | [RESULTS](validation/RESULTS.md)、[EXP-000](research/EXPERIMENT_LOG.md) |
-| 三维 S | 用户实测 SMOKE_CHECKS_PASSED；归档COMPLETE、源/构建记录RECORDS_MATCH；未观察到熔化；仍为 PROPOSED 探针 | [EXP-001及ADD-01](research/EXPERIMENT_LOG.md)、[首次实测说明](validation/THREED_SMOKE_FIRST_RUN.md) |
-| M | 候选待成本测量及负责人批准，未建立正式参考 | [基准设计](research/BENCHMARK_DESIGN.md)、[DEC-004](research/DECISION_LOG.md) |
+| 三维 S | 新一次Codex本机真实执行通过：LOCAL_CODEX_CFD_AUTOMATION_VERIFIED，19场检查及23文件归档核验通过；未观察到熔化，仍为PROPOSED探针；旧S历史保留 | [EXP-004](research/EXPERIMENT_LOG.md)、[本机实证](validation/LOCAL_CODEX_CFD_AUTOMATION_20261017.md) |
+| M负载与历史探索 | 原M1已批准固定性能开发用途；物理准确性/网格收敛参考未批准。早期沉积错层、IC阈值证据保留，阈值探索结束；M2/M3不在本批执行范围 | [DEC-011](research/DECISION_LOG.md)、[EXP-005/006](research/EXPERIMENT_LOG.md) |
 | 论文物理验证 V | 候选研究，PROPOSED；没有新增强制阶段或已实现案例 | [文献与实验候选库](research/LITERATURE_VALIDATION_CANDIDATES.md) |
 | AI 模块 | NOT_STARTED；尚未选择或实现 | [开发计划](research/DEVELOPMENT_PLAN.md) |
 | MPI 固定验证矩阵 | 已撤销为强制开发门槛；保留定向验证及已知风险 | [DEC-002](research/DECISION_LOG.md)、[MPI 风险](research/MPI_RISKS.md) |
@@ -20,19 +20,37 @@
 
 已完成的重要里程碑：独立 aiLaserbeamFoam 源码与编译入口；用户回传 v2512 双求解器编译及 Plate2D 串行短程 A/B PASS；正式研究治理文件；S 工具及文献候选库；用户回传 S 三维基础运行及自动归档验收。S归档核验来自用户提供的ChatGPT检查结果，Codex未取得原包，不能宣称直接核验。
 
-当前执行：阶段1的 S 证据补录收尾与 M 候选审核准备，阶段1整体尚未完成。S 为五激光三维平基板衍生探针：2048 单元、10 步至 1e-7 s，无 DEM 或离散粉末；不是稳态熔池预测。
+当前完成：按[DEC-008](research/DECISION_LOG.md)，Codex在Ubuntu直接完成一次全新2048单元/10步S的隔离构建→mesh→solve→检查→归档，[本机实证](validation/LOCAL_CODEX_CFD_AUTOMATION_20261017.md)记录完整SHA与成本。另一个既有工作区实际存在M1/M3/M1-IC原场和诊断报告；本轮直接核验旧诊断包，不重跑CFD或冒充全套原场重审。阶段1整体尚未完成。
 
-下一个可执行任务：负责人审核[M探索提案](research/M_CASE_NEXT_PROPOSAL.md)中32000单元/100步的参数、输出、资源上限及检查清单；明确授权后再生成独立探索配置与必要工具支持，真实CFD仍由用户显式执行。无需重跑S或再次导出已验收归档；不据此批准正式M。`SMOKE_CHECKS_PASSED` 不表示物理精度通过。
+最新科学进展：DEC-009/EXP-005已直接完成三组1 μs alpha.metal/alpha_filtered/rayQ/Deposition及原生网格的只读定向审计，48.41 s/458.85 MiB、64项读取前后SHA一致、零新增CFD。IC97.5 μm层1600单元alpha_filtered比0.5低约1.28–1.44e-15，346个rayQ>0单元而无沉积；内部重建mag(n)≈0.99999998。结论仅支持保存状态的alpha门槛机制，不证明逐射线事件或全部温差因果；详见[原场报告](validation/OPTICAL_THRESHOLD_AUDIT_20261017.md)。
+
+阈值问题已结束：DEC-010/EXP-006最后一次五父/40子只读诊断7.57 s/159.20 MiB、21项SHA一致，限制结果逐位复现。精确保存坐标/体积下仍略低于0.5，最后fsum/除法没有造成跨越；即使理想精确等体积，限制与二值光学资格仍不交换。THRESHOLD_EXPLORATION_CLOSED，见[最后诊断](validation/RESTRICTION_FINAL_DIAGNOSIS_20261017.md)，不继续阈值实验链。
+
+当前实测EXP-007：按DEC-011完成三个新目录原M1，190场/10时刻/uniform全部通过，190个物理输出场三例逐字节一致；solver205.96/206.52/204.95 s，中位205.96 s、CV0.3866%，批次15分49秒。25项准备输入及10个原生网格/初态文件冻结且匹配原M1；[阶段2报告](validation/STAGE2_M1_PERFORMANCE_20261017.md)记录完整资源/I/O/检查成本。perf实际探测被paranoid=4拒绝，第四例未执行；采样开销未测，内部模块份额/首个AI候选不选定，不宣称阶段2全部完成。原[提案](research/M_SELECTION_STAGE2_PROPOSAL.md)保留历史，不自动进入AI、M2/M3、IC或smoke。
+
+最新EXP-008：DEC-012授权的一次隔离计时S门槛通过后，唯一完整M1 solver205.07 s/RSS233.14 MiB，对全部三次基线190场/10时刻/30个uniform文件逐字节一致，2009项保护SHA不变。互斥阶段计时闭合：T38.5752%、p30.0516%、激光沉积11.4613%、U9.2683%、VOF4.2397%；未归入物理模块0.99924%。相对205.96 s为−0.4321%，单次观测不能分离计时净开销；295项测试通过。可信的是固定M1的粗阶段成本，不是内部线性求解或AI收益；下一步只读审查T/p源码和既有求解事件，不自动新CFD/AI。见[完整计时报告](validation/STAGE2_M1_TIMING_20261017.md)。
+
+最新EXP-009完成[T/p内部只读分析及唯一提案](validation/M1_TP_INTERNAL_ANALYSIS_20261017.md)：零新CFD，四份M1的T/p/epsilon事件序列一致。T7244调用/8705迭代，p3000/16099；后3 μs占T调用77.28%，不是时间份额。发现258步达到21次热校正后epsilon1变化残差仍>1e-6，原检查PASS契约未要求此项收敛，不能当已收敛物理/AI真值。内部7处切换点提案及开销尺度已说明，后续实验仅PROPOSED、未实现/未运行；不更改循环/容差或进入AI。
+
+最新EXP-010已按DEC-014完成唯一S→唯一冻结M1内部七点/10箱计时，205.01 s/236.50 MiB；190场/30 uniform及事件对三基线一致、258步风险保留，2703保护SHA不变，父子/分箱精确闭合。T_ASSEMBLY15.25%、T_OTHER15.03%、P_OTHER11.85%、P_UPDATE8.85%，两个solve API合13.03%；仅让两个API归零的solver极端上限1.14976×，不是AI收益预测。后3 μs占T实测74.98%；不能把整段费用都归258步。见[内部计时结果](validation/M1_TP_INTERNAL_TIMING_20261018.md)。本轮约6分钟且门槛通过，额度已用完，不自动追加模拟/AI。
+
+最新EXP-011完成[依赖审计与唯一候选](validation/M1_REUSE_DEPENDENCY_AUDIT_20261018.md)，零新CFD/优化实现。仅提议单次TEqn内复用原生mag(gradAlpha)，其输入局部固定但thermalDamper/辐射/蒸发仍变化；p的H读取当前U，不能直接缓存整个预测量。候选自身成本/等价/净收益未测，T_OTHER15.03%不是可加速份额。一个OFF/ON未来协议仅PROPOSED，258步风险保持，不自动运行。
+
+最新EXP-012/DEC-016对唯一缓存做[非CFD原生场筛选](validation/MAG_CACHE_NATIVE_20261018.md)，最终NO_BENEFIT。12组字段/108次乘法正确性通过；完整mag最大批均136.501 μs，2倍安全系数并假设全部7244次消除仍仅1.978 s/solver0.9602%，不足约2%目标，已停止，无S/M1/优化求解器。83.65 s、3189项保护SHA一致；此为经验成本否决而非实测CFD净收益，258步风险保持。本候选不继续投入，不自动扩大研究。
 
 当前待补证据与批准事项：
 
 - S 用户提供的ChatGPT核验结果：23个归档文件/22条内部哈希、清单通过；源/构建完整SHA均为7c094679016a2458282c9fcb261d7d55983496bb。solver=0.35 s、最大RSS=127488 KiB，已记录流程范围1.919696505 s；归档标识和SHA256见EXP-001-ADD-01。RECORDS_MATCH不等于重验实际二进制和动态库，工具87061fe9不等于原运行版本。物理/性能证据缺口仍保留。
+- 新S本机实证EXP-004：源/构建07496d15d1eebcb99f618d148a54af3729210669，solver0.36 s/126568 KiB，准备及mesh/solve范围1.875943304 s，构建另计185.44 s，最终离线检查/导出0.61 s；二进制/动态库来源守卫通过，归档COMPLETE。原始数据本地保留，仅公开脱敏摘要及哈希；不替代旧S运行记录或物理验证。
 - Plate2D-ab-002 的实际构建/求解 SHA 待原 manifest 和构建摘要补录；不能用离线比较器提交替代。
-- M 正式选型被实测成本及负责人批准所阻塞；V 选择/实施仍待批准。不得自动提升候选为正式基准或改变阶段顺序。
+- M1实测32000单元、1000步/10 μs，solver退出0，190场检查记录、29491日志事件；3 μs采样首次熔化，7 μs采样超过配置Tvap。原solver214.50 s、RSS240452 KiB、约121.05 MB数据与322.623874 s流程范围保持原记录。工具b5e429b1复核10时刻/190场和10个cumulativeContErr均PASS，离线约96.63 s；原95.90 s/REVIEW记录保留，来源及新包哈希见EXP-002-ADD-01。
+- M3源/构建8f60695a，256000单元/1000步，190场及10时刻uniform通过；solver2872.64 s、RSS1104420 KiB、工作流范围3983.762 s、显式离线724.874 s、数据902667461字节。原生与后处理范围不混加。M3温度/起熔时序与M1差异显著，终点熔化区y有4层；不证明收敛或物理准确性。
+- 用户回传原场比较：105/97.5 μm二值初始面及7.02e-11/7.29e-11 m³体积已由原生alpha确认，1/2/3 μs早期沉积在共同粗格上重叠约0，1 μs总功率均755.601608 W但细格源峰值约4.11倍。10时刻、原生8→1映射及消费文件读取窗口前后SHA通过，离线154.70 s，见EXP-003-ADD-01。EXP-004核验本地旧包与该哈希一致；EXP-005另直接审计1 μs的限定光学字段，不是全时刻重审。既有IC报告3 μs最高金属T1957.76 K，M3为4086.86 K，初态干预未复现M3；分数alpha不证明精确VOF重构面或独立解释全部温差。M2未运行，多次反射/显著界面运动/热点/实验准确性未建立。
+- DEC-011已正式批准原M1固定性能开发用途，EXP-007完成三次成本/重复性测量；物理准确性/网格参考及V选择/实施仍未批准。DEC-006/007历史范围保留，不自动批准其余候选、AI或阶段3。
 
 ## GitHub 状态与版本追溯
 
-截至上述核对日期：[PR #3](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/pull/3) 为 **OPEN / DRAFT / 未合并**，分支为 `feat/research-plan-smoke-benchmark`。本入口随该分支维护；合并前不代表 `main` 已包含这些资料。[PR #2](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/pull/2) 已合并。
+截至上述核对日期：[PR #3](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/pull/3) 已由负责人手动合并，合并提交5e08097d420af3cfb746eda8ec1833da1d068395已核验属于main历史；PR #2亦已合并。本轮从最新main新建`feat/threeD-progressive-m-exploration`，通过[Draft PR #4](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/pull/4)交付，OPEN / DRAFT / 未合并。新M工具与本页更新目前位于该分支，不代表main已接收；不继续使用已合并PR #3分支，不自动合并。
 
 | 关键提交 | 含义与边界 |
 | --- | --- |
@@ -42,6 +60,11 @@
 | [ba94bf88](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/commit/ba94bf8854d1b7a42ff4481237937d34d55d5e31) | 受控路线与 S 探针工具；没有真实三维运行结论 |
 | [7c094679](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/commit/7c094679016a2458282c9fcb261d7d55983496bb) | S原始运行/构建记录匹配的版本；亦含S说明与文献候选 |
 | [87061fe9](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/commit/87061fe9a83a51e3bf9c6ad3058979715b06658e) | 自动反馈工具核对版本；本次实机归档已验收，不是原始运行SHA |
+| [5e08097d](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/commit/5e08097d420af3cfb746eda8ec1833da1d068395) | PR #3合并到main；本轮三级M开发起点 |
+| [15df5607](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/commit/15df5607b51427b96e46b3db27c345169a345590) | DEC-006授权的M1/M2/M3配置、运行/多时刻检查/反馈工具；真实M运行UNVERIFIED |
+| [1d32b6fd](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/commit/1d32b6fda86d730b8e18b1d9f50e1752fffa5416) | M1原始运行/构建记录SHA；solver成功、原离线uniform格式REVIEW_REQUIRED，详见EXP-002 |
+| [b5e429b1](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/commit/b5e429b1ef470314021f6fd03703294b8766a0a8) | uniform标量状态严格解析工具；M1修复后实机复核PASS所用版本，不是原生求解SHA |
+| [8f60695a](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/commit/8f60695ac39dd7c5ce096ad5781528c229f08ce3) | M3原生运行/构建SHA，用户实测PASS；不是本轮新离线比较工具版本 |
 
 当前分支后续提交以 PR 提交列表为准；上表仅列关键既有节点，不作为构建匹配记录。CI 的语法、合成夹具和 Markdown 通过不等于 OpenFOAM 编译、实测或物理验证。
 
@@ -58,8 +81,24 @@
 | [BENCHMARK_DESIGN.md](research/BENCHMARK_DESIGN.md) | S/M 候选定义、预算与比较设计 |
 | [MPI_RISKS.md](research/MPI_RISKS.md) | 已知并行风险与定向验证依据 |
 | [LITERATURE_VALIDATION_CANDIDATES.md](research/LITERATURE_VALIDATION_CANDIDATES.md) | 非受控文献/实验数据候选、V1/V2 提案及缺失输入 |
-| [M_CASE_NEXT_PROPOSAL.md](research/M_CASE_NEXT_PROPOSAL.md) | S实测后的非受控M探索建议，PROPOSED、待批准 |
+| [M_CASE_NEXT_PROPOSAL.md](research/M_CASE_NEXT_PROPOSAL.md) | S实测后的历史提案与研究依据；100步建议不再是当前入口 |
+| [THREED_M_EXPLORATION.md](validation/THREED_M_EXPLORATION.md) | DEC-006三级M探索配置、一次构建与M1/条件M2/M3执行和反馈 |
+| [M1_RECHECK_M3_PREFLIGHT.md](validation/M1_RECHECK_M3_PREFLIGHT.md) | M1复核历史/报告保护、M3资源版本预检、隔离构建及mesh→solve→离线反馈指令 |
+| [M1_IC_CONTROLLED_EXPERIMENT.md](validation/M1_IC_CONTROLLED_EXPERIMENT.md) | DEC-007单次受控初态、隔离构建/mesh/solve/离线归档、三方对照 |
+| [M1_M3_SPATIAL_COMPARISON.md](validation/M1_M3_SPATIAL_COMPARISON.md) | 已有原场只读比较、8→1坐标/体积映射、指标定义、JSON/CSV与反馈命令 |
+| [SHORT_GEOMETRY_DIAGNOSTIC_PROPOSAL.md](research/SHORT_GEOMETRY_DIAGNOSTIC_PROPOSAL.md) | 108000单元/300步诊断的PROPOSED科学设计与成本，不是已批准配置 |
 | [THREED_SMOKE_FIRST_RUN.md](validation/THREED_SMOKE_FIRST_RUN.md) | S 分阶段 Ubuntu 命令和最小反馈 |
+| [LOCAL_CODEX_CFD_AUTOMATION_20261017.md](validation/LOCAL_CODEX_CFD_AUTOMATION_20261017.md) | DEC-008授权的新S真实本机自动化、资源、归档与哈希 |
+| [ALPHA_DEPOSITION_STATIC_REVIEW.md](research/ALPHA_DEPOSITION_STATIC_REVIEW.md) | 旧原场/报告实际存在、IC结论、过滤与射线门槛静态审查和最低成本后续建议 |
+| [OPTICAL_THRESHOLD_AUDIT_20261017.md](validation/OPTICAL_THRESHOLD_AUDIT_20261017.md) | 1 μs三组原场阈值审计、半填充层数值、内部法向重建、JSON/CSV和证据边界 |
+| [RESTRICTION_FINAL_DIAGNOSIS_20261017.md](validation/RESTRICTION_FINAL_DIAGNOSIS_20261017.md) | 最后一次五父/40子体积与精确算术诊断，阈值探索结束 |
+| [M_SELECTION_STAGE2_PROPOSAL.md](research/M_SELECTION_STAGE2_PROPOSAL.md) | 阶段2历史提案；后续DEC-011批准范围与原始方案边界 |
+| [STAGE2_M1_PERFORMANCE_20261017.md](validation/STAGE2_M1_PERFORMANCE_20261017.md) | 三次原M1基线、冻结、资源/I/O/检查成本、重复性与采样阻塞，AI未选定 |
+| [STAGE2_M1_TIMING_20261017.md](validation/STAGE2_M1_TIMING_20261017.md) | 隔离轻量计时、S/M1逐字节一致性、模块成本及未归因/开销边界 |
+| [M1_TP_INTERNAL_ANALYSIS_20261017.md](validation/M1_TP_INTERNAL_ANALYSIS_20261017.md) | T/p源码/求解事件时间演化、原版校正上限退出、唯一PROPOSED内部计时方案 |
+| [M1_TP_INTERNAL_TIMING_20261018.md](validation/M1_TP_INTERNAL_TIMING_20261018.md) | 已批准七点/10箱内部计时、精确等价、T/p成本及极端加速上限 |
+| [M1_REUSE_DEPENDENCY_AUDIT_20261018.md](validation/M1_REUSE_DEPENDENCY_AUDIT_20261018.md) | T/p不变量/变化量/未证明依赖、唯一条件候选及未批准OFF/ON协议 |
+| [MAG_CACHE_NATIVE_20261018.md](validation/MAG_CACHE_NATIVE_20261018.md) | 单项缓存原生字段正确性/完整运算成本及无CFD的NO_BENEFIT否决 |
 | [RESULTS.md](validation/RESULTS.md) | 用户回传的编译、运行、串行数值基线及局限 |
 | [PLATE2D_AB.md](validation/PLATE2D_AB.md) | 原生场、边界、日志和 uniform 的 A/B 比较方法 |
 | [FEEDBACK.md](validation/FEEDBACK.md) | 实机反馈格式与日志管理 |
@@ -71,9 +110,9 @@
 
 ## 仍然 UNVERIFIED 的结论
 
-- S全部实际二进制/动态依赖的独立重验、多次反射/困难非线性路径覆盖，以及M成本和参考；源/构建记录已补齐，但不外推这些未验证结论。本次S未观察到熔化。
+- 历史S/M全部实际二进制/动态依赖的独立重验、真实多次反射及困难路径覆盖；新S有直接执行与依赖守卫证据。EXP-005证明限定0/1 μs光学字段审计读取窗口SHA一致，不证明全部历史不变、逐射线事件或温差唯一归因；M2成本和正式参考未建立。
 - 网格/时间收敛、物理精度、实验一致性、MPI 正确性与三维代表性 LPBF 能力。
-- 性能瓶颈、AI 净收益、端到端数倍加速及训练成本摊销。
+- 原M1粗阶段成本已由EXP-008测得；EXP-010另测得T/p内部边界成本；纯迭代内核/更细函数热点、跨工况性能瓶颈、AI净收益、端到端数倍加速及训练成本摊销仍未验证。
 - 外部实验的完整输入、可追溯材料参数、数据版本与再发布权限；逐项状态以候选库为准。
 
 A/B 数值回归、物理实验验证、AI 加速效果是三类独立证据，不能相互替代。

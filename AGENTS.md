@@ -17,12 +17,26 @@ Also follow the existing `.agents/skills/laserbeamfoam/SKILL.md` conventions.
 - Every approved plan change appends a dated decision with old/new scope,
   rationale, approval evidence and Git traceability. Never erase historical
   decisions or lower accuracy requirements to make a failed test pass.
-- The current stage is low-cost 3D case development. MPI matrices are not gates
+- The current stage is limited Stage 2 performance analysis. MPI matrices are not gates
   to AI research. Validate MPI when an actual change or workload requires it;
   retain known communication/ray-transfer risks.
-- Preserve upstream solvers, libraries and tutorials. No AI, physics changes,
-  DEM, full powder runs, workstation access, system changes or automatic cleanup
-  are authorized in the current implementation round.
+- Preserve upstream solvers, libraries and tutorials. DEC-011 explicitly
+  authorizes local Ubuntu execution of three fresh native M1 performance runs
+  and at most one conditional external sampling run within its guards.
+  DEC-012 additionally authorizes one isolated switchable coarse-timing S gate
+  and at most one frozen M1 observation run; original sources/results stay read-only.
+  No AI, physics changes, DEM, full powder runs, system changes or automatic
+  cleanup are authorized; earlier experiments and raw data remain protected.
+- DEC-013 authorizes only read-only T/p source/log analysis and one future
+  PROPOSED experiment plan; no new CFD. Completed DEC-011/012 runs are not renewed.
+- DEC-014 subsequently authorizes the single seven-site internal observation:
+  one S gate then at most one frozen M1; exact outputs/events and timer closure
+  required, batch deadline 20 minutes. No AI/physics/tolerance changes.
+- DEC-015 permits only read-only dependency audit and a single proposed candidate/
+  protocol; no new CFD, optimization implementation, AI or numerical changes.
+- DEC-016 authorizes only T_LOCAL_NATIVE_MAG_GRADALPHA native-field tests first;
+  stop without CFD if its conservative cost screen rejects a 2% solver gain.
+  Only otherwise one S and one M1 OFF/ON pair, with unchanged exact checks.
 - Use new run directories; keep raw data and private paths in ignored runs/ and
   validation/. CI/mock success is not OpenFOAM execution or physical validation.
 - Check PROJECT_HUB at new PRs, major feature completion, registered workstation

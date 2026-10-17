@@ -1,0 +1,23 @@
+{
+  "schema": "threeD-exploration-v1",
+  "status": "EXPLORATION_AUTHORIZED",
+  "formal_benchmark": "PROPOSED",
+  "id": "M3",
+  "source": "tutorials/laserbeamFoam/fiveLasersOnSubstrate",
+  "source_commit": "3c93f2657e089e22e9a8298648292969e85a4bad",
+  "solver": "laserbeamFoam",
+  "cells": [
+    80,
+    40,
+    80
+  ],
+  "steps": 1000,
+  "delta_t": "1e-8",
+  "end_time": "1e-5",
+  "write_interval": 100,
+  "mesh_timeout_seconds": 180,
+  "solver_timeout_seconds": 3600,
+  "max_rss_kib": 8388608,
+  "max_data_bytes": 3221225472,
+  "resource_policy": "MONITORED_ONLY"
+}

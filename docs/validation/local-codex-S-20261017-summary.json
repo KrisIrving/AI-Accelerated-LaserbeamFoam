@@ -1,0 +1,187 @@
+{
+  "status": "LOCAL_CODEX_CFD_AUTOMATION_VERIFIED",
+  "date_local": "2026-10-17",
+  "timezone": "Asia/Shanghai",
+  "authorization": "DEC-008",
+  "experiment": "local-codex-S-20261017-001",
+  "source_build_tool_commit": "07496d15d1eebcb99f618d148a54af3729210669",
+  "protected_source_diff_from_pr_initial_head": "NONE: src, applications, tutorials, scripts, benchmarks, Allwmake",
+  "environment": {
+    "os": "Ubuntu 22.04.5 LTS",
+    "openfoam": "OpenFOAM.com v2512",
+    "WM_OPTIONS": "linux64GccDPInt32Opt",
+    "compiler": "GCC 11.4.0",
+    "build_jobs": 8,
+    "logical_cpus": 96,
+    "physical_cores": 48,
+    "ram_total_GiB": 93.026,
+    "available_disk_TiB_approx": 2.8
+  },
+  "execution": {
+    "solver": "laserbeamFoam",
+    "attempts": 1,
+    "mpi_ranks": 1,
+    "numeric_library_threads": 1,
+    "cpu_affinity": [
+      0
+    ],
+    "solver_timeout_seconds": 120,
+    "solver_exit": 0,
+    "cells": 2048,
+    "steps": 10,
+    "delta_t_s": 1e-08,
+    "final_time_s": 1e-07
+  },
+  "checks": {
+    "status": "SMOKE_CHECKS_PASSED",
+    "issues": [],
+    "fields": 19,
+    "diagnostic_events": 173,
+    "initialization": "RECORDED_COMPLETE",
+    "mesh": "Mesh OK",
+    "cumulativeContErr_supplemental_semantic": {
+      "status": "PASS",
+      "method": "NUMERICAL_SEMANTIC_UNIFORM_DIMENSIONED_SCALAR",
+      "class": "uniformDimensionedScalarField",
+      "object": "cumulativeContErr",
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "value": 8.641891144171712e-10,
+      "finite": true
+    }
+  },
+  "resources": {
+    "stages": {
+      "blockMesh": {
+        "status": "RECORDED",
+        "wall_seconds": 0.08,
+        "max_rss_kib": 66816
+      },
+      "checkMesh": {
+        "status": "RECORDED",
+        "wall_seconds": 0.06,
+        "max_rss_kib": 67584
+      },
+      "setFields": {
+        "status": "RECORDED",
+        "wall_seconds": 0.06,
+        "max_rss_kib": 70656
+      },
+      "laserbeamFoam": {
+        "status": "RECORDED",
+        "wall_seconds": 0.36,
+        "max_rss_kib": 126568
+      }
+    },
+    "solver_within_approx_120s_budget": true,
+    "budget_note": "120s is the approximate solver-time goal, separate from configurable timeout. Complete preparation/preflight/checker workflow time is not inferred from solver time.",
+    "whole_workflow_budget": "RECORDED_SCOPE_WITHIN_TARGET",
+    "rss_note": "GNU time maximum RSS for each timed serial command; not a sum or whole-workstation memory.",
+    "workflow_wrappers": {
+      "mesh": {
+        "status": "RECORDED",
+        "wall_seconds": 0.46,
+        "max_rss_kib": 70656
+      },
+      "solve": {
+        "status": "RECORDED",
+        "wall_seconds": 1.24,
+        "max_rss_kib": 126568
+      }
+    },
+    "recorded_workflow_wall_seconds": 1.875943304,
+    "workflow_scope": "Recorded preparation body plus mesh/solve wrappers, including their preflights/checks; excludes build, Git, operator waiting, Python preparation startup and final offline report rerun."
+  },
+  "additional_costs": {
+    "build_wall_seconds": 185.44,
+    "build_GNU_time_max_rss_kib": 1230492,
+    "build_RSS_scope": "GNU time reported largest process; not simultaneous build-tree total",
+    "final_offline_check_export_wall_seconds": 0.61,
+    "final_offline_check_export_max_rss_kib": 20736,
+    "raw_input_mesh_output_files": 57,
+    "raw_input_mesh_output_bytes": 1163232,
+    "case_all_file_bytes_at_collection": 1276402
+  },
+  "observations": {
+    "T_range_K": [
+      299.9999999999171,
+      330.2932821947226
+    ],
+    "alpha_range": [
+      3.742743589698343e-74,
+      1.0
+    ],
+    "deposition_range_W_m3": [
+      -0.0,
+      728062735422506.5
+    ],
+    "metal": {
+      "selection": "alpha.metal > 0.5",
+      "cells": 1280,
+      "max_temperature_K": 330.2932821947226,
+      "liquid_fraction_range": [
+        0.0,
+        0.0
+      ],
+      "note": "Only final metal-dominated cells; gas liquid fraction is not used as proof of melting."
+    },
+    "melting": "NOT_OBSERVED",
+    "physical_accuracy": "UNVERIFIED",
+    "multiple_reflections": "NOT_ESTABLISHED"
+  },
+  "feedback": {
+    "archive": "threeD-smoke-feedback.20261017T121903Z.5a055feb3a9143e998ab753f13b1f3fa.tar.gz",
+    "archive_bytes": 11240,
+    "archive_sha256": "78573716e1c99ff20fe3320bd8454c61eea5f4db2e0bd3c1fb729f749ec0c58c",
+    "files": 23,
+    "internal_hashes": 22,
+    "readback": "PASS",
+    "bundle": {
+      "archive_status": "EXPORTED",
+      "check_status": "SMOKE_CHECKS_PASSED",
+      "check_exit_code": 0,
+      "solver_exit_code": 0,
+      "exit_code_source": "CURRENT_OFFLINE_CHECK",
+      "timing_status": "RECORDED_SCOPE",
+      "collection_status": "COMPLETE",
+      "missing_required": [],
+      "missing_optional": [
+        "exit.aiLaserbeamFoam.txt",
+        "log.aiLaserbeamFoam",
+        "time.aiLaserbeamFoam.txt"
+      ],
+      "omitted": {},
+      "tool_version": "smoke-feedback-v1",
+      "privacy": "Best-effort redacted copies only; inspect before sharing. Originals unchanged; no upload. SHA256SUMS covers archived redacted bytes, not original logs or CFD fields."
+    }
+  },
+  "hashes": {
+    "inputs_manifest_sha256": "e38ef0d96da9dff3204196655cff41ec8cf7edd9f5279e75345304986c4dd339",
+    "initialized_manifest_sha256": "37963ab9de053e3f82b64fc4af61e692d96da2bc245a892a0c02e2c04b80c876",
+    "raw_input_fields_manifest_sha256": "da7c9496ba3a434ff85c4e1ac7f30ef03f65fa05fc9e3ed77682cb982d6a3e95",
+    "smoke_report_sha256": "de52fa500baaadac3a52640bffd60e730cdfad1941d237c8da7180130d6580c9",
+    "native_solver_binary_sha256": "a1d2649731aed36967aea5dbd0320ec84626e33c520205dfa73d7e5bbee6795e",
+    "project_libraries": {
+      "libMTHD.so": "4a9ff788493cb7e8f913a270505183ab53600fe2396e6949f5cf4e2d90050a17",
+      "libgeometricVoFLMFOAM.so": "97109747dcad699f479b41f542df24e00122fce74d6edcd21a3b1a2b39eae50d",
+      "libincompressibleTransportModelsLMFOAM.so": "d201a8d06b002936e2a0df6e77112820c8ce7afad0e82b7010af3fbb7143d451",
+      "libincompressibleTurbulenceModelLMFOAM.so": "95c98c44d60826148f064ed9bc4bcccac8c4133795712b2c1cd41d0d2d4ad1c3",
+      "liblaserHeatSource.so": "1f2c9bf1bbaf904e1a6364b8a050b1c4fd6f87d8d445f878c5edb3ccac35eb59",
+      "liblaserbeamFoamFunctionObjects.so": "6b696138ee8c6c1526588515ed7803a951cbaceee8743cce46e4d34532af7d10",
+      "libmultiphaseVapMixtureThermo.so": "3ec73281d9e9082d872f63fd66011882fcc230a473828e08b956e2f9cec99bdf"
+    }
+  },
+  "historical_raw_data": "PRESENT_IN_SEPARATE_EXISTING_WORKSPACE; NUMERICAL_REAUDIT_NOT_PERFORMED",
+  "limits": [
+    "S is not physical validation, grid convergence, MPI validation, profiling or AI speedup",
+    "The unchanged S checker uses a byte-identical self fallback for cumulativeContErr; the existing strict M parser additionally verified its finite scalar and dimensions",
+    "Private logs, fields, mesh, environment report and feedback archive remain local"
+  ]
+}

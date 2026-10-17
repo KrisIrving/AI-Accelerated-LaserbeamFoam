@@ -1,0 +1,574 @@
+{
+  "status": "THREE_BASELINES_PASSED_SAMPLING_BLOCKED",
+  "decision": "DEC-011",
+  "workload": "M1_NATIVE_PERFORMANCE_V1",
+  "runtime_build_commit": "2d3b2591bb8fec521448f9e47662ab595983f737",
+  "frozen_workload": {
+    "id": "M1_NATIVE_PERFORMANCE_V1",
+    "status": "APPROVED_FIXED_PERFORMANCE_WORKLOAD",
+    "decision": "DEC-011",
+    "physical_reference": "UNVERIFIED",
+    "grid_convergence_reference": "UNVERIFIED",
+    "profile": "benchmarks/threeD-exploration/M1.json",
+    "legacy_profile_sha256": "444a268ffc0ba3a42ca3649b32277e95ba9234e8c83e6842a0150750b0f6e14d",
+    "native_source_ref": "21f3c578b24ab2a3426aef00fa01fd6aec380ded",
+    "native_git_objects": {
+      "src": "711ac074d22461cc72e715d4e2a704ae545df3af",
+      "applications": "6f9bac7ef814a1e202239c86a48d024e1c25d954",
+      "Allwmake": "7928602c808ae452e59e5c17ae217a47941d4975"
+    },
+    "baseline_runs": 3,
+    "conditional_sampling_runs_max": 1,
+    "solver": "laserbeamFoam",
+    "cells": [
+      40,
+      20,
+      40
+    ],
+    "steps": 1000,
+    "delta_t_s": "1e-8",
+    "end_time_s": "1e-5",
+    "write_interval_steps": 100,
+    "mpi_ranks": 1,
+    "numeric_threads": 1,
+    "cpu_affinity": [
+      0
+    ],
+    "solver_timeout_seconds": 1800,
+    "batch_budget_seconds": 1800,
+    "max_rss_kib_warning": 8388608,
+    "max_new_data_bytes_warning": 3221225472,
+    "memory_data_policy": "MONITORED_ONLY",
+    "stability_gate": {
+      "solver_cv_max": 0.05,
+      "solver_range_over_median_max": 0.1,
+      "role": "sampling eligibility only; never relaxes numerical checks"
+    },
+    "input_sha256": {
+      "constant/LaserProperties": "46257c413304deb08e601f4585d67a4a33e5a42d1f666a52baa444f2858aec18",
+      "constant/g": "5a7ebc9ea548bd1c1bc1328888a229a535ace6aa5a09ef749645efb751cbc366",
+      "constant/timeVsLaserPosition0": "1f3e5b2d16eb4d17d429777cbf3f0cbcd553a36df3ffc3595cfcc09fb15a856b",
+      "constant/timeVsLaserPosition1": "4a31a66d44b7036652fa9fc25b8452869ce294819280f1322edb1d5bdf514aea",
+      "constant/timeVsLaserPosition2": "535627a3af6c0d29bddda28e39aa89aa3ad080bdb8aab0d37b58ddb2bb14d810",
+      "constant/timeVsLaserPosition3": "7e301697ffa5ddc901bc7e39a118b08e368611d561c9893fdef7d23240208217",
+      "constant/timeVsLaserPosition4": "84df68e5d597d234cabc77bdb294e651cf46b5ed86b6892a2ffd563c70145149",
+      "constant/timeVsLaserPower0": "93f2091c1499aba1cbbe8454697a62a16085f8bebf8ff436e14ef63372b012bc",
+      "constant/timeVsLaserPower1": "93f2091c1499aba1cbbe8454697a62a16085f8bebf8ff436e14ef63372b012bc",
+      "constant/timeVsLaserPower2": "93f2091c1499aba1cbbe8454697a62a16085f8bebf8ff436e14ef63372b012bc",
+      "constant/timeVsLaserPower3": "93f2091c1499aba1cbbe8454697a62a16085f8bebf8ff436e14ef63372b012bc",
+      "constant/timeVsLaserPower4": "93f2091c1499aba1cbbe8454697a62a16085f8bebf8ff436e14ef63372b012bc",
+      "constant/transportProperties": "f5ce7aa1481e3c7652b24c16e07667e50c8daaa535b5c2c788f7e9f68b03db47",
+      "constant/turbulenceProperties": "0baab4aa39e68fe04a21a5768b3c32bf1d4179f1f84b44067f9d8558f1132081",
+      "initial/Laser_boundary": "de8605986a8dfc1f027753f657ae69c09d2a5dfa529a14c00e7e5009708dc301",
+      "initial/T": "5512b73c789cfca475adb9c6bfc6e0f47e8093d99073bcd794b5f252e3490e63",
+      "initial/U": "53459cbec8f5f53bad5d5170820ae9238fb0ab883a351e5e73732881edbd9c13",
+      "initial/alpha.metal": "7a41306d317d68e3fe479a0fe5f8adc27b66705252f70c4c064f74c8cdac3da7",
+      "initial/p_rgh": "7ee371e13effc3c2bb01eba46dff4e54dfc20926ed7e9489495d6d3ec72d6596",
+      "system/blockMeshDict": "7b1f92711dbdd69e2abfd188093399a108502bcef0591e7ed587b49086c15dd9",
+      "system/controlDict": "8dfd63b337c8be18f9d082e9017334530e5ef8f052e69e8e32fbc60de2f89c8a",
+      "system/decomposeParDict": "a997334d25e0ea293c69ee4e261c52be9efa6aa175be8763055bbb031074dadb",
+      "system/fvSchemes": "bc9603132c27e48553db8f1bfc23b73bcaee89cda185843a175b8bc6db19e70c",
+      "system/fvSolution": "b4e2690ad8abfc920e259318f7aff974639b3c104a9c913c4c85613e58f101f9",
+      "system/setFieldsDict": "bfab15e74e8aa5fe3845b5506e0447088d08bc72fb9c6e99f0116972fe7b23d5"
+    },
+    "freezing_rule": "One isolated current-HEAD build for entire batch; actual binary/library/dependency and native mesh/initial hashes captured before first solve and required identical for subsequent solves. Immutable inputs match approved original M1 hashes."
+  },
+  "binary_build": {
+    "binary_sha256": "a1d2649731aed36967aea5dbd0320ec84626e33c520205dfa73d7e5bbee6795e",
+    "libraries": {
+      "libMTHD.so": "4a9ff788493cb7e8f913a270505183ab53600fe2396e6949f5cf4e2d90050a17",
+      "libgeometricVoFLMFOAM.so": "97109747dcad699f479b41f542df24e00122fce74d6edcd21a3b1a2b39eae50d",
+      "libincompressibleTransportModelsLMFOAM.so": "d201a8d06b002936e2a0df6e77112820c8ce7afad0e82b7010af3fbb7143d451",
+      "libincompressibleTurbulenceModelLMFOAM.so": "95c98c44d60826148f064ed9bc4bcccac8c4133795712b2c1cd41d0d2d4ad1c3",
+      "liblaserHeatSource.so": "1f2c9bf1bbaf904e1a6364b8a050b1c4fd6f87d8d445f878c5edb3ccac35eb59",
+      "liblaserbeamFoamFunctionObjects.so": "6b696138ee8c6c1526588515ed7803a951cbaceee8743cce46e4d34532af7d10",
+      "libmultiphaseVapMixtureThermo.so": "3ec73281d9e9082d872f63fd66011882fcc230a473828e08b956e2f9cec99bdf"
+    },
+    "binary_manifest_sha256": "3d6b4cf79e18113906f1a1f8aab38a864d3bd5bf4a2aabc4133751b330c191c8",
+    "library_manifest_sha256": "b431e77d4fef871ca6d80bbbe34cf07d26556768c4a8a6c1a1dcefe2339010c9"
+  },
+  "frozen_native_initialization_sha256": {
+    "0/Laser_boundary": "de8605986a8dfc1f027753f657ae69c09d2a5dfa529a14c00e7e5009708dc301",
+    "0/T": "5512b73c789cfca475adb9c6bfc6e0f47e8093d99073bcd794b5f252e3490e63",
+    "0/U": "53459cbec8f5f53bad5d5170820ae9238fb0ab883a351e5e73732881edbd9c13",
+    "0/alpha.metal": "79b630d93d055d5ed3618807ae4bef36d7e440d13f7facce7183c25f16b7b482",
+    "0/p_rgh": "7ee371e13effc3c2bb01eba46dff4e54dfc20926ed7e9489495d6d3ec72d6596",
+    "constant/polyMesh/boundary": "59f9ac317f89cec7e62de9fa85d8ea084c172b19bc2e1d596d40f7f2b13d6df9",
+    "constant/polyMesh/faces": "9da2b2db53a50cafa77d8e5e987555b506ef08948cc3a6b7a551f822ac0b88e3",
+    "constant/polyMesh/neighbour": "c18da4978cb19619c3a985636d70a9bb0140e4bacbd9fb524fea5d23bcff12c7",
+    "constant/polyMesh/owner": "29827f52b360a443022384cf87cdec5b809870a122ce5c7d8929a88fd8a45d50",
+    "constant/polyMesh/points": "a0eef20a15a2bb0350a8183229807db8e3358f239e2e5851948360aa6df2126e"
+  },
+  "frozen_native_initialization_manifest_sha256": "2a9e3fef75b6ab988e0bcc23d2353a20fbc41cae4c008c26aba73b551b9395a7",
+  "batch_elapsed_seconds": 949.4914824552834,
+  "budget_seconds": 1800,
+  "budget_met": true,
+  "new_batch_directory_bytes": 382257383,
+  "new_data_scope": "Private batch reports/build/install and three case directories; excludes preexisting source-build objects and Git data",
+  "resource_policy": "MONITORED_ONLY",
+  "stability": {
+    "values_seconds": [
+      205.96,
+      206.52,
+      204.95
+    ],
+    "median_seconds": 205.96,
+    "min_seconds": 204.95,
+    "max_seconds": 206.52,
+    "mean_seconds": 205.81,
+    "sample_sd_seconds": 0.7956758133813157,
+    "sample_cv": 0.0038660697409324896,
+    "range_over_median": 0.007622839386288704,
+    "stable_for_sampling": true,
+    "criterion": "sample CV<=5% and range/median<=10%; numerical standards unchanged"
+  },
+  "sampling": {
+    "status": "BLOCKED",
+    "solver_attempted": false,
+    "perf_probe_exit": 255,
+    "perf_event_paranoid": "4",
+    "probe_log_sha256": "3e16d8f851a488f8fd897a68f4b3bdf14c890916b53a59cf3456a56555dcb6bc",
+    "overhead": "NOT_MEASURABLE_NO_SAMPLING_RUN",
+    "baseline_stability_eligible": true,
+    "modules": {
+      "ray_heat_source": {
+        "share": null,
+        "evidence": "UNMEASURED_NO_CALL_STACKS"
+      },
+      "VOF": {
+        "share": null,
+        "evidence": "UNMEASURED_NO_CALL_STACKS"
+      },
+      "properties_phase_change": {
+        "share": null,
+        "evidence": "UNMEASURED_NO_CALL_STACKS"
+      },
+      "linear_solves": {
+        "share": null,
+        "evidence": "UNMEASURED_NO_CALL_STACKS"
+      },
+      "IO": {
+        "share": null,
+        "evidence": "UNMEASURED_NO_CALL_STACKS"
+      },
+      "unknown": {
+        "share": null,
+        "evidence": "UNMEASURED_NO_CALL_STACKS"
+      }
+    }
+  },
+  "build_wrapper_time": {
+    "status": "RECORDED",
+    "wall_seconds": 5.29,
+    "max_rss_kib": 116416
+  },
+  "runs": [
+    {
+      "id": "baseline-1",
+      "complete_wall_seconds": 314.7946426421404,
+      "solver_wall_seconds": 205.96,
+      "solver_max_rss_kib": 243648,
+      "prepare_time": {
+        "status": "RECORDED",
+        "wall_seconds": 0.19,
+        "max_rss_kib": 16128
+      },
+      "mesh_wrapper_time": {
+        "status": "RECORDED",
+        "wall_seconds": 5.79,
+        "max_rss_kib": 108816
+      },
+      "solve_wrapper_time": {
+        "status": "RECORDED",
+        "wall_seconds": 306.74,
+        "max_rss_kib": 243648
+      },
+      "checks": {
+        "status": "EXPLORATION_CHECKS_PASSED",
+        "issues": [],
+        "steps": 1000,
+        "output_times_s": [
+          1e-06,
+          2e-06,
+          3e-06,
+          4e-06,
+          5e-06,
+          6e-06,
+          7e-06,
+          8e-06,
+          9e-06,
+          1e-05
+        ],
+        "field_files": 190,
+        "uniform_times": 10,
+        "full_check_body_seconds": 95.76235290523618,
+        "all_check_body_seconds_by_call": [
+          4.6063115750439465,
+          4.607534484937787,
+          95.76235290523618
+        ],
+        "all_check_body_seconds_sum": 104.97619896521792
+      },
+      "all_check_body_seconds": 104.97619896521792,
+      "other_case_seconds": 3.8584436769224624,
+      "feedback_export_seconds": 1.919828805141151,
+      "feedback": {
+        "archive_status": "EXPORTED",
+        "check_status": "EXPLORATION_CHECKS_PASSED",
+        "check_exit_code": 0,
+        "solver_exit_code": 0,
+        "exit_code_source": "CURRENT_OFFLINE_CHECK",
+        "timing_status": "RECORDED_SCOPE",
+        "collection_status": "COMPLETE",
+        "missing_required": [],
+        "missing_optional": [
+          "exit.aiLaserbeamFoam.txt",
+          "log.aiLaserbeamFoam",
+          "time.aiLaserbeamFoam.txt"
+        ],
+        "omitted": {},
+        "tool_version": "smoke-feedback-v1",
+        "privacy": "Best-effort redacted copies only; inspect before sharing. Originals unchanged; no upload. SHA256SUMS covers archived redacted bytes, not original logs or CFD fields.",
+        "profile": "m",
+        "limits_bytes": {
+          "file": 16777216,
+          "payload": 67108864,
+          "archive": 16777216
+        },
+        "preparation_wall_seconds_before_archive": 1.69657964957878,
+        "export_timing_note": "Archived preparation timing stops before compression. Full export timing is reported separately after compression, verification and publication; it is not part of CFD or workflow timing.",
+        "archive_payload_compression_wall_seconds": 0.15683887898921967,
+        "archive_payload_compression_timing_scope": "Writing/compressing primary diagnostic and provenance entries, including a gzip flush; excludes metadata entries, final tar/gzip close, verification, publication and sidecars. Not CFD timing.",
+        "archive_creation_wall_seconds": 0.20730777783319354,
+        "feedback_export_wall_seconds": 1.9171813055872917,
+        "feedback_export_timing_scope": "Exporter entry through archive compression, in-memory verification, archive and hash/inventory sidecar writes; excludes this export summary write, printing, CFD, and offline numerical checks.",
+        "archive_bytes": 594715
+      },
+      "archive_sha256": "61573080719988588726696e82f05267e5e54acf78ceef9e3fedea16bdbf1881",
+      "archive_bytes": 594715,
+      "archive_readback": {
+        "files": 26,
+        "internal_hashes": 25,
+        "status": "PASS"
+      },
+      "case_bytes": 121645653,
+      "numerical_report_sha256": "6159e84144e20306680a0ce2efa67b3d6535b90d246a0ff060b9c84c68a20c9a",
+      "physics_output_manifest_sha256": "eb3611844ab57ef13e5e91bfe78ec2902ec5a8f716517ea6b62d0b4a0c7f7803",
+      "initialization_manifest_sha256": "2a9e3fef75b6ab988e0bcc23d2353a20fbc41cae4c008c26aba73b551b9395a7",
+      "inputs_manifest_sha256": "bf3f81004cc2358a25804064cf8ee554e237f9f5a52fe82644f04e77498e6b37",
+      "IO": {
+        "gnu_filesystem_inputs_blocks": 0,
+        "gnu_filesystem_outputs_blocks": 225400,
+        "gnu_user_seconds": 204.43,
+        "gnu_system_seconds": 1.42,
+        "gnu_cpu_percent": "99%",
+        "last_sampled_proc_io_lower_bound": {
+          "rchar": 8289437,
+          "wchar": 107800830,
+          "syscr": 2846,
+          "syscw": 71298,
+          "read_bytes": 0,
+          "write_bytes": 108666880,
+          "cancelled_write_bytes": 20480
+        },
+        "sample_scope": "Last observed solver /proc/PID/io; may miss final writes before process exit. GNU counts are final rusage block counters, not logical byte counts or I/O wall time."
+      },
+      "OS_observations": {
+        "samples": 206,
+        "threads_min": 1,
+        "threads_max": 1,
+        "cpu0_frequency_khz_min": 3199976,
+        "cpu0_frequency_khz_max": 3461720
+      },
+      "diagnostic_events": 29491
+    },
+    {
+      "id": "baseline-2",
+      "complete_wall_seconds": 315.4048889828846,
+      "solver_wall_seconds": 206.52,
+      "solver_max_rss_kib": 242656,
+      "prepare_time": {
+        "status": "RECORDED",
+        "wall_seconds": 0.24,
+        "max_rss_kib": 15360
+      },
+      "mesh_wrapper_time": {
+        "status": "RECORDED",
+        "wall_seconds": 5.7,
+        "max_rss_kib": 108816
+      },
+      "solve_wrapper_time": {
+        "status": "RECORDED",
+        "wall_seconds": 307.06,
+        "max_rss_kib": 242656
+      },
+      "checks": {
+        "status": "EXPLORATION_CHECKS_PASSED",
+        "issues": [],
+        "steps": 1000,
+        "output_times_s": [
+          1e-06,
+          2e-06,
+          3e-06,
+          4e-06,
+          5e-06,
+          6e-06,
+          7e-06,
+          8e-06,
+          9e-06,
+          1e-05
+        ],
+        "field_files": 190,
+        "uniform_times": 10,
+        "full_check_body_seconds": 95.57921228930354,
+        "all_check_body_seconds_by_call": [
+          4.575562249869108,
+          4.545944048091769,
+          95.57921228930354
+        ],
+        "all_check_body_seconds_sum": 104.70071858726442
+      },
+      "all_check_body_seconds": 104.70071858726442,
+      "other_case_seconds": 4.184170395620157,
+      "feedback_export_seconds": 1.9168001720681787,
+      "feedback": {
+        "archive_status": "EXPORTED",
+        "check_status": "EXPLORATION_CHECKS_PASSED",
+        "check_exit_code": 0,
+        "solver_exit_code": 0,
+        "exit_code_source": "CURRENT_OFFLINE_CHECK",
+        "timing_status": "RECORDED_SCOPE",
+        "collection_status": "COMPLETE",
+        "missing_required": [],
+        "missing_optional": [
+          "exit.aiLaserbeamFoam.txt",
+          "log.aiLaserbeamFoam",
+          "time.aiLaserbeamFoam.txt"
+        ],
+        "omitted": {},
+        "tool_version": "smoke-feedback-v1",
+        "privacy": "Best-effort redacted copies only; inspect before sharing. Originals unchanged; no upload. SHA256SUMS covers archived redacted bytes, not original logs or CFD fields.",
+        "profile": "m",
+        "limits_bytes": {
+          "file": 16777216,
+          "payload": 67108864,
+          "archive": 16777216
+        },
+        "preparation_wall_seconds_before_archive": 1.6926191300153732,
+        "export_timing_note": "Archived preparation timing stops before compression. Full export timing is reported separately after compression, verification and publication; it is not part of CFD or workflow timing.",
+        "archive_payload_compression_wall_seconds": 0.15727792773395777,
+        "archive_payload_compression_timing_scope": "Writing/compressing primary diagnostic and provenance entries, including a gzip flush; excludes metadata entries, final tar/gzip close, verification, publication and sidecars. Not CFD timing.",
+        "archive_creation_wall_seconds": 0.2081050961278379,
+        "feedback_export_wall_seconds": 1.9141774233430624,
+        "feedback_export_timing_scope": "Exporter entry through archive compression, in-memory verification, archive and hash/inventory sidecar writes; excludes this export summary write, printing, CFD, and offline numerical checks.",
+        "archive_bytes": 594724
+      },
+      "archive_sha256": "a4913d15d4318162fab43616d2b1b7eca1b47c57e98bda775be3a5defdf6491f",
+      "archive_bytes": 594724,
+      "archive_readback": {
+        "files": 26,
+        "internal_hashes": 25,
+        "status": "PASS"
+      },
+      "case_bytes": 121645817,
+      "numerical_report_sha256": "62f2fe21d064809d7ffaf1a2aac29c342656a8acb970095b4da72e935d15e2ba",
+      "physics_output_manifest_sha256": "eb3611844ab57ef13e5e91bfe78ec2902ec5a8f716517ea6b62d0b4a0c7f7803",
+      "initialization_manifest_sha256": "2a9e3fef75b6ab988e0bcc23d2353a20fbc41cae4c008c26aba73b551b9395a7",
+      "inputs_manifest_sha256": "bf3f81004cc2358a25804064cf8ee554e237f9f5a52fe82644f04e77498e6b37",
+      "IO": {
+        "gnu_filesystem_inputs_blocks": 0,
+        "gnu_filesystem_outputs_blocks": 225392,
+        "gnu_user_seconds": 205.01,
+        "gnu_system_seconds": 1.41,
+        "gnu_cpu_percent": "99%",
+        "last_sampled_proc_io_lower_bound": {
+          "rchar": 8289437,
+          "wchar": 102837635,
+          "syscr": 2846,
+          "syscw": 70642,
+          "read_bytes": 0,
+          "write_bytes": 103673856,
+          "cancelled_write_bytes": 0
+        },
+        "sample_scope": "Last observed solver /proc/PID/io; may miss final writes before process exit. GNU counts are final rusage block counters, not logical byte counts or I/O wall time."
+      },
+      "OS_observations": {
+        "samples": 206,
+        "threads_min": 1,
+        "threads_max": 1,
+        "cpu0_frequency_khz_min": 2923309,
+        "cpu0_frequency_khz_max": 3440145
+      },
+      "diagnostic_events": 29491
+    },
+    {
+      "id": "baseline-3",
+      "complete_wall_seconds": 313.7916092602536,
+      "solver_wall_seconds": 204.95,
+      "solver_max_rss_kib": 242824,
+      "prepare_time": {
+        "status": "RECORDED",
+        "wall_seconds": 0.21,
+        "max_rss_kib": 16128
+      },
+      "mesh_wrapper_time": {
+        "status": "RECORDED",
+        "wall_seconds": 5.71,
+        "max_rss_kib": 108804
+      },
+      "solve_wrapper_time": {
+        "status": "RECORDED",
+        "wall_seconds": 305.53,
+        "max_rss_kib": 242824
+      },
+      "checks": {
+        "status": "EXPLORATION_CHECKS_PASSED",
+        "issues": [],
+        "steps": 1000,
+        "output_times_s": [
+          1e-06,
+          2e-06,
+          3e-06,
+          4e-06,
+          5e-06,
+          6e-06,
+          7e-06,
+          8e-06,
+          9e-06,
+          1e-05
+        ],
+        "field_files": 190,
+        "uniform_times": 10,
+        "full_check_body_seconds": 95.61688144365326,
+        "all_check_body_seconds_by_call": [
+          4.570567412767559,
+          4.5572361489757895,
+          95.61688144365326
+        ],
+        "all_check_body_seconds_sum": 104.7446850053966
+      },
+      "all_check_body_seconds": 104.7446850053966,
+      "other_case_seconds": 4.096924254857015,
+      "feedback_export_seconds": 1.9132179501466453,
+      "feedback": {
+        "archive_status": "EXPORTED",
+        "check_status": "EXPLORATION_CHECKS_PASSED",
+        "check_exit_code": 0,
+        "solver_exit_code": 0,
+        "exit_code_source": "CURRENT_OFFLINE_CHECK",
+        "timing_status": "RECORDED_SCOPE",
+        "collection_status": "COMPLETE",
+        "missing_required": [],
+        "missing_optional": [
+          "exit.aiLaserbeamFoam.txt",
+          "log.aiLaserbeamFoam",
+          "time.aiLaserbeamFoam.txt"
+        ],
+        "omitted": {},
+        "tool_version": "smoke-feedback-v1",
+        "privacy": "Best-effort redacted copies only; inspect before sharing. Originals unchanged; no upload. SHA256SUMS covers archived redacted bytes, not original logs or CFD fields.",
+        "profile": "m",
+        "limits_bytes": {
+          "file": 16777216,
+          "payload": 67108864,
+          "archive": 16777216
+        },
+        "preparation_wall_seconds_before_archive": 1.69022859307006,
+        "export_timing_note": "Archived preparation timing stops before compression. Full export timing is reported separately after compression, verification and publication; it is not part of CFD or workflow timing.",
+        "archive_payload_compression_wall_seconds": 0.15670634806156158,
+        "archive_payload_compression_timing_scope": "Writing/compressing primary diagnostic and provenance entries, including a gzip flush; excludes metadata entries, final tar/gzip close, verification, publication and sidecars. Not CFD timing.",
+        "archive_creation_wall_seconds": 0.20683767599985003,
+        "feedback_export_wall_seconds": 1.91056786198169,
+        "feedback_export_timing_scope": "Exporter entry through archive compression, in-memory verification, archive and hash/inventory sidecar writes; excludes this export summary write, printing, CFD, and offline numerical checks.",
+        "archive_bytes": 594709
+      },
+      "archive_sha256": "f6a2eeb71fa2e57e70586f672abb2fcb96bbc13cb575540e60789063dba9c6b2",
+      "archive_bytes": 594709,
+      "archive_readback": {
+        "files": 26,
+        "internal_hashes": 25,
+        "status": "PASS"
+      },
+      "case_bytes": 121645550,
+      "numerical_report_sha256": "b70ce209074480d8ad0bebd03a94d348bc01ca99693c408526925809994bd33d",
+      "physics_output_manifest_sha256": "eb3611844ab57ef13e5e91bfe78ec2902ec5a8f716517ea6b62d0b4a0c7f7803",
+      "initialization_manifest_sha256": "2a9e3fef75b6ab988e0bcc23d2353a20fbc41cae4c008c26aba73b551b9395a7",
+      "inputs_manifest_sha256": "bf3f81004cc2358a25804064cf8ee554e237f9f5a52fe82644f04e77498e6b37",
+      "IO": {
+        "gnu_filesystem_inputs_blocks": 0,
+        "gnu_filesystem_outputs_blocks": 225488,
+        "gnu_user_seconds": 203.39,
+        "gnu_system_seconds": 1.45,
+        "gnu_cpu_percent": "99%",
+        "last_sampled_proc_io_lower_bound": {
+          "rchar": 8289437,
+          "wchar": 109361271,
+          "syscr": 2846,
+          "syscw": 71490,
+          "read_bytes": 0,
+          "write_bytes": 110276608,
+          "cancelled_write_bytes": 0
+        },
+        "sample_scope": "Last observed solver /proc/PID/io; may miss final writes before process exit. GNU counts are final rusage block counters, not logical byte counts or I/O wall time."
+      },
+      "OS_observations": {
+        "samples": 205,
+        "threads_min": 1,
+        "threads_max": 1,
+        "cpu0_frequency_khz_min": 3067076,
+        "cpu0_frequency_khz_max": 3499378
+      },
+      "diagnostic_events": 29491
+    }
+  ],
+  "environment": {
+    "Ubuntu": "22.04.5 LTS",
+    "OpenFOAM": "OpenFOAM.com v2512",
+    "WM_OPTIONS": "linux64GccDPInt32Opt",
+    "compiler": "GCC 11.4.0",
+    "cpu_affinity": [
+      0
+    ],
+    "frequency_policy": "schedutil, not modified",
+    "cache_policy": "No cache flush; fresh independent cases, normal shared OS cache"
+  },
+  "evidence": {
+    "repeated_baseline": "DIRECT_MEASURED",
+    "workflow_costs": "DIRECT_STAGE_TIMERS",
+    "solver_hotspots": "INSUFFICIENT_NO_CALL_STACKS",
+    "AI_candidate": "NOT_SELECTED_INSUFFICIENT_MODULE_COST_EVIDENCE"
+  },
+  "limits": [
+    "Approved performance workload only; physical accuracy and grid convergence UNVERIFIED",
+    "Original checker m.json is written before the solve wrapper closes; batch summary provides final wrapper and complete-case costs without rerunning or altering numerical reports",
+    "GNU filesystem block counters and sampled /proc I/O are not I/O wall-time measurements",
+    "No sampling run means sampling overhead is unmeasured, not zero; module shares remain null",
+    "Three repetitions quantify this batch only; no general machine-performance or AI speedup claim"
+  ],
+  "original_M1_initialization_matches_fixed_batch": true,
+  "original_M1_initialization_manifest_sha256": "2a9e3fef75b6ab988e0bcc23d2353a20fbc41cae4c008c26aba73b551b9395a7",
+  "physics_output_files_byte_identical_all_three": true,
+  "workflow_costs": {
+    "case_wall_sum_seconds": 943.9911408852786,
+    "solver_sum_seconds": 617.4300000000001,
+    "check_body_sum_seconds": 314.42160255787894,
+    "solver_fraction_of_complete_case": 0.6540633415489173,
+    "checks_fraction_of_complete_case": 0.33307685733471304,
+    "other_fraction_of_complete_case": 0.012859801116369663,
+    "hypothetical_all_solver_removed_upper_bound": 2.8907026057240053,
+    "upper_bound_assumptions": "All native solver stage including native I/O disappears; all checking/mesh/export/overhead fixed; no new overhead. This is a workflow ceiling, not an AI-module prediction. Excludes one-time isolated build."
+  },
+  "complete_case_variation": {
+    "values_seconds": [
+      314.7946426421404,
+      315.4048889828846,
+      313.7916092602536
+    ],
+    "median_seconds": 314.7946426421404,
+    "mean_seconds": 314.6637136284262,
+    "sample_sd_seconds": 0.814570236896242,
+    "sample_cv": 0.0025887008943717466,
+    "range_over_median": 0.005124863971922672,
+    "sampling_gate_applies_to": "solver times only"
+  }
+}

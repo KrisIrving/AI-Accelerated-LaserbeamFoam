@@ -17,6 +17,10 @@
 - [追加式决策记录](docs/research/DECISION_LOG.md)
 - [追加式实验记录](docs/research/EXPERIMENT_LOG.md)
 - [S首次运行核对与最小反馈](docs/validation/THREED_SMOKE_FIRST_RUN.md)
+- [M1/M2/M3分级探索与Ubuntu执行](docs/validation/THREED_M_EXPLORATION.md)
+- [M1结果离线复核与条件性M3预检](docs/validation/M1_RECHECK_M3_PREFLIGHT.md)
+- [M1-IC单次受控初态及三方比较](docs/validation/M1_IC_CONTROLLED_EXPERIMENT.md)
+- [M1–M3原场只读空间比较与反馈](docs/validation/M1_M3_SPATIAL_COMPARISON.md)
 - [实验文献及V验证候选（非受控、PROPOSED）](docs/research/LITERATURE_VALIDATION_CANDIDATES.md)
 
 官方 `README.md`、`LICENSE`、`Allwmake`、原求解器、库和教程原样保留。新增入口位于 `applications/solvers/aiLaserbeamFoam`；不是重命名已有二进制，也不替换原源码。两者当前只读共享原生库；未来改库必须先隔离目录和库名。
@@ -30,18 +34,39 @@
 - `main`：从上游基线直接建立，保留其祖先历史；接收经过审查的集成修改。
 - `chore/bootstrap-ubuntu2512`：PR #1 已合并，已验证提交 `98f99de8` 保留在历史中。
 - `feat/ai-laserbeamfoam-solver`：从 PR #1 的 merge commit 建立，交付独立入口和串行 A/B；不堆叠在未合并 PR 上。
-- PR #2 已由用户合并（`532ed068`）；本轮从更新的 main 创建 `feat/research-plan-smoke-benchmark`，单独PR待审查，不自动合并。
+- PR #2 已由用户合并（`532ed068`）；随后从更新的main建立 `feat/research-plan-smoke-benchmark`，交付PR #3。
+- PR #3 已由负责人合并（`5e08097d`）；新的 `feat/threeD-progressive-m-exploration` 从最新main开发DEC-006授权的M探索，通过[Draft PR #4](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/pull/4)交付，不自动合并。后续DEC-011批准原M1固定性能用途和限定阶段2，保留物理/网格参考缺口，原阶段顺序不变。
 - 后续 `fix/...`、`feat/...`、`experiment/...`：独立开发，经 Pull Request 合入；不会向官方上游推送。
 - 测试或编译未验证时可以提交工具和文档，但必须明确记录未验证状态；不得把静态检查改写为运行通过。
 
-当前正式路线（负责人2026-10-16明确批准）：阶段0串行基线COMPLETED；阶段1低成本三维开发案例CURRENT；阶段2真实剖析、阶段3一个AI模块、阶段4代表性粉末床PLANNED。取消固定MPI矩阵与MPI前置门槛，保留定向并行验证和既有风险记录。不修改物理模型/优化等级，本轮不开发AI或埋点。S三维探针和M/粉末具体选型仍为PROPOSED，未测预算UNVERIFIED。
+当前正式路线：阶段0串行基线COMPLETED；2026-10-17按DEC-011将原M1确定为固定性能开发负载，阶段2限定执行三次新原版基线及条件外部采样；物理准确性/网格参考仍UNVERIFIED。阶段3 AI及阶段4代表性粉末床未授权执行。取消固定MPI矩阵前置门槛、保留定向验证；不改物理/优化等级；后续DEC-012仅批准隔离轻量观测计时，不自动开发AI。S只作探针，M2/M3不在本批，旧实验历史保留。
 
 正式目标/路线/精度/基准变更须负责人显式批准并追加DECISION_LOG；聊天建议不自动改计划。新任务先读取根AGENTS.md、PROJECT_HUB和研究章程/计划，再读相关源码及详细文档，不能依赖会话记忆。
 
 阶段1用户实测：threeD-smoke-002 的三维基础检查 SMOKE_CHECKS_PASSED，2048单元、10步；用户提供的ChatGPT归档核验结果补齐源/构建SHA为7c094679016a2458282c9fcb261d7d55983496bb，归档COMPLETE、记录RECORDS_MATCH。Codex未取得原包；记录匹配不等于重验二进制/动态依赖。未观察到熔化，物理精度与热点剖析未建立。来源及界限见[EXP-001和ADD-01](docs/research/EXPERIMENT_LOG.md)，不据此批准M或完成阶段1。
+
+M1已真实完成32000单元/1000步，观察到熔化；solver墙钟214.50秒、最大RSS240452 KiB。2026-10-17补录用户提供的ChatGPT核验：工具b5e429b1复核10时刻/190场及10个uniform/cumulativeContErr全部PASS，约96.63秒。新包非Codex直接核验，不含原场或前后SHA快照，不能独立认证原场复核期间未变；原运行/构建仍1d32b6fd，原REVIEW历史保留。见[EXP-002及ADD-01](docs/research/EXPERIMENT_LOG.md)。阶段1未完成，正式M、物理精度、网格收敛及热点未建立。
+
+最新M3已由用户实测完成并检查PASS：原生源/构建8f60695a，256000单元/1000步/10 μs，solver2872.64秒；原登记来自用户提供的ChatGPT结果，详见EXP-003-ADD-01。2026-10-17本轮在另一个本机既有工作区实际找到M1/M3/M1-IC原场及三方报告，直接核验旧诊断包，保留早期沉积错层和IC未复现M3的结论；未重新完成原场数值审计。按DEC-008直接完成一次新S的真实本机自动化，详见[EXP-004实证](docs/validation/LOCAL_CODEX_CFD_AUTOMATION_20261017.md)。[静态审查及下一项只读验证建议](docs/research/ALPHA_DEPOSITION_STATIC_REVIEW.md)聚焦alpha过滤、0.5门槛及沉积资格，本轮未追加CFD；不重跑M1/M3/IC、不运行M2。[短程新候选](docs/research/SHORT_GEOMETRY_DIAGNOSTIC_PROPOSAL.md)仍PROPOSED；阶段1及物理/收敛/热点限制保持。
+
+随后DEC-009/EXP-005直接完成[1 μs光学阈值原场审计](docs/validation/OPTICAL_THRESHOLD_AUDIT_20261017.md)：THRESHOLD_HYPOTHESIS_SUPPORTED。IC半填充层1600单元的保存alpha_filtered均比0.5低约1.28–1.44e-15，有rayQ支撑但无沉积，内部重建法向约0.99999998；64项前后SHA一致，48.41 s/458.85 MiB，零新增CFD。这升级了限定时刻/字段的证据，不是全场历史审计、实时逐射线事件或全部温差唯一因果证明。下一项仅建议只读抽样回查限制权重与光学门槛的不交换性，尚未执行。
+
+DEC-010/EXP-006已完成[最后一次限制诊断](docs/validation/RESTRICTION_FINAL_DIAGNOSIS_20261017.md)，五父/40子、7.57 s/159.20 MiB，21项SHA一致，保存值逐位复现；最后求和/除法未造成门槛跨越，精确算术也存在不交换性。THRESHOLD_EXPLORATION_CLOSED。此后仅提交[正式M候选与阶段2剖析方案](docs/research/M_SELECTION_STAGE2_PROPOSAL.md)，优先提请批准原M1为固定性能开发负载，物理参考用途未验证；方案PROPOSED，未运行新的模拟/剖析或开发AI。
+
+DEC-011/EXP-007随后直接完成[阶段2原M1三次独立基线](docs/validation/STAGE2_M1_PERFORMANCE_20261017.md)：同一隔离构建、25项输入/10个网格初态文件冻结，190场三例逐字节一致，solver205.96/206.52/204.95 s，CV0.3866%，批次15分49秒。全部原检查及归档通过。perf被paranoid=4拒绝，条件第四例未运行，采样开销未测、内部模块排名和AI候选不选定；阶段2热点证据未完成。物理/网格准确性未验证，不自动开发AI或启动M2/M3。
 
 ## 私有验证数据
 
 本地使用 `validation/` 保存审计、编译日志、隔离安装；使用 `runs/` 保存隔离案例。两者均忽略。不得将主机详情、未审阅日志、压缩反馈包或 CFD 输出加入公开提交。
 
 开源源码延续原 `LICENSE`；以后发布的模型、训练数据和外部依赖还需分别记录来源及可发布条件。
+
+DEC-012/EXP-008完成[隔离轻量计时](docs/validation/STAGE2_M1_TIMING_20261017.md)：一次S门槛后唯一完整M1，205.07 s/233.14 MiB，190场/10时刻/30个uniform文件对三次基线逐字节一致，2009项保护SHA不变。T38.58%、p30.05%、激光沉积11.46%；单次墙钟变化−0.4321%，未观察到>5%增加但不能分离计时本身开销。阶段2已有可信粗阶段成本，内部组装/线性求解/相变拆分与AI净收益未测；阶段3未启动，下一步仅建议只读审查T/p既有源码和日志。
+
+DEC-013/EXP-009完成[T/p内部只读分析](docs/validation/M1_TP_INTERNAL_ANALYSIS_20261017.md)，零新增CFD。四M1事件轨迹一致，T7244调用/8705迭代、p3000/16099；258步达到21次热校正仍未满足epsilon1变化残差门槛，不能当已收敛物理/AI真值。内部时间仍未测，7处最小测点及唯一后续实验仅PROPOSED，不自动运行或改变原数值标准。
+
+2026-10-18 DEC-014/EXP-010完成[内部互斥计时](docs/validation/M1_TP_INTERNAL_TIMING_20261018.md)：唯一S后唯一M1，205.01 s，原检查及190场/30 uniform/事件对三基线一致、所有分箱/父子闭合。T组装15.25%、其他准备15.03%；p预测准备11.85%、更新8.85%；两solve API合13.03%，归零极端solver上限1.14976×，不支持预设线性AI主导收益。T后3 μs成本74.98%；258步未满足非线性残差风险保留。没有修改原版、容差或开发AI，实际本次额度已用完，PR仍Draft。
+
+DEC-015/EXP-011已完成[重复计算依赖审计](docs/validation/M1_REUSE_DEPENDENCY_AUDIT_20261018.md)，零新CFD/优化实现。仅提出单次TEqn内原生mag(gradAlpha)只读缓存；需处理tmp被乘法复用、patch及注册风险，未证数值等价或收益。T_OTHER不是候选可加速份额，未来S→同二进制M1 OFF/ON协议仅PROPOSED；258步风险保持，AI未启动。
+
+DEC-016/EXP-012的[单项缓存筛选](docs/validation/MAG_CACHE_NATIVE_20261018.md)最终NO_BENEFIT：非CFD原生字段/tmp测试通过，但最大完整mag批均136.501 μs，2倍安全系数×全部7244次也只约solver0.9602%，不足2%目标。已停止，无新S/M1/优化求解器/AI；不将微基准外推当实测CFD收益，3189项保护SHA一致，258步风险保持。

@@ -1,0 +1,263 @@
+{
+  "schema": "native-mag-cache-gate-v1",
+  "decision": "DEC-016",
+  "status": "NO_BENEFIT",
+  "new_cfd_runs": 0,
+  "source_commit": "ebcb72effcd6b28c037db26aae2308d8a78b01ed",
+  "stages": [
+    {
+      "name": "build",
+      "exit": 0,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 12.55,
+        "max_rss_kib": 693644
+      }
+    },
+    {
+      "name": "native-fields",
+      "exit": 0,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 66.94,
+        "max_rss_kib": 207588
+      }
+    }
+  ],
+  "resource_policy": "MONITORED_ONLY",
+  "cpu_affinity": [
+    0
+  ],
+  "numeric_threads": 1,
+  "screen": {
+    "safety_factor": 2,
+    "native_evaluations": 7244,
+    "avoidable_evaluations": 6244,
+    "baseline_seconds": 205.96,
+    "target_saved_seconds": 4.1192
+  },
+  "protected_files": 3189,
+  "elapsed_seconds": 83.5921801617369,
+  "binary_sha256": "0bd14242ec4704566c58eda3dfb5dbd2d5e5cd73870a1e66229d2b8672a4da07",
+  "correctness": {
+    "status": "PASS",
+    "samples": 12,
+    "products_compared": 108,
+    "fills": 12,
+    "hits": 96,
+    "cells_each": 32000,
+    "patch_values_each": 6400,
+    "scope": "Bitwise internal/patch values, dimensions, orientation, patch types; original gradient/cache unchanged across repeated varying-damper products; cache not registered/NO_WRITE; new owner per sample"
+  },
+  "maximum_trial_mean_native_mag_ns": 136500.96875,
+  "screen_saved_seconds": 1.97762603525,
+  "screen_fraction_of_solver": 0.009601990848951253,
+  "benchmark_rows": 360,
+  "input_copy_sha_unchanged": true,
+  "protected_sha_unchanged": true,
+  "source_sha256": {
+    "cacheNativeTest.C": "1e6d02b4260d5f90989145f401cee7fab45b4d2ce6d8eb3a10521e071284ea1a",
+    "Make/files": "9bdf56fff86d82fad0c4871fa3b02d64b214e6dc577efe56d1a4b107ebe6f2da",
+    "Make/options": "f2d26ea9067aea7164892a43d30bde86992180e114c2291b58e1b30a823c3b60",
+    "run_native.py": "d0c4d9ef27bf0a115e22781c143021a4e804d2dbef6c5c19c49a7c70780c8a0e"
+  },
+  "new_data_bytes": 12281317,
+  "scope": "Only standalone native fields; no time advancement, finite-volume equation solves or field writes. Native cache value correctness is not full M1 solver equivalence.",
+  "continuation": "STOPPED_AFTER_NATIVE_COST_GATE_NO_S_NO_M1_NO_OPTIMIZED_SOLVER_BUILT",
+  "batch_gnu_resources": {
+    "status": "RECORDED",
+    "wall_seconds": 83.65,
+    "max_rss_kib": 693644
+  },
+  "raw_checks": [
+    {
+      "sample": "0",
+      "internal_cells": "32000",
+      "patch_values": "6400",
+      "products_checked": "9",
+      "cache_fills": "1",
+      "cache_hits": "8",
+      "status": "PASS"
+    },
+    {
+      "sample": "1e-06",
+      "internal_cells": "32000",
+      "patch_values": "6400",
+      "products_checked": "9",
+      "cache_fills": "1",
+      "cache_hits": "8",
+      "status": "PASS"
+    },
+    {
+      "sample": "2e-06",
+      "internal_cells": "32000",
+      "patch_values": "6400",
+      "products_checked": "9",
+      "cache_fills": "1",
+      "cache_hits": "8",
+      "status": "PASS"
+    },
+    {
+      "sample": "3e-06",
+      "internal_cells": "32000",
+      "patch_values": "6400",
+      "products_checked": "9",
+      "cache_fills": "1",
+      "cache_hits": "8",
+      "status": "PASS"
+    },
+    {
+      "sample": "4e-06",
+      "internal_cells": "32000",
+      "patch_values": "6400",
+      "products_checked": "9",
+      "cache_fills": "1",
+      "cache_hits": "8",
+      "status": "PASS"
+    },
+    {
+      "sample": "5e-06",
+      "internal_cells": "32000",
+      "patch_values": "6400",
+      "products_checked": "9",
+      "cache_fills": "1",
+      "cache_hits": "8",
+      "status": "PASS"
+    },
+    {
+      "sample": "6e-06",
+      "internal_cells": "32000",
+      "patch_values": "6400",
+      "products_checked": "9",
+      "cache_fills": "1",
+      "cache_hits": "8",
+      "status": "PASS"
+    },
+    {
+      "sample": "7e-06",
+      "internal_cells": "32000",
+      "patch_values": "6400",
+      "products_checked": "9",
+      "cache_fills": "1",
+      "cache_hits": "8",
+      "status": "PASS"
+    },
+    {
+      "sample": "8e-06",
+      "internal_cells": "32000",
+      "patch_values": "6400",
+      "products_checked": "9",
+      "cache_fills": "1",
+      "cache_hits": "8",
+      "status": "PASS"
+    },
+    {
+      "sample": "9e-06",
+      "internal_cells": "32000",
+      "patch_values": "6400",
+      "products_checked": "9",
+      "cache_fills": "1",
+      "cache_hits": "8",
+      "status": "PASS"
+    },
+    {
+      "sample": "1e-05",
+      "internal_cells": "32000",
+      "patch_values": "6400",
+      "products_checked": "9",
+      "cache_fills": "1",
+      "cache_hits": "8",
+      "status": "PASS"
+    },
+    {
+      "sample": "synthetic",
+      "internal_cells": "32000",
+      "patch_values": "6400",
+      "products_checked": "9",
+      "cache_fills": "1",
+      "cache_hits": "8",
+      "status": "PASS"
+    }
+  ],
+  "input_sha256": {
+    "constant/polyMesh/boundary": "59f9ac317f89cec7e62de9fa85d8ea084c172b19bc2e1d596d40f7f2b13d6df9",
+    "constant/polyMesh/owner": "29827f52b360a443022384cf87cdec5b809870a122ce5c7d8929a88fd8a45d50",
+    "constant/polyMesh/faces": "9da2b2db53a50cafa77d8e5e987555b506ef08948cc3a6b7a551f822ac0b88e3",
+    "constant/polyMesh/points": "a0eef20a15a2bb0350a8183229807db8e3358f239e2e5851948360aa6df2126e",
+    "constant/polyMesh/neighbour": "c18da4978cb19619c3a985636d70a9bb0140e4bacbd9fb524fea5d23bcff12c7",
+    "8e-06/alpha.metal": "3af4292efce2b0cd8d70274e2706da0f3cac9c444ebe6a91dd79c8b8d24c7230",
+    "2e-06/alpha.metal": "1f0f779e4218e8adbe4b33b497b08af610fdb908943def4df5a775f10807efc6",
+    "5e-06/alpha.metal": "e99b15064629bc76e21fdeec18678c18b8e5c3abf3eee2d3f0cc7e41de8fc673",
+    "9e-06/alpha.metal": "c62866ec8bdd837c2ad76d7e361c320913e3b9fd08a27c83ba67cc69b2287452",
+    "4e-06/alpha.metal": "152dbd4b3d4eb9a00e7e8eee49c27b731d411373e327e76f7a1b9ba9708838e9",
+    "7e-06/alpha.metal": "84f141a603ddec218d840db82263f00cdeb372c64dd9ea59a1200b0ee38b0a03",
+    "6e-06/alpha.metal": "1bf47d12f5235b4315187e81ddaa90a98fa66aee42e75a8680ba2c2e04dba280",
+    "system/fvSolution": "b4e2690ad8abfc920e259318f7aff974639b3c104a9c913c4c85613e58f101f9",
+    "system/decomposeParDict": "a997334d25e0ea293c69ee4e261c52be9efa6aa175be8763055bbb031074dadb",
+    "system/blockMeshDict": "7b1f92711dbdd69e2abfd188093399a108502bcef0591e7ed587b49086c15dd9",
+    "system/setFieldsDict": "bfab15e74e8aa5fe3845b5506e0447088d08bc72fb9c6e99f0116972fe7b23d5",
+    "system/controlDict": "8dfd63b337c8be18f9d082e9017334530e5ef8f052e69e8e32fbc60de2f89c8a",
+    "system/fvSchemes": "bc9603132c27e48553db8f1bfc23b73bcaee89cda185843a175b8bc6db19e70c",
+    "1e-05/alpha.metal": "975a1ac1566b573c277076c181da5239dce3ee4474841f1a632c03034caa7f24",
+    "0/alpha.metal": "79b630d93d055d5ed3618807ae4bef36d7e440d13f7facce7183c25f16b7b482",
+    "1e-06/alpha.metal": "a67e6dfbe153961c5f39c44213076f9df63f7e1c546191f0cf86d15f1d081a82",
+    "3e-06/alpha.metal": "8d330d64ea0644c0b8efa9c8a50088faf8bd0499d44d6c37bcf452d2e381a683"
+  },
+  "provenance": {
+    "raw_trials_sha256": "eead9ee1488947ae10fcbaf29c18bb8e22d75dd0712066e3653721f3f6180386",
+    "raw_checks_sha256": "60b1414901f5c4fa10f0b8fb805fe38bc8211dcdc8352ba9a4526360e8a914ce",
+    "protected_before_sha256": "7e582f47e0412f926f67ff1f32891750977aa45fa0e7af7e72f7e604e7ea12af",
+    "protected_after_sha256": "7e582f47e0412f926f67ff1f32891750977aa45fa0e7af7e72f7e604e7ea12af",
+    "protected_scope": "Tracked src/applications/tutorials/scripts/profiling/benchmarks plus all pre-existing local runs/validation, current experiment directory excluded; content hashes."
+  },
+  "methodology": {
+    "samples": "11 saved M1 alpha snapshots (0,1,...,10 microseconds) reconstructed with native fvc::grad and boundary correction, plus one synthetic nonuniform vector field; all on copied native 32000-cell/6400-boundary-face mesh.",
+    "hot_calls_per_trial": 256,
+    "evicted_calls_per_trial": 32,
+    "trials_per_sample_mode_operation": 5,
+    "eviction_bytes": 134217728,
+    "observed_cpu0_LLC_kib": 36608,
+    "eviction_note": "128MiB cache-line-stride read/modify/write perturbation outside measured interval, larger than observed LLC. Not guaranteed hardware-cold state; order fixed, no claim of randomized CPU benchmarking.",
+    "timed": "Complete native mag, or complete original/cached-hit product, including construction/patch/correction/destruction and one volatile witness read; chrono overhead included.",
+    "cache_hit_product_limit": "Hit timing excludes first-fill and cache-owner lifecycle; it is not a measured net CFD optimization benefit. Correctness test includes fill and owner recreation.",
+    "screen_limit": "2x maximum observed trial mean across sample/mode, extrapolated to all 7244 evaluations rather than only 6244 avoidable; conservative empirical rejection screen, not a mathematical or cross-machine bound."
+  },
+  "uncertainty": {
+    "actual_M1_OFF_ON_gain": "UNMEASURED_NOT_RUN",
+    "full_190_field_equivalence_of_cache_solver": "UNTESTED_NO_NEW_SOLVER",
+    "label_meaning": "NO_BENEFIT for approximately 2% solver continuation target; does not assert zero possible sub-percent gain.",
+    "nonlinear_risk": "Original 258 unresolved thermal steps untouched; no new physical/convergence/AI-truth validation."
+  },
+  "aggregate_timings": {
+    "hot/native_mag_complete": {
+      "min_ns": 69679.26171875,
+      "median_ns": 74723.216796875,
+      "max_ns": 77395.44140625
+    },
+    "hot/original_full_product": {
+      "min_ns": 94767.2421875,
+      "median_ns": 98496.486328125,
+      "max_ns": 101110.16015625
+    },
+    "hot/cache_hit_full_product": {
+      "min_ns": 22979.8515625,
+      "median_ns": 24135.041015625,
+      "max_ns": 26270.50390625
+    },
+    "evicted/native_mag_complete": {
+      "min_ns": 101898.3125,
+      "median_ns": 125279.40625,
+      "max_ns": 136500.96875
+    },
+    "evicted/original_full_product": {
+      "min_ns": 154179.71875,
+      "median_ns": 167150.71875,
+      "max_ns": 182874.75
+    },
+    "evicted/cache_hit_full_product": {
+      "min_ns": 80672.375,
+      "median_ns": 89415.015625,
+      "max_ns": 103879.1875
+    }
+  }
+}
