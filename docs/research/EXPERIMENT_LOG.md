@@ -281,3 +281,14 @@ solver耗时比13.392，超过8倍单元增幅；按单元步数归一仍约1.67
 - 证据等级：已有阶段计时DIRECT；依赖为有条件STATIC_SOURCE；缓存运行字节等价及收益未实现/未测。唯一PROPOSED协议：非CFD命中/tmp/边界测试→一次S ON门槛→同一隔离二进制一次冻结M1 OFF、一次新M1 ON。S每步仅一热校正不覆盖命中；两M1须190场/30 uniform/原检查及T/p/epsilon1/258步序列对三基线一致，所有成本/父子/箱闭合。提议>2%solver配对收益且目标差方向一致才继续投入，仅作待批准保守筛选而非统计证明；否则无收益/INCONCLUSIVE，不追加运行。
 - 未来预算提案仍1200 s整批，S120 s/每M11800 s且剩余批时优先，8 GiB/3 GiB MONITORED_ONLY，串行线程1/CPU0，系统进程负责超时/日志、完成后集中检查。实际未批准/未启动。本轮不改258步非线性退出，不把轨迹等价当物理/训练真值。
 - [依赖表/唯一提案](../validation/M1_REUSE_DEPENDENCY_AUDIT_20261018.md)、[证据JSON](../validation/M1_REUSE_DEPENDENCY_AUDIT_20261018.json)10684字节/SHA256=a2b2934cd8ff4f0b8106778bc801783163b61189ea006c3965887aef4db94bb5。原版及旧结果只读，PR #4仍Draft、不合并，阶段3未启动。
+
+## EXP-012 — 单项mag缓存原生场测试与非CFD否决
+
+- 日期2026-10-18；DEC-016；最终 **NO_BENEFIT**（针对约2%solver收益筛选，非证明任何正收益不存在）。执行HEAD=ebcb72effcd6b28c037db26aae2308d8a78b01ed；私有原生工具/Make/驱动独立SHA见JSON。原版源码/数值标准不变、无AI。
+- 零新增CFD，未推进Time/求解方程/写场；没有S、M1 OFF/ON，也未构建优化求解器。独立工具读取复制的原生M1网格、0–10 μs共11个alpha快照重建梯度，加synthetic非均匀内部/patch；每样本32000单元/6400边界值，12样本×9轮变化damper=108次乘积逐元素字节一致，dimensions/orientation/patch类型一致。缓存fill12/hit96，原输入/缓存经tmp构造/析构及乘法后未变，不注册/NO_WRITE、不跨样本复用；复制输入SHA不变。此正确性不代替完整M1等价。
+- 每样本/模式/操作5批，hot256次/批、128 MiB缓存扰动32次/批；共360批/51840运算，完整mag17280次。计时含分配/内部/patch/局部边界/析构及volatile结果读取，未扣chrono开销；扰动在计时外，大于观察LLC但不保证硬件冷缓存，顺序固定不作随机试验声明。
+- 完整mag hot批均中位74.723 μs、范围69.679–77.395；扰动中位125.279 μs、范围101.898–136.501。最大精确136500.96875 ns（3 μs样本扰动、32次总4368031 ns）。原完整乘积hot/扰动中位98.496/167.151 μs，缓存命中乘积24.135/89.415 μs；后者不计首次填充/owner生命周期，不是CFD净收益。
+- 按运行前DEC-016判据，2×最大批均×全部7244次（比只省6244次更宽松、且忽略缓存开销）=1.97762603525秒/原205.96秒的0.9602%，不足2%目标4.1192秒的一半；触发NO_BENEFIT，停止全部后续CFD。它是经验保守筛选，不是全部CFD/跨机器数学上界；真实M1收益与190场/30 uniform的优化版等价未测，不冒充通过，也无统计显著结论。
+- 主动批83.592秒/GNU83.65秒（build12.55/native66.94），native RSS207588 KiB、build/批最大693644 KiB，新本地12281317字节；1200秒系统截止、线程1/CPU0、8 GiB/3 GiB MONITORED_ONLY未触警戒。无重试/续算、无安装/sudo，日志本地、进程独立阻塞完成后集中分析。
+- 3189项原版tracked源码/教程/框架/配置及运行前全部runs/validation内容SHA前后一致，清单SHA均7e582f47e0412f926f67ff1f32891750977aa45fa0e7af7e72f7e604e7ea12af；二进制SHA=0bd14242ec4704566c58eda3dfb5dbd2d5e5cd73870a1e66229d2b8672a4da07。原字段/日志/测试源码/二进制本地保留，不覆盖旧结果。
+- [否决报告](../validation/MAG_CACHE_NATIVE_20261018.md)、[JSON](../validation/MAG_CACHE_NATIVE_20261018-summary.json)10136字节/SHA256=c473003ceb0a4dbdfa83aa72076d8452e276437971951eed6af467877d17c5ed、[聚合CSV](../validation/MAG_CACHE_NATIVE_20261018-trials.csv)5519字节/SHA256=b0a8c53a4835f35f1cc28d4ca6882f4a9a4918146222642ae761efe680bf253e。停止本候选投入，不扩展其他优化；258步非线性未收敛风险保持，不当物理/AI真值。PR #4继续Draft，不合并。
