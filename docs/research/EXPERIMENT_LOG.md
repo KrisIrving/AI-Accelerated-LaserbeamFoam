@@ -160,3 +160,23 @@ solver耗时比13.392，超过8倍单元增幅；按单元步数归一仍约1.67
 - 初始几何、沉积空间支撑/局部源峰值及热流动离散共同变化，构成早期熔化比较的潜在混杂。不能统一归为Bug，也不能只靠终点相近或两级网格宣布收敛。多次反射、显著界面运动、实验准确性及热点仍未建立。
 - 本轮仅交付独立[原场离线比较工具](../validation/M1_M3_SPATIAL_COMPARISON.md)：用原生坐标/体积核对8→1映射，保留初态，报告温度/沉积/alpha×epsilon1/速度及各自权重与限制。合成测试不替代真实M1/M3原场比较；真实工具结果仍待用户回传。
 - [108000单元/300步短程诊断](SHORT_GEOMETRY_DIAGNOSTIC_PROPOSAL.md)仅PROPOSED，先估算、再决定是否必要和请求批准；不创建正式配置。改初始化、几何位置或物性必须另提受控对照并获批准。本轮不重跑M1/M3、不运行M2、不改S/原求解器/已有配置/检查标准或受控计划；PR #4继续Draft，阶段1仍IN_PROGRESS。
+
+## EXP-003-ADD-01 — 原场 M1/M3 空间诊断已完成（用户回传）
+
+- 登记日期：2026-10-17；来源为负责人《M1/M3空间诊断结论与M1-IC受控实验》，明确由ChatGPT实际读取并核验。Codex本轮未收到该包或两套原场，以下为USER_PROVIDED_CHATGPT_VERIFICATION，不声称独立解析或重算归档。
+- 工具提交8dcdcdcc09c4548564eea66ce4426e5515531346；归档m1-m3-comparison-feedback.tar.gz，SHA256=8ac01be3e64254bb9130596f6e7bace9a2f8b266a868f5e97a1f723c4a0f221c。用户报告9文件/8内部SHA及FILES全部通过，外部sources.sha256与包内相同文件逐字节一致。
+- COMPARISON_COMPLETED，issues=[]，全部10个共同输出时刻；NATIVE_COORDINATES_VOLUMES_VERIFIED的8→1映射；已消费原场在读取窗口内前后SHA保持一致，不扩展为原场全部历史不变。工具墙钟154.70秒，为离线诊断开销，不是CFD模块计时或AI加速。
+- 原运行/构建仍为M1=1d32b6fda86d730b8e18b1d9f50e1752fffa5416、M3=8f60695ac39dd7c5ce096ad5781528c229f08ce3。准备输入仅system/blockMeshDict不同。初始T映射差异仅浮点舍入级。
+- 原生alpha确认初始金属表面M1=105 μm、M3=97.5 μm，体积7.02e-11/7.29e-11 m³，相差3.846%，均符合各自boxToCell中心选择。此项由EXP-003中的推算升级为用户提供的原场诊断证据，不抹去原记录当时的不确定性。
+
+| 1 μs观察量 | M1 | M3 |
+| --- | --- | --- |
+| 沉积总功率 / W | 755.601608 | 755.601608 |
+| 正沉积y质心 / μm | 112.5 | 101.25 |
+| 体积源峰值 / W/m³ | 2.202245e15 | 9.060464e15 |
+| 正沉积有效支撑体积 / m³ | 6.5745e-13 | 1.58065e-13 |
+| 金属最高T / K | 1123.36 | 2274.19 |
+
+- M3峰值约4.11倍、有效支撑体积约24%；M3沉积层映射到粗90–105 μm单元，M1沉积层在105–120 μm单元。用户按积分及体积加权L1计算1/2/3 μs正沉积空间重叠约0（数值精度内）。这是粗共同支撑上的空间诊断，非连续介质亚单元交集证明。
+- 结论：INITIAL_INTERFACE_DISCRETIZATION_DIFFERS与EARLY_DEPOSITION_LAYER_MISMATCH有原场证据。总功率相同不等于局部能量输入相同；几何、热源分配与分辨率耦合。不能宣称初始界面独立解释全部早期温差或存在求解器Bug；PHYSICAL_ACCURACY_UNVERIFIED、GRID_CONVERGENCE_NOT_ESTABLISHED、HOTSPOT_NOT_ESTABLISHED、AI_NOT_STARTED。
+- 后续仅按新增DEC-007交付独立[M1-IC受控探索](../validation/M1_IC_CONTROLLED_EXPERIMENT.md)。新实验尚未初始化或运行，结果UNVERIFIED；不预填其起熔时刻/温度/沉积/耗时，不覆盖M1/M3原场或报告，阶段1仍IN_PROGRESS。

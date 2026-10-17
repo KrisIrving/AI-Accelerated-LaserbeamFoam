@@ -11,7 +11,7 @@
 | 正式阶段 | 阶段1：低成本三维开发案例，CURRENT / IN_PROGRESS | [开发计划](research/DEVELOPMENT_PLAN.md) |
 | Plate2D 串行 A/B | 用户实测 PASS；仅当前短程数值等价 | [RESULTS](validation/RESULTS.md)、[EXP-000](research/EXPERIMENT_LOG.md) |
 | 三维 S | 用户实测 SMOKE_CHECKS_PASSED；归档COMPLETE、源/构建记录RECORDS_MATCH；未观察到熔化；仍为 PROPOSED 探针 | [EXP-001及ADD-01](research/EXPERIMENT_LOG.md)、[首次实测说明](validation/THREED_SMOKE_FIRST_RUN.md) |
-| M探索 | M1/M3基础运行及离线检查用户实测PASS，均观察熔化；早期空间敏感性显著，初始几何混杂待原场离线核对。M2暂缓，正式M未批准 | [EXP-002/003](research/EXPERIMENT_LOG.md)、[跨网格离线比较](validation/M1_M3_SPATIAL_COMPARISON.md)、[DEC-006](research/DECISION_LOG.md) |
+| M探索 | M1/M3基础运行及离线检查用户实测PASS，均观察熔化；早期空间敏感性显著，原场诊断已确认初始几何差异与早期沉积错层；单次M1-IC工具按DEC-007获批，实机UNVERIFIED。M2暂缓，正式M未批准 | [EXP-002/003](research/EXPERIMENT_LOG.md)、[跨网格离线比较](validation/M1_M3_SPATIAL_COMPARISON.md)、[DEC-006](research/DECISION_LOG.md) |
 | 论文物理验证 V | 候选研究，PROPOSED；没有新增强制阶段或已实现案例 | [文献与实验候选库](research/LITERATURE_VALIDATION_CANDIDATES.md) |
 | AI 模块 | NOT_STARTED；尚未选择或实现 | [开发计划](research/DEVELOPMENT_PLAN.md) |
 | MPI 固定验证矩阵 | 已撤销为强制开发门槛；保留定向验证及已知风险 | [DEC-002](research/DECISION_LOG.md)、[MPI 风险](research/MPI_RISKS.md) |
@@ -20,9 +20,9 @@
 
 已完成的重要里程碑：独立 aiLaserbeamFoam 源码与编译入口；用户回传 v2512 双求解器编译及 Plate2D 串行短程 A/B PASS；正式研究治理文件；S 工具及文献候选库；用户回传 S 三维基础运行及自动归档验收。S归档核验来自用户提供的ChatGPT检查结果，Codex未取得原包，不能宣称直接核验。
 
-当前执行：阶段1的M3实测补录及M1–M3初始界面/热源空间敏感性离线诊断，阶段1整体尚未完成。M1修复后PASS和M3结果来自用户提供的ChatGPT归档核验，Codex未取得这两个新包/原场；上轮直接核验的旧M1包仍记录REVIEW_REQUIRED。不能独立认证原场历史未变；S仍为2048单元/10步探针。
+当前执行：阶段1独立M1-IC受控探索工具开发与实机准备，见[DEC-007](research/DECISION_LOG.md)。M1/M3原场空间比较已由用户回传COMPARISON_COMPLETED；源数据与归档核验是用户提供的ChatGPT结果，Codex未取得该包/原场。S仍为2048单元/10步探针；阶段1整体尚未完成。
 
-下一个可执行任务：按[M1–M3比较说明](validation/M1_M3_SPATIAL_COMPARISON.md)，在已有两套原场上运行独立只读诊断，输出JSON/CSV及小型反馈包；默认全部共同输出时刻，核对原生坐标/体积后8→1聚合，保留初态差异。无需构建或CFD，不覆盖原M报告。108000单元短程候选仅[PROPOSED](research/SHORT_GEOMETRY_DIAGNOSTIC_PROPOSAL.md)，不生成配置。M2暂缓，正式M未批准；不进入阶段2或开发AI。
+下一个可执行任务：按[M1-IC说明](validation/M1_IC_CONTROLLED_EXPERIMENT.md)，先新HEAD隔离构建、读取现有M1/M3生成限制参考，随后用户单独执行mesh并审阅受控alpha初始化，才启动唯一一次32000单元/300步/3 μs求解。之后全场离线检查/归档和三方1/2/3 μs比较。仅新案例alpha干预，原M1/M3只读；不自动重跑/续算/扩大规模。108000单元候选仍PROPOSED，M2暂缓，正式M未批准；不进入阶段2或开发AI。
 
 当前待补证据与批准事项：
 
@@ -30,8 +30,8 @@
 - Plate2D-ab-002 的实际构建/求解 SHA 待原 manifest 和构建摘要补录；不能用离线比较器提交替代。
 - M1实测32000单元、1000步/10 μs，solver退出0，190场检查记录、29491日志事件；3 μs采样首次熔化，7 μs采样超过配置Tvap。原solver214.50 s、RSS240452 KiB、约121.05 MB数据与322.623874 s流程范围保持原记录。工具b5e429b1复核10时刻/190场和10个cumulativeContErr均PASS，离线约96.63 s；原95.90 s/REVIEW记录保留，来源及新包哈希见EXP-002-ADD-01。
 - M3源/构建8f60695a，256000单元/1000步，190场及10时刻uniform通过；solver2872.64 s、RSS1104420 KiB、工作流范围3983.762 s、显式离线724.874 s、数据902667461字节。原生与后处理范围不混加。M3温度/起熔时序与M1差异显著，终点熔化区y有4层；不证明收敛或物理准确性。
-- M1/M3初始金属体积7.02e-11/7.29e-11 m³，对应105/97.5 μm界面为网格/体积推算，原生alpha剖面与沉积分布待离线比较；该工具真实运行仍UNVERIFIED。M2未运行。RSS/数据仍MONITORED_ONLY，多次反射/显著界面运动/热点/实验准确性未建立。
-- M正式选型仍待实测成本及负责人批准；V选择/实施仍待批准。DEC-006只批准三级探索工具范围，不自动批准其余候选或改变阶段顺序。
+- 用户回传原场比较：105/97.5 μm二值初始面及7.02e-11/7.29e-11 m³体积已由原生alpha确认，1/2/3 μs早期沉积在共同粗格上重叠约0，1 μs总功率均755.601608 W但细格源峰值约4.11倍。10时刻、原生8→1映射及消费文件读取窗口前后SHA通过，离线154.70 s，见EXP-003-ADD-01及归档哈希。不能独立解释全部温差。M1-IC尚未实测；其分数alpha不证明精确VOF重构面。M2未运行。RSS/数据仍MONITORED_ONLY，多次反射/显著界面运动/热点/实验准确性未建立。
+- M正式选型仍待实测成本及负责人批准；V选择/实施仍待批准。DEC-006批准三级探索，DEC-007仅增加单次M1-IC受控配置/工具，不自动批准其余候选或改变阶段顺序。
 
 ## GitHub 状态与版本追溯
 
@@ -69,6 +69,7 @@
 | [M_CASE_NEXT_PROPOSAL.md](research/M_CASE_NEXT_PROPOSAL.md) | S实测后的历史提案与研究依据；100步建议不再是当前入口 |
 | [THREED_M_EXPLORATION.md](validation/THREED_M_EXPLORATION.md) | DEC-006三级M探索配置、一次构建与M1/条件M2/M3执行和反馈 |
 | [M1_RECHECK_M3_PREFLIGHT.md](validation/M1_RECHECK_M3_PREFLIGHT.md) | M1复核历史/报告保护、M3资源版本预检、隔离构建及mesh→solve→离线反馈指令 |
+| [M1_IC_CONTROLLED_EXPERIMENT.md](validation/M1_IC_CONTROLLED_EXPERIMENT.md) | DEC-007单次受控初态、隔离构建/mesh/solve/离线归档、三方对照 |
 | [M1_M3_SPATIAL_COMPARISON.md](validation/M1_M3_SPATIAL_COMPARISON.md) | 已有原场只读比较、8→1坐标/体积映射、指标定义、JSON/CSV与反馈命令 |
 | [SHORT_GEOMETRY_DIAGNOSTIC_PROPOSAL.md](research/SHORT_GEOMETRY_DIAGNOSTIC_PROPOSAL.md) | 108000单元/300步诊断的PROPOSED科学设计与成本，不是已批准配置 |
 | [THREED_SMOKE_FIRST_RUN.md](validation/THREED_SMOKE_FIRST_RUN.md) | S 分阶段 Ubuntu 命令和最小反馈 |
@@ -83,7 +84,7 @@
 
 ## 仍然 UNVERIFIED 的结论
 
-- S/M全部实际二进制/动态依赖的独立重验、真实多次反射及困难路径覆盖；S未观察到熔化，M1/M3已观察熔化并完成基础离线检查，但原场历史未变的独立证据及本轮跨网格真实结果未提供。M2成本和正式参考未建立。
+- S/M全部实际二进制/动态依赖的独立重验、真实多次反射及困难路径覆盖；S未观察到熔化，M1/M3已观察熔化并完成基础离线检查，已有跨网格结果及读取窗口哈希证据（用户回传），仍不证明原场全部历史未变。M1-IC实际初始化/求解/三方比较、M2成本和正式参考未建立。
 - 网格/时间收敛、物理精度、实验一致性、MPI 正确性与三维代表性 LPBF 能力。
 - 性能瓶颈、AI 净收益、端到端数倍加速及训练成本摊销。
 - 外部实验的完整输入、可追溯材料参数、数据版本与再发布权限；逐项状态以候选库为准。

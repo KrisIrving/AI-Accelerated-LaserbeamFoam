@@ -1,0 +1,21 @@
+{
+  "schema": "m1-ic-exploration-v1",
+  "status": "CONTROLLED_EXPLORATION_AUTHORIZED",
+  "formal_benchmark": "PROPOSED",
+  "id": "M1-IC",
+  "source": "tutorials/laserbeamFoam/fiveLasersOnSubstrate",
+  "source_commit": "3c93f2657e089e22e9a8298648292969e85a4bad",
+  "solver": "laserbeamFoam",
+  "cells": [40, 20, 40],
+  "steps": 300,
+  "delta_t": "1e-8",
+  "end_time": "3e-6",
+  "write_interval": 100,
+  "mesh_timeout_seconds": 180,
+  "solver_timeout_seconds": 600,
+  "max_rss_kib": 8388608,
+  "max_data_bytes": 3221225472,
+  "resource_policy": "MONITORED_ONLY",
+  "initialization": "M3_NATIVE_ALPHA_VOLUME_RESTRICTION_8_TO_1",
+  "decision": "DEC-007"
+}

@@ -484,7 +484,7 @@ def resource_records(case, config, data_bytes):
     return result
 
 
-def check(case, mesh_only=False):
+def check(case, mesh_only=False, *, manifest_reader=None, initial_validator=None):
     started = time.perf_counter()
     case = Path(case).absolute()
     report = {"status": PASSED, "accuracy": "UNVERIFIED", "reference": "NOT_ESTABLISHED",
@@ -492,7 +492,7 @@ def check(case, mesh_only=False):
         "issues": [], "fields": {}, "uniform": {}, "observations": [], "resources": {}, "execution_times": []}
     try:
         data_bytes = safe_inventory(case)
-        record = manifest(case)
+        record = (manifest_reader or manifest)(case)
         config = record["config"]
         report.update(experiment_id=record["experiment_id"], solver=record["solver"],
             project_commit=record["project_commit"], build_commit=record["build_commit"], config=config)
@@ -537,6 +537,9 @@ def check(case, mesh_only=False):
         report["initialization"].update(status="PASS", field_names=sorted(initial_files),
             fields_checked=len(initial_files), metal_cells=len(initial_metal),
             metal_volume_m3=initial_volume, metal_T_max_K=initial_metal_max)
+        if initial_validator is not None:
+            report["controlled_initialization"] = initial_validator(
+                case, record, geometry, volumes, centres, summary, initial_alpha)
         report["phase_interval_K"] = {"solidus": 1928.15, "liquidus": 1978,
             "source": "Pinned fiveLasersOnSubstrate transportProperties; not experimentally calibrated"}
         output_times = {}
@@ -640,7 +643,7 @@ def csv_text(rows):
     return stream.getvalue()
 
 
-def main(argv=None):
+def main(argv=None, *, manifest_reader=None, initial_validator=None, feedback_profile="m"):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--case-dir", required=True, type=Path)
     parser.add_argument("--mesh-only", action="store_true")
@@ -653,7 +656,7 @@ def main(argv=None):
     try:
         if not case.is_dir() or any(p.is_symlink() for p in (case, *case.parents)):
             raise ValueError("missing/symlinked case directory or ancestor")
-        report = check(case, args.mesh_only)
+        report = check(case, args.mesh_only, manifest_reader=manifest_reader, initial_validator=initial_validator)
         mesh_pass = report["status"] == "MESH_INITIALIZATION_CHECKS_PASSED"
         code = 0 if mesh_pass else CODE[report["status"]]
         summary = ("Status: {}\nExperiment: {}; formal benchmark: PROPOSED\n"
@@ -672,6 +675,10 @@ def main(argv=None):
         mesh_summary = dict(report.get("mesh", {}), check_mode=report["mode"], check_status=report["status"],
             initialization=report.get("initialization", {"status": "NOT_ESTABLISHED", "fields_checked": 0}),
             issues=report["issues"])
+        if "controlled_initialization" in report:
+            mesh_summary["controlled_initialization"] = report["controlled_initialization"]
+            summary += "Controlled initialization: {}; method: {}\n".format(
+                report["controlled_initialization"]["status"], report["controlled_initialization"]["method"])
         payload = {"mesh-summary.json": json.dumps(mesh_summary, indent=2, allow_nan=False) + "\n"}
         if args.mesh_only:
             payload["mesh-check.txt"] = summary
@@ -693,7 +700,7 @@ def main(argv=None):
     if args.feedback_bundle:
         try:
             from export_smoke_feedback import export_feedback, print_result
-            print_result(export_feedback(case, check_exit_code=code, profile="m"))
+            print_result(export_feedback(case, check_exit_code=code, profile=feedback_profile))
         except (OSError, ValueError, TypeError, tarfile.TarError) as exc:
             print("ERROR [feedback] archive_status=FAILED; check exit unchanged: " + str(exc), file=sys.stderr)
     return code

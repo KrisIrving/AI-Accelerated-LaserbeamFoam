@@ -91,11 +91,13 @@ def json_bytes(value):
 
 
 def export_feedback(case, check_exit_code=None, profile="s"):
-    if profile not in ("s", "m"):
+    if profile not in ("s", "m", "m1-ic"):
         raise ValueError("unsupported feedback profile: " + str(profile))
     started = time.monotonic()
-    is_m = profile == "m"
+    is_m = profile in ("m", "m1-ic")
     allowed = M_ALLOWED if is_m else ALLOWED
+    if profile == "m1-ic":
+        allowed += ("ic-initialization.json", "log.restrictAlpha", "exit.restrictAlpha.txt", "time.restrictAlpha.txt")
     report_name = "m.json" if is_m else "smoke.json"
     exit_codes = M_EXIT_CODES if is_m else EXIT_CODES
     file_limit = M_MAX_FILE_BYTES if is_m else MAX_FILE_BYTES
@@ -196,6 +198,8 @@ def export_feedback(case, check_exit_code=None, profile="s"):
         required.add("log." + solver)
         required.update(prefix + stage + ".txt" for stage in (*STAGES[:3], solver)
                         for prefix in ("exit.", "time."))
+    if profile == "m1-ic":
+        required.update(("ic-initialization.json", "log.restrictAlpha", "exit.restrictAlpha.txt", "time.restrictAlpha.txt"))
     absent_required = sorted(required - payload.keys())
     solver_exit = payload.get("solver.exit.txt", b"").decode().strip()
     result = {"archive_status": "EXPORTED", "check_status": original_status,
@@ -209,7 +213,7 @@ def export_feedback(case, check_exit_code=None, profile="s"):
         "privacy": "Best-effort redacted copies only; inspect before sharing. Originals unchanged; no upload. "
                    "SHA256SUMS covers archived redacted bytes, not original logs or CFD fields."}
     if is_m:
-        result.update(profile="m", limits_bytes={"file": file_limit, "payload": total_limit, "archive": archive_limit},
+        result.update(profile=profile, limits_bytes={"file": file_limit, "payload": total_limit, "archive": archive_limit},
                       preparation_wall_seconds_before_archive=time.monotonic() - started,
                       export_timing_note="Archived preparation timing stops before compression. Full export timing is "
                                          "reported separately after compression, verification and publication; "
@@ -308,7 +312,7 @@ def print_result(result):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--case-dir", required=True, type=Path)
-    parser.add_argument("--profile", choices=("s", "m"), default="s", help="fixed S or M diagnostic whitelist")
+    parser.add_argument("--profile", choices=("s", "m", "m1-ic"), default="s", help="fixed S, M or M1-IC diagnostic whitelist")
     parser.add_argument("--diagnostics-only", required=True, action="store_true",
                         help="export existing evidence without checking fields or starting CFD")
     args = parser.parse_args()

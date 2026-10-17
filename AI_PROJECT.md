@@ -19,6 +19,7 @@
 - [S首次运行核对与最小反馈](docs/validation/THREED_SMOKE_FIRST_RUN.md)
 - [M1/M2/M3分级探索与Ubuntu执行](docs/validation/THREED_M_EXPLORATION.md)
 - [M1结果离线复核与条件性M3预检](docs/validation/M1_RECHECK_M3_PREFLIGHT.md)
+- [M1-IC单次受控初态及三方比较](docs/validation/M1_IC_CONTROLLED_EXPERIMENT.md)
 - [M1–M3原场只读空间比较与反馈](docs/validation/M1_M3_SPATIAL_COMPARISON.md)
 - [实验文献及V验证候选（非受控、PROPOSED）](docs/research/LITERATURE_VALIDATION_CANDIDATES.md)
 
@@ -46,7 +47,7 @@
 
 M1已真实完成32000单元/1000步，观察到熔化；solver墙钟214.50秒、最大RSS240452 KiB。2026-10-17补录用户提供的ChatGPT核验：工具b5e429b1复核10时刻/190场及10个uniform/cumulativeContErr全部PASS，约96.63秒。新包非Codex直接核验，不含原场或前后SHA快照，不能独立认证原场复核期间未变；原运行/构建仍1d32b6fd，原REVIEW历史保留。见[EXP-002及ADD-01](docs/research/EXPERIMENT_LOG.md)。阶段1未完成，正式M、物理精度、网格收敛及热点未建立。
 
-最新M3已由用户实测完成并检查PASS：原生源/构建8f60695a，256000单元/1000步/10 μs，solver2872.64秒；数据及核验来自用户提供的ChatGPT结果，Codex未收到新包/原场。早期熔化/温度与M1差异显著，初始体积及界面离散混杂需先调查；当前下一步为[原场只读比较](docs/validation/M1_M3_SPATIAL_COMPARISON.md)，不重跑M1/M3，不运行M2。[短程新候选](docs/research/SHORT_GEOMETRY_DIAGNOSTIC_PROPOSAL.md)仅PROPOSED，无配置或执行；阶段1及原有物理/收敛/热点限制保持，详见EXP-003。
+最新M3已由用户实测完成并检查PASS：原生源/构建8f60695a，256000单元/1000步/10 μs，solver2872.64秒；数据及核验来自用户提供的ChatGPT结果，Codex未收到新包/原场。早期熔化/温度与M1差异显著，用户回传原场比较已确认初始面105/97.5 μm及早期沉积错层，消费源读取窗口哈希稳定，详见EXP-003-ADD-01。当前按DEC-007开发[单次M1-IC受控探索](docs/validation/M1_IC_CONTROLLED_EXPERIMENT.md)，实际运行UNVERIFIED；不重跑M1/M3，不运行M2。[短程新候选](docs/research/SHORT_GEOMETRY_DIAGNOSTIC_PROPOSAL.md)仅PROPOSED，无配置或执行；阶段1及原有物理/收敛/热点限制保持，详见EXP-003。
 
 ## 私有验证数据
 

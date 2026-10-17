@@ -393,10 +393,10 @@ def laser_profiles(grid, lasers, surface, fields, case_id, t):
     return geometry_rows, profile_rows
 
 
-def load_case(path, label):
+def load_case(path, label, *, manifest_reader=None):
     source = Source(path, label)
     source.file("manifest.json")
-    manifest = checks.manifest(source.path)
+    manifest = (manifest_reader or checks.manifest)(source.path)
     if manifest["experiment_id"] != label:
         raise native.ComparisonFailure(label + ": incorrect experiment identity")
     for key in ("project_commit", "build_commit"):
@@ -594,7 +594,7 @@ def csv_bytes(rows):
     return stream.getvalue().encode()
 
 
-def publish(out, report):
+def publish(out, report, archive_name="m1-m3-comparison-feedback.tar.gz"):
     summary = ("Status: {status}\nScope: cross-grid diagnostics, not equivalence or grid convergence\n"
                "Selected times: {times}; fields: T, alpha.metal, epsilon1, Deposition, U\n"
                "Mapping: {mapping}\nConsumed source hash recheck: {unchanged}\n"
@@ -603,7 +603,7 @@ def publish(out, report):
                    mapping=report.get("mapping", {}).get("status", "NOT_ESTABLISHED"),
                    unchanged=report.get("consumed_sources_unchanged_during_comparison", False))
     for label, initial in report.get("initial", {}).items():
-        if label in ("M1", "M3"):
+        if label in ("M1", "M3", "M1-IC"):
             summary += "{} initial metal volume={} m3; binary surface y={} m\n".format(
                 label, initial["metal_volume_m3"], initial["effective_surface_y_m"])
     summary += "\n".join(issue["status"] + ": " + issue["message"] for issue in report["issues"]) + "\n"
@@ -622,7 +622,7 @@ def publish(out, report):
     for name, data in payload.items():
         with (out / name).open("xb") as stream:
             stream.write(data)
-    archive_path = out / "m1-m3-comparison-feedback.tar.gz"
+    archive_path = out / archive_name
     with archive_path.open("xb") as stream, tarfile.open(fileobj=stream, mode="w:gz") as archive:
         for name, data in sorted(payload.items()):
             item = tarfile.TarInfo(name)

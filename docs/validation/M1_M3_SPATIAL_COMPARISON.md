@@ -2,7 +2,9 @@
 
 范围：负责人2026-10-17明确授权的阶段1离线工具；不修改已有M1/M3、检查标准或求解器，不启动CFD。M3用户回传结果及来源边界见[EXP-003](../research/EXPERIMENT_LOG.md)。正式M仍PROPOSED，阶段1未完成。
 
-## 当前判断与待验证假设
+2026-10-17状态补充：用户回传本工具8dcdcdcc的真实原场比较，10共同输出时刻、原生映射、消费源读取窗口前后哈希均通过。105/97.5 μm初始面、体积和早期沉积错层已确认，来源及归档SHA见[EXP-003-ADD-01](../research/EXPERIMENT_LOG.md)；本页以下保留当时的调查设计，不把旧推测当新事实。当前下一步是已授权[单次M1-IC](M1_IC_CONTROLLED_EXPERIMENT.md)，无需重跑本页诊断或原M1/M3。108000候选仍未获配置授权。
+
+## 当时判断与待验证假设
 
 官方[setFieldsDict](../../tutorials/laserbeamFoam/fiveLasersOnSubstrate/system/setFieldsDict)的金属box下界为y=100.1 μm。按回传金属体积与均匀网格推算，M1占13/20层、离散厚度195 μm、下表面105 μm；M3占27/40层、厚度202.5 μm、下表面97.5 μm。体积相差3.846%，表面相差7.5 μm。**这是待原生alpha/坐标核对的推算，不是已独立读取的原场截面。**
 

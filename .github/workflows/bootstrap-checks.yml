@@ -52,3 +52,5 @@ jobs:
         run: bash tests/test_smoke_runner.sh
       - name: Progressive M stage guards (mock utilities only)
         run: bash tests/test_m_runner.sh
+      - name: Controlled M1-IC stage guards (mock utilities only)
+        run: bash tests/test_m1_ic_runner.sh
