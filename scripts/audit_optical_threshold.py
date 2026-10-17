@@ -12,6 +12,7 @@ import resource
 import signal
 import subprocess
 import time
+from types import SimpleNamespace
 
 import check_m_case as checks
 import compare_m1_m3 as spatial
@@ -111,6 +112,13 @@ def interior_normals(grid, alpha):
 
 def audit_case(case, label, rows):
     manifest = json.loads((case/"manifest.json").read_text())
+    optical = spatial.dictionary(SimpleNamespace(file=lambda relative: case/relative),
+                                 "constant/LaserProperties", case_paths=True)
+    lasers = optical["lasers"][0]
+    cutoffs = [native.finite_number(entry.get("dep_cutoff", ["0.5"])[0])
+               for entry in lasers[1::2]]
+    if len(cutoffs) != 5 or cutoffs != [0.5]*5:
+        raise native.ReviewRequired("audit requires the existing five-laser 0.5 cutoff")
     shape = manifest["config"]["cells"]
     original = native.Parser
     native.Parser = MeshTokenStream
@@ -171,6 +179,7 @@ def audit_case(case, label, rows):
         source_hashes[name] = {"runtime_sha256": hashlib.sha256(historical).hexdigest(),
                                "matches_audited_checkout": historical == (REPO/name).read_bytes()}
     result = {"run_commit": manifest["project_commit"], "cells": geometry["cells"],
+        "dep_cutoffs": cutoffs, "saved_n_filtered_present": (case/"1e-06/n_filtered").is_file(),
         "mesh": mesh["geometry_status"], "gradient_scheme": "Gauss linear",
         "deltaN_m_inverse": delta, "normal_boundary_cells_excluded": len(dep)-len(normals),
         "positive_deposition_W": power, "peak_deposition_W_m3": max(dep),
@@ -222,9 +231,6 @@ def main():
                 if any(x.is_symlink() for x in (p, *p.parents)) or not p.is_file():
                     raise native.ReviewRequired("missing or linked input: "+label+"/"+relative)
                 files[label+"/"+relative] = p
-            props = native.read_ascii(case/"constant/LaserProperties")
-            if re.search(r"\bdep_cutoff\b", props):
-                raise native.ReviewRequired("explicit dep_cutoff requires separate review")
         files.update({"tool/"+n: REPO/n for n in (*SOURCE, "scripts/audit_optical_threshold.py",
                       "scripts/check_m_case.py", "scripts/compare_m1_m3.py", "scripts/compare_plate2d_ab.py")})
         report["sources_sha256"] = {name: sha(p) for name, p in files.items()}
