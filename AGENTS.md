@@ -23,6 +23,8 @@ Also follow the existing `.agents/skills/laserbeamfoam/SKILL.md` conventions.
 - Preserve upstream solvers, libraries and tutorials. DEC-011 explicitly
   authorizes local Ubuntu execution of three fresh native M1 performance runs
   and at most one conditional external sampling run within its guards.
+  DEC-012 additionally authorizes one isolated switchable coarse-timing S gate
+  and at most one frozen M1 observation run; original sources/results stay read-only.
   No AI, physics changes, DEM, full powder runs, system changes or automatic
   cleanup are authorized; earlier experiments and raw data remain protected.
 - Use new run directories; keep raw data and private paths in ignored runs/ and
