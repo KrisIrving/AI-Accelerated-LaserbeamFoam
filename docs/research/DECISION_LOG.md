@@ -60,3 +60,13 @@
 - 执行：仅用户分阶段启动mesh再solve，首轮只授权一次CFD尝试，不续算/自动重试；独立隔离构建与HEAD匹配，源M1/M3只读并记录SHA前后校验。600 s为solver墙钟护栏，不包含构建/准备/检查；RSS8 GiB、数据3 GiB为MONITORED_ONLY，不是强制硬上限。
 - 证据与判断：先完成三方1/2/3 μs的初始金属量、alpha层、沉积分布/积分/峰值/支撑体积、温度/液相率/液态量及资源诊断，再由负责人判断。允许同粗网格初态干预影响，仍不能把IC与M3差异单独归因于网格或宣称网格收敛。首次保存非零液相率不等于精确起熔时刻。
 - 保留约束：不启动M2/108000单元/新的256000单元完整运行，不开发AI、不修改求解器/共享库/既有验收。CI仅合成/模拟命令，不执行CFD。实现通过现有Draft PR #4交付，不自动合并；Git追溯用本条创建提交的git log，不填自引用SHA。M1-IC的实机初始化、求解、资源与物理响应均UNVERIFIED，待用户回传。
+
+## DEC-008 — Ubuntu 本机自主执行一次新 S smoke
+
+- 日期：2026-10-17；状态：APPROVED_SINGLE_LOCAL_AUTOMATION。批准依据：负责人本轮《AI-Accelerate — Ubuntu 自主研究工作流验证》明确授权“自动执行一次全新的小型 S smoke 实验”及本地终端命令、摘要提交与推送。
+- 旧执行模式：AGENTS及DEC-006/007要求负责人手动启动真实CFD；本条仅为本次S验证授权Codex直接操作Ubuntu，完成隔离构建、准备、mesh、solve、原检查和反馈归档，无需逐步人工执行命令。此前决策和历史实验保留。
+- 唯一CFD范围：仓库既有S配置，原版laserbeamFoam，16×8×16=2048单元，固定dt=1e-8 s，10步至1e-7 s，串行单线程，solver墙钟120 s，失败停止且不自动重试。使用全新runs/及validation/目录；构建沿用既有工具允许的8作业，构建并行不代表求解并行。
+- 原始场、日志、私有路径、环境清单、二进制和反馈包留在Ubuntu本地；仅提交脱敏摘要、关键指标、哈希和研究结论到feat/threeD-progressive-m-exploration。PR #4保持Draft，不自动合并。
+- 研究范围：从GitHub记录恢复上下文，只读定位旧数据；保留M1/M3早期沉积层错位、M1-IC未复现M3的已知结论，区分用户提供结论、已有报告和本轮实测。静态审查alpha_filtered、dep_cutoff=0.5及射线沉积，提出下一项最低成本科学验证，不自动运行其他CFD。旧原场缺失才记RAW_DATA_UNAVAILABLE，存在也不把目录清点冒充完整数值审计。
+- 不变约束：不修改原版物理、数值门槛、S配置、已有实验或研究路线；不sudo、不安装/升级、不DEM、不长程CFD、不清理原数据。阶段1仍IN_PROGRESS，正式M仍PROPOSED。
+- Git追溯：批准时远端PR #4 HEAD=a5f53b9158871f363a669c16a2a1a631103674b9；本条实际提交以git log -- docs/research/DECISION_LOG.md定位，运行SHA由新构建和manifest记录，不预填未来SHA。
