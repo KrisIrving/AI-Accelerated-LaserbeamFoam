@@ -29,6 +29,9 @@ Also follow the existing `.agents/skills/laserbeamfoam/SKILL.md` conventions.
   cleanup are authorized; earlier experiments and raw data remain protected.
 - DEC-013 authorizes only read-only T/p source/log analysis and one future
   PROPOSED experiment plan; no new CFD. Completed DEC-011/012 runs are not renewed.
+- DEC-014 subsequently authorizes the single seven-site internal observation:
+  one S gate then at most one frozen M1; exact outputs/events and timer closure
+  required, batch deadline 20 minutes. No AI/physics/tolerance changes.
 - Use new run directories; keep raw data and private paths in ignored runs/ and
   validation/. CI/mock success is not OpenFOAM execution or physical validation.
 - Check PROJECT_HUB at new PRs, major feature completion, registered workstation
