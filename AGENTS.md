@@ -32,6 +32,8 @@ Also follow the existing `.agents/skills/laserbeamfoam/SKILL.md` conventions.
 - DEC-014 subsequently authorizes the single seven-site internal observation:
   one S gate then at most one frozen M1; exact outputs/events and timer closure
   required, batch deadline 20 minutes. No AI/physics/tolerance changes.
+- DEC-015 permits only read-only dependency audit and a single proposed candidate/
+  protocol; no new CFD, optimization implementation, AI or numerical changes.
 - Use new run directories; keep raw data and private paths in ignored runs/ and
   validation/. CI/mock success is not OpenFOAM execution or physical validation.
 - Check PROJECT_HUB at new PRs, major feature completion, registered workstation

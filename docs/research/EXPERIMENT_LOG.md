@@ -271,3 +271,13 @@ solver耗时比13.392，超过8倍单元增幅；按单元步数归一仍约1.67
 - 主动构建→最终检查/保护SHA360.293 s（GNU外层360.39 s），隔离构建46.363 s、原完整离线检查96.119 s单列。外层1200 s系统截止/内层foreground，S120/M11800 s上限另受剩余批时约束；rank1/线程1/CPU0，阻塞等待/日志落盘。外层命令最大RSS1189764 KiB，solver RSS另报，不是全工作站峰值。末次新目录及两例128920356字节；8 GiB/3 GiB MONITORED_ONLY观察未触警戒，无硬RSS/磁盘隔离。
 - 2703项受保护tracked native/教程/benchmark/profiling/scripts及运行前全部runs/validation条目内容SHA前后一致（当前目录排除），清单SHA均d974413c6cc86500a83bf37140790e031de0f3cb2db51d160c7b98f57b14b6c4。原始场/日志/私有代码本地保留，无覆盖/清理。二进制SHA=7f0b32d8aa70577a0c5219bbb0f4729529daa08aaa1e83a45ac1606874ad721f；实际库路径与基线逐项一致，基线库构建仍2d3b2591bb8fec521448f9e47662ab595983f737。
 - [结果报告](../validation/M1_TP_INTERNAL_TIMING_20261018.md)；[JSON](../validation/M1_TP_INTERNAL_TIMING_20261018-summary.json)33765字节/SHA256=7262c05e1bd9e4c17afb891de3aab7b583af9cc54a0f9a2e74d3e98fe4c2f753；[模块CSV](../validation/M1_TP_INTERNAL_TIMING_20261018-modules.csv)426字节/SHA256=ba8a292e21838137ae24acf8ea08078efeffc8297e12196cb9818d125b18b333；[10箱CSV](../validation/M1_TP_INTERNAL_TIMING_20261018-bins.csv)1475字节/SHA256=e668829a7cb832e560a3843121ac5002085dff9c889f8938abd8bb98a22fe34e。PR #4仍Draft、不合并；本次额度已用完，不自动新增CFD或AI开发。
+
+## EXP-011 — 重复计算与数据依赖静态审计
+
+- 日期2026-10-18；DEC-015；状态ONE_CONDITIONAL_CANDIDATE_PROPOSED，零新CFD/优化实现/AI/容差修改。起点de4c959457b3bceb1a6b5af8bda88aa43b8f551c；26项原版/本机v2512源码、冻结配置及既有小型结果SHA前后一致，不重读大日志。
+- 关键依赖：T的cp/kappa等按现有执行顺序滞后冻结，rhoCp/rhophicp/em已经在do-while外；T/epsilon1/TRHS、辐射/蒸发/thermalDamper逐热校正变化，完整矩阵不能因kappa固定而缓存。p的UEqn.H原生实现读取当前U，p每轮更新U/phi，故HbyA/预测通量不能凭矩阵未重组而复用；A/rAU/插值部分还需边界/临时量/约束证明，本轮不选。压力/通量/连续性更新保留。
+- 唯一候选T_LOCAL_NATIVE_MAG_GRADALPHA：在一次TEqn内首次原位置求完整原生mag(gradAlpha)，用拥有存储的只读局部值复用，离开TEqn失效；不缓存随T变的thermalDamper或乘积，不跨时间步。防止tmp乘法消费/重写缓存，处理完整patch/orientation/边界与不注册/写出副作用；这些条件未满足即禁用/否决。
+- 源码调用次数推导7244→1000次求mag，6244次复用、后3 μs5298次；这是表达式次数而非时间。操作自身g/净收益UNVERIFIED，T_OTHER30.805863 s/15.0265%只是包围阶段；其全归零1.17684×不是候选收益。缓存标量载荷估计0.293 MiB+元数据，非RSS实测。
+- 证据等级：已有阶段计时DIRECT；依赖为有条件STATIC_SOURCE；缓存运行字节等价及收益未实现/未测。唯一PROPOSED协议：非CFD命中/tmp/边界测试→一次S ON门槛→同一隔离二进制一次冻结M1 OFF、一次新M1 ON。S每步仅一热校正不覆盖命中；两M1须190场/30 uniform/原检查及T/p/epsilon1/258步序列对三基线一致，所有成本/父子/箱闭合。提议>2%solver配对收益且目标差方向一致才继续投入，仅作待批准保守筛选而非统计证明；否则无收益/INCONCLUSIVE，不追加运行。
+- 未来预算提案仍1200 s整批，S120 s/每M11800 s且剩余批时优先，8 GiB/3 GiB MONITORED_ONLY，串行线程1/CPU0，系统进程负责超时/日志、完成后集中检查。实际未批准/未启动。本轮不改258步非线性退出，不把轨迹等价当物理/训练真值。
+- [依赖表/唯一提案](../validation/M1_REUSE_DEPENDENCY_AUDIT_20261018.md)、[证据JSON](../validation/M1_REUSE_DEPENDENCY_AUDIT_20261018.json)10684字节/SHA256=a2b2934cd8ff4f0b8106778bc801783163b61189ea006c3965887aef4db94bb5。原版及旧结果只读，PR #4仍Draft、不合并，阶段3未启动。

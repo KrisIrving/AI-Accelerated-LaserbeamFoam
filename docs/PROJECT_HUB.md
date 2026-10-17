@@ -34,6 +34,8 @@
 
 最新EXP-010已按DEC-014完成唯一S→唯一冻结M1内部七点/10箱计时，205.01 s/236.50 MiB；190场/30 uniform及事件对三基线一致、258步风险保留，2703保护SHA不变，父子/分箱精确闭合。T_ASSEMBLY15.25%、T_OTHER15.03%、P_OTHER11.85%、P_UPDATE8.85%，两个solve API合13.03%；仅让两个API归零的solver极端上限1.14976×，不是AI收益预测。后3 μs占T实测74.98%；不能把整段费用都归258步。见[内部计时结果](validation/M1_TP_INTERNAL_TIMING_20261018.md)。本轮约6分钟且门槛通过，额度已用完，不自动追加模拟/AI。
 
+最新EXP-011完成[依赖审计与唯一候选](validation/M1_REUSE_DEPENDENCY_AUDIT_20261018.md)，零新CFD/优化实现。仅提议单次TEqn内复用原生mag(gradAlpha)，其输入局部固定但thermalDamper/辐射/蒸发仍变化；p的H读取当前U，不能直接缓存整个预测量。候选自身成本/等价/净收益未测，T_OTHER15.03%不是可加速份额。一个OFF/ON未来协议仅PROPOSED，258步风险保持，不自动运行。
+
 当前待补证据与批准事项：
 
 - S 用户提供的ChatGPT核验结果：23个归档文件/22条内部哈希、清单通过；源/构建完整SHA均为7c094679016a2458282c9fcb261d7d55983496bb。solver=0.35 s、最大RSS=127488 KiB，已记录流程范围1.919696505 s；归档标识和SHA256见EXP-001-ADD-01。RECORDS_MATCH不等于重验实际二进制和动态库，工具87061fe9不等于原运行版本。物理/性能证据缺口仍保留。
@@ -93,6 +95,7 @@
 | [STAGE2_M1_TIMING_20261017.md](validation/STAGE2_M1_TIMING_20261017.md) | 隔离轻量计时、S/M1逐字节一致性、模块成本及未归因/开销边界 |
 | [M1_TP_INTERNAL_ANALYSIS_20261017.md](validation/M1_TP_INTERNAL_ANALYSIS_20261017.md) | T/p源码/求解事件时间演化、原版校正上限退出、唯一PROPOSED内部计时方案 |
 | [M1_TP_INTERNAL_TIMING_20261018.md](validation/M1_TP_INTERNAL_TIMING_20261018.md) | 已批准七点/10箱内部计时、精确等价、T/p成本及极端加速上限 |
+| [M1_REUSE_DEPENDENCY_AUDIT_20261018.md](validation/M1_REUSE_DEPENDENCY_AUDIT_20261018.md) | T/p不变量/变化量/未证明依赖、唯一条件候选及未批准OFF/ON协议 |
 | [RESULTS.md](validation/RESULTS.md) | 用户回传的编译、运行、串行数值基线及局限 |
 | [PLATE2D_AB.md](validation/PLATE2D_AB.md) | 原生场、边界、日志和 uniform 的 A/B 比较方法 |
 | [FEEDBACK.md](validation/FEEDBACK.md) | 实机反馈格式与日志管理 |

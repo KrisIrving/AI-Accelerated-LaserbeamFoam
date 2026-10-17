@@ -1,0 +1,135 @@
+{
+  "schema": "m1-dependency-audit-v1",
+  "decision": "DEC-015",
+  "base_commit": "de4c959457b3bceb1a6b5af8bda88aa43b8f551c",
+  "status": "ONE_CONDITIONAL_CANDIDATE_PROPOSED",
+  "new_cfd_runs": 0,
+  "optimization_implemented": false,
+  "AI_development": "NOT_STARTED",
+  "evidence_levels": {
+    "measured_parent_cost": "DIRECT_OBSERVATION_EXP010",
+    "dependency": "CONDITIONAL_STATIC_SOURCE_AND_FROZEN_CONFIGURATION",
+    "candidate_equivalence_and_gain": "UNVERIFIED_NOT_IMPLEMENTED_NOT_RUN"
+  },
+  "consumed_sha256": {
+    "applications/solvers/laserbeamFoam/laserbeamFoam.C": "ebbb6768fb47c5940d7253c7285a9fc5a34095d7100d49a5db0cd701977e9110",
+    "applications/solvers/laserbeamFoam/TEqn.H": "8542f190581444d0be58cc497ae6a7f1d524eed0998958abb35cd777940c92f2",
+    "applications/solvers/laserbeamFoam/pEqn.H": "f09dbd0b7fd6ae8bf55fca80a561c19ee7745ac21191f8ee3203eb40ecc4ffca",
+    "applications/solvers/laserbeamFoam/UEqn.H": "586cc973acc489390ba3e2079d39be16d6d7f5137ff80dd76852c71db179082d",
+    "applications/solvers/laserbeamFoam/createFields.H": "69a36578b1f99b468c4d34aff0529e751d591bd8c3b25f9afb2d041e8c8f7ea6",
+    "applications/solvers/laserbeamFoam/updateProps.H": "c8f260a46675cca76729aaff0b168f55e617d11cc8ccbdf47a17ff4f024c2d8b",
+    "applications/solvers/laserbeamFoam/updateKappaCp.H": "521971158e6d3ff4ea54a45de42359412b8721bc6532551ac0b2006be3793c8e",
+    "applications/solvers/laserbeamFoam/isoAdvector/firstIter.H": "47976af82ec95770cebd034fef24260393d0d1b52eeecf3acabb6a4d04c43286",
+    "benchmarks/performance/M1-stage2.json": "a3b5801452c9f54391b65998174f7e0b6837e328bc5c366b6cfe17db43a1c6d0",
+    "docs/validation/M1_TP_INTERNAL_TIMING_20261018-summary.json": "7262c05e1bd9e4c17afb891de3aab7b583af9cc54a0f9a2e74d3e98fe4c2f753",
+    "docs/validation/M1_TP_INTERNAL_TIMING_20261018-bins.csv": "e668829a7cb832e560a3843121ac5002085dff9c889f8938abd8bb98a22fe34e",
+    "runs/stage2-M1-20261017-001-baseline-1/system/fvSolution": "b4e2690ad8abfc920e259318f7aff974639b3c104a9c913c4c85613e58f101f9",
+    "runs/stage2-M1-20261017-001-baseline-1/system/fvSchemes": "bc9603132c27e48553db8f1bfc23b73bcaee89cda185843a175b8bc6db19e70c",
+    "runs/stage2-M1-20261017-001-baseline-1/system/controlDict": "8dfd63b337c8be18f9d082e9017334530e5ef8f052e69e8e32fbc60de2f89c8a",
+    "runs/stage2-M1-20261017-001-baseline-1/constant/transportProperties": "f5ce7aa1481e3c7652b24c16e07667e50c8daaa535b5c2c788f7e9f68b03db47",
+    "runs/stage2-M1-20261017-001-baseline-1/constant/turbulenceProperties": "0baab4aa39e68fe04a21a5768b3c32bf1d4179f1f84b44067f9d8558f1132081",
+    "runs/stage2-M1-20261017-001-baseline-1/0/T": "5512b73c789cfca475adb9c6bfc6e0f47e8093d99073bcd794b5f252e3490e63",
+    "runs/stage2-M1-20261017-001-baseline-1/0/U": "53459cbec8f5f53bad5d5170820ae9238fb0ab883a351e5e73732881edbd9c13",
+    "OpenFOAM-v2512/src/OpenFOAM/fields/GeometricFields/GeometricField/GeometricFieldFunctions.C": "076f5233bce3f57d6e477da1dcd840b4f52fd535c576a80b077ac038c7a33c7a",
+    "OpenFOAM-v2512/src/OpenFOAM/fields/GeometricFields/GeometricField/GeometricFieldReuseFunctions.H": "a8b5d4d6a45f0c9ac80e9bd0ba085e8cc627638962ed19a230ce53acc435e8f1",
+    "OpenFOAM-v2512/src/OpenFOAM/fields/GeometricFields/GeometricField/GeometricFieldNew.C": "eecadeadc264e01480eda255f30d39524b85116da42c62ec82768b73fbb51456",
+    "OpenFOAM-v2512/src/OpenFOAM/fields/GeometricFields/GeometricField/GeometricFieldFunctionsM.C": "d9ab978757069e8ca7989815d91408a3da346da9c0230452ac619878afd43d0c",
+    "OpenFOAM-v2512/src/OpenFOAM/fields/GeometricFields/GeometricField/GeometricField.C": "b1de340737a0d928ce88cbfb12409ec4ee0889d1cc97aae042caa8d0bd71160d",
+    "OpenFOAM-v2512/src/OpenFOAM/fields/GeometricFields/GeometricField/GeometricBoundaryField.C": "1637aa254d119dea6ece250ad391b73c2a5340de9b509e5dee77dc983ca74a43",
+    "OpenFOAM-v2512/src/finiteVolume/fvMatrices/fvMatrix/fvMatrix.C": "f833cc39d86039f47ebb6d7685939df1af50ff1b4395c86a7dace863ecc3b192",
+    "OpenFOAM-v2512/src/dynamicFvMesh/dynamicFvMesh/dynamicFvMeshNew.C": "3eb7120e15b9c5777b6dd740ddf27249854ae685b63f7cb39567dabdab55f2fd"
+  },
+  "read_window_sha_unchanged": true,
+  "dependencies": [
+    {
+      "quantity": "T: alpha/gradAlpha/mesh geometry",
+      "classification": "CONDITIONAL_INVARIANT_WITHIN_ONE_TEQN_CALL",
+      "evidence": "gradAlpha assigned and BC corrected in UEqn before TEqn; TEqn has only a read. Mesh/VOF updates precede this scope. Fixed M1 excludes callbacks/coded BCs.",
+      "invalidate": "new TEqn call, mesh/VOF/boundary write, external callback; never reuse across timesteps"
+    },
+    {
+      "quantity": "T: cp/kappa/LatentHeat/rhoCp/rhophicp/em",
+      "classification": "LAGGED_OR_ALREADY_OUTSIDE_THERMAL_LOOP",
+      "evidence": "cp/kappa and latent heat set in updateProps before TEqn; rhoCp/rhophicp/em set once before do-while. Lagged em is not recomputed when epsilon1 changes.",
+      "invalidate": "new outer/physical step, model/property correction, relevant boundary updates; no claimed new hoisting saving"
+    },
+    {
+      "quantity": "T: T/epsilon1/prevIter/TRHS",
+      "classification": "ITERATION_DEPENDENT",
+      "evidence": "solve, storePrevIter and epsilon correction update inputs used by next loop",
+      "invalidate": "each thermal corrector; do not cache across correctors"
+    },
+    {
+      "quantity": "T: Qrad_expl/Qrad_inpl/Qv/thermalDamper/gradAlphaDamper",
+      "classification": "ITERATION_DEPENDENT_EXCEPT_GRADALPHA_MAGNITUDE",
+      "evidence": "radiation T^3/T^4; evaporation exp/pow(T); damping polynomial(T). Product changes even if gradAlpha does not.",
+      "invalidate": "T or epsilon/source update; only native magnitude selected as candidate"
+    },
+    {
+      "quantity": "T: complete TEqn matrix or solver/preconditioner state",
+      "classification": "REUSE_NOT_PROVEN_REJECTED_FOR_THIS_TRIAL",
+      "evidence": "T-dependent radiative diagonal and source/BC/relax/solve effects remain; fixed cp/kappa is insufficient",
+      "invalidate": "source/diagonal/BC/solver changes; no whole matrix caching"
+    },
+    {
+      "quantity": "p: rho/alpha/thermal fields/geometry",
+      "classification": "CONDITIONAL_FROZEN_OVER_THREE_PRESSURE_CORRECTORS",
+      "evidence": "T and alpha stages finish before pressure loop; pEqn updates p_rgh/U/phi, not T/alpha/epsilon1",
+      "invalidate": "new outer/time step, mesh/model/BC callbacks; fixed source state is not full predictor invariance"
+    },
+    {
+      "quantity": "p: A/rAU/rAUf and force fragments",
+      "classification": "CONDITIONAL_STRUCTURAL_INVARIANCE_NOT_SELECTED",
+      "evidence": "A uses D()/mesh.V and correctBoundaryConditions; interpolation/boundaries/tmp rAU.clear/field lifecycle require separate proof",
+      "invalidate": "UEqn assembly, coefficients/BC, mesh, constraints, storage lifecycle changes"
+    },
+    {
+      "quantity": "p: UEqn.H/HbyA/phiHbyA",
+      "classification": "ITERATION_DEPENDENT_OR_NOT_REUSABLE_AS_A_WHOLE",
+      "evidence": "native H reads current psi(U), boundary source; pEqn updates U and phi; constrainHbyA/ddtCorr/adjustPhi add dependencies",
+      "invalidate": "each pressure corrector even when UEqn was assembled once"
+    },
+    {
+      "quantity": "p: full pressure matrix/RHS/reference/preconditioner",
+      "classification": "FULL_REUSE_NOT_PROVEN",
+      "evidence": "phiHbyA RHS, constrainPressure BC/reference and current solve state must be preserved",
+      "invalidate": "pressure/flux/boundary/reference/control changes; fixed geometry alone is insufficient"
+    },
+    {
+      "quantity": "p: p_rghEqn.flux/phi/U/p/Num_divU/continuity",
+      "classification": "ITERATION_DEPENDENT_REQUIRED_UPDATES",
+      "evidence": "depends on newly solved pressure and updated flux/velocity; contributes to next corrector and diagnostics",
+      "invalidate": "each pressure correction; no skipping or replacing conservation work"
+    }
+  ],
+  "candidate": {
+    "id": "T_LOCAL_NATIVE_MAG_GRADALPHA",
+    "scope": "One TEqn invocation; first-use native full-volume-and-patch magnitude, readonly owned cache, discarded on scope exit",
+    "retain": "thermalDamper and gradAlphaDamper multiplication recomputed with original operand order, all thermal correctors unchanged",
+    "guard": "M1 fixed source/config, boundary/model/temporary registry conditions verified; no transferable cache across steps or unsupported modes",
+    "tmp_hazard": "Native temporary multiplication may recycle mag storage; do not keep a reusable tmp as shared mutable cache. Prevent registration/output and mutation of owned cached values.",
+    "native_magnitude_evaluations_before": 7244,
+    "proposed_after": 1000,
+    "avoided_evaluations": 6244,
+    "avoided_fraction_of_evaluations": 0.8619547211485368,
+    "avoided_evaluations_last_3_us": 5298,
+    "first_2_us_avoided_evaluations": 0,
+    "operation_wall_seconds": null,
+    "net_gain": null,
+    "enclosing_T_OTHER_seconds": 30.805863362,
+    "enclosing_T_OTHER_fraction": 0.15026517419638066,
+    "enclosing_zero_cost_ceiling_only": 1.1768377258802714,
+    "ceiling_warning": "Entire T_OTHER zero-cost bound is deliberately loose; not the cacheable fraction, prediction or measured candidate bound.",
+    "extra_scalar_value_payload_bytes_estimate": 307200,
+    "risk": "258 unresolved thermal steps remain; numerical trajectory preservation is not nonlinear convergence/physical truth"
+  },
+  "future_protocol": {
+    "status": "PROPOSED_REQUIRES_OWNER_AUTHORIZATION",
+    "count": "One protocol: non-CFD field/tmp tests, one S enabled gate, then at most one M1 OFF and one fresh M1 ON sequentially using the same binary",
+    "equivalence": "S 19 fields/3 uniform; both M1 cases 190 fields/10 times/30 uniform against all native references, unchanged full checks and full T/p/epsilon1 event/capped-step list",
+    "measurement": "Matched exclusive timers around complete gradAlphaDamper construction/cache management in both modes; retain parent/bin timing. Include lifecycle, allocation, cache handling and full external solver/case costs.",
+    "gain_rule": "Paired external wall and target-region net costs, report raw data and existing CV0.3866%; >2% solver gain with concordant target delta is a proposed conservative continuation screen, not statistical significance or an acceptance threshold approved today. Smaller/inconsistent result INCONCLUSIVE or no benefit, no retries.",
+    "budget": "rank1/thread1/CPU0, S120s, each M11800s, whole batch1200s deadline; remaining batch budget takes precedence, RSS8GiB/data3GiB MONITORED_ONLY",
+    "failure": "Any numerical/hash/cache mutation/closure/timeout failure stops; no tolerance/corrector changes, retries/resume, AI or extra cases"
+  }
+}

@@ -66,3 +66,5 @@ DEC-012/EXP-008完成[隔离轻量计时](docs/validation/STAGE2_M1_TIMING_20261
 DEC-013/EXP-009完成[T/p内部只读分析](docs/validation/M1_TP_INTERNAL_ANALYSIS_20261017.md)，零新增CFD。四M1事件轨迹一致，T7244调用/8705迭代、p3000/16099；258步达到21次热校正仍未满足epsilon1变化残差门槛，不能当已收敛物理/AI真值。内部时间仍未测，7处最小测点及唯一后续实验仅PROPOSED，不自动运行或改变原数值标准。
 
 2026-10-18 DEC-014/EXP-010完成[内部互斥计时](docs/validation/M1_TP_INTERNAL_TIMING_20261018.md)：唯一S后唯一M1，205.01 s，原检查及190场/30 uniform/事件对三基线一致、所有分箱/父子闭合。T组装15.25%、其他准备15.03%；p预测准备11.85%、更新8.85%；两solve API合13.03%，归零极端solver上限1.14976×，不支持预设线性AI主导收益。T后3 μs成本74.98%；258步未满足非线性残差风险保留。没有修改原版、容差或开发AI，实际本次额度已用完，PR仍Draft。
+
+DEC-015/EXP-011已完成[重复计算依赖审计](docs/validation/M1_REUSE_DEPENDENCY_AUDIT_20261018.md)，零新CFD/优化实现。仅提出单次TEqn内原生mag(gradAlpha)只读缓存；需处理tmp被乘法复用、patch及注册风险，未证数值等价或收益。T_OTHER不是候选可加速份额，未来S→同二进制M1 OFF/ON协议仅PROPOSED；258步风险保持，AI未启动。
