@@ -8,7 +8,7 @@
 
 | 项目 | 当前状态 | 依据 |
 | --- | --- | --- |
-| 正式阶段 | 阶段2 CURRENT：三次固定原M1基线通过，条件调用栈采样权限BLOCKED；热点证据未完成 | [EXP-007](research/EXPERIMENT_LOG.md)、[阶段2实测](validation/STAGE2_M1_PERFORMANCE_20261017.md) |
+| 正式阶段 | 阶段2 CURRENT：三次原M1基线及DEC-012隔离轻量计时通过；T/p阶段成本最高，内部函数成本/AI净收益未测 | [EXP-007/008](research/EXPERIMENT_LOG.md)、[阶段计时](validation/STAGE2_M1_TIMING_20261017.md) |
 | Plate2D 串行 A/B | 用户实测 PASS；仅当前短程数值等价 | [RESULTS](validation/RESULTS.md)、[EXP-000](research/EXPERIMENT_LOG.md) |
 | 三维 S | 新一次Codex本机真实执行通过：LOCAL_CODEX_CFD_AUTOMATION_VERIFIED，19场检查及23文件归档核验通过；未观察到熔化，仍为PROPOSED探针；旧S历史保留 | [EXP-004](research/EXPERIMENT_LOG.md)、[本机实证](validation/LOCAL_CODEX_CFD_AUTOMATION_20261017.md) |
 | M负载与历史探索 | 原M1已批准固定性能开发用途；物理准确性/网格收敛参考未批准。早期沉积错层、IC阈值证据保留，阈值探索结束；M2/M3不在本批执行范围 | [DEC-011](research/DECISION_LOG.md)、[EXP-005/006](research/EXPERIMENT_LOG.md) |
@@ -27,6 +27,8 @@
 阈值问题已结束：DEC-010/EXP-006最后一次五父/40子只读诊断7.57 s/159.20 MiB、21项SHA一致，限制结果逐位复现。精确保存坐标/体积下仍略低于0.5，最后fsum/除法没有造成跨越；即使理想精确等体积，限制与二值光学资格仍不交换。THRESHOLD_EXPLORATION_CLOSED，见[最后诊断](validation/RESTRICTION_FINAL_DIAGNOSIS_20261017.md)，不继续阈值实验链。
 
 当前实测EXP-007：按DEC-011完成三个新目录原M1，190场/10时刻/uniform全部通过，190个物理输出场三例逐字节一致；solver205.96/206.52/204.95 s，中位205.96 s、CV0.3866%，批次15分49秒。25项准备输入及10个原生网格/初态文件冻结且匹配原M1；[阶段2报告](validation/STAGE2_M1_PERFORMANCE_20261017.md)记录完整资源/I/O/检查成本。perf实际探测被paranoid=4拒绝，第四例未执行；采样开销未测，内部模块份额/首个AI候选不选定，不宣称阶段2全部完成。原[提案](research/M_SELECTION_STAGE2_PROPOSAL.md)保留历史，不自动进入AI、M2/M3、IC或smoke。
+
+最新EXP-008：DEC-012授权的一次隔离计时S门槛通过后，唯一完整M1 solver205.07 s/RSS233.14 MiB，对全部三次基线190场/10时刻/30个uniform文件逐字节一致，2009项保护SHA不变。互斥阶段计时闭合：T38.5752%、p30.0516%、激光沉积11.4613%、U9.2683%、VOF4.2397%；未归入物理模块0.99924%。相对205.96 s为−0.4321%，单次观测不能分离计时净开销；295项测试通过。可信的是固定M1的粗阶段成本，不是内部线性求解或AI收益；下一步只读审查T/p源码和既有求解事件，不自动新CFD/AI。见[完整计时报告](validation/STAGE2_M1_TIMING_20261017.md)。
 
 当前待补证据与批准事项：
 
@@ -84,6 +86,7 @@
 | [RESTRICTION_FINAL_DIAGNOSIS_20261017.md](validation/RESTRICTION_FINAL_DIAGNOSIS_20261017.md) | 最后一次五父/40子体积与精确算术诊断，阈值探索结束 |
 | [M_SELECTION_STAGE2_PROPOSAL.md](research/M_SELECTION_STAGE2_PROPOSAL.md) | 阶段2历史提案；后续DEC-011批准范围与原始方案边界 |
 | [STAGE2_M1_PERFORMANCE_20261017.md](validation/STAGE2_M1_PERFORMANCE_20261017.md) | 三次原M1基线、冻结、资源/I/O/检查成本、重复性与采样阻塞，AI未选定 |
+| [STAGE2_M1_TIMING_20261017.md](validation/STAGE2_M1_TIMING_20261017.md) | 隔离轻量计时、S/M1逐字节一致性、模块成本及未归因/开销边界 |
 | [RESULTS.md](validation/RESULTS.md) | 用户回传的编译、运行、串行数值基线及局限 |
 | [PLATE2D_AB.md](validation/PLATE2D_AB.md) | 原生场、边界、日志和 uniform 的 A/B 比较方法 |
 | [FEEDBACK.md](validation/FEEDBACK.md) | 实机反馈格式与日志管理 |
@@ -97,7 +100,7 @@
 
 - 历史S/M全部实际二进制/动态依赖的独立重验、真实多次反射及困难路径覆盖；新S有直接执行与依赖守卫证据。EXP-005证明限定0/1 μs光学字段审计读取窗口SHA一致，不证明全部历史不变、逐射线事件或温差唯一归因；M2成本和正式参考未建立。
 - 网格/时间收敛、物理精度、实验一致性、MPI 正确性与三维代表性 LPBF 能力。
-- 性能瓶颈、AI 净收益、端到端数倍加速及训练成本摊销。
+- 原M1粗阶段成本已由EXP-008测得；内部函数/纯线性求解热点、跨工况性能瓶颈、AI净收益、端到端数倍加速及训练成本摊销仍未验证。
 - 外部实验的完整输入、可追溯材料参数、数据版本与再发布权限；逐项状态以候选库为准。
 
 A/B 数值回归、物理实验验证、AI 加速效果是三类独立证据，不能相互替代。

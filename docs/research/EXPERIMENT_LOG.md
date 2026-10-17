@@ -228,3 +228,19 @@ solver耗时比13.392，超过8倍单元增幅；按单元步数归一仍约1.67
 - perf6.8.12实际49 Hz用户态cpu-clock调用栈探测在/bin/true上exit255，被paranoid=4拒绝；无可用标准替代采样入口，不安装/sudo/调权限/改求解器。第四例未执行，采样开销NOT_MEASURABLE，不能记0；射线/VOF/物性相变/线性求解/I/O/未知栈份额均null，不虚构排名。
 - 直接流程计时：solver占完整案例65.4063%、全部检查主体33.3077%。仅在“整个solver连同原生I/O都消失、其他成本固定、零新增开销”的假设下，完整案例天花板2.8907倍；这不是AI模块Amdahl预测。缺可信模块f/s/h、采样开销及误差/回退证据，第一个AI候选不选定，AI仍NOT_STARTED。
 - 公开JSON25334 bytes/SHA256=8f097585f64bdf68ff3742f6886a41e6e41aac03953bd910097e155f9f7a6bfc；CSV557 bytes/SHA256=a8ee584d9bf5acc5f814109b5ebaa75cc0e66bd156bcdbc46a6b4ca1d30d77ae。原始场、日志、程序安装、环境及资源原记录留本地；仅脱敏摘要与冻结记录推送PR #4，Draft、不合并。
+
+## EXP-008 — 隔离可关闭阶段计时：S门槛与唯一完整M1
+
+- 日期：2026-10-17；授权DEC-012；状态 **M1_TIMING_PASSED**。实际工具/运行SHA=`6b8a5ac471bd8f1fa48e9abcdd11ff70bf1ddb05`，基线原库构建SHA=`2d3b2591bb8fec521448f9e47662ab595983f737`。阶段2限定观测已完成，AI仍NOT_STARTED、物理/网格参考UNVERIFIED。
+- perf免sudo探测exit255/paranoid=4；无合适替代采样器。首份构建成功后因工具错误预设geometricVoF路径而在零CFD时停止；实际和基线同来自OpenFOAM，改为全部动态依赖来源逐项相同后执行，预检48.851 s及原记录保留。没有失败solver重试；实际只有一次S和一次M1。
+- 独立laserbeamFoamStageTiming，原main移除计时语句后字节一致，头文件内容/优化/原库不变。互斥steady_clock累计，无逐单元/逐射线日志；默认关闭，最终单次CSV。禁用/纳秒闭合/源码守卫测试及全部295项测试通过；测试不执行CFD。
+- S=2048单元/10步，solver0.34 s、126720 KiB，原数值检查PASS、issues为空；19场/1时刻/3个uniform文件对原S逐字节一致，uniform标量另按原M解析器严格验证。
+- 唯一M1=32000单元/1000步/dt1e-8/10 μs/每100步输出，25项输入与冻结配置一致，10项原生网格/初态SHA一致。原完整检查EXPLORATION_CHECKS_PASSED、issues为空；190场/10时刻/30个uniform文件对**全部三个原版基线**逐字节一致，29491诊断事件。
+- M1 solver墙钟205.07 s、user203.34 s/system1.63 s、RSS238732 KiB；相对205.96 s中位−0.89 s/−0.4321%，在204.95–206.52 s原范围内，未观察到>5%墙钟增加。单次差值不能证明计时本身零/负开销。GNU timeout1800 s/rank1/thread1/CPU0；日志落盘、不高频轮询。
+- 互斥累计：VOF1000次8.694355 s/4.2397%；updateProps1000次4.698286 s/2.2911%；激光沉积1000次23.503735 s/11.4613%；U1000次19.006525 s/9.2683%；T1000次79.106177 s/38.5752%；p3000次61.626799 s/30.0516%；原生输出边界1000次（实际10次写出）4.109849 s/2.0041%。另mixture2.273694 s、turbulence0.001433 s、MTHD求解0次；全表见报告/CSV。
+- 阶段纳秒和与内部总计204.939328627 s精确一致；外部进程边界差0.130671373 s。初始化0.219538317 s、其他1.698938148 s加外部差合计未归入物理模块2.049147838 s/0.99924%，不重复加总。stdout I/O计入所在阶段，原生输出不是全部I/O。
+- 既有日志：T线性求解7244次/8705总迭代、p_rgh3000次/16099总迭代。momentumPredictor=no，无U线性求解；laminar。T含热/相变迭代，p含通量/速度修正；纯线性求解、组装及射线子阶段份额未测。T+p阶段合计68.6268%值得优先成本研究；不据调用次数分配时间，不预选AI。激光阶段有11.46%成本但非主导；不预设射线AI。
+- Amdahl仅作极端上限：整个T/p/激光阶段降为零、其余不变且无新开销，solver上限分别1.628/1.430/1.129×，不是可实现AI收益。下一项建议仅只读审查现有T/p源码/日志及保留数值约束；细分计时或AI必须后续批准，本轮结束后不自动执行。
+- 有效批次348.735 s（隔离构建46.362 s、S/M1及检查/哈希），此前预检另48.851 s，合397.586 s，报告/Git不计；M1全检查92.224 s单列，不进入模块分母。有效本地目录/两案例约128.61 MB，M1案例约120.96 MB；MONITORED_ONLY，无RSS/磁盘硬隔离，未达8 GiB/3 GiB观察警戒。
+- 2009项受保护原版源码/教程、旧S/三次M1全案例及原安装内容SHA前后一致；清单SHA均`b99a49fe1ceaa6f58d4647546dbf8d62a54811e825e44dddf493559daddfd2f3`。原始结果/日志留Ubuntu，原版src/applications/tutorials/冻结输入未改，不清理/覆盖旧数据。
+- 脱敏[实测报告](../validation/STAGE2_M1_TIMING_20261017.md)、[JSON](../validation/stage2-M1-timing-20261017-summary.json)（14780字节，SHA256=`d585ff551e581bc8bf04e652b3e4a1384c0991d24f625f2c7079f2de30e7c0b0`）、[CSV](../validation/stage2-M1-timing-20261017-modules.csv)（542字节，SHA256=`93c09dd88d7bbdb72389fae265fc0bbb99f331a9a1b0afb241914e86c5c1b530`）。二进制SHA=`650762c4dbd47efc68b4dc4ceb73e0e18f62db0a4806b5e434df76917f71ea33`，生成main SHA=`c169b241914a780f5d95ca1803e4f738f7f49b4b7c13bfa3045e4aaff10e4211`，源码溯源见JSON。PR #4保持Draft，不合并。
