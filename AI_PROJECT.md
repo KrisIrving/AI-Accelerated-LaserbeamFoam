@@ -51,6 +51,8 @@ M1已真实完成32000单元/1000步，观察到熔化；solver墙钟214.50秒�
 
 随后DEC-009/EXP-005直接完成[1 μs光学阈值原场审计](docs/validation/OPTICAL_THRESHOLD_AUDIT_20261017.md)：THRESHOLD_HYPOTHESIS_SUPPORTED。IC半填充层1600单元的保存alpha_filtered均比0.5低约1.28–1.44e-15，有rayQ支撑但无沉积，内部重建法向约0.99999998；64项前后SHA一致，48.41 s/458.85 MiB，零新增CFD。这升级了限定时刻/字段的证据，不是全场历史审计、实时逐射线事件或全部温差唯一因果证明。下一项仅建议只读抽样回查限制权重与光学门槛的不交换性，尚未执行。
 
+DEC-010/EXP-006已完成[最后一次限制诊断](docs/validation/RESTRICTION_FINAL_DIAGNOSIS_20261017.md)，五父/40子、7.57 s/159.20 MiB，21项SHA一致，保存值逐位复现；最后求和/除法未造成门槛跨越，精确算术也存在不交换性。THRESHOLD_EXPLORATION_CLOSED。此后仅提交[正式M候选与阶段2剖析方案](docs/research/M_SELECTION_STAGE2_PROPOSAL.md)，优先提请批准原M1为固定性能开发负载，物理参考用途未验证；方案PROPOSED，未运行新的模拟/剖析或开发AI。
+
 ## 私有验证数据
 
 本地使用 `validation/` 保存审计、编译日志、隔离安装；使用 `runs/` 保存隔离案例。两者均忽略。不得将主机详情、未审阅日志、压缩反馈包或 CFD 输出加入公开提交。

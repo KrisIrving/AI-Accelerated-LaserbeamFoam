@@ -52,3 +52,5 @@ M1-IC的初始alpha与受限M3的L1/L2/Linf在既有报告中均为0；初始T�
 ## 后续直接原场证据
 
 2026-10-17新增DEC-009/EXP-005已完成上述1 μs定向只读审计，见[直接原场报告](../validation/OPTICAL_THRESHOLD_AUDIT_20261017.md)。状态THRESHOLD_HYPOTHESIS_SUPPORTED：IC半填充层1600单元的保存alpha_filtered均比0.5低约1.28–1.44e-15，该层346单元rayQ>0却无沉积；内部重建法向约0.99999998，失败的是alpha资格。48.41 s/458.85 MiB、64项前后SHA一致，零新增CFD。此证据升级限于实际读取的0及1 μs字段，不改写本篇静态审查当时的证据边界，不证明实时逐射线事件或全部温差因果。
+
+DEC-010/EXP-006随后完成[最后一次限制映射诊断](../validation/RESTRICTION_FINAL_DIAGNOSIS_20261017.md)，阈值探索已结束。五个样本复现保存初态；三个半填充样本即使用精确保存坐标/体积仍低于0.5，最终求和/除法未造成跨越；精确等体积示例仍有0.5资格差异。今后入口转向[正式M候选与阶段2提案](M_SELECTION_STAGE2_PROPOSAL.md)，不继续本篇历史阈值任务链或启动CFD。

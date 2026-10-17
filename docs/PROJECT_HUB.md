@@ -24,7 +24,9 @@
 
 最新科学进展：DEC-009/EXP-005已直接完成三组1 μs alpha.metal/alpha_filtered/rayQ/Deposition及原生网格的只读定向审计，48.41 s/458.85 MiB、64项读取前后SHA一致、零新增CFD。IC97.5 μm层1600单元alpha_filtered比0.5低约1.28–1.44e-15，346个rayQ>0单元而无沉积；内部重建mag(n)≈0.99999998。结论仅支持保存状态的alpha门槛机制，不证明逐射线事件或全部温差因果；详见[原场报告](validation/OPTICAL_THRESHOLD_AUDIT_20261017.md)。
 
-下一项建议（PROPOSED）：只读抽样核对IC半填充父单元与M3子单元的原生体积/限制权重，追溯0.5下方表示及“限制alpha”和“光学资格判定”的不交换性；零新增CFD，见[后续设计](validation/OPTICAL_THRESHOLD_AUDIT_20261017.md)。不再次启动已完成的M1-IC；108000单元候选仍PROPOSED，M2暂缓，正式M未批准；不进入阶段2或开发AI。
+阈值问题已结束：DEC-010/EXP-006最后一次五父/40子只读诊断7.57 s/159.20 MiB、21项SHA一致，限制结果逐位复现。精确保存坐标/体积下仍略低于0.5，最后fsum/除法没有造成跨越；即使理想精确等体积，限制与二值光学资格仍不交换。THRESHOLD_EXPLORATION_CLOSED，见[最后诊断](validation/RESTRICTION_FINAL_DIAGNOSIS_20261017.md)，不继续阈值实验链。
+
+下一项转向[正式M候选选择与阶段2提案](research/M_SELECTION_STAGE2_PROPOSAL.md)：优先提请批准原M1作为固定性能开发负载，保留物理/网格证据缺口；三次无埋点基线及一次原版外部采样仅为PROPOSED，未运行。正式M及阶段2执行仍待明确批准；108000单元/M2不在本次范围，不重复IC或smoke，不自动模拟、剖析、埋点或开发AI。
 
 当前待补证据与批准事项：
 
@@ -79,6 +81,8 @@
 | [LOCAL_CODEX_CFD_AUTOMATION_20261017.md](validation/LOCAL_CODEX_CFD_AUTOMATION_20261017.md) | DEC-008授权的新S真实本机自动化、资源、归档与哈希 |
 | [ALPHA_DEPOSITION_STATIC_REVIEW.md](research/ALPHA_DEPOSITION_STATIC_REVIEW.md) | 旧原场/报告实际存在、IC结论、过滤与射线门槛静态审查和最低成本后续建议 |
 | [OPTICAL_THRESHOLD_AUDIT_20261017.md](validation/OPTICAL_THRESHOLD_AUDIT_20261017.md) | 1 μs三组原场阈值审计、半填充层数值、内部法向重建、JSON/CSV和证据边界 |
+| [RESTRICTION_FINAL_DIAGNOSIS_20261017.md](validation/RESTRICTION_FINAL_DIAGNOSIS_20261017.md) | 最后一次五父/40子体积与精确算术诊断，阈值探索结束 |
+| [M_SELECTION_STAGE2_PROPOSAL.md](research/M_SELECTION_STAGE2_PROPOSAL.md) | 正式M性能开发候选与阶段2最小测量提案，未批准执行 |
 | [RESULTS.md](validation/RESULTS.md) | 用户回传的编译、运行、串行数值基线及局限 |
 | [PLATE2D_AB.md](validation/PLATE2D_AB.md) | 原生场、边界、日志和 uniform 的 A/B 比较方法 |
 | [FEEDBACK.md](validation/FEEDBACK.md) | 实机反馈格式与日志管理 |
