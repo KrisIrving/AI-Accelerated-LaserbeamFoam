@@ -43,6 +43,7 @@ class Stage2BatchTests(unittest.TestCase):
             saved=json.loads((out/'batch.json').read_text())
             self.assertEqual(saved['status'],'STOPPED')
             self.assertEqual(saved['runs'],[])
+            self.assertFalse(list((out/'previous-generated-build-logs').rglob('log.Allwmake')))
             with self.assertRaises(FileExistsError):
                 batch.run_batch(out)
 

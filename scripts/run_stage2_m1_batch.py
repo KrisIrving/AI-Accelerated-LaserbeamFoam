@@ -139,7 +139,7 @@ def run_batch(out):
         # Preserve existing generated build logs before the unchanged Allwmake rewrites them.
         for base in ('src','applications'):
             for old in (ROOT/base).rglob('log.Allwmake'):
-                dest=out/'previous-generated-build-logs'/old.relative_to(ROOT)
+                dest=out/'previous-generated-build-logs'/Path(str(old.relative_to(ROOT))+'.txt')
                 dest.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(old,dest)
         stage('build',['bash','scripts/validate_build.sh','--jobs','8','--report-dir',str(build)])
         state['build']={"binary_sha256":digest(build/'install/bin/laserbeamFoam'),
