@@ -92,6 +92,16 @@ Also follow the existing `.agents/skills/laserbeamfoam/SKILL.md` conventions.
   quota is consumed; only eligibility to request new controlled collection is
   established, not permission for further builds/replay/CFD/reference or AI.
   Keep PR #5 Draft and unmerged; earlier quotas remain consumed.
+- DEC-026 is a fresh autonomous staged grant: at most three pre-CFD engineering
+  build/repair cycles, then one S and one frozen M1 only after preceding gates.
+  Capture only step738 first TEqn and its original 21-G chain. Exact output,
+  event, replay, residual arithmetic and protection gates apply; failed CFD
+  gates stop without reruns. After all real-chain gates pass, one copied frozen
+  context may continue at most64 G /120s, under a1200s batch deadline. No Time
+  advance, numerical/physics changes or AI. Nonconvergence is separate from
+  replay failure. Conditional PR5 Ready/Merge Commit is explicitly authorized
+  after all actual technical/safety gates, final CI and review pass; retain all
+  negative history and risks. Earlier quotas remain consumed.
 - Use new run directories; keep raw data and private paths in ignored runs/ and
   validation/. CI/mock success is not OpenFOAM execution or physical validation.
 - Check PROJECT_HUB at new PRs, major feature completion, registered workstation
