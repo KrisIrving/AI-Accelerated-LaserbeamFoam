@@ -573,7 +573,8 @@
       "AI inference/training/features beyond the tested extrapolation",
       "production integration/acceptance-control overhead",
       "actual coupled trajectory with changed initial guesses",
-      "unbiased repeated randomized whole-CFD performance"
+      "unbiased repeated randomized whole-CFD performance",
+      "Pure online increment-history maintenance is not isolated from the measured 0.319767827 s enclosing non-IO observation work; it is not added separately to per-sample component totals."
     ]
   },
   "cost_boundaries": {
@@ -595,7 +596,8 @@
     "remaining_preparation_comparison_hash_and_controller_seconds": 26.740339959505945,
     "M1_replay_program_seconds": 4.663430933840573,
     "M1_validation_cost_program_seconds": 0.6169039630331099,
-    "unattributed_cost_note": "No pure-iteration time was isolated. Offline core excludes common fvMatrix preparation/BC/logging; charged candidate totals are separate measured medians, not live integrated fallback or whole-CFD gains."
+    "unattributed_cost_note": "No pure-iteration time was isolated. Offline core excludes common fvMatrix preparation/BC/logging; charged candidate totals are separate measured medians, not live integrated fallback or whole-CFD gains.",
+    "candidate_component_totals_exclude": "Separate online history maintenance, AI inference and integration control; whole-batch observation/archive costs are reported independently."
   },
   "cost_screens": {
     "M1_sampled_calls": 30,
