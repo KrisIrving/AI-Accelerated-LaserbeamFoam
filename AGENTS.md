@@ -88,6 +88,9 @@ Also follow the existing `.agents/skills/laserbeamfoam/SKILL.md` conventions.
   non-equilibrium direct/snapshot parity/residual tests, 300 s hard deadline.
   Zero S/M1, real capture, time advance, acceleration or AI. Failure stops; old
   EXP-020 artifacts stay read-only. Passing grants request eligibility only.
+  EXP-021 passed all four non-CFD gates with one build and zero S/M1. This
+  quota is consumed; only eligibility to request new controlled collection is
+  established, not permission for further builds/replay/CFD/reference or AI.
   Keep PR #5 Draft and unmerged; earlier quotas remain consumed.
 - Use new run directories; keep raw data and private paths in ignored runs/ and
   validation/. CI/mock success is not OpenFOAM execution or physical validation.

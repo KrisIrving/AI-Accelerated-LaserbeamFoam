@@ -363,3 +363,12 @@ solver耗时比13.392，超过8倍单元增幅；按单元步数归一仍约1.67
 - 预注册SHA256=622d9fd8b2449d4ece020270104da8b3bdb7819f0f895d047208d59c8b53227d，44项工具/16项消费来源内容不变；4750项保护内容SHA不变。编译失败工件/全部日志留新本地目录，只推脱敏摘要。首次后台包装器在控制器入口前退出、尚无构建/CFD；保留空日志后换持久会话，实际仅一个主动批次。
 - GNU批次17.55 s，控制器17.3792 s，唯一构建11.66 s，峰值797208 KiB（778.52 MiB），末次主动数据1650796 B；rank1/thread1/CPU0，1200秒硬截止未触发；8 GiB/3 GiB MONITORED_ONLY阶段后观察，非cgroup/磁盘硬隔离。编写/最终报告/Git另计。
 - 完成后停止；本次额度已消耗，不具备另批独立收敛参考的新增资格。仅建议另行批准一次隔离包含依赖修复和非CFD非平衡G配对门槛，不自动恢复CFD额度。原258步未收敛、压力初值NO_GO、M1物理/网格缺口、MAG关闭及AI未启动保持。
+
+## EXP-021 — 回放头依赖修复与非平衡G门槛
+
+- 2026-10-18，DEC-025；负责人明确回复“批准本次非CFD新批次”，起点6b5dc548979b7b184b38a9be19145a57d5d02b81，执行HEAD=8e432de090b81d3bdcf85b44d6eca614d72fc102。报告：[非平衡G门槛](../validation/T_PHASE_HEADER_NONEQUILIBRIUM_20261018.md)、[三组CSV](../validation/T_PHASE_HEADER_NONEQUILIBRIUM_20261018-comparisons.csv)、[脱敏SHA/资源JSON](../validation/T_PHASE_HEADER_NONEQUILIBRIUM_20261018-summary.json)。PR #5 Draft/unmerged。
+- BUILD_PASS / NON_EQUILIBRIUM_G_REPLAY_PASS / RESIDUAL_PASS / PROVENANCE_PASS。新副本回放头显式包含fvCFD.H和Polynomial.H，正文/G/序列化/残差器保持EXP-020；最小非CFD入口唯一wmake通过。旧失败工件不改，不修补重建。零S/M1、真实热采集、物理推进或AI。
+- 原96个制造输入/源按字节复用；三母状态各一次非平衡直接G和一次回放，各2次原生线性迭代；完整内场/patch/实际Euler旧层/prevIter/标志、两矩阵/源/事件等195项文件比较逐字节一致。clip活动集变化4/3/4单元；三组T各24个patch值变化，糊状epsilon另24值变化；原生T/epsilon事件字节相同。独立矩阵/relax/逐面Euler交叉误差最坏2.522e-16/9.958e-17/1.933e-16，零梯度边界缺陷0；真实线性加舍入界最坏4.491e-11，严格<原1e-9。
+- RESIDUAL_PASS不是非线性收敛：单G同态F_E最大固定缩放缺陷约0.059815/0.040852/0.032226，均超过原2e-9；epsilon增量约0.35，糊状相变/温度缺陷0.883056。联合草案正确拒绝三终态，没有延长校正、改源或放宽标准；不据此解释M1真实258步。
+- 注册SHA256=5345a37f772d01109f60384f6dddd25dc9e84bd0facecd217017efadb3253102；43工具/18消费来源/96输入固定，4910项保护SHA不变。GNU批次25.14 s、构建18.32 s、峰值818916 KiB（799.72 MiB），末次主动数据4192070 B；rank1/thread1环境/CPU0，300秒系统截止未触发，退出0。1 GiB/200 MiB MONITORED_ONLY，非硬内存/磁盘隔离；编写/报告/Git另计。原始数据/工具/日志留本机。
+- 仅具备申请下一次受控S/M1采集的非CFD前置资格，不自动恢复step738或历史额度；完整CFD观测求解器构建、真实21轮链及数值参考仍未验收。本批结束，不自动新实验或AI。压力NO_GO、258步风险、M1物理/网格缺口及MAG关闭保持。
