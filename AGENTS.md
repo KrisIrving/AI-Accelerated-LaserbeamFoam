@@ -62,6 +62,10 @@ Also follow the existing `.agents/skills/laserbeamfoam/SKILL.md` conventions.
   is consumed. Current research recommendation is NO_GO for approving AI
   initial-guess development, not a permanent route change. No further work is
   authorized by those results. Keep PR #5 Draft; do not merge.
+- DEC-021 permits only read-only closure, PR history/CI/data review and at most
+  one direction proposal. EXP-017 retains pressure-initial-guess NO_GO and marks
+  the T/phase fixed-point candidate NOT_READY. No CFD, builds, replay, AI or new
+  numerical standards; no restored quotas. Keep PR #5 Draft and unmerged.
 - Use new run directories; keep raw data and private paths in ignored runs/ and
   validation/. CI/mock success is not OpenFOAM execution or physical validation.
 - Check PROJECT_HUB at new PRs, major feature completion, registered workstation

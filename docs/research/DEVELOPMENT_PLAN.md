@@ -46,3 +46,5 @@ DEC-018随后只批准压力系统采集/原生离线验证，未批准AI训练/
 DEC-019另行授权的EXP-015仅非CFD接口/合成验证已全部PASS，唯一构建额度结束；[证据](../validation/PRESSURE_REPLAY_INTERFACE_20261018.md)建立申请受控CFD的前置资格，不代表真实采集/全场事件等价或AI收益通过。不运行S/M1、不采集真实系统，阶段3 AI仍NOT_STARTED，PR #5保持Draft不合并；原258步风险保持。
 
 DEC-020新批次EXP-016已通过真实S/M1采集、全场/事件/保护及原初值回放；[结果](../validation/REAL_PRESSURE_REPLAY_20261018.md)显示当前廉价策略含核验/回退不节省，暂不建议批准AI初值开发（NO_GO，非永久取消路线）。原始系统可供后续另批只读成本下界审计，本轮不自动执行；运行额度结束，阶段3 AI仍NOT_STARTED，PR #5保持Draft不合并，258步风险保持。
+
+DEC-021/EXP-017只读[方向重评](STAGE3_DIRECTION_REASSESSMENT_20261018.md)固化压力初值当前NO_GO；T组装/准备有较大观测成本，但唯一T–相变固定点研究候选NOT_READY，未选择AI方法。收敛参考、完整T状态/误差合同、可避免成本和创新性仍缺；不变更正式路线或授权新实验，阶段3 AI仍NOT_STARTED，PR #5保持Draft不合并。
