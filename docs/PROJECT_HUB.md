@@ -2,7 +2,7 @@
 
 状态核对日期：2026-10-18。本页是导航与状态摘要，不替代正式计划或原始证据。各主题以导航表中的权威文件为准；发生冲突时回查正式文件和 Git 历史，不根据本页自行改计划。
 
-最新[阶段3前方向重评](research/STAGE3_DIRECTION_REASSESSMENT_20261018.md)固化压力初值研究当前NO_GO：采集/回放通过，但真实残差拒绝及费用不支持AI开发。T组装/准备30.28%、p预测/更新20.69%是观测包围成本；唯一T–相变固定点候选NOT_READY，阶段3 AI未启动，PR #5保持Draft不合并。[阶段2原提案](research/STAGE2_CLOSEOUT_20261018.md)保留为历史。
+最新[T–相变数学与文献前置审查](research/T_PHASE_FIXED_POINT_REVIEW_20261018.md)给出冻结上下文下的G_C、独立残差草案及回放缺口，结论NOT_READY：现有场不足以回放热校正，未验收独立收敛参考，不选择AI方法；只提议一个未批准的零CFD制造解门槛。原[方向重评](research/STAGE3_DIRECTION_REASSESSMENT_20261018.md)、压力初值NO_GO、258步风险及历史证据保持，PR #5 Draft/unmerged。
 
 ## 目标与 Current Status
 

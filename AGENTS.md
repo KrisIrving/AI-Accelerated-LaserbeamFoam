@@ -66,6 +66,10 @@ Also follow the existing `.agents/skills/laserbeamfoam/SKILL.md` conventions.
   one direction proposal. EXP-017 retains pressure-initial-guess NO_GO and marks
   the T/phase fixed-point candidate NOT_READY. No CFD, builds, replay, AI or new
   numerical standards; no restored quotas. Keep PR #5 Draft and unmerged.
+- DEC-022 permits only T/phase mathematical/source/literature review and one
+  proposed next experiment. EXP-018 remains NOT_READY; new residual contracts
+  and the non-CFD manufactured-state gate are drafts, not execution permission.
+  No CFD, build, collector/replay implementation, algorithm or AI; PR #5 Draft.
 - Use new run directories; keep raw data and private paths in ignored runs/ and
   validation/. CI/mock success is not OpenFOAM execution or physical validation.
 - Check PROJECT_HUB at new PRs, major feature completion, registered workstation
