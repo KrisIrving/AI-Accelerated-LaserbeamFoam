@@ -1,0 +1,771 @@
+{
+  "schema": "real-pressure-collection-native-replay-v1",
+  "decision": "DEC-020",
+  "experiment": "EXP-016",
+  "execution_status": "OBSERVATION_AND_NATIVE_REPLAY_PASSED",
+  "research_decision": "NO_GO_FOR_AI_INITIAL_GUESS_DEVELOPMENT_AT_PRESENT",
+  "decision_scope": "Data acquisition/replay pipeline PASSED. No current evidence to fund AI model development under the existing approximately 2% solver screen; not proof that every learned or selectively triggered strategy is impossible.",
+  "base_commit": "f2696ca3d1582e6781838f31c7bf21fe9fd4998e",
+  "runtime_commit": "73491dd521858397b8df37db7a90a7fde13f491e",
+  "CFD_runs_started": 2,
+  "S_attempts": 1,
+  "M1_attempts": 1,
+  "retries": 0,
+  "resumes": 0,
+  "AI_training": false,
+  "AI_integration": false,
+  "cases": [
+    {
+      "id": "S",
+      "status": "PASSED",
+      "solver": {
+        "exit": 0,
+        "wall_seconds": 0.34085489297285676,
+        "resources": {
+          "status": "RECORDED",
+          "wall_seconds": 0.33,
+          "max_rss_kib": 129024
+        }
+      },
+      "original_check": {
+        "status": "SMOKE_CHECKS_PASSED",
+        "issues": [],
+        "wall_seconds": 0.6543630799278617
+      },
+      "comparison": {
+        "status": "ALL_BYTE_IDENTICAL_AND_NATIVE_CHECKED",
+        "physical_fields": 19,
+        "output_times": 1,
+        "uniform_files": 3,
+        "physical_manifest_sha256": "06e030b5b07e880add8c2538e827e7b1af081a45328015cdcac66d1159b0dda8",
+        "uniform_manifest_sha256": "f8e9329bf06bd42f99ff1320299fbda1a5d90ff65d5c90bc74040316555d4bc8"
+      },
+      "capture": {
+        "calls": 30,
+        "samples": 3,
+        "observation_ns": 2785266,
+        "io_ns": 2463682,
+        "native_solve_ns": 3573927
+      },
+      "replay": {
+        "systems": 3,
+        "rows": 63,
+        "native_solution_byte_identical": true,
+        "native_residuals_iterations_match_logged": true,
+        "csv_sha256": "c63e527a5967960392669d31b35879a62f0acc0fd9dbef654b94e07c3c23ef43"
+      },
+      "full_event_equivalence": true,
+      "event_trace_sha256": "ebf67f8461696b839d1e892b164d319f8d51fa9a9e7ea572bf4e1a30e93b368a",
+      "unresolved_thermal_steps": null,
+      "consumed_dataset_manifest_sha256": "f3ff44b2829009f11ec8b5709f145252996e92f22f8c89915df75f23bd2eeb0d",
+      "numeric_report_sha256": "493cb06ec850ed8132ed534f44f6be415bbf08a438234f798b9665fb63834df0",
+      "solver_log_sha256": "6ba9f2cf54c82d892560d9fa7e70773c61739fdbe71008c424523c11087f9798",
+      "solver_time_sha256": "4e0a190dee5bb328da0092317fa295024a209cde1fb14494a277d3edf1ce5f30"
+    },
+    {
+      "id": "M1",
+      "status": "PASSED",
+      "solver": {
+        "exit": 0,
+        "wall_seconds": 204.86443216586486,
+        "resources": {
+          "status": "RECORDED",
+          "wall_seconds": 204.86,
+          "max_rss_kib": 243008
+        }
+      },
+      "original_check": {
+        "status": "EXPLORATION_CHECKS_PASSED",
+        "issues": [],
+        "wall_seconds": 95.55167929595336
+      },
+      "comparison": {
+        "status": "ALL_BYTE_IDENTICAL_AND_NATIVE_CHECKED",
+        "physical_fields": 190,
+        "output_times": 10,
+        "uniform_files": 30,
+        "physical_manifest_sha256": "c1b550526988af2fd01110a6f2977abf7f1649ef9e456a3ab2edd8b1d1a7696c",
+        "uniform_manifest_sha256": "f43f7f73127ab74e2313aa3b287798e50094e8968339bd5caf8b6522c3de76f1"
+      },
+      "capture": {
+        "calls": 3000,
+        "samples": 30,
+        "observation_ns": 554787529,
+        "io_ns": 235019702,
+        "native_solve_ns": 12876952160
+      },
+      "replay": {
+        "systems": 30,
+        "rows": 630,
+        "native_solution_byte_identical": true,
+        "native_residuals_iterations_match_logged": true,
+        "csv_sha256": "9d224ec0f8ed25b943e0a21d1a6286218fa19e7bada2d2d1bd7916c4b3057011"
+      },
+      "full_event_equivalence": true,
+      "event_trace_sha256": "4c36dd0e972911d793fb61a5bcbe246add2491623623a0f367f7b43f8c62f319",
+      "unresolved_thermal_steps": 258,
+      "consumed_dataset_manifest_sha256": "c057ff6d4677aa94d874efb597c5c1a54b8e4b725b6944082124cb21afa645dd",
+      "numeric_report_sha256": "e619a4b975adc70d3fec777b0de1022a82e3d0f8fbf851345c7804e2dbef6559",
+      "solver_log_sha256": "30fb60f6f19aeec55c03a70688a85ba3c0d620d11844e7b737b8c1121fa846d7",
+      "solver_time_sha256": "4e607856608a2100af1f36055b42cb0c95e052ecb8b0c2550cd3361afe50708e"
+    }
+  ],
+  "analysis": {
+    "schema": "real-pressure-replay-cost-analysis-v1",
+    "cases": [
+      {
+        "id": "S",
+        "systems": 3,
+        "rows": 63,
+        "modes": {
+          "native": {
+            "systems": 3,
+            "accepted": 3,
+            "rejected": 0,
+            "original_iterations": 1,
+            "attempt_iterations": 1,
+            "charged_iterations_with_fallback": 1,
+            "iteration_saving_with_fallback": 0,
+            "original_core_sum_ns": 167511,
+            "variant_core_sum_ns": 167511,
+            "charged_pipeline_sum_ns": 167511,
+            "net_saved_component_ns": 0,
+            "net_saved_fraction_sample_core": 0.0,
+            "fixed_acceptance_not_field_equivalence": true
+          },
+          "zero": {
+            "systems": 3,
+            "accepted": 1,
+            "rejected": 2,
+            "original_iterations": 1,
+            "attempt_iterations": 21,
+            "charged_iterations_with_fallback": 22,
+            "iteration_saving_with_fallback": -21,
+            "original_core_sum_ns": 167511,
+            "variant_core_sum_ns": 893053,
+            "charged_pipeline_sum_ns": 1196367,
+            "net_saved_component_ns": -1028856,
+            "net_saved_fraction_sample_core": -6.142020524025288,
+            "fixed_acceptance_not_field_equivalence": true
+          },
+          "previous_delta": {
+            "systems": 3,
+            "accepted": 3,
+            "rejected": 0,
+            "original_iterations": 1,
+            "attempt_iterations": 1,
+            "charged_iterations_with_fallback": 1,
+            "iteration_saving_with_fallback": 0,
+            "original_core_sum_ns": 167511,
+            "variant_core_sum_ns": 147567,
+            "charged_pipeline_sum_ns": 289336,
+            "net_saved_component_ns": -121825,
+            "net_saved_fraction_sample_core": -0.7272656721051155,
+            "fixed_acceptance_not_field_equivalence": true
+          }
+        },
+        "costs": {
+          "reference_fused_sum_ns": 97951,
+          "reference_naive_sum_ns": 121626,
+          "reference_fused_per_call_median_ns": 30938,
+          "native_verification_per_call_median_ns": 13554,
+          "matrix_read_and_boundary_assembly_sum_ns": 621920
+        },
+        "bins": [
+          {
+            "bin": 1,
+            "mode": "native",
+            "systems": 3,
+            "accepted": 3,
+            "original_iterations": 1,
+            "charged_iterations": 1,
+            "original_core_ns": 167511,
+            "charged_pipeline_ns": 167511
+          },
+          {
+            "bin": 1,
+            "mode": "zero",
+            "systems": 3,
+            "accepted": 1,
+            "original_iterations": 1,
+            "charged_iterations": 22,
+            "original_core_ns": 167511,
+            "charged_pipeline_ns": 1196367
+          },
+          {
+            "bin": 1,
+            "mode": "previous_delta",
+            "systems": 3,
+            "accepted": 3,
+            "original_iterations": 1,
+            "charged_iterations": 1,
+            "original_core_ns": 167511,
+            "charged_pipeline_ns": 289336
+          }
+        ]
+      },
+      {
+        "id": "M1",
+        "systems": 30,
+        "rows": 630,
+        "modes": {
+          "native": {
+            "systems": 30,
+            "accepted": 30,
+            "rejected": 0,
+            "original_iterations": 160,
+            "attempt_iterations": 160,
+            "charged_iterations_with_fallback": 160,
+            "iteration_saving_with_fallback": 0,
+            "original_core_sum_ns": 121818736,
+            "variant_core_sum_ns": 121818736,
+            "charged_pipeline_sum_ns": 121818736,
+            "net_saved_component_ns": 0,
+            "net_saved_fraction_sample_core": 0.0,
+            "fixed_acceptance_not_field_equivalence": true
+          },
+          "zero": {
+            "systems": 30,
+            "accepted": 10,
+            "rejected": 20,
+            "original_iterations": 160,
+            "attempt_iterations": 455,
+            "charged_iterations_with_fallback": 532,
+            "iteration_saving_with_fallback": -372,
+            "original_core_sum_ns": 121818736,
+            "variant_core_sum_ns": 302357879,
+            "charged_pipeline_sum_ns": 396331532,
+            "net_saved_component_ns": -274512796,
+            "net_saved_fraction_sample_core": -2.2534529992168038,
+            "fixed_acceptance_not_field_equivalence": true
+          },
+          "previous_delta": {
+            "systems": 30,
+            "accepted": 28,
+            "rejected": 2,
+            "original_iterations": 160,
+            "attempt_iterations": 170,
+            "charged_iterations_with_fallback": 194,
+            "iteration_saving_with_fallback": -34,
+            "original_core_sum_ns": 121818736,
+            "variant_core_sum_ns": 127558124,
+            "charged_pipeline_sum_ns": 169799974,
+            "net_saved_component_ns": -47981238,
+            "net_saved_fraction_sample_core": -0.3938740424954007,
+            "fixed_acceptance_not_field_equivalence": true
+          }
+        },
+        "costs": {
+          "reference_fused_sum_ns": 17080908,
+          "reference_naive_sum_ns": 22905965,
+          "reference_fused_per_call_median_ns": 557183.5,
+          "native_verification_per_call_median_ns": 244247.0,
+          "matrix_read_and_boundary_assembly_sum_ns": 35242234
+        },
+        "bins": [
+          {
+            "bin": 1,
+            "mode": "native",
+            "systems": 3,
+            "accepted": 3,
+            "original_iterations": 1,
+            "charged_iterations": 1,
+            "original_core_ns": 2573070,
+            "charged_pipeline_ns": 2573070
+          },
+          {
+            "bin": 1,
+            "mode": "zero",
+            "systems": 3,
+            "accepted": 1,
+            "original_iterations": 1,
+            "charged_iterations": 42,
+            "original_core_ns": 2573070,
+            "charged_pipeline_ns": 32638868
+          },
+          {
+            "bin": 1,
+            "mode": "previous_delta",
+            "systems": 3,
+            "accepted": 3,
+            "original_iterations": 1,
+            "charged_iterations": 1,
+            "original_core_ns": 2573070,
+            "charged_pipeline_ns": 5153971
+          },
+          {
+            "bin": 2,
+            "mode": "native",
+            "systems": 3,
+            "accepted": 3,
+            "original_iterations": 1,
+            "charged_iterations": 1,
+            "original_core_ns": 2970401,
+            "charged_pipeline_ns": 2970401
+          },
+          {
+            "bin": 2,
+            "mode": "zero",
+            "systems": 3,
+            "accepted": 1,
+            "original_iterations": 1,
+            "charged_iterations": 42,
+            "original_core_ns": 2970401,
+            "charged_pipeline_ns": 33344691
+          },
+          {
+            "bin": 2,
+            "mode": "previous_delta",
+            "systems": 3,
+            "accepted": 3,
+            "original_iterations": 1,
+            "charged_iterations": 1,
+            "original_core_ns": 2970401,
+            "charged_pipeline_ns": 5486066
+          },
+          {
+            "bin": 3,
+            "mode": "native",
+            "systems": 3,
+            "accepted": 3,
+            "original_iterations": 3,
+            "charged_iterations": 3,
+            "original_core_ns": 3906831,
+            "charged_pipeline_ns": 3906831
+          },
+          {
+            "bin": 3,
+            "mode": "zero",
+            "systems": 3,
+            "accepted": 1,
+            "original_iterations": 3,
+            "charged_iterations": 44,
+            "original_core_ns": 3906831,
+            "charged_pipeline_ns": 33894162
+          },
+          {
+            "bin": 3,
+            "mode": "previous_delta",
+            "systems": 3,
+            "accepted": 3,
+            "original_iterations": 3,
+            "charged_iterations": 2,
+            "original_core_ns": 3906831,
+            "charged_pipeline_ns": 5717996
+          },
+          {
+            "bin": 4,
+            "mode": "native",
+            "systems": 3,
+            "accepted": 3,
+            "original_iterations": 16,
+            "charged_iterations": 16,
+            "original_core_ns": 12309948,
+            "charged_pipeline_ns": 12309948
+          },
+          {
+            "bin": 4,
+            "mode": "zero",
+            "systems": 3,
+            "accepted": 1,
+            "original_iterations": 16,
+            "charged_iterations": 50,
+            "original_core_ns": 12309948,
+            "charged_pipeline_ns": 37658819
+          },
+          {
+            "bin": 4,
+            "mode": "previous_delta",
+            "systems": 3,
+            "accepted": 3,
+            "original_iterations": 16,
+            "charged_iterations": 19,
+            "original_core_ns": 12309948,
+            "charged_pipeline_ns": 16590992
+          },
+          {
+            "bin": 5,
+            "mode": "native",
+            "systems": 3,
+            "accepted": 3,
+            "original_iterations": 20,
+            "charged_iterations": 20,
+            "original_core_ns": 14717004,
+            "charged_pipeline_ns": 14717004
+          },
+          {
+            "bin": 5,
+            "mode": "zero",
+            "systems": 3,
+            "accepted": 1,
+            "original_iterations": 20,
+            "charged_iterations": 47,
+            "original_core_ns": 14717004,
+            "charged_pipeline_ns": 35822051
+          },
+          {
+            "bin": 5,
+            "mode": "previous_delta",
+            "systems": 3,
+            "accepted": 3,
+            "original_iterations": 20,
+            "charged_iterations": 28,
+            "original_core_ns": 14717004,
+            "charged_pipeline_ns": 22103370
+          },
+          {
+            "bin": 6,
+            "mode": "native",
+            "systems": 3,
+            "accepted": 3,
+            "original_iterations": 24,
+            "charged_iterations": 24,
+            "original_core_ns": 17195102,
+            "charged_pipeline_ns": 17195102
+          },
+          {
+            "bin": 6,
+            "mode": "zero",
+            "systems": 3,
+            "accepted": 1,
+            "original_iterations": 24,
+            "charged_iterations": 55,
+            "original_core_ns": 17195102,
+            "charged_pipeline_ns": 40655362
+          },
+          {
+            "bin": 6,
+            "mode": "previous_delta",
+            "systems": 3,
+            "accepted": 3,
+            "original_iterations": 24,
+            "charged_iterations": 21,
+            "original_core_ns": 17195102,
+            "charged_pipeline_ns": 17839145
+          },
+          {
+            "bin": 7,
+            "mode": "native",
+            "systems": 3,
+            "accepted": 3,
+            "original_iterations": 24,
+            "charged_iterations": 24,
+            "original_core_ns": 17132065,
+            "charged_pipeline_ns": 17132065
+          },
+          {
+            "bin": 7,
+            "mode": "zero",
+            "systems": 3,
+            "accepted": 1,
+            "original_iterations": 24,
+            "charged_iterations": 61,
+            "original_core_ns": 17132065,
+            "charged_pipeline_ns": 44261654
+          },
+          {
+            "bin": 7,
+            "mode": "previous_delta",
+            "systems": 3,
+            "accepted": 3,
+            "original_iterations": 24,
+            "charged_iterations": 21,
+            "original_core_ns": 17132065,
+            "charged_pipeline_ns": 17858950
+          },
+          {
+            "bin": 8,
+            "mode": "native",
+            "systems": 3,
+            "accepted": 3,
+            "original_iterations": 27,
+            "charged_iterations": 27,
+            "original_core_ns": 18960509,
+            "charged_pipeline_ns": 18960509
+          },
+          {
+            "bin": 8,
+            "mode": "zero",
+            "systems": 3,
+            "accepted": 1,
+            "original_iterations": 27,
+            "charged_iterations": 61,
+            "original_core_ns": 18960509,
+            "charged_pipeline_ns": 44199884
+          },
+          {
+            "bin": 8,
+            "mode": "previous_delta",
+            "systems": 3,
+            "accepted": 2,
+            "original_iterations": 27,
+            "charged_iterations": 44,
+            "original_core_ns": 18960509,
+            "charged_pipeline_ns": 32772730
+          },
+          {
+            "bin": 9,
+            "mode": "native",
+            "systems": 3,
+            "accepted": 3,
+            "original_iterations": 22,
+            "charged_iterations": 22,
+            "original_core_ns": 16113792,
+            "charged_pipeline_ns": 16113792
+          },
+          {
+            "bin": 9,
+            "mode": "zero",
+            "systems": 3,
+            "accepted": 1,
+            "original_iterations": 22,
+            "charged_iterations": 64,
+            "original_core_ns": 16113792,
+            "charged_pipeline_ns": 46385179
+          },
+          {
+            "bin": 9,
+            "mode": "previous_delta",
+            "systems": 3,
+            "accepted": 3,
+            "original_iterations": 22,
+            "charged_iterations": 20,
+            "original_core_ns": 16113792,
+            "charged_pipeline_ns": 17274417
+          },
+          {
+            "bin": 10,
+            "mode": "native",
+            "systems": 3,
+            "accepted": 3,
+            "original_iterations": 22,
+            "charged_iterations": 22,
+            "original_core_ns": 15940014,
+            "charged_pipeline_ns": 15940014
+          },
+          {
+            "bin": 10,
+            "mode": "zero",
+            "systems": 3,
+            "accepted": 1,
+            "original_iterations": 22,
+            "charged_iterations": 66,
+            "original_core_ns": 15940014,
+            "charged_pipeline_ns": 47470862
+          },
+          {
+            "bin": 10,
+            "mode": "previous_delta",
+            "systems": 3,
+            "accepted": 2,
+            "original_iterations": 22,
+            "charged_iterations": 37,
+            "original_core_ns": 15940014,
+            "charged_pipeline_ns": 29002337
+          }
+        ]
+      }
+    ],
+    "new_AI_models": 0,
+    "scope": "Native offline PCG/DIC component medians of seven ordered warm trials; no full CFD acceleration, statistical significance or generalization claim.",
+    "pipeline_model": "variant core + original fixed-normalization/initial-residual fused reference + feature/copy + true-residual check; failed fixed-contract candidates additionally charged measured native restore/copy + native solve + verification. Sum of separately measured medians, not a timed integrated fallback or inference pipeline.",
+    "unmeasured_costs": [
+      "AI inference/training/features beyond the tested extrapolation",
+      "production integration/acceptance-control overhead",
+      "actual coupled trajectory with changed initial guesses",
+      "unbiased repeated randomized whole-CFD performance"
+    ]
+  },
+  "cost_boundaries": {
+    "M1_solver_seconds": 204.86,
+    "native_baseline_median_seconds": 205.96,
+    "single_wall_change_percent": -0.5340842882113006,
+    "single_change_not_speedup_or_intrinsic_overhead": true,
+    "M1_P_SOLVE_boundary_seconds": 12.87695216,
+    "M1_P_SOLVE_fraction": 0.06285732773601484,
+    "P_SOLVE_zero_cost_ceiling_fixed_other_costs": 1.06707338124318,
+    "capture_observation_seconds": 0.554787529,
+    "capture_buffered_IO_seconds": 0.235019702,
+    "capture_other_observation_seconds": 0.31976782699999995,
+    "capture_IO_not_fsync_or_storage_throughput": true,
+    "batch_controller_seconds": 389.70273269712925,
+    "batch_outer_seconds": 389.79,
+    "sum_command_stage_seconds": 266.7563503617421,
+    "full_original_check_seconds": 96.20604237588122,
+    "remaining_preparation_comparison_hash_and_controller_seconds": 26.740339959505945,
+    "M1_replay_program_seconds": 4.663430933840573,
+    "M1_validation_cost_program_seconds": 0.6169039630331099,
+    "unattributed_cost_note": "No pure-iteration time was isolated. Offline core excludes common fvMatrix preparation/BC/logging; charged candidate totals are separate measured medians, not live integrated fallback or whole-CFD gains."
+  },
+  "cost_screens": {
+    "M1_sampled_calls": 30,
+    "M1_total_pressure_calls": 3000,
+    "original_total_pressure_iterations": 16099,
+    "sample_original_iterations": 160,
+    "fixed_reference_fused_per_call_median_ns": 557183.5,
+    "verification_per_call_median_ns": 244247.0,
+    "median_reference_plus_verification_ns": 801430.5,
+    "illustrative_3000_call_reference_plus_verification_seconds": 2.4042915,
+    "scaling_not_full_M1_measurement": true,
+    "prior_proposed_new_cost_budget_seconds": 0.5,
+    "approximately_2_percent_solver_target_seconds": 4.1192,
+    "needed_gross_API_saving_in_that_scenario_seconds": 6.5234915,
+    "needed_fraction_of_measured_P_SOLVE_in_that_scenario": 0.5066021383743341,
+    "additional_inference_and_history_in_that_scenario": "Not included; no AI exists. Existing observation history/metadata/copy work has its own measured enclosing cost, not a pure AI feature cost."
+  },
+  "resources": {
+    "batch_budget_seconds": 1200,
+    "outer_exit": 0,
+    "peak_rss_kib": 1176260,
+    "M1_solver_rss_kib": 243008,
+    "observed_new_data_bytes": 245736478,
+    "rss_warning_kib": 8388608,
+    "data_warning_bytes": 3221225472,
+    "resource_policy": "MONITORED_ONLY_STAGE_END_CHECKS",
+    "warning_crossed": false,
+    "ranks": 1,
+    "threads_environment": 1,
+    "cpu_affinity": [
+      0
+    ],
+    "outer_GNU_filesystem_inputs_counter": 0,
+    "outer_GNU_filesystem_outputs_counter": 504496,
+    "IO_counter_units": "Raw GNU time counters, not bytes or wall time; cached zero inputs does not establish no reads."
+  },
+  "provenance": {
+    "source_projection_exact": true,
+    "frozen_native_git_objects_verified": true,
+    "native_library_origins_match": true,
+    "replay_reused_byte_identical_to_EXP015": true,
+    "replay_library_origins_and_sha_match_EXP015": true,
+    "actual_capture_binary_sha256": "215408f06ef7338f0a4eed911fad57642a1d29aa237f46aa605ce3b32a41dc14",
+    "actual_replay_binary_sha256": "5f86bd837f5ecc75cc57867970fb84ca9a451063e08e52f6a7a4fd0ab4c5dd1c",
+    "actual_cost_binary_sha256": "ccadb2645848e27eff1e834013950bc2f58934ba96095c6d6619517e1e6af1d3",
+    "actual_private_sources_sha256": {
+      "analyze_results.py": "4f1e01038a221d9af40649efd7dd8cbfef165d005e42a21b02d03c749c090e32",
+      "cost-tool/Make/files": "e24e4edb66ac55f221608b07f660b22ac5691c0ceccfb7fd8e7555d34fe9f72c",
+      "cost-tool/Make/options": "170c2c2b704624402a953d4cf9881d5937b3c46c485735b9c3654b1e0b8683f6",
+      "cost-tool/cost.C": "a69a8aef807eeb15aaf562caca4614edebdcb2e2e8b5a23717c4682994dcac1f",
+      "pressureData.H": "bde57c96ddac6593766259c41776cacf137304c900c48f0386aa6834b000c82e",
+      "run_capture.py": "4981b2b4d4161efed9d98c60e31dec80533c55f1fb0a0a3a7d8f77935d1634b5",
+      "solver/MULES/CourantNo.H": "400b1dacfa1e99b65f8e5a1808c621114458922798d7415287f0e5d9be52a73d",
+      "solver/MULES/alphaControls.H": "8e9308777208495a1c87b615ada3f0a147553a19da3fa93963ce44fcd4f2a8fc",
+      "solver/MULES/alphaCourantNo.H": "efc35048731c6ad07f209530e654cc1790ddb01be227cbded7de9b6922d6bfb9",
+      "solver/MULES/alphaEqn.H": "b05056ce6ea249a8043ff0a50c630c95af8200eee9f85fa6422ca5d45442b146",
+      "solver/MULES/alphaEqnSubCycle.H": "18876f2adbfd288f2733653c64fbb38b3d971143d3d8a82b6a7524914f6982e4",
+      "solver/MULES/alphaSuSp.H": "e0592e0a83ccf26f985fec8d36ab21baf23573b8ef5e89b0037149dc8f8cd463",
+      "solver/MULES/createAlphaFluxes.H": "77b142f1d144f09bbea41218c65c7e839e4745549853faf16fb4917351f09c5f",
+      "solver/MULES/firstIter.H": "ec4666005d736981dd7ee65b4109827e95051e2fcbc46059d02db9f1faefd016",
+      "solver/MULES/setDeltaT.H": "43792b990dba883408ae6e23da9109767a837c7cbd4207a7a3d1852f2131634d",
+      "solver/MULES/setRDeltaT.H": "cb3add4c23f3c01c94b1c837b061a17ae96d126a7ce7185ee982e124ffea1e44",
+      "solver/Make/files": "f4211aed003278db8219c02de6ef3d59f9a2131b21964f2cab325dc5168acf6f",
+      "solver/Make/options": "87c5f55d3b582d06594531709815fbe18e4795322a47a911dc6256b22ba7e5f5",
+      "solver/TEqn.H": "8542f190581444d0be58cc497ae6a7f1d524eed0998958abb35cd777940c92f2",
+      "solver/UEqn.H": "586cc973acc489390ba3e2079d39be16d6d7f5137ff80dd76852c71db179082d",
+      "solver/correctPhi.esi.H": "05856aa966b50d628a4f62899a8d1d9d0652f1b9baaf92e38744ef78ef3ea675",
+      "solver/createFields.H": "69a36578b1f99b468c4d34aff0529e751d591bd8c3b25f9afb2d041e8c8f7ea6",
+      "solver/initCorrectPhi.H": "d8311ce9af0571879297bd792b60ed86ee7fdc1314cac72e7b442df35e279bb3",
+      "solver/isoAdvector/alphaControls.H": "a66ad72324f526c0194f99fa7f64712da966e1bd7118c357217993069c763004",
+      "solver/isoAdvector/alphaEqn.H": "cbb4348977388633b29f0aa1f612225249c3062e80755f548fddfb0760c7311f",
+      "solver/isoAdvector/alphaEqnSubCycle.H": "b5f9845d57cb3fc75577ef00ed338186f83d13a9261c67d4ef88e6f1ef419385",
+      "solver/isoAdvector/alphaSuSp.H": "956e16961d1979cee6d52c94f8be1ad4b43118ba0f0d49a2dce83ff40130635b",
+      "solver/isoAdvector/createPorosity.H": "fe2f66cba2bf3e613bbb1333cc02f6025c4d036864f720b663f42b33d3503334",
+      "solver/isoAdvector/firstIter.H": "47976af82ec95770cebd034fef24260393d0d1b52eeecf3acabb6a4d04c43286",
+      "solver/isoAdvector/porousAlphaCourantNo.H": "7c8aca216844e12a9bdfda4efb82d9927a2efba71b986293ddff4c270e481d3a",
+      "solver/isoAdvector/porousCourantNo.H": "0872d870f51dbae9b33feb9476fa4b5cc467f061ada445ee41cb97d25fdc754f",
+      "solver/isoAdvector/setDeltaT.H": "43792b990dba883408ae6e23da9109767a837c7cbd4207a7a3d1852f2131634d",
+      "solver/laserbeamFoam.C": "66cff2c82f9667d5671406752ca5dc81b18855b025cfea1027cd57ffa5f9e97c",
+      "solver/pEqn.H": "99598cb5b5111af0ba85f6dc6858ac4bcd07fb945ba27bc959728724ecd43568",
+      "solver/readControls.H": "64da838052840665f30f49280dfcccaf60e8dc40f86245698d951bd8b654e3da",
+      "solver/rhofs.H": "02311b8b993f0087f28a9a37a59887e452e003531751f3303902ceae41fec66b",
+      "solver/setInitialDeltaT.H": "627472691db82d773d8a06f2f8c63ad6fd19734f2c9eabe88c31e412bc12a167",
+      "solver/updateKappaCp.H": "521971158e6d3ff4ea54a45de42359412b8721bc6532551ac0b2006be3793c8e",
+      "solver/updateProps.H": "c8f260a46675cca76729aaff0b168f55e617d11cc8ccbdf47a17ff4f024c2d8b",
+      "solver/updateYDim.H": "c9daa0bcc2201dec95f53615f5010affc29893b00b2b3429e168ee2fdcb17152"
+    },
+    "native_library_sha256": {
+      "libfiniteVolume.so": "37dd5600be16cef1c6e320107e913c4cefad66beee1e76b2a43b461244c6efb0",
+      "libMTHD.so": "4a9ff788493cb7e8f913a270505183ab53600fe2396e6949f5cf4e2d90050a17",
+      "liblaserHeatSource.so": "1f2c9bf1bbaf904e1a6364b8a050b1c4fd6f87d8d445f878c5edb3ccac35eb59",
+      "libfvOptions.so": "432dc9f361eddb1786523deff42966a0e64223b5f8ca44ce5b0cafb26b65f8bc",
+      "libsurfMesh.so": "1fd19dc49d8538ca377b330d7ea2ed274d27789e85eecd803586c887802c6f04",
+      "libmeshTools.so": "1a388110176dfb2386ab1dcac573263143e6be34b1671487b62c3f8cf4c0b987",
+      "libsampling.so": "6a763f58d0e52759c2d9b604b784eff58ad12e3622b434938c26087da41f8f12",
+      "libdynamicFvMesh.so": "edb32c1d6fa936a82e80f6b469eb9c8ac8f73b70d8ff9e4010ece68148a14c4f",
+      "libincompressibleTransportModels.so": "2589df62c6463fee3c855701518340f5b2bad2806e6f6e5ecbf26d87f0248a27",
+      "libinterfaceProperties.so": "b2593814db9c22dc1d7ed3519759cf0980b6654fe79f47e3327db6b125eb1523",
+      "libgeometricVoF.so": "9d62c2781c9df94058324f0153205d1fd3936f808a6db95692f9a8e5f577fbc5",
+      "libimmiscibleIncompressibleTwoPhaseMixture.so": "4b5a6dbf447483c9b8394c9a2189c77ef4beb838e6ce059c51e13c7443bc3e5a",
+      "libtwoPhaseProperties.so": "5659b44bcd105dbb96efb5febf2844ef482581d08a092a046b6d0a3c6d5af320",
+      "libturbulenceModels.so": "d3777e0e1f99c163cbb04f72002b95061432765d13f1997b8320d3f0965a5f11",
+      "libincompressibleTurbulenceModels.so": "10ca79f9fde1e96d85e4db00c5a678af6e4bd07bcb0b6035af8b2b6cfc64eb77",
+      "libwaveModels.so": "d54bc8c1e6b51322b20fef24f27ab824b164c67922814e9af354a2da9d289659",
+      "libVoFphaseTurbulentTransportModels.so": "8e52b8914d36de256bfd88b5bdb2b8e9957d07e5df09db56cf21bfa48e18f167",
+      "libincompressibleInterPhaseTransportModels.so": "215a06c8875814d92728a394a282546330c16116e250ac6970bab9119b9c7183",
+      "liblagrangian.so": "20a73da2eb560caf424c6b4568c14518ccb94dd80656c8ab1f58c8f07eb06449",
+      "libOpenFOAM.so": "4a7b095aa31ddc63a20959ac72d24bf5b0195dca64b781553d52e2fd30461640",
+      "libstdc++.so.6": "ff0825e113603c3866680d5d52216bc6d8eedf3a59f52a0aef67ff01994db128",
+      "libm.so.6": "3dd5511ae94785c9f921429b0f2b2f7aabb461b6f0e6de6dfdbef15f24bdfee6",
+      "libgcc_s.so.1": "fc9d43b2f6c20e53b009238f767c5b949d202389e20de9e202ea684b4ba3729a",
+      "libc.so.6": "b2cf6c33b74d2f22543b7a469a75b538911e690f769d0b238843a49465b83793",
+      "libPstream.so": "f8dd06d0b9d43d31b19d4827aeafff8c0bd4fd56686e67aecc2bf1b8e22dee67",
+      "libfileFormats.so": "b891639662b3b526e40a8ba5241af91fc8ce0c615f76c15a929249bf856abc30",
+      "libfluidThermophysicalModels.so": "28dcef4cb15ec3164ef979de81f542bbc8ffe1809014b28c0a9ec9a10b01ef07",
+      "libspecie.so": "7847382d91a8d02d389a68d6c55b881565b3c8b81b4cb19398cea73aec1f8704",
+      "libsolidThermo.so": "24743c8d04e228c9f8a2dd33dee6d833c945d4c4bdd664459cc9dcb183eece94",
+      "libthermophysicalProperties.so": "9d42c6bebf28f3ead2c18c30a769d41a4222223b6795f5ec7db3c5cb1f82c9e2",
+      "libcompressibleTurbulenceModels.so": "a8a1b8d7216368c9fd565bddc2d45ed63d3c6e3f0e94c2c83da15c0fe496b2d8",
+      "libreactionThermophysicalModels.so": "bdca9ec8c7cced8a07592b8b4dbfb187802a84ccfa839bf001fbe2e85367503c",
+      "liboverset.so": "b0dec049bf3ce7d54b02b3c339b54a7886faae7fd730043fb642f095567d7c91",
+      "libdynamicMesh.so": "37479b2930bbc3ae1743b809dfcbb54fab7b19f1ec83c9d4513433d0df13bcc8",
+      "libtwoPhaseMixture.so": "c45f903b87d937efd69c114f438b754d15848797c6c50b805c0274c7fe805c82",
+      "libz.so.1": "64c206f0146cc58bbddc4f22054436f4ff278f5a554aa3ce6921ddf7e9133370",
+      "libmpi.so.40": "27d2d690a5d1f971cf90e28e54e945519df7c1528a954ae4bfc8a436bfbb1982",
+      "libcompressibleTransportModels.so": "9239ebae0f247fc858b685d327db833726dc728f0504705b9731c890accbe910",
+      "libsolidSpecie.so": "3e8520b2c02d998802eea8c8b891359a240be0d804da888503c2ca7f15c8ec39",
+      "libradiationModels.so": "70d438ade17437c208264fec524c3f8a064c4b8c0d9fc5536a6e76ec4065ac30",
+      "libblockMesh.so": "d6241a63fe6fc49c02bc12ebe8c1cb04ff634fbfcdc1b897c15e75a6ba4426f0",
+      "libdecompositionMethods.so": "7c54322d49b78ec0b9d4272cc0289837a0aeddafa98a3423182f1aa884c4e5ae",
+      "libextrudeModel.so": "2c35dbc472675054d4049276419e9f4305938a4f813c4aae3b7335ee56d604c5",
+      "libopen-rte.so.40": "69b31a92a4fb7e2f494a027a7d4dddff4e516aab5158827165e12730d7c0ff57",
+      "libopen-pal.so.40": "2a03b97563b724c6e42f853b90e2dc0619de3486628a7b065b74f7b30e5c35a1",
+      "libhwloc.so.15": "2efe6e32d0d3454b2bce0d3b8cd437f48691475717be4b431f96bcc2d4d9bc54",
+      "libSLGThermo.so": "d4c16b4c2e6124056804b9652e4b34d000e008265ac2e46535e8e2e72e7bcbd9",
+      "libdistributed.so": "ba26cf8b8259a857232dcd41a4f3276dcbb29eaaf5593f0b397879f9ae316436",
+      "libevent_core-2.1.so.7": "2d04f8e4a4cd0cf3dfe214f655298b6819cf7b1ce5677c461b904830bcdb2f8f",
+      "libevent_pthreads-2.1.so.7": "2c12e1fbd54ac804e4de1badcb318217ada877ae18cab8b3ce89cf3626635537",
+      "libudev.so.1": "08b989e58a49b85468db9be8f5f915d756ae70865a291bb524bc87d9fedf6dda"
+    },
+    "protected_files": 3493,
+    "protected_before_sha256": "d652349b107205fc90feb5af8c5d3edd07d7567ca629f92101c5c3008456dbc8",
+    "protected_after_sha256": "d652349b107205fc90feb5af8c5d3edd07d7567ca629f92101c5c3008456dbc8",
+    "protected_unchanged": true,
+    "protected_scope": "Batch-window tracked files and all pre-existing runs/validation content; current new experiment excluded. Subsequent sanctioned result/governance appends occur outside this window.",
+    "batch_log_sha256": "b7fa85943cc1f641f6d9f5b51767f24c6dbbc3a571d9026dbc48126ec5d440ab",
+    "batch_time_sha256": "fe53a650796ab320b83bd9ca5fa680cfb392d51c7374bbb0004adf98a025543a",
+    "private_progress_sha256": "f0619833f4a442ab377808f779625b69298378a23519d125d09a84eb7cae222d",
+    "private_analysis_sha256": "74ef02874506f3435eb23e5bbc2d41a42954581a5a07c380e8a23e8ac5e7b566",
+    "private_replay_csv_sha256": {
+      "S": "c63e527a5967960392669d31b35879a62f0acc0fd9dbef654b94e07c3c23ef43",
+      "M1": "9d224ec0f8ed25b943e0a21d1a6286218fa19e7bada2d2d1bd7916c4b3057011"
+    },
+    "private_cost_csv_sha256": {
+      "S": "a534383037ddc555d28abaa2b4124ccd8692a320b6f3642ac3c45468ad3efc14",
+      "M1": "f86e5a09b1201fa4c7afda0219e5c038e93110900a5bcbccf7c7f8817173636e"
+    }
+  },
+  "limitations": [
+    "30 preselected midpoint systems, not generalization or whole-trajectory acceleration evidence",
+    "Seven ordered warm repetitions per system/mode; not independently randomized whole-CFD performance",
+    "Alternative fixed linear residual acceptance is not bitwise field equivalence or coupled CFD/physical accuracy",
+    "258 native thermal steps remain nonlinearly unresolved; no physical truth or convergence claim",
+    "MPI/coupled/dynamic-mesh interface cases are not validated",
+    "Old EXP-014 failure and EXP-015 synthetic evidence remain unchanged; MAG cache stays closed NO_BENEFIT"
+  ],
+  "disposition": {
+    "recommend_AI_initial_guess_development_now": false,
+    "PR": "5_DRAFT_NO_MERGE",
+    "new_CFD_or_training_authorized": false,
+    "next_proposal": "If continuing this direction, first propose a no-AI, no-new-CFD native PCG internal cost/floor audit using these existing systems; separate invariant/setup costs from reducible iteration kernels and assess a cheaper fixed-contract acceptance/fallback path. Not executed or authorized by this report."
+  }
+}

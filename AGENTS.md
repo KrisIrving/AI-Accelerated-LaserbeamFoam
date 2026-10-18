@@ -58,7 +58,10 @@ Also follow the existing `.agents/skills/laserbeamfoam/SKILL.md` conventions.
 - DEC-020 is a fresh controlled real pressure-system batch: reuse verified
   replay tools, one S gate then at most one frozen M1, exact outputs/events and
   baseline replay required, 1200 s deadline. No retry/resume or AI; older quotas
-  stay closed. Append sanitized results to PR #5, keep Draft, do not merge.
+  stay closed. EXP-016 passed collection/replay with one S and one M1; its quota
+  is consumed. Current research recommendation is NO_GO for approving AI
+  initial-guess development, not a permanent route change. No further work is
+  authorized by those results. Keep PR #5 Draft; do not merge.
 - Use new run directories; keep raw data and private paths in ignored runs/ and
   validation/. CI/mock success is not OpenFOAM execution or physical validation.
 - Check PROJECT_HUB at new PRs, major feature completion, registered workstation
