@@ -11,7 +11,7 @@
 | NONLINEAR_CONVERGENCE_STATUS | NONCONVERGED_OBSERVED | 原epsilon门槛及联合残差草案均未满足，不是独立参考解 |
 | PROVENANCE | PASS | 10228/10351保护SHA、116项注册来源及当前工具不变，原版/输入/库未改 |
 
-BUILD也PASS：唯一窄原生构建；两次工程调试循环，无整链重跑或第四类研究。
+BUILD也PASS：唯一窄原生构建；两次工程调试循环，未重跑整链。
 
 ## 生命周期因果证据
 
