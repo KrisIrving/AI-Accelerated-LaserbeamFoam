@@ -293,7 +293,6 @@ solver耗时比13.392，超过8倍单元增幅；按单元步数归一仍约1.67
 - 3189项原版tracked源码/教程/框架/配置及运行前全部runs/validation内容SHA前后一致，清单SHA均7e582f47e0412f926f67ff1f32891750977aa45fa0e7af7e72f7e604e7ea12af；二进制SHA=0bd14242ec4704566c58eda3dfb5dbd2d5e5cd73870a1e66229d2b8672a4da07。原字段/日志/测试源码/二进制本地保留，不覆盖旧结果。
 - [否决报告](../validation/MAG_CACHE_NATIVE_20261018.md)、[JSON](../validation/MAG_CACHE_NATIVE_20261018-summary.json)10136字节/SHA256=c473003ceb0a4dbdfa83aa72076d8452e276437971951eed6af467877d17c5ed、[聚合CSV](../validation/MAG_CACHE_NATIVE_20261018-trials.csv)5519字节/SHA256=b0a8c53a4835f35f1cc28d4ca6882f4a9a4918146222642ae761efe680bf253e。停止本候选投入，不扩展其他优化；258步非线性未收敛风险保持，不当物理/AI真值。PR #4继续Draft，不合并。
 
-
 ## EXP-013 — 阶段2收尾与合并审查（零新CFD）
 
 - 2026-10-18；DEC-017；审查起点a1e5e1f7df54e1d8667c59f14f7e5ffee936e6aa，最新main 5e08097d420af3cfb746eda8ec1833da1d068395。负责人批准审查通过后Ready及Merge Commit，旧Draft限制保留为历史，不恢复任何实验额度。
