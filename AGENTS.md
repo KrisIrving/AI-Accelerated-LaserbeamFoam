@@ -55,6 +55,10 @@ Also follow the existing `.agents/skills/laserbeamfoam/SKILL.md` conventions.
   real-system collection or AI. EXP-015 passed all four synthetic gates with
   one build; that quota is consumed. Only eligibility to request future CFD
   is established, not execution permission. Keep PR #5 Draft; do not merge.
+- DEC-020 is a fresh controlled real pressure-system batch: reuse verified
+  replay tools, one S gate then at most one frozen M1, exact outputs/events and
+  baseline replay required, 1200 s deadline. No retry/resume or AI; older quotas
+  stay closed. Append sanitized results to PR #5, keep Draft, do not merge.
 - Use new run directories; keep raw data and private paths in ignored runs/ and
   validation/. CI/mock success is not OpenFOAM execution or physical validation.
 - Check PROJECT_HUB at new PRs, major feature completion, registered workstation
