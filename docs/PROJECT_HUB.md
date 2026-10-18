@@ -2,6 +2,8 @@
 
 状态核对日期：2026-10-18。本页是导航与状态摘要，不替代正式计划或原始证据。各主题以导航表中的权威文件为准；发生冲突时回查正式文件和 Git 历史，不根据本页自行改计划。
 
+最新DEC-027/EXP-023的[binary64与真实链验证](validation/T_PHASE_BITEXACT_CHAIN_20261018.md)**INCONCLUSIVE**：完整旧S位恢复/格式/回放/独立算术PASS，零新S；唯一冻结M1采齐step738的21轮，190场/30 uniform/完整事件及258步轨迹对三基线一致。连续回放首轮全部PASS，第2轮prevIter timeIndex原生0/回放738导致严格FAIL，停止其余验收，终态独立能量/相变残差未知；不具备独立收敛参考资格。733.58 s、833.97 MiB峰值，6796保护SHA不变；曾越3 GiB观察警戒如实披露，全部原字节/路径保留。三个工程循环记录完整，无CFD/G重跑、延拓或AI。本额度结束，后续仅提议另批零CFD生命周期修复；PR #5 Draft/unmerged，原风险与负结果不变。
+
 最新DEC-026/EXP-022的[真实热链验证](validation/T_PHASE_REAL_CHAIN_20261018.md)在S格式门槛**INCONCLUSIVE**停止：完整构建、非CFD、S19场/3 uniform及原事件PASS；完整G状态回放因±0符号位不保真FAIL，5578保护SHA不变。唯一S后零M1/真实21轮/延拓，两个允许的非CFD文本格式诊断亦FAIL，保留证据、不重跑CFD。尚无传统算法资格，PR #5 Draft/unmerged；原科学风险与负结果不变。
 
 最新DEC-025/EXP-021的[回放头依赖修复/非平衡G门槛](validation/T_PHASE_HEADER_NONEQUILIBRIUM_20261018.md)四项PASS：唯一非CFD构建，三类各一次直接G/回放、195项文件及原事件字节相同，独立残差算术/原线性/边界通过；25.14 s/799.72 MiB，4910保护SHA不变。单G终态仍不满足联合非线性草案，不冒充收敛。只具备申请下一次受控S/M1采集的资格；零S/M1/真实热采集/推进，不恢复step738方案，AI未启动，PR #5 Draft/unmerged。

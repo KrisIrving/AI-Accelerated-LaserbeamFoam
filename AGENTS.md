@@ -114,6 +114,10 @@ Also follow the existing `.agents/skills/laserbeamfoam/SKILL.md` conventions.
   AI or changed physics/numerics. 1200 s hard batch deadline; no failed CFD rerun.
   Preserve signs of zero and exact comparisons. PR5 stays Draft/unmerged,
   overriding DEC-026's historical conditional merge. Older quotas remain closed.
+  EXP-023 restored real S bits and ran one parity-exact M1; round2 prevIter
+  timeIndex mismatch stopped full-chain validation. This quota is consumed;
+  no extra repair/G/CFD/reference/AI is authorized. Preserve raw captures and
+  both controller-error histories. Only propose a fresh zero-CFD lifecycle fix.
 - Use new run directories; keep raw data and private paths in ignored runs/ and
   validation/. CI/mock success is not OpenFOAM execution or physical validation.
 - Check PROJECT_HUB at new PRs, major feature completion, registered workstation

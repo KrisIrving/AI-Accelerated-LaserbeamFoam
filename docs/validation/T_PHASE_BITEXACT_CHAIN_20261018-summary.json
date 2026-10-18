@@ -1,0 +1,1043 @@
+{
+  "decision": "DEC-027",
+  "experiment": "EXP-023",
+  "base_commit": "97563b8d0d56e93406a58d440146adcadf7fefea",
+  "authorization_and_offline_build_commit": "8522a838ee6e64d9fe8bdb06b475e69c8a7a3081",
+  "observer_actual_build_origin_commit": "d23dc893427973986878c07c018f639930089ed9",
+  "overall": "INCONCLUSIVE",
+  "gates": {
+    "BUILD": "PASS",
+    "NONCFD_FORMAT": "PASS",
+    "BIT_EXACT_RESTORE": "PASS",
+    "S_G_REPLAY": "PASS",
+    "S_PARITY": "PASS",
+    "M1_PARITY": "PASS",
+    "CAPTURE_COMPLETENESS": "FAIL",
+    "G_CHAIN_REPLAY_21": "FAIL",
+    "RESIDUAL_EVALUATION": "NOT_RUN",
+    "NONLINEAR_CONVERGENCE_STATUS": "FAIL",
+    "PROVENANCE": "PASS"
+  },
+  "nonlinear_status": "NATIVE_INCREMENT_NONCONVERGED; independent terminal joint residual NOT_RUN",
+  "format_regression": {
+    "roundtrips": [
+      {
+        "mode": "mixed",
+        "arrays": 174,
+        "double_values": 102400,
+        "byte_difference": 0,
+        "tested_patterns_hex": [
+          "0x0",
+          "0x8000000000000000",
+          "0x1",
+          "0x8000000000000001",
+          "0x730d67819e8d2",
+          "0x800730d67819e8d2",
+          "0x10000000000000",
+          "0x8010000000000000"
+        ]
+      },
+      {
+        "mode": "uniform",
+        "arrays": 174,
+        "double_values": 102400,
+        "byte_difference": 0,
+        "tested_patterns_hex": [
+          "0x0",
+          "0x8000000000000000",
+          "0x1",
+          "0x8000000000000001",
+          "0x730d67819e8d2",
+          "0x800730d67819e8d2",
+          "0x10000000000000",
+          "0x8010000000000000"
+        ]
+      }
+    ],
+    "incompatible_envelopes_rejected": [
+      "version",
+      "byte_order",
+      "scalar_bits",
+      "label_bits",
+      "length",
+      "sha256"
+    ],
+    "legacy_origin_ABI": {
+      "schema": "TPSTATE2",
+      "version": 2,
+      "byte_order": "little",
+      "scalar_bits": 64,
+      "label_bits": 32,
+      "IEEE754": true,
+      "records": 29
+    }
+  },
+  "native_format_rejections": [
+    "magic",
+    "truncated",
+    "digest"
+  ],
+  "engineering_history": [
+    {
+      "cycle": 1,
+      "build": "PASS",
+      "S_bit_restore_and_full_native_pair": "PASS",
+      "stop": "manufactured-only cp>0 constraint incorrectly applied to original calculated patch cp=0",
+      "CFD_runs": 0,
+      "preserved": true
+    },
+    {
+      "cycle": 2,
+      "new_builds": 0,
+      "CXX_and_binary_unchanged": true,
+      "repair": "apply positive heat-capacity constraint to physical internal cp; retain exact captured calculated boundary zeros, still reject negative/nonfinite values; all numerical residual and byte thresholds unchanged"
+    },
+    {
+      "cycle": 3,
+      "new_builds": 0,
+      "new_CFD": 0,
+      "new_G": 0,
+      "action": "correct data-warning control semantics; validate already generated chain, same-state no-solve assembly only; stop at second round timeIndex failure"
+    }
+  ],
+  "S_reuse": {
+    "experiment": "EXP-022",
+    "original_event_lines": 173,
+    "new_S": false,
+    "comparison": {
+      "status": "ALL_BYTE_IDENTICAL_AND_NATIVE_CHECKED",
+      "physical_fields": 19,
+      "output_times": 1,
+      "uniform_files": 3,
+      "physical_sha256": {
+        "1e-07/Deposition": "788506274e0c4278d3902a1105ab331bed599b8fe42ec8cb24fd197cb835f57d",
+        "1e-07/Laser_boundary": "6e902e2ca1e63e1b44affb1a5c07ec630f1c436bab74a334bad4bc556fa9532a",
+        "1e-07/Qv": "747da987cb06c88671660012e58c0136886f8035bebd19acd762bc444aa0b8fa",
+        "1e-07/T": "7507b7c2544799090f2db58e6e57ebb9d5680a370d5b2c33ed686e45006f60a9",
+        "1e-07/TLiquidus": "4fd84c1aabf43e82af608b646d32b75a2870da8114c0a10cf8df4c4b01b41e65",
+        "1e-07/TSolidus": "57e995d3ffcea9814157760554cc55a58440e3b1a007193e236de958a31c39f8",
+        "1e-07/U": "9132f1f12cd19f99154d07dc6562cac91b98faaa84ebb9665df358138215cfde",
+        "1e-07/alpha.metal": "eeceff0d29232391318b42c8af94009097cd6c6724ce61842cfc43bb765cd9c5",
+        "1e-07/alphaPhi0.metal": "9a86c41ca0b72a31f5e01f2176f1f412ad4b69fc3be6d9cf4fcb4aa34b92c39f",
+        "1e-07/alpha_filtered": "ff8080f8c6105408b09110666b8342ae781c36fb8d648720ba601e9e3eef31c8",
+        "1e-07/alpha_smoothed": "e7e32dfa0946ebdc5ff3d6bbf326b51cf8233cab502121e6f0950b9cdbc1f149",
+        "1e-07/cp": "45b8d76114f97a68cdaf70e24d621761e58a708e91cacb0896f43cf2df11e9e4",
+        "1e-07/epsilon1": "27ed3e6658961c0b4f20ebae5224f402eba94c3e0abf90a5f140f13f9107b183",
+        "1e-07/kappa": "0ede758ee9fd14a94773bc15f65a93181b87be1252b00b6c275eece1b7ce93a2",
+        "1e-07/liquidMetalCells": "285023c07714dec86d5f3b8d9ee7d34eca07ff162bf843b2329a692155b6f44a",
+        "1e-07/p": "96e0342ecfcff925f03a293a08e5f8fc4a5af8053158779f39a008249e60d6cf",
+        "1e-07/p_rgh": "950f7af91aa64cfb573e59e03f87307e05baf700b75202a95e379b9e62a32a7a",
+        "1e-07/phi": "84cf6d260deea49412875f3297bb1e98e9f8d5fb96b66e7b85ffe84519544944",
+        "1e-07/rayQ": "e758571c70a8ea8cb942d36832f0dc07ce2084a6e4ed622265a93996bbcd9659"
+      },
+      "uniform_sha256": {
+        "1e-07/uniform/cumulativeContErr": "7bdd37835515fee46e0b3a3d8decc821d065c81383c0f767eeea0443ceb73068",
+        "1e-07/uniform/functionObjects/functionObjectProperties": "01c5db2749739a4a0c85186a153b0c95bc20c09e9faed5d808c609d235f9641f",
+        "1e-07/uniform/time": "99b86b34d035bd07c6ebaf9911006de27df16eaed9f3a690d617aae16b4893f5"
+      }
+    },
+    "per_iteration": [
+      {
+        "temporal_abs_W": 755.6016067663836,
+        "latent_abs_W": 8.05040670325666e-09,
+        "source_abs_W": 755.601606763802,
+        "phase_max_increment": 0.0,
+        "T_update_K": 3.0302950297372035,
+        "phase_fixed_point_defect": 0.0,
+        "phase_temperature_defect": 0.0,
+        "FE_max_fixed_scaled": 1.638791868297981e-13,
+        "FE_L1_fixed_scaled": 1.0615134677134789e-16,
+        "FE_signed_W": 2.9554007882436474e-10,
+        "FE_L1_W": 1.0526411256356762e-09,
+        "latent_lag_L1_W": 0.0,
+        "FE_cross_error": 2.121229843578139e-16,
+        "boundary_T_defect_K": 0.0,
+        "linear_true_fixed": 1.4971836304476117e-13,
+        "linear_roundoff_bound": 5.230290589113403e-11,
+        "linear_iterations": 2,
+        "native_initial_residual": 0.07150079149519162,
+        "native_final_residual": 1.5366972187270696e-13,
+        "draft_joint_residual_pass": true,
+        "RG_T_at_input_K": 3.0302950297372035,
+        "RG_epsilon_at_input_all_fields": 0.0,
+        "input_FE_max_fixed_scaled": 0.004830190264855687,
+        "input_phase_complementarity": 0.0,
+        "input_phase_temperature_defect": 0.0,
+        "output_phase_complementarity": 0.0,
+        "output_phase_temperature_defect": 0.0,
+        "active_set_changes": 0,
+        "fixed_point_residual_location": "input; terminal output requires a further G and is not inferred",
+        "time_index": 5,
+        "time": 5e-08,
+        "dt": 1e-08,
+        "iteration": 1,
+        "byte_equal": true,
+        "sha256": {
+          "before.bin": "2558ea2cabdb188c36fc90b342d8b0842a6cbd6ee2c4a069ba73f920510ff46e",
+          "after.bin": "0848183ee6304c3248407972a663ddea7b336740acd18d1559f6b0646a4c4677",
+          "unrelaxed.bin": "d3f394166eca4b2ecbd9c489980f431cfe75f96011216b44104e89d49055d6bd",
+          "relaxed.bin": "d3f394166eca4b2ecbd9c489980f431cfe75f96011216b44104e89d49055d6bd",
+          "native-Qv.bin": "7fe3dccdd8afa432e789fa89938a4b4fc823ac3aad377fa9c75606380b86666e",
+          "native-damper.bin": "07ecb54c6fcd86ce5c5823c2f5fed9fbe35b66fbb8f6dd7e17e6260b627f40ef",
+          "native-latent.bin": "f3e8a7e5a232c6764150d5a13eae726ef57abe8f01459d5d27e693c6ed1e6fb4",
+          "linear-initial.bin": "72ce72eb43b4c6c2770b6bd8303f6348e668c0b92e27f15d722a5a799a956cfc",
+          "linear-solution.bin": "a86821ef256762a257f3187dd9bb40b4aadf770c0c32abaa24fb99f51a586990",
+          "metrics.json": "09c3562d400507aa5f9a721f067d3eac3088c741614150c30f0c2aab3229680e",
+          "geometry.bin": "f6d0f634545b792f3012dd837548be5e69a4303886a39058c62a654d83d0cc65"
+        },
+        "phase_mean_increment": 0.0,
+        "latent_cross_fixed_scaled": 6.677457654931973e-30,
+        "latent_signed_W": 8.048895161670951e-09,
+        "energy_roundoff_budget_gamma256": 5.684341886081125e-14,
+        "terminal_output_fixed_point_residual": "NOT_EVALUATED: no extra G authorized"
+      }
+    ]
+  },
+  "resources": {
+    "cycle1_GNU": {
+      "status": "RECORDED",
+      "wall_seconds": 26.31,
+      "max_rss_kib": 853988
+    },
+    "cycle2_GNU": {
+      "status": "RECORDED",
+      "wall_seconds": 389.08,
+      "max_rss_kib": 241240
+    },
+    "cycle3_GNU": {
+      "status": "RECORDED",
+      "wall_seconds": 25.9,
+      "max_rss_kib": 105712
+    },
+    "controller_cycle2_s": 388.90006392402574,
+    "original_start_epoch": 1792328670.465123,
+    "absolute_system_deadline_epoch": 1792329870.465123,
+    "continuous_elapsed_to_final_controller_s": 733.5841801166534,
+    "new_data_at_controller_end": {
+      "logical_bytes": 3889352318,
+      "unique_inode_bytes": 709299058,
+      "allocated_unique_bytes": 711864320,
+      "files": 3753
+    },
+    "RSS_data_policy": "MONITORED_ONLY_STAGE_END; not cgroup/process-tree RSS or disk hard isolation",
+    "new_CFD_runs": 1,
+    "new_S_runs": 0,
+    "M1_runs": 1,
+    "native_builds": 1,
+    "engineering_cycles": 3,
+    "first_build_s": 18.44061992596835,
+    "initial_tool_authoring_pre_active_s": 169.72,
+    "report_and_precommit_validation_elapsed_s": 407.379,
+    "report_git_note": "Report/precommit wall above starts at active scientific stop; remaining GitHub push/PR/CI elapsed is outside active budget and reported at delivery."
+  },
+  "stages_cycle1": [
+    {
+      "name": "build-1",
+      "exit_code": 0,
+      "wall_seconds": 18.44061992596835,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 18.43,
+        "max_rss_kib": 853988
+      }
+    },
+    {
+      "name": "dependencies-offline",
+      "exit_code": 0,
+      "wall_seconds": 0.012430617120116949,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 0.01,
+        "max_rss_kib": 3072
+      }
+    },
+    {
+      "name": "dependencies-observer",
+      "exit_code": 0,
+      "wall_seconds": 0.01472833612933755,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 0.01,
+        "max_rss_kib": 6144
+      }
+    },
+    {
+      "name": "S-restore",
+      "exit_code": 0,
+      "wall_seconds": 0.0842031966894865,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 0.08,
+        "max_rss_kib": 63548
+      }
+    },
+    {
+      "name": "format-mixed",
+      "exit_code": 0,
+      "wall_seconds": 0.08006885787472129,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 0.07,
+        "max_rss_kib": 63540
+      }
+    },
+    {
+      "name": "format-uniform",
+      "exit_code": 0,
+      "wall_seconds": 0.07841306878253818,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 0.07,
+        "max_rss_kib": 63544
+      }
+    },
+    {
+      "name": "S-chain",
+      "exit_code": 0,
+      "wall_seconds": 0.17111110500991344,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 0.16,
+        "max_rss_kib": 65084
+      }
+    },
+    {
+      "name": "S-energy-0",
+      "exit_code": 0,
+      "wall_seconds": 0.13031232310459018,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 0.12,
+        "max_rss_kib": 65080
+      }
+    }
+  ],
+  "stages_cycle2": [
+    {
+      "name": "dependencies-offline",
+      "exit_code": 0,
+      "wall_seconds": 0.012121265288442373,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 0.01,
+        "max_rss_kib": 3072
+      }
+    },
+    {
+      "name": "dependencies-observer",
+      "exit_code": 0,
+      "wall_seconds": 0.01453109597787261,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 0.01,
+        "max_rss_kib": 6144
+      }
+    },
+    {
+      "name": "S-restore",
+      "exit_code": 0,
+      "wall_seconds": 0.08430727897211909,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 0.08,
+        "max_rss_kib": 63548
+      }
+    },
+    {
+      "name": "format-mixed",
+      "exit_code": 0,
+      "wall_seconds": 0.08036334393545985,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 0.07,
+        "max_rss_kib": 63540
+      }
+    },
+    {
+      "name": "format-uniform",
+      "exit_code": 0,
+      "wall_seconds": 0.08010321017354727,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 0.07,
+        "max_rss_kib": 63544
+      }
+    },
+    {
+      "name": "S-chain",
+      "exit_code": 0,
+      "wall_seconds": 0.17092036362737417,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 0.16,
+        "max_rss_kib": 65088
+      }
+    },
+    {
+      "name": "S-energy-0",
+      "exit_code": 0,
+      "wall_seconds": 0.12903538485988975,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 0.12,
+        "max_rss_kib": 65084
+      }
+    },
+    {
+      "name": "M1-blockMesh",
+      "exit_code": 0,
+      "wall_seconds": 0.2644123639911413,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 0.26,
+        "max_rss_kib": 89088
+      }
+    },
+    {
+      "name": "M1-checkMesh",
+      "exit_code": 0,
+      "wall_seconds": 0.2836594800464809,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 0.28,
+        "max_rss_kib": 87412
+      }
+    },
+    {
+      "name": "M1-setFields",
+      "exit_code": 0,
+      "wall_seconds": 0.21693825302645564,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 0.21,
+        "max_rss_kib": 81408
+      }
+    },
+    {
+      "name": "M1-solver",
+      "exit_code": 0,
+      "wall_seconds": 234.07558165630326,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 234.07,
+        "max_rss_kib": 241240
+      }
+    },
+    {
+      "name": "M1-chain",
+      "exit_code": 0,
+      "wall_seconds": 29.67430681316182,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 29.67,
+        "max_rss_kib": 99008
+      }
+    }
+  ],
+  "provenance": {
+    "observer_projection_exact": true,
+    "native_git_trees": {
+      "src": "711ac074d22461cc72e715d4e2a704ae545df3af",
+      "applications": "6f9bac7ef814a1e202239c86a48d024e1c25d954",
+      "Allwmake": "7928602c808ae452e59e5c17ae217a47941d4975"
+    },
+    "frozen_M1_definition_SHA256": "a3b5801452c9f54391b65998174f7e0b6837e328bc5c366b6cfe17db43a1c6d0",
+    "observer_binary_SHA256": "1724a84b2414d068dc4c8d7bddf0622ef0a224d3c9792847f402eb4aa7d9c9b8",
+    "offline_binary_SHA256": "a0882b30a618b5e9acefd2b301954481c3501d2ae6424ae5c1188206f4e59e19",
+    "original_libraries_SHA256": {
+      "libfiniteVolume.so": "37dd5600be16cef1c6e320107e913c4cefad66beee1e76b2a43b461244c6efb0",
+      "libMTHD.so": "4a9ff788493cb7e8f913a270505183ab53600fe2396e6949f5cf4e2d90050a17",
+      "liblaserHeatSource.so": "1f2c9bf1bbaf904e1a6364b8a050b1c4fd6f87d8d445f878c5edb3ccac35eb59",
+      "libfvOptions.so": "432dc9f361eddb1786523deff42966a0e64223b5f8ca44ce5b0cafb26b65f8bc",
+      "libsurfMesh.so": "1fd19dc49d8538ca377b330d7ea2ed274d27789e85eecd803586c887802c6f04",
+      "libmeshTools.so": "1a388110176dfb2386ab1dcac573263143e6be34b1671487b62c3f8cf4c0b987",
+      "libsampling.so": "6a763f58d0e52759c2d9b604b784eff58ad12e3622b434938c26087da41f8f12",
+      "libdynamicFvMesh.so": "edb32c1d6fa936a82e80f6b469eb9c8ac8f73b70d8ff9e4010ece68148a14c4f",
+      "libincompressibleTransportModels.so": "2589df62c6463fee3c855701518340f5b2bad2806e6f6e5ecbf26d87f0248a27",
+      "libinterfaceProperties.so": "b2593814db9c22dc1d7ed3519759cf0980b6654fe79f47e3327db6b125eb1523",
+      "libgeometricVoF.so": "9d62c2781c9df94058324f0153205d1fd3936f808a6db95692f9a8e5f577fbc5",
+      "libimmiscibleIncompressibleTwoPhaseMixture.so": "4b5a6dbf447483c9b8394c9a2189c77ef4beb838e6ce059c51e13c7443bc3e5a",
+      "libtwoPhaseProperties.so": "5659b44bcd105dbb96efb5febf2844ef482581d08a092a046b6d0a3c6d5af320",
+      "libturbulenceModels.so": "d3777e0e1f99c163cbb04f72002b95061432765d13f1997b8320d3f0965a5f11",
+      "libincompressibleTurbulenceModels.so": "10ca79f9fde1e96d85e4db00c5a678af6e4bd07bcb0b6035af8b2b6cfc64eb77",
+      "libwaveModels.so": "d54bc8c1e6b51322b20fef24f27ab824b164c67922814e9af354a2da9d289659",
+      "libVoFphaseTurbulentTransportModels.so": "8e52b8914d36de256bfd88b5bdb2b8e9957d07e5df09db56cf21bfa48e18f167",
+      "libincompressibleInterPhaseTransportModels.so": "215a06c8875814d92728a394a282546330c16116e250ac6970bab9119b9c7183",
+      "liblagrangian.so": "20a73da2eb560caf424c6b4568c14518ccb94dd80656c8ab1f58c8f07eb06449",
+      "libOpenFOAM.so": "4a7b095aa31ddc63a20959ac72d24bf5b0195dca64b781553d52e2fd30461640",
+      "libstdc++.so.6": "ff0825e113603c3866680d5d52216bc6d8eedf3a59f52a0aef67ff01994db128",
+      "libm.so.6": "3dd5511ae94785c9f921429b0f2b2f7aabb461b6f0e6de6dfdbef15f24bdfee6",
+      "libgcc_s.so.1": "fc9d43b2f6c20e53b009238f767c5b949d202389e20de9e202ea684b4ba3729a",
+      "libc.so.6": "b2cf6c33b74d2f22543b7a469a75b538911e690f769d0b238843a49465b83793",
+      "libPstream.so": "f8dd06d0b9d43d31b19d4827aeafff8c0bd4fd56686e67aecc2bf1b8e22dee67",
+      "libfileFormats.so": "b891639662b3b526e40a8ba5241af91fc8ce0c615f76c15a929249bf856abc30",
+      "libfluidThermophysicalModels.so": "28dcef4cb15ec3164ef979de81f542bbc8ffe1809014b28c0a9ec9a10b01ef07",
+      "libspecie.so": "7847382d91a8d02d389a68d6c55b881565b3c8b81b4cb19398cea73aec1f8704",
+      "libsolidThermo.so": "24743c8d04e228c9f8a2dd33dee6d833c945d4c4bdd664459cc9dcb183eece94",
+      "libthermophysicalProperties.so": "9d42c6bebf28f3ead2c18c30a769d41a4222223b6795f5ec7db3c5cb1f82c9e2",
+      "libcompressibleTurbulenceModels.so": "a8a1b8d7216368c9fd565bddc2d45ed63d3c6e3f0e94c2c83da15c0fe496b2d8",
+      "libreactionThermophysicalModels.so": "bdca9ec8c7cced8a07592b8b4dbfb187802a84ccfa839bf001fbe2e85367503c",
+      "liboverset.so": "b0dec049bf3ce7d54b02b3c339b54a7886faae7fd730043fb642f095567d7c91",
+      "libdynamicMesh.so": "37479b2930bbc3ae1743b809dfcbb54fab7b19f1ec83c9d4513433d0df13bcc8",
+      "libtwoPhaseMixture.so": "c45f903b87d937efd69c114f438b754d15848797c6c50b805c0274c7fe805c82",
+      "libz.so.1": "64c206f0146cc58bbddc4f22054436f4ff278f5a554aa3ce6921ddf7e9133370",
+      "libmpi.so.40": "27d2d690a5d1f971cf90e28e54e945519df7c1528a954ae4bfc8a436bfbb1982",
+      "libcompressibleTransportModels.so": "9239ebae0f247fc858b685d327db833726dc728f0504705b9731c890accbe910",
+      "libsolidSpecie.so": "3e8520b2c02d998802eea8c8b891359a240be0d804da888503c2ca7f15c8ec39",
+      "libradiationModels.so": "70d438ade17437c208264fec524c3f8a064c4b8c0d9fc5536a6e76ec4065ac30",
+      "libblockMesh.so": "d6241a63fe6fc49c02bc12ebe8c1cb04ff634fbfcdc1b897c15e75a6ba4426f0",
+      "libdecompositionMethods.so": "7c54322d49b78ec0b9d4272cc0289837a0aeddafa98a3423182f1aa884c4e5ae",
+      "libextrudeModel.so": "2c35dbc472675054d4049276419e9f4305938a4f813c4aae3b7335ee56d604c5",
+      "libopen-rte.so.40": "69b31a92a4fb7e2f494a027a7d4dddff4e516aab5158827165e12730d7c0ff57",
+      "libopen-pal.so.40": "2a03b97563b724c6e42f853b90e2dc0619de3486628a7b065b74f7b30e5c35a1",
+      "libhwloc.so.15": "2efe6e32d0d3454b2bce0d3b8cd437f48691475717be4b431f96bcc2d4d9bc54",
+      "libSLGThermo.so": "d4c16b4c2e6124056804b9652e4b34d000e008265ac2e46535e8e2e72e7bcbd9",
+      "libdistributed.so": "ba26cf8b8259a857232dcd41a4f3276dcbb29eaaf5593f0b397879f9ae316436",
+      "libevent_core-2.1.so.7": "2d04f8e4a4cd0cf3dfe214f655298b6819cf7b1ce5677c461b904830bcdb2f8f",
+      "libevent_pthreads-2.1.so.7": "2c12e1fbd54ac804e4de1badcb318217ada877ae18cab8b3ce89cf3626635537",
+      "libudev.so.1": "08b989e58a49b85468db9be8f5f915d756ae70865a291bb524bc87d9fedf6dda"
+    },
+    "offline_sources_SHA256": {
+      "readControls.H": "64da838052840665f30f49280dfcccaf60e8dc40f86245698d951bd8b654e3da",
+      "nativeNonEquilibrium.C": "d02c7ec7caebcddee6cc4d612c40dc447b3a2be9198993a9f5c44a99cebcb671",
+      "oneG.H": "88e3ff8dace565db6487a44fd106b71bcbbfbaf8382a8180977d2aeeb7e7e411",
+      "thermalReplay.H": "51587f3672581fcbe58817ae5f49f68ab60a0163963c98ddd8b67258d987dd21",
+      "assembleOnly.H": "cba377fa28657a6d0b0c0e9bb457cec320eee4993fec36b3aa774b09e3b2e02d",
+      "thermalData.H": "1a3e77b1ff7468475130ef08872286988b188fa79ca2432a7ae3ea2ef99c608c"
+    },
+    "diagnostic_sources_SHA256": {
+      "run_once.py": "e6a18e27a2416d81d3f9a562dfae79f7a18bfe68ee700337d3a9f58cfc890923",
+      "check_native.py": "3ed52b67bb9485f61b78af70613a7138c98e316a9a401845d256a25130947fb3",
+      "oracle.py": "2c769e2fa9d273ee0ba25ae29b1cbd4ed9bfe69fb0c4a31cf258b2f62e321837",
+      "format_checks.py": "2df67f03fc3a795c8c80c2cfd3ad4c9bba23dae84c633f44ae16703f5499c335",
+      "extra_checks.py": "1d10dabfe7f5a685b73446be96ccfad78d0363e1c6da92307a7ff610455e94a1"
+    },
+    "preregister_cycle1_SHA256": "ac268c0f974959490ba74f8c390a9383c78f306973fe4a827a7de1e7ad1999b7",
+    "preregister_cycle2_SHA256": "fa1bf77940beeb868952f06fac938f4331fe6b1ddd00053b791939b402b4c033",
+    "cycle1_protected_files": 6468,
+    "cycle2_protected_files": 6796,
+    "cycle1_protected_unchanged": true,
+    "cycle2_protected_unchanged": true,
+    "cycle2_consumed_sources_unchanged": true,
+    "cycle2_tool_sources_unchanged": true,
+    "cycle1_protection_manifests_SHA256": {
+      "protected-before.json": "b8f0245b988b73ba9a3d7253af88921f45c07f7255817ad0c99c19bf17d1cbca",
+      "protected-after.json": "b8f0245b988b73ba9a3d7253af88921f45c07f7255817ad0c99c19bf17d1cbca"
+    },
+    "cycle2_protection_manifests_SHA256": {
+      "protected-before.json": "ab513c3f6193f4fa54a2e00073571eeaf5e4f09c41eb8502126cf1c015ff2b51",
+      "protected-after.json": "ab513c3f6193f4fa54a2e00073571eeaf5e4f09c41eb8502126cf1c015ff2b51"
+    },
+    "final_protection_manifest_SHA256": "ab513c3f6193f4fa54a2e00073571eeaf5e4f09c41eb8502126cf1c015ff2b51",
+    "attempt1_diff_SHA256": "fe274e1f32b75ce0df4fd950aa5735dcdeb07781150f1434c250d94689a3391d",
+    "attempt2_diff_SHA256": "bceacfd3898cd74f25c867449769149aaa84d3474004a86bdc4085960dab2b1b"
+  },
+  "retained_risks": [
+    "pressure_initial_guess_NO_GO",
+    "MAG_NO_BENEFIT_closed",
+    "258_unresolved_thermal_cap_steps",
+    "M1_physical_accuracy_and_grid_convergence_UNVERIFIED",
+    "AI_NOT_STARTED"
+  ],
+  "terminal_output_fixed_point_residual": "NOT_EVALUATED: no 22nd G allowed; CSV G increments belong to each input state",
+  "no_extension_or_accelerator": true,
+  "PR5_disposition": "DRAFT_DO_NOT_MERGE",
+  "failure": "RuntimeError: complete native G byte equality",
+  "M1": {
+    "id": "M1",
+    "capture_step": 738,
+    "solver": {
+      "name": "M1-solver",
+      "exit_code": 0,
+      "wall_seconds": 234.07558165630326,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 234.07,
+        "max_rss_kib": 241240
+      }
+    },
+    "original_check": {
+      "status": "EXPLORATION_CHECKS_PASSED",
+      "issues": [],
+      "wall_seconds": 95.31633119424805
+    },
+    "comparison": {
+      "status": "ALL_BYTE_IDENTICAL_AND_NATIVE_CHECKED",
+      "physical_fields": 190,
+      "output_times": 10,
+      "uniform_files": 30,
+      "physical_sha256": {
+        "1e-06/Deposition": "2e8cb6f0664ea6d2d322c3c4d66ae0fb4bf0b2e05a251f7bc7d057e28d70a034",
+        "1e-06/Laser_boundary": "dd58c0a0f958748df42a58c278272cca25f64264db21eed227bbcd588c2f3271",
+        "1e-06/Qv": "682df092ade78c37f325b41942f8aa1c2b6f9dae05e639461c90fe35c417be9b",
+        "1e-06/T": "61d3805c5c1ee61434c1a59d429c66ce7cc9288d085923968a24de689d12db0b",
+        "1e-06/TLiquidus": "769ee72aeec3e96d3399e9814d83e39e552e925ce1c71bcb4017f7c64f120c55",
+        "1e-06/TSolidus": "dde85db6d215a4db7b52df7a1f315d65102e4fdc51397bdafeee649b8b82e4d1",
+        "1e-06/U": "0b1730add40785a6564322708cd69e3f7736734848f71a52cf4e448871767d54",
+        "1e-06/alpha.metal": "a67e6dfbe153961c5f39c44213076f9df63f7e1c546191f0cf86d15f1d081a82",
+        "1e-06/alphaPhi0.metal": "d3f68c908d330d3c6952df01383cba7fa39f37a06c41efb510428a312bc0d68a",
+        "1e-06/alpha_filtered": "e8ba76c7e4d2155e3304279573fd647fa789ff1b8a2d1c8af9dfcac77c030de2",
+        "1e-06/alpha_smoothed": "f592be5e81362750cd5974d6219b1263a65fda117aca510dd7c9aa62f77d1eb4",
+        "1e-06/cp": "9af510762ce22da7255158e7fe49c29e39fe660f8764a8d18a65b6456639365c",
+        "1e-06/epsilon1": "d7236011686d47ac36c9ec9f03e86022301dbb5a36d8b41246f7ac0105a74c56",
+        "1e-06/kappa": "b0a2ad8a0bf4d97b61dcad8c8eb517da65edb7ec6bcd576e730e1c656a963f01",
+        "1e-06/liquidMetalCells": "4a7c5449dcaa53cf4f844024c27843d342c5436a4331e752d3aff37ffd325e17",
+        "1e-06/p": "fd8c8d1d0a8a9f711c3b9ae4bd18e904e9d4f085997ae9fd37cc17a6b5111edd",
+        "1e-06/p_rgh": "6a518c19c7dd6509c4d18b7fc3a7970752d83f58031665edabe6e8d35f21155c",
+        "1e-06/phi": "c1e6cbf7d0bd16fd60aff0b47c861c2fcd65c0625e6cc1a617ce86e85cb60f4e",
+        "1e-06/rayQ": "a478bb64e30f2f603a50486c57c34a19ab1c61c235ba032591b1c54c3e30b444",
+        "2e-06/Deposition": "a1b7265b0e7a3e833ffe775cfbb52ed075cd0fbd4c66edd88c39ea19db754587",
+        "2e-06/Laser_boundary": "f175325dbc038590893b2a4a8cbe4c83fa06e4db81954a919225f87320069944",
+        "2e-06/Qv": "a7e0ac0a17eeb8dda95e356235552af323b1cb6457fecebbbc4ba099e0a6a29b",
+        "2e-06/T": "76fd3ed358354436806435c61e9080fca239ba0f9a747113135522d616385b2c",
+        "2e-06/TLiquidus": "ccf6f0a2e21b3d4d82873baab1697ed6e3af4005b13ea8c6a0b14fb295c9d51b",
+        "2e-06/TSolidus": "ec2c694eb2a1a2023b258f8e87dd22bb09753c48c951855c86ce99dfcf1ee401",
+        "2e-06/U": "4d41b643e24c3b35a3c7904275f27abb2ffc70d9b45654c5bf904a6e330aedd9",
+        "2e-06/alpha.metal": "1f0f779e4218e8adbe4b33b497b08af610fdb908943def4df5a775f10807efc6",
+        "2e-06/alphaPhi0.metal": "92753e3b0e0ec5384699d2f7cd591f035b3e44223fd88e756304c440ea8fe831",
+        "2e-06/alpha_filtered": "47cbf173ea1e4dc5ddcf2f34bd079fa353af5dee077776152177250a83f4d73c",
+        "2e-06/alpha_smoothed": "7ab714c99fccee0091b068b944a3ed90ddac488109dc53cb93b3071601ff16d8",
+        "2e-06/cp": "d0780b4b5598a594da442f0e0c04096bcac474d7e7e08e82083efca1714ad9ef",
+        "2e-06/epsilon1": "ba8843adba24b128eff2f588eaf453b4cca797bed72486fd925833ea51e1a571",
+        "2e-06/kappa": "9002042b01e91d9c21554d809d78760a7834fa83dfaa2ef476fd2f8bee87361f",
+        "2e-06/liquidMetalCells": "87fa6677c9632d9ba889c9ccf2e6f39a271b98adfa79e5fc7169f1cda67900b2",
+        "2e-06/p": "27939d213d5457fd89ac1626506cc4a8995e86bcd291cb50d170c5e53248ee25",
+        "2e-06/p_rgh": "bd17dba57a62745e5494c814760d997b62b0334542d3d1a0ef629512fb86f843",
+        "2e-06/phi": "13d529cebd022f91096e30978673ede8fb389946a406c8123cd6b6a3b68a46ba",
+        "2e-06/rayQ": "d7606b757d0d9e206a2ad0e7bff8a7f1d12a334373cd3c1981642c06274399db",
+        "3e-06/Deposition": "328799d6fa631b2f6f801dfd972a125adde7e22cbf09ba4bb6c0033ab9c3b05f",
+        "3e-06/Laser_boundary": "1cb691d54f531dce34883829a1c0dd7dff2398b6e52e423a70af0bde4c324094",
+        "3e-06/Qv": "55eebb91227123403545d6967d5ee5cc0a3c965aca1239028108d5500cb90d56",
+        "3e-06/T": "b776a215348e4a4bfa8baad7d6ca46f2c5b1bd88e327497265c265bb0e4940d8",
+        "3e-06/TLiquidus": "272d650c477ea5a0c1bfc47655059921d8e528a91580bbb7f6788f061e66cd76",
+        "3e-06/TSolidus": "f3a257644986a52c594a3e5eb4a544e5385ce073eddf52870dc538ba1200fdf8",
+        "3e-06/U": "866451fb8dc2f8ed5848adb2e76c8c68e7d4c0b80e1dc1f77a25d1b0dac0b1de",
+        "3e-06/alpha.metal": "8d330d64ea0644c0b8efa9c8a50088faf8bd0499d44d6c37bcf452d2e381a683",
+        "3e-06/alphaPhi0.metal": "e22e22937b2a2dd7dc3f94f5d24137609a7596f87d34372526116a7b7e8a6438",
+        "3e-06/alpha_filtered": "f5bf47b989e7fcafb2b3ca83954cb634f20d3e77f82733f93d789c82ecfe4d43",
+        "3e-06/alpha_smoothed": "3bb502f04583fbcbd27c2fa9869110ec46a8c6574e62597883fc1d50ec2eaacc",
+        "3e-06/cp": "0fc877d77097bb71db51cddb0af2467b250f5ace22bfda89cab292d8e9055f3b",
+        "3e-06/epsilon1": "be6d5a23d997fdbf361fc64d016e1578f9f7f9b7bf77535acd90b447de71d804",
+        "3e-06/kappa": "20555c53c7528f47974edff0d0863f1caec66771430f56cd59b7180a12059112",
+        "3e-06/liquidMetalCells": "41eb4cd544440f4324f6fdebb6d04d9c00c36d4eb9460f741ccb98b52772059c",
+        "3e-06/p": "3e534cdaf96d28b6d660dff070e15b2f0c0f1c98598ef8498184bcede533d901",
+        "3e-06/p_rgh": "a4ed0c8faf7d8b400abcde053bc3b7dd7ac478116dce7f8256df3c5ca28971e5",
+        "3e-06/phi": "5e7650b016920a83a0a717c1974775c48fa59664744b3dcaec01d6f6af6b9617",
+        "3e-06/rayQ": "7442f8c07f0b374370cf8f05ba7c44865fcf41559094886b4e7d661be28bb3ca",
+        "4e-06/Deposition": "19628dd0bba16bb5b863ce8ea196779c7b8a864d36d61a29c2bb47c093a75383",
+        "4e-06/Laser_boundary": "0afd4c371e239368587689b55b66ebba8617946b595c9dbcccad875eadbb5bdc",
+        "4e-06/Qv": "00d642b9cc8f7b1ced6139694757b1e658a624926e8c3073427d9e95713911fa",
+        "4e-06/T": "7d1b44e97dec2391e00047df5b49929ad704d0e83cc1eb9aedf2d7b0559ebf73",
+        "4e-06/TLiquidus": "6c59d9b4384ac657fe3dce156b145548c0cdd5edd499a498774bf30a662a3cb7",
+        "4e-06/TSolidus": "795a63d6cc2859a398a27634f0f6b68262966d1c4eb6ba44f1945c9c40b3ac4a",
+        "4e-06/U": "f1a725a07d0bd8803dceff95bd964b26d0b00665c21cd46c2330e3a4097fd466",
+        "4e-06/alpha.metal": "152dbd4b3d4eb9a00e7e8eee49c27b731d411373e327e76f7a1b9ba9708838e9",
+        "4e-06/alphaPhi0.metal": "368eb3754a0bbe644483eef59f0a210469d0bad1f5de3e6632dc065b87e5835c",
+        "4e-06/alpha_filtered": "bd503cd6e1a3f52914666efb724375c6b7415ccae6b22a5beebaf26888b0fe25",
+        "4e-06/alpha_smoothed": "90d636281048a180553448d3972868ca86a9b3a522f1e8211fe5bb2639afe156",
+        "4e-06/cp": "32f789ff8aa05759f074b6ca0f4e8aa3042e3b761590f6c4dfbd25aa2948593d",
+        "4e-06/epsilon1": "7ba51780e493d00b3f14fbe1f7f3b8da785d191655265b82cdc4d3866742dd95",
+        "4e-06/kappa": "ddc909bc52bcd001588d2b0e09d67c4638871e26804de486a434fb4c0cabbad7",
+        "4e-06/liquidMetalCells": "71b1f0c686d75ee60b739e1cb9dbef422714257726be474a5ef4204fad9ab925",
+        "4e-06/p": "b686088447a8868cc22abcb106a136a096854f73c04063ce3126a730829ea32a",
+        "4e-06/p_rgh": "39ab136d07666689e4de7fdbd8968ea53a77cac0da54b632263416c984acaa55",
+        "4e-06/phi": "7f6f81b33c8bf523d54534ce97a2ec5231cb2419473f91b7e5505dfc281ef8cf",
+        "4e-06/rayQ": "673c9b833d31d8693a63bcf88795ca1ca908a32c1644a50e6f981b39a28520ef",
+        "5e-06/Deposition": "ae47fa9d76f5df897850c700080263bbb48d33718aa21ac7fee98d78c8ebbbfa",
+        "5e-06/Laser_boundary": "5e57ba4cb5b1c787183fa0e1178feacd67b8848a08edaa05c7208610b71ea257",
+        "5e-06/Qv": "ac2c5d2d634722362e0877d9671cae4f96c792e9aeddc312f69a634ad43d1721",
+        "5e-06/T": "a0a1bb99a8fde1969cdea59a7340000ecc946caa23774d5299e2e46572f64626",
+        "5e-06/TLiquidus": "dc85a7513b2035ae8f8a5890e060782c64cf6a5fd6f2d8f62c5c7b7bdfe61723",
+        "5e-06/TSolidus": "351eede2ba2b0b56f60234f07d6ba30c36c16196b97aa33f4a58ac3ee4e19a1e",
+        "5e-06/U": "2a746a007c26fce63dd8e2b4fd266b6dc2e623d15c561de72edc6032b2a815d8",
+        "5e-06/alpha.metal": "e99b15064629bc76e21fdeec18678c18b8e5c3abf3eee2d3f0cc7e41de8fc673",
+        "5e-06/alphaPhi0.metal": "b1f463b3bb62d567c12911e97caa4fcc509fa9d29b0051b471625843c4477ce4",
+        "5e-06/alpha_filtered": "3428731c1bcb67a4399925870db80ac2ee2e06e4ea25805dd92e81aa1764840c",
+        "5e-06/alpha_smoothed": "5919f556559de935b3df753ebab629de37c45489bcfb2058d6b7157f8b07adce",
+        "5e-06/cp": "a3d7d86c8a4d58154bbc163ee403e5ee02ae39736479939d6a2f9e4bba08eaaf",
+        "5e-06/epsilon1": "123677f63c9b5b951126045bc8efe1d227b68d129a135a10cdd98b42cfe93cd3",
+        "5e-06/kappa": "5c997847308b69a970ab6b5d42b7388395d20eabfc91309c98c7d255b7fabee1",
+        "5e-06/liquidMetalCells": "25b378a51be77edb25472a6b5df9677c26c31f810c3f7704855a6fa60d057ccf",
+        "5e-06/p": "ba3a82272d231ad826864207def5d2d401c5de6fcb57ad473f487485f3276ee1",
+        "5e-06/p_rgh": "8402345510e7219c12ee172b1b4ec6c208590299b43bb0f626f2cbc3b32ae89c",
+        "5e-06/phi": "798cb1f8ae80c2bf444c5a28b60d99c191ea0fd35d1cc3132f9883d2b3f63f4e",
+        "5e-06/rayQ": "b84b14087489e68adcd5fa13fb307c6e86afa98068927a289d68da6fd0816e5f",
+        "6e-06/Deposition": "2bb058489445a65a12c9fb48d8973d4def4f3c2e998df81a93d19126738753e3",
+        "6e-06/Laser_boundary": "f300964d3580384d9c08c4218705883b5bc6f6e54933ff7eeb91e39644311a67",
+        "6e-06/Qv": "8f65dc559737cc80ced239b0640ed05a25c7961118eadc2932e149804dd3f8e6",
+        "6e-06/T": "27f8f91c401c820c4a695b9a549b3c27998d9a5c3ecfb09a9bba672ca930bdcf",
+        "6e-06/TLiquidus": "992cf9f51a909c59a8916104822d1393a47e7ac4f1d3a7bda265d9606d5910d8",
+        "6e-06/TSolidus": "b0b1c17efe76bb679b11bea7badb75a7d0885912dda2f61c2a41b2a76a309d3a",
+        "6e-06/U": "15196598fcbdc581fd0a7985987f0315b056ac616ea554b8849b820262d7414c",
+        "6e-06/alpha.metal": "1bf47d12f5235b4315187e81ddaa90a98fa66aee42e75a8680ba2c2e04dba280",
+        "6e-06/alphaPhi0.metal": "76cdaf79fc97c6d7a727cdfd57675538efd426ffc90fcd6b522d4182f0b4e298",
+        "6e-06/alpha_filtered": "b4eb7ec10a64537f574a746d0a3f4a3ab04e22cecd7548c23fd5a4cdf04e105d",
+        "6e-06/alpha_smoothed": "c3968b9f950de63cb02333e72f0e31ff1bc0a3c75cf8f1431bb89f8f89fbcd66",
+        "6e-06/cp": "d777d09d7ad980e8b9e96fbe818a45732b59fb1ecb2b295afa878aa8b9a0f98b",
+        "6e-06/epsilon1": "0e964074fd4651f330160d120048655c1417ef9e2ca2ee544df3908e783901e6",
+        "6e-06/kappa": "86d0bfe43741e34ea7666c53e33eaf4f2313fbc9cb55d101a8f553b75a5b5188",
+        "6e-06/liquidMetalCells": "4bfd83b959fe99343ee082fc11e39098d6f139ed502158b1c65775ae39fec890",
+        "6e-06/p": "4aa0daaa8f90aff488ea1a99f81f02009e0d6dcec62c7250923a863f7648ec79",
+        "6e-06/p_rgh": "6a65fe2f72e5d8e8bbc4714b54443dfc450c4b7218bd5f6c6f65826294c11e6d",
+        "6e-06/phi": "320e9250bb8bce7e68ba18b0b2e78ecdc5ac8027cdd990dd0ba48526d2d331d4",
+        "6e-06/rayQ": "4adc698ec2735b2d14621553ffd84bb594cde62ccbc3121ed4d8524e2b05354c",
+        "7e-06/Deposition": "5f9f6369e6485d19001de6617361d3769585bab5b14dcc75416a2c6af83969c0",
+        "7e-06/Laser_boundary": "3419dfa7b5585898c4af7bcc63ad072bd55e54ea0b5a895c791b4e4112ed673c",
+        "7e-06/Qv": "1403114d18da57dfc372e56e5f706a4e66a89f2e8ee7006a44ccb0e1769e4862",
+        "7e-06/T": "4821d77f07461137acba7e528d1b1df2e3f10267b89f0d28e23ba5c1715e2c80",
+        "7e-06/TLiquidus": "e0bfabdd2db2629fc0404ebb766c4ce7d3baadc33b32126d87a596519e57f775",
+        "7e-06/TSolidus": "727125be269c68967acc62b468a29890d0e4cc4f60dba95f215078214fde00bb",
+        "7e-06/U": "611b6271ac7c7ae9e8b5b1c330665dc8fc2e4ed299278e5157ef4c1dce4994f0",
+        "7e-06/alpha.metal": "84f141a603ddec218d840db82263f00cdeb372c64dd9ea59a1200b0ee38b0a03",
+        "7e-06/alphaPhi0.metal": "b3f0fc1f8bfa52d413ebb5689078e5412eb0bbe1a16641825d27b16d8a7139fa",
+        "7e-06/alpha_filtered": "c380c5c7421068a6a27bc8d7c77ebb88cc3932d0d256bd49455e0d2c7a344cc2",
+        "7e-06/alpha_smoothed": "4b98b393a5d54152acb42c59ed59f4228d6b964c4c59d6ceb21fb83ccfaa6c9f",
+        "7e-06/cp": "3359d145a972f197af11c6c77e35d990c9f96629fb0cef7b70e86c07202433cc",
+        "7e-06/epsilon1": "85ac1e69927bc97561621575a675e2e3cd7544bebe2d037e82e5220176df5ae8",
+        "7e-06/kappa": "6250bf553b0d9528b0c3ee85298c7d1a475beef9ee82eca18c1b31bf3093dad5",
+        "7e-06/liquidMetalCells": "fee30a057ec10842c55699633cde8812c01797581061b5f73bc93def963c4afd",
+        "7e-06/p": "a14d1f4052fab4a2a5b62d6bc69898101ce3e87762e3de9acfa355676650ab6b",
+        "7e-06/p_rgh": "3df94c20f12b159f1ff13676e3aaeef3fc17297706249c8265432056234ddcd5",
+        "7e-06/phi": "279fd22c7efd1bcf6dacca82eff1bc39195db98e57eccba081d3252f2abe0d31",
+        "7e-06/rayQ": "c441941866a7503953a0dbf356c033cb594ae75ede09fb70e1ccadab01fdb47b",
+        "8e-06/Deposition": "6c76f0938f734750365bea8525e4a9d12cd7c1501f6e5db90cc1c861dab32ec0",
+        "8e-06/Laser_boundary": "50afdb28cdc287fdfcd5b2e997d03f0599727d41d70d6313d5fce832b685e4f2",
+        "8e-06/Qv": "cad3d7663cebe286d2142fced42853f6146c26228d9f1593fb1334000304dae3",
+        "8e-06/T": "d4ca265952b1d79e7942d62be148ec25b7929d355e90cf4187c4990268ec7da5",
+        "8e-06/TLiquidus": "3bee3c412d6e03ca4b911e086dd515085b1ffe73c7507d5bf73121360ea8c005",
+        "8e-06/TSolidus": "32e860869a7b545eb6b5dac1c791b9039de5c328e8c83950903d956726e0035a",
+        "8e-06/U": "38dc2d189ac5104ef0e68d0ff9097d33d733f2b831a6d59780efa0720e597f05",
+        "8e-06/alpha.metal": "3af4292efce2b0cd8d70274e2706da0f3cac9c444ebe6a91dd79c8b8d24c7230",
+        "8e-06/alphaPhi0.metal": "1aa85da1d8e716a286d043b861f7aec297b10c5f7307ad23e407741e7be37226",
+        "8e-06/alpha_filtered": "62610d172189e9b53cc6c92cb1e66ecb7826ebb6787866c7b68b1a14e4dd2706",
+        "8e-06/alpha_smoothed": "9dd77c9832118f9916a8b1436f6b7d7c5d246f0d432237b4f70667fcaac6454a",
+        "8e-06/cp": "ec785b83f1d272bf03ad97fb484571dde3e6b32d45391877be47e85a060b0707",
+        "8e-06/epsilon1": "623f5caf7e4363f4e60d5917ec7dfe3ef64f0b659202e0fd10a45086a579fb45",
+        "8e-06/kappa": "8de2302034607d0d35cfbefccbca8918a0b9ef8ba39c0979810dc42bbca61bb6",
+        "8e-06/liquidMetalCells": "82c7c50cd081673973ad2f38aae8186c656ae4878d101ef26cd1eba44ae0ab02",
+        "8e-06/p": "41524480713d394da0275e01a9048356200a83ab6fc31ea54d2500fea7809c15",
+        "8e-06/p_rgh": "9537846f1f34263926c3435112dceb274103b23e3457929185adce7be43a3dae",
+        "8e-06/phi": "d290af3f5b13816be8199f60072fb30bbfcf987c65ae847d9e8a9a6c4d855893",
+        "8e-06/rayQ": "c2137b0b8d2536e613598a92fdc73eb67ef82dbbfc617935e39b9091bfff12cd",
+        "9e-06/Deposition": "fd101fc658f7ed416b9bff99e122650467cc79adac5e2f631107f2f29654ec53",
+        "9e-06/Laser_boundary": "f23c1425a87722cc0b2d6534fecface0ba939d77ac52b7ed14f5a72a96afb6ce",
+        "9e-06/Qv": "739ac2120c922ddd68d1b1ff328d7f1fe8aff449481962ea184f7fea20b4bcf8",
+        "9e-06/T": "87e0c1df2a50561226af58c6397d56abaa1e9b0601a0bac137b25649fc5f56fb",
+        "9e-06/TLiquidus": "81fe1e49350cbfd03d48d98372721d0e0593ecda2716e6bd6deb3c95af1a3f3a",
+        "9e-06/TSolidus": "1cbb2dfb40ea6467cb1ff7372171bfc842c6829fa89284ef7a3f2ecabc40f74a",
+        "9e-06/U": "17addf2b6f91858ec1cc31e708c1c20725b593b74809e5bfe375daaefb1ba55a",
+        "9e-06/alpha.metal": "c62866ec8bdd837c2ad76d7e361c320913e3b9fd08a27c83ba67cc69b2287452",
+        "9e-06/alphaPhi0.metal": "6c382ccf534bdf1bf6550c09deed5a1ecbb1d6dc045ed8b0031ff73eda3a4795",
+        "9e-06/alpha_filtered": "693296bf40da86c43e91762657730fe80d675bbb6cd825cc31cb8d79d167f5f0",
+        "9e-06/alpha_smoothed": "a47efd0a094e305160a118d9cc9e2c9d37c786a8e96396fda72c613ceaaa256d",
+        "9e-06/cp": "a078ab52ffc583c362c77b988cc2cde33d0db0c5a5bb7d246b368e3fa87214de",
+        "9e-06/epsilon1": "9ddfd48498609824fcf8745a087d1fa7bcab2b7b1bcfa7b48aad0a5134a1f4b1",
+        "9e-06/kappa": "116d54bfd8887812ad30fb2d81aecd1d93f345c36e75afd90e8183552545d45c",
+        "9e-06/liquidMetalCells": "80552972cf1f5997514b89ebcec75550f3f6912c08a7ff39af17fc706fc151b7",
+        "9e-06/p": "329c416dd98491cd2b55a23c6fe88cf5aba9fef48e9c3b25fd47a3ff6e20bac3",
+        "9e-06/p_rgh": "4f6c12472ce9f0e0f44007e0e74ed9095d095341e8bc2c8488a71d774ffbe345",
+        "9e-06/phi": "4a9d2b44d9fcb31a15206592db69d8a731a1e12515bb0c3e593e6103c5a955b9",
+        "9e-06/rayQ": "be26fe89ba50b36f870e0dbfae411fe53f09717ecc6912665a23d6d95a7e2963",
+        "1e-05/Deposition": "39bcdf8dc8f0242ef4b3e6f72cecdaa4797b5e24b7f6b579cc614170a8de61eb",
+        "1e-05/Laser_boundary": "36a8b1df509d79a04bceefdc29755164b7f7a2c7b15aacd725c9d53f0e076554",
+        "1e-05/Qv": "7a46eceb6eba3d60d99fbc3fc338369db3c6c171a17f4eaf3e93c1f342a17ce8",
+        "1e-05/T": "ae4d5e13ab4b1800d99d302cfb85c8366b4d589e28a009381c951a91151803a2",
+        "1e-05/TLiquidus": "ddf476f0322b71fc44e24bc7bf171e45b4e895b6e7d57350f0a0ca1180310e29",
+        "1e-05/TSolidus": "9de039c66105631a46a98b83ca59e93864950a18638bee2ab60523630d157f4c",
+        "1e-05/U": "e85096844c0c806a32ae4fe5d7a38415381dd4cb64c2ccf0c474bba0ff7cecef",
+        "1e-05/alpha.metal": "975a1ac1566b573c277076c181da5239dce3ee4474841f1a632c03034caa7f24",
+        "1e-05/alphaPhi0.metal": "6cabf2b93dc7e14f13d154c30eed205743c5875d2dbf9a0ffd53fe505c7d57c6",
+        "1e-05/alpha_filtered": "a8426792e9e2e846543300a08cbabb2c2afa9800d0c9d7c0b4af6e4395037f1c",
+        "1e-05/alpha_smoothed": "1f6f553014fae04eb62db928b203e7519651febc343584610ad359ea33d141b3",
+        "1e-05/cp": "d4896b6bc02bed57631c8c02bdf7f659864eaece8905188827faea15bfb301c8",
+        "1e-05/epsilon1": "8d9785bf9d69de4296016b3d6ebc7091e3029e6c4d9f2056fe7af3d82f278c70",
+        "1e-05/kappa": "ba308dbfbcb7e9d98c648cb9d91068ee9f9fc0bf0e3eae7cc6df73a7b1499423",
+        "1e-05/liquidMetalCells": "168d1c0bf8d61efe98364d546f83deae868a6a08fb746f64843c03848a45d26b",
+        "1e-05/p": "8607679fcaca35317623ef425b9a0d9a49b459573163ed3828d2a688a2b51c87",
+        "1e-05/p_rgh": "5de1258a817246bdef1975a3c6df90e6fce55c5c5d2a325b6307e741703f5cb5",
+        "1e-05/phi": "930f7994038e8e33b9be29bffbba5ff0d1d0ef6a7d9f0ccedac9915b132f11f7",
+        "1e-05/rayQ": "2ccdf531d708638b0685a191fa31fe67c45b5fdb3a6bad720df0c2f907e081dd"
+      },
+      "uniform_sha256": {
+        "1e-06/uniform/cumulativeContErr": "a130c00fdfd13bcd9822c6f1fd19bcd24a222378e455261e2aa1eeb0d738330e",
+        "1e-06/uniform/functionObjects/functionObjectProperties": "077fd4df12ef407f2eca8202923f12b4755c1994c7a0ceea2f041f2b1c7dc673",
+        "1e-06/uniform/time": "536e64483571ea91408e1b25d5903009b17e022bf2b2d849d10116edf6850350",
+        "2e-06/uniform/cumulativeContErr": "56435b8a2736142e62c8e53bc06a43393e54072805c919545c16e98a58d11150",
+        "2e-06/uniform/functionObjects/functionObjectProperties": "71571020d5796b85f485af01be8e56761ddbc3514a215d7d033b1fa3d634e3d0",
+        "2e-06/uniform/time": "3c43125e129d730eee25dd0d3ddc3a9d74051da42ea8654cb938ca8c8a9e2537",
+        "3e-06/uniform/cumulativeContErr": "111eb9dc3a8125bcf64585bf570117d9e6e012906fd5f1b05c63e72f284e349e",
+        "3e-06/uniform/functionObjects/functionObjectProperties": "0aa514b3157b073d7b6ebf0e6d23b05ae7f6b50ff689f7ea587a9e3118cfa7f3",
+        "3e-06/uniform/time": "32257d9dafa1b06e12111fa701da5e8cfd083fc97db6e776445e14bf0f61a65f",
+        "4e-06/uniform/cumulativeContErr": "2d8ebb4a1f4c11e952249e46751d87e3e67142f37901c1a024aade890795057d",
+        "4e-06/uniform/functionObjects/functionObjectProperties": "6253f5a6f42ce3c9f3fb4b49b9fcdb8acb4bdb03560490be52d31ae2420eaf28",
+        "4e-06/uniform/time": "36af720fc9c4214085c7158261529e74bfe6d170d761b155a202a5865277df7d",
+        "5e-06/uniform/cumulativeContErr": "a9fd48b2fb821ab845725b6cde1221d70e952ec1b3981cc2ac8a34b805db7cf3",
+        "5e-06/uniform/functionObjects/functionObjectProperties": "7f780d25f9960eee99fc2c0ecb917db460db9d0617f82bd2abc80210e97e5dbc",
+        "5e-06/uniform/time": "dcfc5ae69448f9fa61f500feff32563c2595c76f880dea4b48c293a2d941b966",
+        "6e-06/uniform/cumulativeContErr": "a399e8fdaa4105396091215252111a6b7b904f54de6b57b6035834f028050061",
+        "6e-06/uniform/functionObjects/functionObjectProperties": "6baa9b8547c74ac3822ce023d0e3c34c3e5bafd17a64cbdbc852fb9d41b308fb",
+        "6e-06/uniform/time": "46b78d336f34d7a6466faaf30b0e9c1c539d7b43d492377aa8c74d47e3689f11",
+        "7e-06/uniform/cumulativeContErr": "65b88a5a3afc8dc4d4fa93955bf729fb69d584940c445b025f4d2e97229dde58",
+        "7e-06/uniform/functionObjects/functionObjectProperties": "147f62ecc848606f2949af36ed2363ab11e19ea6f0a81c15e87e028797de88b7",
+        "7e-06/uniform/time": "77d9678bbec2e49cc2786880e22eb2925bf43553304e13cd45fd74d6b3894e50",
+        "8e-06/uniform/cumulativeContErr": "842693f5a348b27c9e8feb3cbf3cc6ecbe8edfc38f7029bf59dfeff46a428f29",
+        "8e-06/uniform/functionObjects/functionObjectProperties": "00f868816ea57f494324899f8a1916a0b29210b89f1c6ce2621b6c268e0d5240",
+        "8e-06/uniform/time": "6d8e67cceaa7d25f6ea089ba69b61a48bc52ebc27d7da6a2bce067763821309c",
+        "9e-06/uniform/cumulativeContErr": "d79456fd9434aeb1ad6d5822d8cb701d4d2dbe53a76a7c0ecdd85fd060bba7c8",
+        "9e-06/uniform/functionObjects/functionObjectProperties": "c46a1bb6926896b16a2ae069dd8dcbac25e861797ae935291421ac953c1337eb",
+        "9e-06/uniform/time": "100ce7417f4a77b6358ae3de3afc6a6921b066f836d1ba835784ee9a9629d88b",
+        "1e-05/uniform/cumulativeContErr": "843b5bc7feb7d6eee3aa68c7c461aff0c8d01d71918fb09f97dcb32b82ed98d8",
+        "1e-05/uniform/functionObjects/functionObjectProperties": "3129234a0ba1fe4e7c0c3fc55782e5a485659d5e7f35b048337f8bb867134b10",
+        "1e-05/uniform/time": "667e1014bb09beec8fdd3da7b37660ae5220d08d42cd9c1269080186450cea8c"
+      }
+    },
+    "full_event_equivalence": true,
+    "trace_sha256": "4c36dd0e972911d793fb61a5bcbe246add2491623623a0f367f7b43f8c62f319",
+    "unresolved_thermal_steps": 258,
+    "status": "PREPARING",
+    "raw_event_parity": {
+      "event_lines": 24491,
+      "sha256": "91f69d459c6e3e6a3a0b4820d6c728f2a7fdce679293296eb456b7629806587d",
+      "all_three_original_baselines_raw_byte_identical": true
+    }
+  },
+  "first_verified_iteration": {
+    "temporal_abs_W": 775.4053963588699,
+    "latent_abs_W": 87.5270505672665,
+    "source_abs_W": 754.2349867629146,
+    "phase_max_increment": 1.0,
+    "T_update_K": 6.748142840448963,
+    "phase_fixed_point_defect": 0.005454924989702237,
+    "phase_temperature_defect": 0.053807942289110566,
+    "FE_max_fixed_scaled": 0.004922672018095508,
+    "FE_L1_fixed_scaled": 1.2618050025490534e-06,
+    "FE_signed_W": 81.99800063636752,
+    "FE_L1_W": 86.45657882065872,
+    "latent_lag_L1_W": 86.44160081588426,
+    "FE_cross_error": 2.185295592925937e-16,
+    "boundary_T_defect_K": 0.0,
+    "linear_true_fixed": 3.6041427135823343e-12,
+    "linear_roundoff_bound": 2.6572407182538585e-13,
+    "linear_iterations": 2,
+    "native_initial_residual": 0.0003218940318841718,
+    "native_final_residual": 3.6041392100773427e-12,
+    "draft_joint_residual_pass": false,
+    "RG_T_at_input_K": 6.748142840448963,
+    "RG_epsilon_at_input_all_fields": 1.0,
+    "input_FE_max_fixed_scaled": 0.0012331954442190288,
+    "input_phase_complementarity": 1.0,
+    "input_phase_temperature_defect": 1.0,
+    "output_phase_complementarity": 0.005454924989702237,
+    "output_phase_temperature_defect": 0.053807942289110566,
+    "active_set_changes": 4,
+    "time_index": 738,
+    "time": 7.3799999999999395e-06,
+    "dt": 1e-08,
+    "iteration": 1,
+    "byte_equal": true,
+    "phase_mean_increment": 6.847470269019695e-05,
+    "latent_cross_fixed_scaled": 9.809301344988957e-19,
+    "latent_signed_W": 80.78499062663784,
+    "energy_roundoff_budget_gamma256": 5.684341886081125e-14,
+    "boundary_epsilon_owner_defect": 0.0,
+    "linear_Ax_minus_b_L1_W": 8.681871837348809e-06,
+    "linear_Ax_minus_b_Linf_W": 2.276105988130439e-07
+  },
+  "max_independent_energy_cross": 2.185295592925937e-16,
+  "max_true_linear_plus_roundoff": 3.86986678540772e-12,
+  "native_corrector_calls": 21,
+  "frozen_context_terminal_not_truth": true,
+  "local_control_evidence_SHA256": {
+    "tphase-bitexact-20261018-001": {
+      "progress.json": "e06ca107039d86c640b2437ae110b3a7d91511dc3e17c7b4be4d710d96296786",
+      "batch.log": "a933b3226355ed9e26843b4f65ed71757a9efa0c7b6b5e63be1744a7e18594e2",
+      "batch.time.txt": "8c5ec15c4cff32eadfaf0c29186e2c7d68915fe7dc51266e93c1bf161f1a47c2",
+      "batch.exit.txt": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3",
+      "preregister.json": "ac268c0f974959490ba74f8c390a9383c78f306973fe4a827a7de1e7ad1999b7"
+    },
+    "tphase-bitexact-20261018-002": {
+      "progress.json": "4c2d514501608480ac4c294211049dd9a6c43027e44c44ca5e4433f25fd0cfc7",
+      "batch.log": "340c45c41a30240c4f38631ec4e9a9620f727b44bf9dd4ed241f435dc9184d9f",
+      "batch.time.txt": "75bb5def265d12c64fb97a462d684b4862e9536000e627776267ca8199b55dca",
+      "batch.exit.txt": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3",
+      "preregister.json": "fa1bf77940beeb868952f06fac938f4331fe6b1ddd00053b791939b402b4c033"
+    },
+    "tphase-bitexact-20261018-003": {
+      "progress.json": "793cf85e96660441766ccc0d9c02a18cf656018b1dc40730f6e2a426e77d25bb",
+      "batch.log": "9afa838473df586b67ae3ce1c685e78640575bcfb5c93d8930d25bd94f86f247",
+      "batch.time.txt": "23ce6d17477733e9a2d9660ddeb6ddda63db9546f875e4297c375b75bcd1d098",
+      "batch.exit.txt": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3",
+      "preregister.json": "c78c49e2ccc5f5d8b0464d7daf9c814be1cc990e78e32c02d46aca93faf43b9a"
+    }
+  },
+  "residual_scope": "Independent evaluation PASS at S and M1 round1 only. M1 rounds2-21 NOT_RUN after strict state gate failure; no terminal F_E/phase defect claim.",
+  "verified_full_rounds": 1,
+  "failed_round2_diagnostic": {
+    "iteration": 2,
+    "artifacts": [
+      {
+        "file": "metrics.json",
+        "byte_equal": true,
+        "length_live": 168,
+        "length_replay": 168,
+        "live_sha256": "d90dfe58661a5ea197877a3c9d6d43d090d110063095981dbb4fe1a63887e147",
+        "replay_sha256": "d90dfe58661a5ea197877a3c9d6d43d090d110063095981dbb4fe1a63887e147"
+      },
+      {
+        "file": "after.bin",
+        "byte_equal": false,
+        "length_live": 10503822,
+        "length_replay": 10503822,
+        "live_sha256": "73404d587029cbf9bb163b5aea0268776077a4b879f1e31b8961271ffa4ca7e9",
+        "replay_sha256": "abe9ac764fa58b866d415547a5b245ab1d95f228b471a5dd675b745cde7c04db"
+      },
+      {
+        "file": "before.bin",
+        "byte_equal": false,
+        "length_live": 10503822,
+        "length_replay": 10503822,
+        "live_sha256": "dc7d3833f946d2469a943081501a8f110e1959b30fb5a2e7746d165f01ad0c63",
+        "replay_sha256": "bdfb8f5b3e75c616ab8196c31e38ef9594e0c09b87be1deff47eb61061eb727e"
+      },
+      {
+        "file": "relaxed.bin",
+        "byte_equal": true,
+        "length_live": 2867281,
+        "length_replay": 2867281,
+        "live_sha256": "9d6714ca7a1958a9ff6fbf4e60ff31392f338d6b706104f2875552b4439a2b15",
+        "replay_sha256": "9d6714ca7a1958a9ff6fbf4e60ff31392f338d6b706104f2875552b4439a2b15"
+      },
+      {
+        "file": "native-Qv.bin",
+        "byte_equal": true,
+        "length_live": 256000,
+        "length_replay": 256000,
+        "live_sha256": "e33ac283e48e5e38294f87756c1191eb9f298cb2f6baae247391eb425a24ccdc",
+        "replay_sha256": "e33ac283e48e5e38294f87756c1191eb9f298cb2f6baae247391eb425a24ccdc"
+      },
+      {
+        "file": "geometry.bin",
+        "byte_equal": true,
+        "length_live": 7884838,
+        "length_replay": 7884838,
+        "live_sha256": "ac46636ab440fb96a7851752f14ed4b6dab4f7434a07355801264c33f81f8a3a",
+        "replay_sha256": "ac46636ab440fb96a7851752f14ed4b6dab4f7434a07355801264c33f81f8a3a"
+      },
+      {
+        "file": "native-damper.bin",
+        "byte_equal": true,
+        "length_live": 256000,
+        "length_replay": 256000,
+        "live_sha256": "ecd267bc7ad751d945bc7332d78b6cbdb845556887101215b3844774bfdea427",
+        "replay_sha256": "ecd267bc7ad751d945bc7332d78b6cbdb845556887101215b3844774bfdea427"
+      },
+      {
+        "file": "native-latent.bin",
+        "byte_equal": true,
+        "length_live": 256000,
+        "length_replay": 256000,
+        "live_sha256": "5298e37b6aaa04f230d7793640e35cfa6c7f77c1cfb1785254df23503c4c06ca",
+        "replay_sha256": "5298e37b6aaa04f230d7793640e35cfa6c7f77c1cfb1785254df23503c4c06ca"
+      },
+      {
+        "file": "linear-initial.bin",
+        "byte_equal": true,
+        "length_live": 256000,
+        "length_replay": 256000,
+        "live_sha256": "cb20c12db661a2dbad1b61bc9d979e51a1e78114083b81188b60044e7c71e366",
+        "replay_sha256": "cb20c12db661a2dbad1b61bc9d979e51a1e78114083b81188b60044e7c71e366"
+      },
+      {
+        "file": "linear-solution.bin",
+        "byte_equal": true,
+        "length_live": 256000,
+        "length_replay": 256000,
+        "live_sha256": "fbf6c1a8edbf3d5bfc03ee6507327e6d7ee32bb23fb05995df82927f00025f7e",
+        "replay_sha256": "fbf6c1a8edbf3d5bfc03ee6507327e6d7ee32bb23fb05995df82927f00025f7e"
+      },
+      {
+        "file": "unrelaxed.bin",
+        "byte_equal": true,
+        "length_live": 2867281,
+        "length_replay": 2867281,
+        "live_sha256": "9d6714ca7a1958a9ff6fbf4e60ff31392f338d6b706104f2875552b4439a2b15",
+        "replay_sha256": "9d6714ca7a1958a9ff6fbf4e60ff31392f338d6b706104f2875552b4439a2b15"
+      }
+    ],
+    "state_differences": [
+      {
+        "phase": "before.bin",
+        "field": "T_prevIter",
+        "metadata": "time_index",
+        "live": 0,
+        "replay": 738
+      },
+      {
+        "phase": "before.bin",
+        "field": "epsilon1_prevIter",
+        "metadata": "time_index",
+        "live": 0,
+        "replay": 738
+      },
+      {
+        "phase": "after.bin",
+        "field": "T_prevIter",
+        "metadata": "time_index",
+        "live": 0,
+        "replay": 738
+      },
+      {
+        "phase": "after.bin",
+        "field": "epsilon1_prevIter",
+        "metadata": "time_index",
+        "live": 0,
+        "replay": 738
+      }
+    ]
+  },
+  "resource_warning": {
+    "observed_peak_before_lossless_dedup": {
+      "logical_bytes": 3840608533,
+      "unique_inode_bytes": 3830727357,
+      "allocated_unique_bytes": 3838873600,
+      "files": 3711
+    },
+    "policy": "MONITORED_ONLY stage-end warning; earlier self-imposed hard stop was a controller policy bug, recorded and corrected without numerical changes; no CFD/G rerun",
+    "lossless_new_artifact_links_cycle3": 2688,
+    "post_dedup": {
+      "logical_bytes": 3889352318,
+      "unique_inode_bytes": 709299058,
+      "allocated_unique_bytes": 711864320,
+      "files": 3753
+    }
+  },
+  "verification_stages_cycle3": [
+    {
+      "name": "M1-energy-0",
+      "exit_code": 0,
+      "wall_seconds": 1.3106854152865708,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 1.3,
+        "max_rss_kib": 96768
+      }
+    }
+  ],
+  "cycle3_tool_SHA256": "98fbdd293e212a3fcb201d62ce7fea39c767ab8b7b4bfdbdea5fc6cc89934c63",
+  "cycle3_preregister_SHA256": "c78c49e2ccc5f5d8b0464d7daf9c814be1cc990e78e32c02d46aca93faf43b9a",
+  "source_trace": {
+    "GeometricField.C_SHA256": "b1de340737a0d928ce88cbfb12409ec4ee0889d1cc97aae042caa8d0bd71160d",
+    "storePrevIter_line": 1018,
+    "storeOldTimes_line": 927,
+    "hypothesis_only": "replay prevIter objects may contain copied oldTime history absent in online objects; forced assignment then rolls timeIndex. Constructor/hidden history equivalence is not proven."
+  },
+  "independent_reference_eligibility": "NOT_ELIGIBLE: full chain state/lifecycle gate failed; only propose separate zero-CFD repair/verification using existing captures",
+  "final_native_metrics": {
+    "initial": 7.266658631077434e-08,
+    "final": 2.094308749794391e-11,
+    "iterations": 1,
+    "phase_max_increment": 0.07114668063610671,
+    "phase_mean_increment": 4.447060255792668e-06
+  },
+  "resource_authoring_time_note": "Initial tool preparation approx169.72s before first active process; engineering repair gaps included in continuous733.58s; report/Git after active stop recorded separately in report."
+}

@@ -381,3 +381,15 @@ solver耗时比13.392，超过8倍单元增幅；按单元步数归一仍约1.67
 - 源码核实v2512 ScalarRead会把±ScalarVSMALL区间归零，Field uniform压缩也可合并混合符号零；当前元数据恢复跳过值数组、依赖ASCII读值。允许范围内两次新副本非CFD格式诊断（-0.0 token；从原metadata数组逐项科学计数法/nonuniform）均FAIL，保留全部失败证据；没有追加构建/CFD或恢复原S门槛，不继续第三种方案。真实F_E未评价，不宣称新M1收敛/不收敛结论。
 - 注册SHA256=8532e73221d220ac86a1c105c13f7e9b63111cbceadd353793731425cc3fc7ea；观察源码投影精确还原原版，原库来源相同，5578保护SHA及工具/消费来源不变，两项诊断另确认原S/回放/源码不变。主批次217.53 s，构建208.39 s，S solver0.42 s；峰值1234456 KiB（约1.18 GiB）。两项诊断GNU0.92/4.11 s，合计进程222.56 s，最后诊断在原起点528.316 s内结束，未触发1200 s截止。rank1/thread1环境/CPU0；8 GiB/3 GiB MONITORED_ONLY，非硬资源隔离。
 - 末次审计逻辑39.157 MB/唯一inode38.843 MB/实际分配40.542 MB，241个新工件硬链接保留所有路径/字节，旧数据不动。原始工具/字段/矩阵/日志本地留存，公开仅脱敏记录；编写/报告/Git另计。尚无传统算法研究资格；后续只建议另批二进制位保真格式/混合符号零门槛，再申请新S/M1。压力NO_GO、MAG关闭、258步及M1物理/网格缺口保留。
+
+
+## EXP-023 — binary64恢复与真实M1链：第二轮prevIter元数据失败
+
+- 2026-10-18，DEC-027新授权，起点97563b8d0d56e93406a58d440146adcadf7fefea；授权/离线构建HEAD=8522a838ee6e64d9fe8bdb06b475e69c8a7a3081。报告：[位保真链验证](../validation/T_PHASE_BITEXACT_CHAIN_20261018.md)、[21行原生/部分独立残差](../validation/T_PHASE_BITEXACT_CHAIN_20261018-residuals.csv)、[逐轮验收/SHA](../validation/T_PHASE_BITEXACT_CHAIN_20261018-integrity.csv)、[来源/资源JSON](../validation/T_PHASE_BITEXACT_CHAIN_20261018-summary.json)。INCONCLUSIVE；PR #5保持Draft、不合并。
+- 唯一窄原生构建PASS，29状态原始binary64逐分量memcpy恢复，原生对象建好后覆盖全部内部/patch/旧层/prevIter/冻结数组及标志；没有ScalarRead或符号零归一化。混合/均匀两组各102400分量/174数组全字节相同，9类不兼容/损坏负例拒绝。真实旧S完整before/after/矩阵/源/线性/事件与独立算术PASS；线上观察器二进制及库未改，复用EXP-022原19场/3 uniform/173事件证据，零新增S。EXP-022原失败记录不改。
+- 唯一冻结M1采齐step738第一次TEqn原生21轮。原检查EXPLORATION_CHECKS_PASSED、issues=[]；190场/30 uniform/10时刻对三基线逐字节一致；完整T/p/epsilon事件/258个未收敛上限步轨迹不变，所选原生事件24491行三基线原字节一致。1000步/dt1e-8、方程、边界、材料、原生smoothSolver/symGaussSeidel/容差/退出规则不变。
+- 连续21G只执行一次。第1轮全部状态/快照/矩阵/源/事件字节一致，独立算术/原线性/边界PASS。第2轮所有浮点数组、9个矩阵/源/初终值/指标/几何文件仍一致，但T_prevIter、epsilon1_prevIter在before/after的timeIndex原生0、回放738，前后各4字节不符。严格门槛FAIL，停止2–21轮独立残差及3–21轮完整验收，不再修复/重放。隐藏prevIter旧层/构造顺序只为待证解释，不宣称修复或完整C已验证。
+- BUILD/NONCFD_FORMAT/BIT_EXACT_RESTORE/S_G_REPLAY/S_PARITY/M1_PARITY/PROVENANCE均PASS；G_CHAIN_REPLAY_21_FAIL，整链RESIDUAL_EVALUATION_NOT_RUN（仅首轮PASS）；NONLINEAR_CONVERGENCE_STATUS_FAIL仅依据原生终轮epsilon增量0.07114668063610671>1e-6，独立终态F_E/相变缺陷未知。首轮F_E最大固定缩放0.0049226720、L1 86.4566 W、相变/温度缺陷0.05380794，能量交叉2.1853e-16、真实线性加舍入3.8699e-12、边界0 K；不是第21轮值或收敛参考。
+- 三工程循环/一次构建，完整保留两次控制器工程中止：制造cp正值假设错误套用原calculated patch零值（只修适用域，数值预算不变）；把MONITORED_ONLY数据警戒误作硬门槛（按原政策纠正，仅验收已有G，无CFD/G重跑）。最终真实元数据失败停止，无第四次修复。6468/6796保护SHA及消费来源、工具/冻结原版树和库不变。
+- 同一绝对1200秒截止，主动起点至最终停止733.58 s；GNU26.31+389.08+25.90 s；构建18.44 s、M1 solver234.07 s、原检查95.3163 s、21G29.67 s、首轮同态无求解组装1.30 s。峰值853988 KiB（833.97 MiB）；rank1/thread1/CPU0。数据实际曾越3 GiB警戒至3.575 GiB，不隐瞒；仅本批新完成工件2688个SHA校验硬链接保留所有路径/原字节，末次逻辑3.889 GB/唯一709.30 MB/分配711.86 MB。8 GiB/3 GiB均MONITORED_ONLY，不冒充硬隔离。初始工具准备约169.72 s、最终报告/Git另计，修复间隔已含733.58 s。
+- 本批结束，无延拓/第22G/传统加速器/AI。不具备独立收敛参考实验资格；唯一未来建议为另批零CFD复用本次真实快照修复prevIter生命周期并重验完整链，不能自动执行或新增S/M1。压力初值NO_GO、MAG关闭、258步和M1物理/网格缺口保留。
