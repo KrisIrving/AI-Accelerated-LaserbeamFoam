@@ -2,7 +2,7 @@
 
 状态核对日期：2026-10-18。本页是导航与状态摘要，不替代正式计划或原始证据。各主题以导航表中的权威文件为准；发生冲突时回查正式文件和 Git 历史，不根据本页自行改计划。
 
-最新[T–相变数学与文献前置审查](research/T_PHASE_FIXED_POINT_REVIEW_20261018.md)给出冻结上下文下的G_C、独立残差草案及回放缺口，结论NOT_READY：现有场不足以回放热校正，未验收独立收敛参考，不选择AI方法；只提议一个未批准的零CFD制造解门槛。原[方向重评](research/STAGE3_DIRECTION_REASSESSMENT_20261018.md)、压力初值NO_GO、258步风险及历史证据保持，PR #5 Draft/unmerged。
+最新[零CFD热制造解/原生G验证](validation/T_PHASE_MANUFACTURED_REPLAY_20261018.md)四项门槛全部PASS：一次构建、三类平衡状态完整重放逐字节一致、六负例拒绝，23.90 s/791.79 MiB、4225保护SHA不变。只获得申请真实单步采集/参考设计的前置资格，不自动执行；[数学/文献审查](research/T_PHASE_FIXED_POINT_REVIEW_20261018.md)、压力初值NO_GO、258步及物理/网格缺口保留，AI未启动，PR #5 Draft/unmerged。
 
 ## 目标与 Current Status
 

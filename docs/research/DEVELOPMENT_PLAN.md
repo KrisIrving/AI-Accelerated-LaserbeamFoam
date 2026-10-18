@@ -50,3 +50,5 @@ DEC-020新批次EXP-016已通过真实S/M1采集、全场/事件/保护及原初
 DEC-021/EXP-017只读[方向重评](STAGE3_DIRECTION_REASSESSMENT_20261018.md)固化压力初值当前NO_GO；T组装/准备有较大观测成本，但唯一T–相变固定点研究候选NOT_READY，未选择AI方法。收敛参考、完整T状态/误差合同、可避免成本和创新性仍缺；不变更正式路线或授权新实验，阶段3 AI仍NOT_STARTED，PR #5保持Draft不合并。
 
 DEC-022/EXP-018完成[T–相变数学/文献前置审查](T_PHASE_FIXED_POINT_REVIEW_20261018.md)：可定义冻结上下文下的完整场G_C，但真实回放状态及独立收敛合同仍NOT_READY；仅提出一个未批准的零CFD制造解门槛，不授权工具/算法实现、采集、CFD或AI，不改压力初值NO_GO及正式阶段路线。
+
+DEC-023/EXP-019唯一[零CFD制造解与原生G门槛](../validation/T_PHASE_MANUFACTURED_REPLAY_20261018.md)全部PASS，额度结束。仅建立申请受控真实单步采集/独立参考设计的前置资格；平衡G重放不证明任意非平衡/真实M1回放或收敛，阶段3 AI仍NOT_STARTED，压力NO_GO及258步/物理/网格缺口保持，PR #5 Draft/unmerged。

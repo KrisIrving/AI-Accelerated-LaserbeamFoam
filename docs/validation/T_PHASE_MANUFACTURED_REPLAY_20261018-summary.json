@@ -1,0 +1,533 @@
+{
+  "schema": "tphase-native-manufactured-replay-v1",
+  "decision": "DEC-023",
+  "experiment": "EXP-019",
+  "status": "ALL_GATES_PASSED",
+  "research_scope": "Synthetic non-CFD manufactured gate only; not a converged M1 reference or AI evidence.",
+  "base_commit": "282f6d48424ca768ac500b0b9088eb3d624e51d0",
+  "runtime_commit": "de688dd7efd14bbbc009dff144ffafae332925ca",
+  "CFD_runs": 0,
+  "physical_time_advances": 0,
+  "AI_training": false,
+  "AI_algorithm_implementation": false,
+  "native_build_attempts": 1,
+  "gates": {
+    "BUILD": "PASS",
+    "FORMAT": "PASS",
+    "MANUFACTURED_RESIDUAL": "PASS",
+    "NATIVE_G_REPLAY": "PASS",
+    "NEGATIVE_CONTROLS": "PASS",
+    "PROVENANCE": "PASS"
+  },
+  "preregister_SHA256": "4840914a7d9b96c6cc6f722e7140e6f63603b9fcda0bbb9d39096aac46ffdc40",
+  "acceptance": {
+    "matrix_roundoff_relative": 5e-12,
+    "post_G_energy_scaled": 2e-09,
+    "manufactured_energy_scaled": 5e-12,
+    "known_T_absolute_K": 1e-06,
+    "known_phase_absolute": 1e-08,
+    "phase_increment_native": 1e-06,
+    "native_linear_strict": 1e-09,
+    "gamma_ops": 256,
+    "negative_margin_multiple": 100,
+    "cold_negative_min_T_change_K": 1.0,
+    "cold_negative_max_phase_change": 1e-15,
+    "replay_bytes_allowed": 0
+  },
+  "binary_SHA256": "669b29a637d4e91557a0d706bbd7b060fb588ed0de6d16e456ad4c04714e1cd7",
+  "private_tool_source_SHA256": {
+    "oracle.py": "2c769e2fa9d273ee0ba25ae29b1cbd4ed9bfe69fb0c4a31cf258b2f62e321837",
+    "verify.py": "fdfb853c3720f4348543fe759aeb06f6b5da41959f25ecd2f1e530c83395ab37",
+    "run_once.py": "6d6dbbdb4d11e1082fa69a7f40dbe21bf02fdac34eeb8c9230bf9f498d6625e1",
+    "tool/manufactured.C": "c4f2f06f1880c42adfad99dbef0dcb06de595c5552fd75d52461d2e979593ac5",
+    "tool/oneG.H": "3c13b130f0613ee2e060e88149cf571ade79082b36159022d49eca20e3ffcfc0",
+    "tool/readControls.H": "64da838052840665f30f49280dfcccaf60e8dc40f86245698d951bd8b654e3da",
+    "tool/Make/files": "7827cc3f379b7a0809ac516b87cc962708cf48b049778de0d247ff725c33cd25",
+    "tool/Make/options": "271fd8811640102072ef68abfb0df28f90d2f6653b0989224a4424e76050943a"
+  },
+  "consumed_source_SHA256": {
+    "applications/solvers/laserbeamFoam/TEqn.H": "8542f190581444d0be58cc497ae6a7f1d524eed0998958abb35cd777940c92f2",
+    "applications/solvers/laserbeamFoam/readControls.H": "64da838052840665f30f49280dfcccaf60e8dc40f86245698d951bd8b654e3da",
+    "applications/solvers/laserbeamFoam/createFields.H": "69a36578b1f99b468c4d34aff0529e751d591bd8c3b25f9afb2d041e8c8f7ea6",
+    "applications/solvers/laserbeamFoam/updateProps.H": "c8f260a46675cca76729aaff0b168f55e617d11cc8ccbdf47a17ff4f024c2d8b",
+    "applications/solvers/laserbeamFoam/updateKappaCp.H": "521971158e6d3ff4ea54a45de42359412b8721bc6532551ac0b2006be3793c8e",
+    "benchmarks/performance/M1-stage2.json": "a3b5801452c9f54391b65998174f7e0b6837e328bc5c366b6cfe17db43a1c6d0",
+    "OpenFOAM-v2512/src/finiteVolume/fvMatrices/fvMatrix/fvMatrix.H": "12b6c9dc4619844395278631903d374e1887203c94c59082dbaae0e7f037f129",
+    "OpenFOAM-v2512/src/finiteVolume/fvMatrices/fvMatrix/fvMatrix.C": "f833cc39d86039f47ebb6d7685939df1af50ff1b4395c86a7dace863ecc3b192",
+    "OpenFOAM-v2512/src/finiteVolume/fvMatrices/fvMatrix/fvMatrixSolve.C": "9065053a1bde494de9c9d0f6959767c84eadce709c81c5673dbb46b676c557f3",
+    "OpenFOAM-v2512/src/finiteVolume/finiteVolume/ddtSchemes/EulerDdtScheme/EulerDdtScheme.C": "7c13af1cf0d954a802d742e32d97c74fb9a6b3fecb8cff49a474d856bacff2e9",
+    "OpenFOAM-v2512/src/finiteVolume/finiteVolume/convectionSchemes/gaussConvectionScheme/gaussConvectionScheme.C": "c2f081ce742fd332511e9251b970c4f850d94239edf3343b11d410ec4394d276",
+    "OpenFOAM-v2512/src/finiteVolume/finiteVolume/laplacianSchemes/gaussLaplacianScheme/gaussLaplacianScheme.C": "63f000224c0c7717d9d113d293d576065cae5623fbb115a1308f1e3aff8f96fc",
+    "OpenFOAM-v2512/src/finiteVolume/finiteVolume/snGradSchemes/correctedSnGrad/correctedSnGrad.C": "2d3684bd5e8fbe2ea66fa5138f03ba124566c133c09b36a910816bb3fdc78e3c",
+    "OpenFOAM-v2512/src/finiteVolume/fvMesh/fvGeometryScheme/basic/basicFvGeometryScheme.C": "813a8fba400176fd318ec84531c61c33707654780da09b8d032770794d13d884",
+    "OpenFOAM-v2512/src/finiteVolume/finiteVolume/gradSchemes/gaussGrad/gaussGrad.C": "a3b7f6cc757f183634652b41313c4e404b8d3d65ddf13a2c6cc3595e036830c1",
+    "OpenFOAM-v2512/src/finiteVolume/fields/fvPatchFields/basic/zeroGradient/zeroGradientFvPatchField.C": "db7b8565d03e6c26e02d46d35c923c0278732789e5933805fe37ec4ebb1b6cca",
+    "OpenFOAM-v2512/src/finiteVolume/fields/fvPatchFields/basic/calculated/calculatedFvPatchField.H": "8a6c50a8d3ce20f4110c98f4ee3e2c4abb9faa02b8410598d85322b9678acfd9",
+    "OpenFOAM-v2512/src/OpenFOAM/fields/GeometricFields/GeometricField/GeometricField.C": "b1de340737a0d928ce88cbfb12409ec4ee0889d1cc97aae042caa8d0bd71160d",
+    "OpenFOAM-v2512/src/OpenFOAM/matrices/lduMatrix/solvers/smoothSolver/smoothSolver.C": "b23dafc9e5b71ab3e355beca0334aaac51d68e22cecd747361050476f4af14ea",
+    "OpenFOAM-v2512/src/OpenFOAM/matrices/lduMatrix/lduMatrix/lduMatrix.H": "366e48c9a9c5c3e1179bd0551a1614ccb198762a865865790b4e5a219233ee05",
+    "OpenFOAM-v2512/src/OpenFOAM/matrices/lduMatrix/lduMatrix/lduMatrixSolver.C": "862fe16f0069b21e199298c43771d486794cdf0ae2588bedf69b9dfeb9baface",
+    "OpenFOAM-v2512/src/OpenFOAM/matrices/LduMatrix/LduMatrix/SolverPerformance.C": "43aa81c7d127632fa7281aecdf5deed88a364d594abf02828ea1bc357ef7c910",
+    "M1-frozen/system/fvSchemes": "bc9603132c27e48553db8f1bfc23b73bcaee89cda185843a175b8bc6db19e70c",
+    "M1-frozen/system/fvSolution": "b4e2690ad8abfc920e259318f7aff974639b3c104a9c913c4c85613e58f101f9",
+    "M1-frozen/system/controlDict": "8dfd63b337c8be18f9d082e9017334530e5ef8f052e69e8e32fbc60de2f89c8a",
+    "M1-frozen/constant/transportProperties": "f5ce7aa1481e3c7652b24c16e07667e50c8daaa535b5c2c788f7e9f68b03db47"
+  },
+  "dynamic_dependencies": {
+    "libfiniteVolume.so": {
+      "origin": "OpenFOAM-v2512",
+      "sha256": "37dd5600be16cef1c6e320107e913c4cefad66beee1e76b2a43b461244c6efb0"
+    },
+    "libmeshTools.so": {
+      "origin": "OpenFOAM-v2512",
+      "sha256": "1a388110176dfb2386ab1dcac573263143e6be34b1671487b62c3f8cf4c0b987"
+    },
+    "libOpenFOAM.so": {
+      "origin": "OpenFOAM-v2512",
+      "sha256": "4a7b095aa31ddc63a20959ac72d24bf5b0195dca64b781553d52e2fd30461640"
+    },
+    "libstdc++.so.6": {
+      "origin": "system-runtime",
+      "sha256": "ff0825e113603c3866680d5d52216bc6d8eedf3a59f52a0aef67ff01994db128"
+    },
+    "libm.so.6": {
+      "origin": "system-runtime",
+      "sha256": "3dd5511ae94785c9f921429b0f2b2f7aabb461b6f0e6de6dfdbef15f24bdfee6"
+    },
+    "libgcc_s.so.1": {
+      "origin": "system-runtime",
+      "sha256": "fc9d43b2f6c20e53b009238f767c5b949d202389e20de9e202ea684b4ba3729a"
+    },
+    "libc.so.6": {
+      "origin": "system-runtime",
+      "sha256": "b2cf6c33b74d2f22543b7a469a75b538911e690f769d0b238843a49465b83793"
+    },
+    "libPstream.so": {
+      "origin": "OpenFOAM-v2512",
+      "sha256": "f8dd06d0b9d43d31b19d4827aeafff8c0bd4fd56686e67aecc2bf1b8e22dee67"
+    },
+    "libfileFormats.so": {
+      "origin": "OpenFOAM-v2512",
+      "sha256": "b891639662b3b526e40a8ba5241af91fc8ce0c615f76c15a929249bf856abc30"
+    },
+    "libsurfMesh.so": {
+      "origin": "OpenFOAM-v2512",
+      "sha256": "1fd19dc49d8538ca377b330d7ea2ed274d27789e85eecd803586c887802c6f04"
+    },
+    "libz.so.1": {
+      "origin": "system-runtime",
+      "sha256": "64c206f0146cc58bbddc4f22054436f4ff278f5a554aa3ce6921ddf7e9133370"
+    },
+    "libmpi.so.40": {
+      "origin": "system-runtime",
+      "sha256": "27d2d690a5d1f971cf90e28e54e945519df7c1528a954ae4bfc8a436bfbb1982"
+    },
+    "libopen-rte.so.40": {
+      "origin": "system-runtime",
+      "sha256": "69b31a92a4fb7e2f494a027a7d4dddff4e516aab5158827165e12730d7c0ff57"
+    },
+    "libopen-pal.so.40": {
+      "origin": "system-runtime",
+      "sha256": "2a03b97563b724c6e42f853b90e2dc0619de3486628a7b065b74f7b30e5c35a1"
+    },
+    "libhwloc.so.15": {
+      "origin": "system-runtime",
+      "sha256": "2efe6e32d0d3454b2bce0d3b8cd437f48691475717be4b431f96bcc2d4d9bc54"
+    },
+    "libevent_core-2.1.so.7": {
+      "origin": "system-runtime",
+      "sha256": "2d04f8e4a4cd0cf3dfe214f655298b6819cf7b1ce5677c461b904830bcdb2f8f"
+    },
+    "libevent_pthreads-2.1.so.7": {
+      "origin": "system-runtime",
+      "sha256": "2c12e1fbd54ac804e4de1badcb318217ada877ae18cab8b3ce89cf3626635537"
+    },
+    "libudev.so.1": {
+      "origin": "system-runtime",
+      "sha256": "08b989e58a49b85468db9be8f5f915d756ae70865a291bb524bc87d9fedf6dda"
+    }
+  },
+  "method": {
+    "cells": 8,
+    "internal_faces": 12,
+    "boundary_faces": 24,
+    "shear": 0.25,
+    "cell_edge_m": 1e-05,
+    "max_nonorthogonality_degrees": 14.036243467926479,
+    "time_scheme": "Euler",
+    "temperature_convection": "Gauss upwind",
+    "latent_convection": "Gauss linear",
+    "diffusion": "Gauss linear corrected",
+    "T_boundary": "zeroGradient",
+    "epsilon_boundary": "calculated",
+    "density_material": "native metal phase; original gas polynomial used by damper",
+    "frozen_context": "synthetic source and gradient/flux/old layers; not an M1 physical state",
+    "manufacture": "Independent analytic mesh, face/Euler arithmetic and known T/phase define equilibrium source before native execution. No native solve result is used to fit a source.",
+    "single_G_projection": "Native TEqn loop body retains ordering; frozen Deposition/Joule data replace accessors. Single-body/no time loop; original readControls copied. Separate linear probes offset solve initial value after assembly/relax; they are not off-equilibrium G tests.",
+    "replay": "Native 17-digit complete field/patch serialization, same schema/mesh/dictionaries, decoded full-state and all G outputs byte-identical. Unsupported dynamic/coupled/custom boundary contexts excluded."
+  },
+  "positive_comparisons": [
+    {
+      "case": "solid",
+      "mode": "native_G",
+      "matrix_error": 1.464636087422271e-16,
+      "relax_error": 7.323180437111355e-17,
+      "manufactured_energy": 3.168765909356745e-17,
+      "native_linear_final": 7.657827935220974e-15,
+      "fixed_linear_true": 6.064939897914248e-15,
+      "fixed_linear_roundoff_bound": 4.0853715210439635e-12,
+      "T_error_K": 0.0,
+      "phase_error": 0.0,
+      "native_iterations": 0,
+      "post_G_energy": 3.168765909356745e-17,
+      "max_nonorth_correction_W": 0.0011981250000000008,
+      "max_boundary_ic_W_per_K": 0.0002158921375
+    },
+    {
+      "case": "solid",
+      "mode": "linear_probe",
+      "matrix_error": 1.464636087422271e-16,
+      "relax_error": 7.323180437111355e-17,
+      "manufactured_energy": 3.168765909356745e-17,
+      "native_linear_final": 8.843781575523649e-13,
+      "fixed_linear_true": 8.843756646363548e-13,
+      "fixed_linear_roundoff_bound": 4.085590272733006e-12,
+      "T_error_K": 6.502887117676437e-11,
+      "phase_error": 0.0,
+      "native_iterations": 2,
+      "post_G_energy": 2.233232810651475e-14,
+      "max_nonorth_correction_W": 0.0011981250000000008,
+      "max_boundary_ic_W_per_K": 0.0002158921375
+    },
+    {
+      "case": "mushy",
+      "mode": "native_G",
+      "matrix_error": 1.1102230246251565e-16,
+      "relax_error": 9.957594305873705e-17,
+      "manufactured_energy": 2.898048812766374e-17,
+      "native_linear_final": 2.404188202497284e-14,
+      "fixed_linear_true": 2.2404263596025514e-14,
+      "fixed_linear_roundoff_bound": 1.3866979687551833e-11,
+      "T_error_K": 0.0,
+      "phase_error": 0.0,
+      "native_iterations": 0,
+      "post_G_energy": 2.898048812766374e-17,
+      "max_nonorth_correction_W": 0.0005908500000000005,
+      "max_boundary_ic_W_per_K": 0.0002285322325
+    },
+    {
+      "case": "mushy",
+      "mode": "linear_probe",
+      "matrix_error": 1.1102230246251565e-16,
+      "relax_error": 9.957594305873705e-17,
+      "manufactured_energy": 2.898048812766374e-17,
+      "native_linear_final": 3.850172560757693e-12,
+      "fixed_linear_true": 3.85016375599606e-12,
+      "fixed_linear_roundoff_bound": 1.3867548942943841e-11,
+      "T_error_K": 1.1118572729174048e-10,
+      "phase_error": 2.0048407378681077e-12,
+      "native_iterations": 2,
+      "post_G_energy": 5.3768862678563034e-14,
+      "max_nonorth_correction_W": 0.0005908500000000005,
+      "max_boundary_ic_W_per_K": 0.0002285322325
+    },
+    {
+      "case": "liquid",
+      "mode": "native_G",
+      "matrix_error": 1.6807926759384348e-16,
+      "relax_error": 8.442060407474789e-17,
+      "manufactured_energy": 3.716577821082012e-17,
+      "native_linear_final": 1.280646109362853e-14,
+      "fixed_linear_true": 1.536343295083467e-14,
+      "fixed_linear_roundoff_bound": 6.364801480676115e-12,
+      "T_error_K": 0.0,
+      "phase_error": 0.0,
+      "native_iterations": 0,
+      "post_G_energy": 3.716577821082012e-17,
+      "max_nonorth_correction_W": 0.0016481249999999849,
+      "max_boundary_ic_W_per_K": 0.0002364451375
+    },
+    {
+      "case": "liquid",
+      "mode": "linear_probe",
+      "matrix_error": 1.6807926759384348e-16,
+      "relax_error": 8.442060407474789e-17,
+      "manufactured_energy": 3.716577821082012e-17,
+      "native_linear_final": 1.982524459941951e-12,
+      "fixed_linear_true": 1.9825233229497168e-12,
+      "fixed_linear_roundoff_bound": 6.36510931189133e-12,
+      "T_error_K": 1.4142642612569034e-10,
+      "phase_error": 0.0,
+      "native_iterations": 2,
+      "post_G_energy": 3.1376171174049754e-14,
+      "max_nonorth_correction_W": 0.0016481249999999849,
+      "max_boundary_ic_W_per_K": 0.0002364451375
+    }
+  ],
+  "replay_comparisons": [
+    {
+      "case": "solid",
+      "files_compared": 10,
+      "byte_equal": true,
+      "SHA256": {
+        "before.bin": "843f643661e92b36e0e1209e2e4a2001b82a71966673081a35c1c76425cf8e49",
+        "after.bin": "9ca9ebc37acbcf084aa3531563d348ced22e08441adcfc4cdc85f1db7c01685d",
+        "unrelaxed.bin": "291a19e596c5af1202a25a16b652e080e8ea3bbba2b173cc4bde9bc6bbe2b016",
+        "relaxed.bin": "e2401f76319558c29d5330ea198f6b4514f4b6e342b1c1fb7e95bc382163a90a",
+        "native-Qv.bin": "abd91ce3e4379ab6a46f5d1a7058ed0c6411a111954e062c0ad328412c3c97e3",
+        "native-damper.bin": "38e160cba84ffa7d7b4f4157ac8e337be5359ef4b750aa3d06733f07614fe2ba",
+        "native-latent.bin": "f5a5fd42d16a20302798ef6ed309979b43003d2320d9f0e8ea9831a92759fb4b",
+        "linear-initial.bin": "81d641354863b956c324290a0a47077ce2895a75ad3fa90fc6770767a17ae7a1",
+        "linear-solution.bin": "81d641354863b956c324290a0a47077ce2895a75ad3fa90fc6770767a17ae7a1",
+        "metrics.json": "68ef1a0318a9ed8e3d4a0dc93329aead884069d5eb2c5b07febd842cd860d6fd"
+      }
+    },
+    {
+      "case": "mushy",
+      "files_compared": 10,
+      "byte_equal": true,
+      "SHA256": {
+        "before.bin": "b882adeecdb24cbf2e3be10df72c5935711c81197bb76157a031eac325a31f6f",
+        "after.bin": "6a586de42a30281af65b489acf75a7e694ebc0722f0c5cd4e14d78d872920dc7",
+        "unrelaxed.bin": "f40ea84f932d25911be34470d3ec3cc24fa291e9b5e2c2ca4cdb35d673208e7d",
+        "relaxed.bin": "1fd5ef9fe4cc4d1bc7d2d6c8d92d54a6420bd5630e4c9bbd0ae8356d965843fe",
+        "native-Qv.bin": "5028d340330ac25ec7d4729a24a32ee0732412c085f5c9f4bc4edcfc727c0f5a",
+        "native-damper.bin": "1ce4226ff70c3d08196b1d43c6c0a73120d1edf09cc36f488f8f5cbee97244ea",
+        "native-latent.bin": "61db0486da6a631c78f4534f3af070d19d3c2bd1320e659d42ab06c65648cbaa",
+        "linear-initial.bin": "98d045c322342e5c97d4d2d081e934992f9f783f15a24be8ac9d70037cf1b5c7",
+        "linear-solution.bin": "98d045c322342e5c97d4d2d081e934992f9f783f15a24be8ac9d70037cf1b5c7",
+        "metrics.json": "48426954891168f1316c931a258f9366bc8d9974b6e1c17e7aac82fdce6e63ad"
+      }
+    },
+    {
+      "case": "liquid",
+      "files_compared": 10,
+      "byte_equal": true,
+      "SHA256": {
+        "before.bin": "d380c58f72d6f8a5bdc6b1efcd7a8a08c9861042073c4d3f38fd94a95496e504",
+        "after.bin": "edf69fe2a7e966d370420d7e7b99e384df73cedc84469825562d85758742c7fe",
+        "unrelaxed.bin": "80ab22213ba756409351606a3608102de8b29082fd3a588b48a7b458e07e2352",
+        "relaxed.bin": "632b638eb3ca303e71d430b0877bb8b02d3e366a083731c2e6e5dbb651baeaaa",
+        "native-Qv.bin": "2cf127b912bb16b0a327bced93ef2d026386974027ab3b941a1b95df16747275",
+        "native-damper.bin": "e2bd4379de66fc185f2c38ca6bcd3e9137e1c79dd425b88e7bdd5aacb3ca0822",
+        "native-latent.bin": "8dec56e209da292b80fa4ff08c06b07ab44f7f85a2b34e6817badc87405ee186",
+        "linear-initial.bin": "13a17fd993ef9540a1fc5304c49667151ea51542b7ca43071c1f6db1cd302f06",
+        "linear-solution.bin": "13a17fd993ef9540a1fc5304c49667151ea51542b7ca43071c1f6db1cd302f06",
+        "metrics.json": "3d84f6a34ac505afdbb27cf73c67df7854c914c2e2185404fea930afc2b2a58e"
+      }
+    }
+  ],
+  "negative_controls": [
+    {
+      "case": "solid",
+      "perturb": "T_i",
+      "scaled_energy": 0.0035719295802782735,
+      "phase_defect": 0.0,
+      "boundary_T_defect_K": 10.0,
+      "rejected": true
+    },
+    {
+      "case": "mushy",
+      "perturb": "epsilon1_i",
+      "scaled_energy": 0.005724866388864104,
+      "phase_defect": 0.05,
+      "boundary_T_defect_K": 0,
+      "rejected": true
+    },
+    {
+      "case": "solid",
+      "perturb": "T_old_i",
+      "scaled_energy": 0.0017790299070600888,
+      "phase_defect": 0.0,
+      "boundary_T_defect_K": 0,
+      "rejected": true
+    },
+    {
+      "case": "mushy",
+      "perturb": "epsilon1_b",
+      "scaled_energy": 1.1088186365602498e-05,
+      "phase_defect": 0.125,
+      "boundary_T_defect_K": 0,
+      "rejected": true
+    },
+    {
+      "case": "solid",
+      "perturb": "T_b",
+      "scaled_energy": 1.2540868581499555e-06,
+      "phase_defect": 0.0,
+      "boundary_T_defect_K": 25.0,
+      "rejected": true
+    },
+    {
+      "case": "solid",
+      "perturb": "native_G_T_plus_10K",
+      "native_phase_increment": 0.0,
+      "native_T_change_K": 9.999955254123506,
+      "scaled_energy_before": 0.0035580604737219293,
+      "rejected": true
+    }
+  ],
+  "cold_negative_existing_output_analysis": {
+    "source": "postprocessing existing cold-negative output; no additional G call",
+    "energy_after_scaled": 8.928788647375383e-06,
+    "known_T_max_error_K": 0.02541297633592876,
+    "phase_increment": 0.0
+  },
+  "resources": {
+    "batch_wall_seconds": 23.9,
+    "controller_seconds": 23.835296783130616,
+    "hard_deadline_seconds": 300,
+    "max_process_RSS_KiB": 810792,
+    "new_data_bytes_last_active_observation": 3779691,
+    "policy": "MONITORED_ONLY, stage-end observation; no aggregate process-tree RSS/cgroup/disk hard limit",
+    "rank": 1,
+    "thread_environment": 1,
+    "cpu_affinity": [
+      0
+    ],
+    "stages": [
+      {
+        "name": "build",
+        "exit_code": 0,
+        "wall_seconds": 17.340634379070252,
+        "max_rss_kib": 810792
+      },
+      {
+        "name": "dependencies",
+        "exit_code": 0,
+        "wall_seconds": 0.012223428580909967,
+        "max_rss_kib": 3072
+      },
+      {
+        "name": "solid-direct",
+        "exit_code": 0,
+        "wall_seconds": 0.0462793312035501,
+        "max_rss_kib": 62208
+      },
+      {
+        "name": "solid-replay",
+        "exit_code": 0,
+        "wall_seconds": 0.04092241916805506,
+        "max_rss_kib": 62976
+      },
+      {
+        "name": "solid-linear",
+        "exit_code": 0,
+        "wall_seconds": 0.03993037203326821,
+        "max_rss_kib": 62976
+      },
+      {
+        "name": "mushy-direct",
+        "exit_code": 0,
+        "wall_seconds": 0.03983892407268286,
+        "max_rss_kib": 62208
+      },
+      {
+        "name": "mushy-replay",
+        "exit_code": 0,
+        "wall_seconds": 0.0401836303062737,
+        "max_rss_kib": 62976
+      },
+      {
+        "name": "mushy-linear",
+        "exit_code": 0,
+        "wall_seconds": 0.04004612332209945,
+        "max_rss_kib": 62976
+      },
+      {
+        "name": "liquid-direct",
+        "exit_code": 0,
+        "wall_seconds": 0.040051993913948536,
+        "max_rss_kib": 62976
+      },
+      {
+        "name": "liquid-replay",
+        "exit_code": 0,
+        "wall_seconds": 0.040584882255643606,
+        "max_rss_kib": 62976
+      },
+      {
+        "name": "liquid-linear",
+        "exit_code": 0,
+        "wall_seconds": 0.040144448168575764,
+        "max_rss_kib": 62208
+      },
+      {
+        "name": "cold-native-negative",
+        "exit_code": 0,
+        "wall_seconds": 0.04350519319996238,
+        "max_rss_kib": 62208
+      }
+    ],
+    "scope": "Protection/fixtures/one native build/direct/replay/linear checks/negative controls/analysis/final protection. Tool authoring and final report/Git outside active batch; cold-output summary above reads already produced state only."
+  },
+  "protection": {
+    "files": 4225,
+    "contents_SHA256_unchanged": true,
+    "before_manifest_SHA256": "b0088633cd0c52dec93eb3df558465e0b20f77d465eca579867a98bbcfc5678d",
+    "after_manifest_SHA256": "b0088633cd0c52dec93eb3df558465e0b20f77d465eca579867a98bbcfc5678d",
+    "scope": "Tracked original/governance files and all prior local runs/validation files; current new experiment excluded. Consumed OpenFOAM sources and new tool hashes separately verified."
+  },
+  "limitations": [
+    "All three positive G replay cases start at known manufactured equilibria and native smoothSolver returns with zero iterations. Three separate linear recovery probes execute two native sweeps each; a non-equilibrium cold G executes two sweeps but is not a paired replay case. No claim of general non-equilibrium G replay.",
+    "Scalar binary64 serial static mesh, eight cells and prescribed positive material context only. No MPI, coupled or stateful boundary validation.",
+    "Roundoff budget is a conservative finite test contract, not a universal libm/nonlinear error bound. gamma256 applies to stored-coefficient Ax-b arithmetic.",
+    "One-G manufacture/replay does not certify nonlinear convergence, uniqueness, M1 physical accuracy/grid convergence or acceleration.",
+    "Original 258 capped thermal steps remain unresolved; pressure initial-guess NO_GO and MAG closure retained.",
+    "Snapshot support is the canonical fresh single-G entry for the declared BCs; read construction restores their default update flags. Arbitrary mid-operation patch flags, stateful registry callbacks or mutable model state are not serialized or validated."
+  ],
+  "eligibility": "ELIGIBLE_TO_REQUEST_A_SEPARATE_CONTROLLED_REAL_SINGLE_STEP_CAPTURE_AND_REFERENCE_DESIGN; NOT_AUTHORIZED_TO_EXECUTE",
+  "PR_disposition": "DRAFT_UNMERGED",
+  "linear_recovery_fixed_unperturbed_reference_analysis": [
+    {
+      "case": "solid",
+      "normalization_reference": "unperturbed prescribed T at assembly; held fixed despite +1 K linear probe initial",
+      "true_residual": 8.843283131748944e-13,
+      "roundoff_bound": 4.0853715210440144e-12,
+      "upper_bound": 4.969699834218909e-12,
+      "strict_target": 1e-09,
+      "pass": true
+    },
+    {
+      "case": "mushy",
+      "normalization_reference": "unperturbed prescribed T at assembly; held fixed despite +1 K linear probe initial",
+      "true_residual": 3.850005708854032e-12,
+      "roundoff_bound": 1.3866979687552054e-11,
+      "upper_bound": 1.7716985396406087e-11,
+      "strict_target": 1e-09,
+      "pass": true
+    },
+    {
+      "case": "liquid",
+      "normalization_reference": "unperturbed prescribed T at assembly; held fixed despite +1 K linear probe initial",
+      "true_residual": 1.9824274435965794e-12,
+      "roundoff_bound": 6.364801480676228e-12,
+      "upper_bound": 8.347228924272808e-12,
+      "strict_target": 1e-09,
+      "pass": true
+    }
+  ],
+  "native_same_state_unrelaxed_energy_analysis": [
+    {
+      "case": "solid",
+      "max_scaled": 2.322106140556696e-16,
+      "L1_scaled": 8.449377200280921e-17,
+      "signed_global_scaled": 2.417084476529191e-17,
+      "signed_global_W": -1.545430450278218e-13
+    },
+    {
+      "case": "mushy",
+      "max_scaled": 1.1047039156390993e-16,
+      "L1_scaled": 6.728653732694612e-17,
+      "signed_global_scaled": 1.2647845362207915e-17,
+      "signed_global_W": -1.1657341758564144e-13
+    },
+    {
+      "case": "liquid",
+      "max_scaled": 2.7214397038143796e-16,
+      "L1_scaled": 1.3738306455700768e-16,
+      "signed_global_scaled": 1.9448960445316045e-17,
+      "signed_global_W": 2.1238566461079245e-13
+    }
+  ]
+}

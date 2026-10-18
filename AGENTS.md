@@ -70,6 +70,11 @@ Also follow the existing `.agents/skills/laserbeamfoam/SKILL.md` conventions.
   proposed next experiment. EXP-018 remains NOT_READY; new residual contracts
   and the non-CFD manufactured-state gate are drafts, not execution permission.
   No CFD, build, collector/replay implementation, algorithm or AI; PR #5 Draft.
+- DEC-023 authorizes one preregistered non-CFD manufactured thermal gate.
+  EXP-019 passed with one native build, no S/M1 or time advancement; its quota
+  is consumed. Only eligibility to request a separate real-state observation
+  is established. No further build/replay/CFD, collector, acceleration or AI
+  is authorized; retain all risks and PR #5 Draft/unmerged.
 - Use new run directories; keep raw data and private paths in ignored runs/ and
   validation/. CI/mock success is not OpenFOAM execution or physical validation.
 - Check PROJECT_HUB at new PRs, major feature completion, registered workstation
