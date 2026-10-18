@@ -162,3 +162,9 @@ Krylov because a sufficient conditioning certificate was not established.
 INCONCLUSIVE, no verified root or four-way comparison; not proof of no root or
 Newton failure. G9/R46/Jv6/preparation2, zero CFD/Time/AI. No remaining execution
 permission; keep PR #5 Draft and all risks/failed evidence.
+DEC-031 permits only read-only source/metric/mathematical review. EXP-027 confirms
+the pointwise inverse sufficient bound is mathematically correct under its
+explicit assumptions but provably conservative; nonlinear root/error certification
+remains unverified. No G/R/Jv/solve/build/implementation/AI is permitted. The
+proposed direction-only test and posterior root certification need fresh approval;
+EXP-026 remains INCONCLUSIVE, PR #5 Draft/unmerged, all historical risks retained.

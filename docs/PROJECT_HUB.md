@@ -1,6 +1,8 @@
 # 项目资料入口 · AI-Accelerated-LaserbeamFoam
 
-状态核对日期：2026-10-18。本页是导航与状态摘要，不替代正式计划或原始证据。各主题以导航表中的权威文件为准；发生冲突时回查正式文件和 Git 历史，不根据本页自行改计划。
+状态核对日期：2026-10-19。本页是导航与状态摘要，不替代正式计划或原始证据。各主题以导航表中的权威文件为准；发生冲突时回查正式文件和 Git 历史，不根据本页自行改计划。
+
+最新DEC-031/EXP-027的[Newton条件与Merit只读审查](research/T_PHASE_CERTIFICATE_MERIT_REVIEW_20261019.md)判**CURRENT_CERTIFICATE_CORRECT仅限点态充分逆界**，符号反例证明有过度保守性；负裕量不证明奇异，完整非线性根/误差认证仍UNVERIFIED。原失败五步Phi均增加，不能归咎于下降幅度要求过严，也不能据此认定稳定周期。RESEARCH_CONTINUE仅建议另批方向认证与后验认证设计；本轮零CFD/G/R/Jv/求解/组装/构建/实现/AI，未修改EXP-026或门槛。尚无可信根或加速基准，PR #5保持Draft、不合并；全部风险保留。
 
 最新DEC-030/EXP-026的[独立参考可行性](validation/T_PHASE_REFERENCE_FEASIBILITY_20261018.md)为**INCONCLUSIVE**：唯一构建/完整C重载/预注册校准/保护PASS；阻尼G两种子均线搜索拒绝，Newton两种子因保守充分条件未获认证而未执行Krylov/更新，不能推断根不存在或Newton失败。没有合格根、四路一致性或端点G验证。G9/R46/Jv6/准备2，57.27 s/840.63 MiB/约0.426 GiB；零CFD/Time推进/AI、无降标或重试。额度结束，暂停将此C用于加速比较，PR #5 Draft、不合并；原258步、压力NO_GO、MAG关闭及物理/网格缺口保留。仅建议另批只读审查条件认证，不自动追加实验。[预注册](research/T_PHASE_REFERENCE_PREREG_20261018.json)及全部失败已归档。
 
