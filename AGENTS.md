@@ -125,6 +125,11 @@ Also follow the existing `.agents/skills/laserbeamfoam/SKILL.md` conventions.
   metadata/byte checks. 600 s hard deadline; 8 GiB/3 GiB MONITORED_ONLY warnings.
   No S/M1/Time advance/22nd G/continuation/accelerator/AI. PR5 stays Draft,
   unmerged. Passing establishes reference-design request eligibility only.
+  EXP-024 passed lifecycle/local/21-round exact replay and all independent
+  residual arithmetic with one build/two debug cycles, zero CFD/Time advance.
+  Native endpoint remains NONCONVERGED_OBSERVED. This quota is consumed; only
+  request eligibility for reference design is established, no further G,
+  continuation, algorithm or AI work. Preserve all old failures and PR5 Draft.
 - Use new run directories; keep raw data and private paths in ignored runs/ and
   validation/. CI/mock success is not OpenFOAM execution or physical validation.
 - Check PROJECT_HUB at new PRs, major feature completion, registered workstation

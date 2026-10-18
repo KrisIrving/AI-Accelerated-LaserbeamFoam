@@ -1,0 +1,1025 @@
+{
+  "decision": "DEC-028",
+  "experiment": "EXP-024",
+  "base_commit": "1371a10d578939f30136af34a949b86b4c4de6e3",
+  "authorization_and_build_commit": "69d662ec8c844f34c75751a6c40a3aa5fa8422bf",
+  "overall": "ALL_TECHNICAL_GATES_PASSED",
+  "gates": {
+    "BUILD": "PASS",
+    "PREVITER_LIFECYCLE": "PASS",
+    "ROUND2_REPLAY": "PASS",
+    "G_CHAIN_REPLAY_21": "PASS",
+    "INDEPENDENT_RESIDUAL_EVALUATION": "PASS",
+    "PROVENANCE": "PASS"
+  },
+  "nonlinear_convergence_status": "NONCONVERGED_OBSERVED",
+  "scope": "zero CFD/S/M1/Time advance/AI/acceleration/reference continuation; only original G evaluations and no-solve residuals",
+  "lifecycle_causal_evidence": {
+    "legacy": [
+      {
+        "stage": "restored",
+        "T_old_depth": 1,
+        "epsilon_old_depth": 1,
+        "T_prev_old_depth": 1,
+        "epsilon_prev_old_depth": 1,
+        "T_prev_index": 0,
+        "epsilon_prev_index": 0
+      },
+      {
+        "stage": "after_native_storePrevIter",
+        "T_old_depth": 1,
+        "epsilon_old_depth": 1,
+        "T_prev_old_depth": 1,
+        "epsilon_prev_old_depth": 1,
+        "T_prev_index": 738,
+        "epsilon_prev_index": 738
+      }
+    ],
+    "fixed": [
+      {
+        "stage": "restored",
+        "T_old_depth": 1,
+        "epsilon_old_depth": 1,
+        "T_prev_old_depth": 0,
+        "epsilon_prev_old_depth": 0,
+        "T_prev_index": 0,
+        "epsilon_prev_index": 0
+      },
+      {
+        "stage": "after_native_storePrevIter",
+        "T_old_depth": 1,
+        "epsilon_old_depth": 1,
+        "T_prev_old_depth": 0,
+        "epsilon_prev_old_depth": 0,
+        "T_prev_index": 0,
+        "epsilon_prev_index": 0
+      }
+    ]
+  },
+  "proof": "Named copy construction clones old-time ownership; original prev objects were created before Euler old layers and subsequent forced assignment copies values not history. EXP023 restores prev indices0 from binary but creates one hidden old layer. Native assignment then triggers storeOldTimes and738. Reorder creation before parent oldTime; native probes show zero hidden old layers and preservation of captured indices with no per-iteration reset. All21 actual binary states/events validate reconstruction.",
+  "source_trace": {
+    "GeometricField.C": {
+      "copy_reset_name": 669,
+      "nOldTimes": 920,
+      "storeOldTimes": 927,
+      "oldTime": 969,
+      "storePrevIter": 1018,
+      "internalFieldRef": 868,
+      "expression_forced_assignment": 1780
+    },
+    "native_TEqn.H": {
+      "storePrevIter": 26,
+      "Euler_latent_after_prev": 29,
+      "Euler_T_matrix_after_prev": 71
+    }
+  },
+  "initial_metadata_restore": "unchanged binary64/raw metadata restore from EXP023; no literal zero-index overwrite, clearOldTimes, field removal or ignored metadata",
+  "local_gate_integrity": {
+    "single-round1": [
+      {
+        "before.bin": "dc7dd9fa38811cfc400d5fc8d1e3a56a76f83ad014cb84d3f708147ca1f6aebc",
+        "after.bin": "255c448d61cf295c93fe7497d19843dbe8e802a9517b4b947093e2d5a5734a6a",
+        "unrelaxed.bin": "89944146654279bfd89ed8c25807b52710c46793edf573cea14fa77a17397a6f",
+        "relaxed.bin": "89944146654279bfd89ed8c25807b52710c46793edf573cea14fa77a17397a6f",
+        "native-Qv.bin": "c8afb69aed9878c232a5367dc20d1dee41162d75e5a23b7151b6d3c1d22d6769",
+        "native-damper.bin": "eceec6f831194718dbafcf075697880bbaf3b9197749bb259fe6f42d7c36588b",
+        "native-latent.bin": "3877c1d67c0c4f575e1b5a2a27abe8fd792265b4d479deb5df8210227927bfe0",
+        "linear-initial.bin": "da37f6494129113cf901a5984aed687c27cbd5a8696f85d98f95a1602eccc581",
+        "linear-solution.bin": "cb20c12db661a2dbad1b61bc9d979e51a1e78114083b81188b60044e7c71e366",
+        "metrics.json": "aaf204b745cab791147bce13470954245efd3697c5939b9d6515475f6132f257",
+        "geometry.bin": "ac46636ab440fb96a7851752f14ed4b6dab4f7434a07355801264c33f81f8a3a"
+      }
+    ],
+    "single-round2": [
+      {
+        "before.bin": "dc7d3833f946d2469a943081501a8f110e1959b30fb5a2e7746d165f01ad0c63",
+        "after.bin": "73404d587029cbf9bb163b5aea0268776077a4b879f1e31b8961271ffa4ca7e9",
+        "unrelaxed.bin": "9d6714ca7a1958a9ff6fbf4e60ff31392f338d6b706104f2875552b4439a2b15",
+        "relaxed.bin": "9d6714ca7a1958a9ff6fbf4e60ff31392f338d6b706104f2875552b4439a2b15",
+        "native-Qv.bin": "e33ac283e48e5e38294f87756c1191eb9f298cb2f6baae247391eb425a24ccdc",
+        "native-damper.bin": "ecd267bc7ad751d945bc7332d78b6cbdb845556887101215b3844774bfdea427",
+        "native-latent.bin": "5298e37b6aaa04f230d7793640e35cfa6c7f77c1cfb1785254df23503c4c06ca",
+        "linear-initial.bin": "cb20c12db661a2dbad1b61bc9d979e51a1e78114083b81188b60044e7c71e366",
+        "linear-solution.bin": "fbf6c1a8edbf3d5bfc03ee6507327e6d7ee32bb23fb05995df82927f00025f7e",
+        "metrics.json": "d90dfe58661a5ea197877a3c9d6d43d090d110063095981dbb4fe1a63887e147",
+        "geometry.bin": "ac46636ab440fb96a7851752f14ed4b6dab4f7434a07355801264c33f81f8a3a"
+      }
+    ],
+    "two-rounds": [
+      {
+        "before.bin": "dc7dd9fa38811cfc400d5fc8d1e3a56a76f83ad014cb84d3f708147ca1f6aebc",
+        "after.bin": "255c448d61cf295c93fe7497d19843dbe8e802a9517b4b947093e2d5a5734a6a",
+        "unrelaxed.bin": "89944146654279bfd89ed8c25807b52710c46793edf573cea14fa77a17397a6f",
+        "relaxed.bin": "89944146654279bfd89ed8c25807b52710c46793edf573cea14fa77a17397a6f",
+        "native-Qv.bin": "c8afb69aed9878c232a5367dc20d1dee41162d75e5a23b7151b6d3c1d22d6769",
+        "native-damper.bin": "eceec6f831194718dbafcf075697880bbaf3b9197749bb259fe6f42d7c36588b",
+        "native-latent.bin": "3877c1d67c0c4f575e1b5a2a27abe8fd792265b4d479deb5df8210227927bfe0",
+        "linear-initial.bin": "da37f6494129113cf901a5984aed687c27cbd5a8696f85d98f95a1602eccc581",
+        "linear-solution.bin": "cb20c12db661a2dbad1b61bc9d979e51a1e78114083b81188b60044e7c71e366",
+        "metrics.json": "aaf204b745cab791147bce13470954245efd3697c5939b9d6515475f6132f257",
+        "geometry.bin": "ac46636ab440fb96a7851752f14ed4b6dab4f7434a07355801264c33f81f8a3a"
+      },
+      {
+        "before.bin": "dc7d3833f946d2469a943081501a8f110e1959b30fb5a2e7746d165f01ad0c63",
+        "after.bin": "73404d587029cbf9bb163b5aea0268776077a4b879f1e31b8961271ffa4ca7e9",
+        "unrelaxed.bin": "9d6714ca7a1958a9ff6fbf4e60ff31392f338d6b706104f2875552b4439a2b15",
+        "relaxed.bin": "9d6714ca7a1958a9ff6fbf4e60ff31392f338d6b706104f2875552b4439a2b15",
+        "native-Qv.bin": "e33ac283e48e5e38294f87756c1191eb9f298cb2f6baae247391eb425a24ccdc",
+        "native-damper.bin": "ecd267bc7ad751d945bc7332d78b6cbdb845556887101215b3844774bfdea427",
+        "native-latent.bin": "5298e37b6aaa04f230d7793640e35cfa6c7f77c1cfb1785254df23503c4c06ca",
+        "linear-initial.bin": "cb20c12db661a2dbad1b61bc9d979e51a1e78114083b81188b60044e7c71e366",
+        "linear-solution.bin": "fbf6c1a8edbf3d5bfc03ee6507327e6d7ee32bb23fb05995df82927f00025f7e",
+        "metrics.json": "d90dfe58661a5ea197877a3c9d6d43d090d110063095981dbb4fe1a63887e147",
+        "geometry.bin": "ac46636ab440fb96a7851752f14ed4b6dab4f7434a07355801264c33f81f8a3a"
+      }
+    ]
+  },
+  "full21_integrity_rows": 21,
+  "full21_complete_binary_artifacts_per_round": 11,
+  "full21_original_T_epsilon_event_lines": 42,
+  "full21_original_event_SHA256": "1eb59cb1eb06e98510b4d7f30e421b4284fc20410cb27a739aed8286f5a51dca",
+  "chain_lifecycle": [
+    {
+      "stage": "restored",
+      "T_old_depth": 1,
+      "epsilon_old_depth": 1,
+      "T_prev_old_depth": 0,
+      "epsilon_prev_old_depth": 0,
+      "T_prev_index": 0,
+      "epsilon_prev_index": 0
+    },
+    {
+      "stage": "before_G",
+      "T_old_depth": 1,
+      "epsilon_old_depth": 1,
+      "T_prev_old_depth": 0,
+      "epsilon_prev_old_depth": 0,
+      "T_prev_index": 0,
+      "epsilon_prev_index": 0
+    },
+    {
+      "stage": "before_G",
+      "T_old_depth": 1,
+      "epsilon_old_depth": 1,
+      "T_prev_old_depth": 0,
+      "epsilon_prev_old_depth": 0,
+      "T_prev_index": 0,
+      "epsilon_prev_index": 0
+    },
+    {
+      "stage": "before_G",
+      "T_old_depth": 1,
+      "epsilon_old_depth": 1,
+      "T_prev_old_depth": 0,
+      "epsilon_prev_old_depth": 0,
+      "T_prev_index": 0,
+      "epsilon_prev_index": 0
+    },
+    {
+      "stage": "before_G",
+      "T_old_depth": 1,
+      "epsilon_old_depth": 1,
+      "T_prev_old_depth": 0,
+      "epsilon_prev_old_depth": 0,
+      "T_prev_index": 0,
+      "epsilon_prev_index": 0
+    },
+    {
+      "stage": "before_G",
+      "T_old_depth": 1,
+      "epsilon_old_depth": 1,
+      "T_prev_old_depth": 0,
+      "epsilon_prev_old_depth": 0,
+      "T_prev_index": 0,
+      "epsilon_prev_index": 0
+    },
+    {
+      "stage": "before_G",
+      "T_old_depth": 1,
+      "epsilon_old_depth": 1,
+      "T_prev_old_depth": 0,
+      "epsilon_prev_old_depth": 0,
+      "T_prev_index": 0,
+      "epsilon_prev_index": 0
+    },
+    {
+      "stage": "before_G",
+      "T_old_depth": 1,
+      "epsilon_old_depth": 1,
+      "T_prev_old_depth": 0,
+      "epsilon_prev_old_depth": 0,
+      "T_prev_index": 0,
+      "epsilon_prev_index": 0
+    },
+    {
+      "stage": "before_G",
+      "T_old_depth": 1,
+      "epsilon_old_depth": 1,
+      "T_prev_old_depth": 0,
+      "epsilon_prev_old_depth": 0,
+      "T_prev_index": 0,
+      "epsilon_prev_index": 0
+    },
+    {
+      "stage": "before_G",
+      "T_old_depth": 1,
+      "epsilon_old_depth": 1,
+      "T_prev_old_depth": 0,
+      "epsilon_prev_old_depth": 0,
+      "T_prev_index": 0,
+      "epsilon_prev_index": 0
+    },
+    {
+      "stage": "before_G",
+      "T_old_depth": 1,
+      "epsilon_old_depth": 1,
+      "T_prev_old_depth": 0,
+      "epsilon_prev_old_depth": 0,
+      "T_prev_index": 0,
+      "epsilon_prev_index": 0
+    },
+    {
+      "stage": "before_G",
+      "T_old_depth": 1,
+      "epsilon_old_depth": 1,
+      "T_prev_old_depth": 0,
+      "epsilon_prev_old_depth": 0,
+      "T_prev_index": 0,
+      "epsilon_prev_index": 0
+    },
+    {
+      "stage": "before_G",
+      "T_old_depth": 1,
+      "epsilon_old_depth": 1,
+      "T_prev_old_depth": 0,
+      "epsilon_prev_old_depth": 0,
+      "T_prev_index": 0,
+      "epsilon_prev_index": 0
+    },
+    {
+      "stage": "before_G",
+      "T_old_depth": 1,
+      "epsilon_old_depth": 1,
+      "T_prev_old_depth": 0,
+      "epsilon_prev_old_depth": 0,
+      "T_prev_index": 0,
+      "epsilon_prev_index": 0
+    },
+    {
+      "stage": "before_G",
+      "T_old_depth": 1,
+      "epsilon_old_depth": 1,
+      "T_prev_old_depth": 0,
+      "epsilon_prev_old_depth": 0,
+      "T_prev_index": 0,
+      "epsilon_prev_index": 0
+    },
+    {
+      "stage": "before_G",
+      "T_old_depth": 1,
+      "epsilon_old_depth": 1,
+      "T_prev_old_depth": 0,
+      "epsilon_prev_old_depth": 0,
+      "T_prev_index": 0,
+      "epsilon_prev_index": 0
+    },
+    {
+      "stage": "before_G",
+      "T_old_depth": 1,
+      "epsilon_old_depth": 1,
+      "T_prev_old_depth": 0,
+      "epsilon_prev_old_depth": 0,
+      "T_prev_index": 0,
+      "epsilon_prev_index": 0
+    },
+    {
+      "stage": "before_G",
+      "T_old_depth": 1,
+      "epsilon_old_depth": 1,
+      "T_prev_old_depth": 0,
+      "epsilon_prev_old_depth": 0,
+      "T_prev_index": 0,
+      "epsilon_prev_index": 0
+    },
+    {
+      "stage": "before_G",
+      "T_old_depth": 1,
+      "epsilon_old_depth": 1,
+      "T_prev_old_depth": 0,
+      "epsilon_prev_old_depth": 0,
+      "T_prev_index": 0,
+      "epsilon_prev_index": 0
+    },
+    {
+      "stage": "before_G",
+      "T_old_depth": 1,
+      "epsilon_old_depth": 1,
+      "T_prev_old_depth": 0,
+      "epsilon_prev_old_depth": 0,
+      "T_prev_index": 0,
+      "epsilon_prev_index": 0
+    },
+    {
+      "stage": "before_G",
+      "T_old_depth": 1,
+      "epsilon_old_depth": 1,
+      "T_prev_old_depth": 0,
+      "epsilon_prev_old_depth": 0,
+      "T_prev_index": 0,
+      "epsilon_prev_index": 0
+    },
+    {
+      "stage": "before_G",
+      "T_old_depth": 1,
+      "epsilon_old_depth": 1,
+      "T_prev_old_depth": 0,
+      "epsilon_prev_old_depth": 0,
+      "T_prev_index": 0,
+      "epsilon_prev_index": 0
+    }
+  ],
+  "terminal_independent_residual": {
+    "temporal_abs_W": 693.0154415902886,
+    "latent_abs_W": 87.73379308653011,
+    "source_abs_W": 754.2350010442218,
+    "phase_max_increment": 0.07114668063610671,
+    "T_update_K": 1.97522081556167,
+    "phase_fixed_point_defect": 0.007930382176868655,
+    "phase_temperature_defect": 0.004970677026148695,
+    "FE_max_fixed_scaled": 0.000350211945696793,
+    "FE_L1_fixed_scaled": 2.5577451662271457e-09,
+    "FE_signed_W": -0.1751615809065783,
+    "FE_L1_W": 0.1752520366620431,
+    "latent_lag_L1_W": 0.17521236636206405,
+    "FE_cross_error": 2.257321352577512e-16,
+    "boundary_T_defect_K": 0.0,
+    "linear_true_fixed": 2.0943089691921383e-11,
+    "linear_roundoff_bound": 2.654040837914727e-13,
+    "linear_iterations": 1,
+    "native_initial_residual": 7.266658631077434e-08,
+    "native_final_residual": 2.094308749794391e-11,
+    "draft_joint_residual_pass": false,
+    "RG_T_at_input_K": 1.97522081556167,
+    "RG_epsilon_at_input_all_fields": 0.07114668063610671,
+    "input_FE_max_fixed_scaled": 0.00035021194573320893,
+    "input_phase_complementarity": 0.04236308173465581,
+    "input_phase_temperature_defect": 0.02655271744021532,
+    "output_phase_complementarity": 0.007930382176868655,
+    "output_phase_temperature_defect": 0.004970677026148695,
+    "active_set_changes": 2,
+    "fixed_point_residual_location": "input; terminal output requires a further G and is not inferred",
+    "time_index": 738,
+    "time": 7.3799999999999395e-06,
+    "dt": 1e-08,
+    "iteration": 21,
+    "phase_mean_increment": 4.447060255795614e-06,
+    "latent_cross_fixed_scaled": 1.961836142250192e-18,
+    "latent_signed_W": 80.99177858181805,
+    "terminal_output_fixed_point_residual": "NOT_EVALUATED_NO_22ND_G",
+    "native_phase_mean_increment": 4.447060255792668e-06,
+    "native_phase_max_increment": 0.07114668063610671
+  },
+  "first_independent_residual": {
+    "temporal_abs_W": 775.4053963588699,
+    "latent_abs_W": 87.5270505672665,
+    "source_abs_W": 754.2349867629146,
+    "phase_max_increment": 1.0,
+    "T_update_K": 6.748142840448963,
+    "phase_fixed_point_defect": 0.005454924989702237,
+    "phase_temperature_defect": 0.053807942289110566,
+    "FE_max_fixed_scaled": 0.004922672018095508,
+    "FE_L1_fixed_scaled": 1.2618050025490534e-06,
+    "FE_signed_W": 81.99800063636752,
+    "FE_L1_W": 86.45657882065872,
+    "latent_lag_L1_W": 86.44160081588426,
+    "FE_cross_error": 2.185295592925937e-16,
+    "boundary_T_defect_K": 0.0,
+    "linear_true_fixed": 3.6041427135823343e-12,
+    "linear_roundoff_bound": 2.6572407182538585e-13,
+    "linear_iterations": 2,
+    "native_initial_residual": 0.0003218940318841718,
+    "native_final_residual": 3.6041392100773427e-12,
+    "draft_joint_residual_pass": false,
+    "RG_T_at_input_K": 6.748142840448963,
+    "RG_epsilon_at_input_all_fields": 1.0,
+    "input_FE_max_fixed_scaled": 0.0012331954442190288,
+    "input_phase_complementarity": 1.0,
+    "input_phase_temperature_defect": 1.0,
+    "output_phase_complementarity": 0.005454924989702237,
+    "output_phase_temperature_defect": 0.053807942289110566,
+    "active_set_changes": 4,
+    "fixed_point_residual_location": "input; terminal output requires a further G and is not inferred",
+    "time_index": 738,
+    "time": 7.3799999999999395e-06,
+    "dt": 1e-08,
+    "iteration": 1,
+    "phase_mean_increment": 6.847470269019695e-05,
+    "latent_cross_fixed_scaled": 9.809301344988957e-19,
+    "latent_signed_W": 80.78499062663784,
+    "terminal_output_fixed_point_residual": "next observed input"
+  },
+  "worst_cross_energy": 2.610579780210926e-16,
+  "worst_cross_latent": 1.961836142250192e-18,
+  "worst_linear_true_plus_gamma256": 2.2343156420959558e-11,
+  "worst_boundary_T_K": 0.0,
+  "fixed_scale": {
+    "entry_Tscale_K": 3710.4316126698473,
+    "entry_scale_SHA256": "322cb57d92dec439752c37bf3678e62a53082245e6c0116fab38e23a5c2372a9",
+    "definition": "s_i=max(1,abs(Aentry)*max(1,maxabs(Tentry))+abs(bentry)), unchanged for all21 rows"
+  },
+  "acceptance": {
+    "native_byte_difference": 0,
+    "independent_matrix_energy_latent_cross_max": 5e-12,
+    "true_linear_fixed_norm_plus_gamma256_strictly_below": 1e-09,
+    "zeroGradient_boundary_K": 1e-06,
+    "draft_FE_fixed_scaled": 2e-09,
+    "draft_phase_temperature": 1e-08,
+    "native_epsilon_increment": 1e-06
+  },
+  "observed_alternation": {
+    "window_rounds": [
+      17,
+      18,
+      19,
+      20,
+      21
+    ],
+    "odd_after_full_state_SHA256": "734ac997cf837a33562798ac44ee6cebebdf554f59d342fbd8e9a2aef543afda",
+    "even_after_full_state_SHA256": "dedcf4711c4fed1c1f5708b1cf2b7e3b99ce7d1b851dc881791fc08c06c6018c",
+    "status": "two distinct complete serialized states repeat by parity in observed window; no further G or universal convergence claim"
+  },
+  "resources": {
+    "batch_hard_deadline_s": 600,
+    "absolute_deadline_epoch": 1792334770.989452,
+    "first_active_epoch": 1792334170.989452,
+    "active_final_epoch": 1792334412.7212577,
+    "continuous_active_wall_s": 241.7318058013916,
+    "cycle1_GNU": {
+      "status": "RECORDED",
+      "wall_seconds": 50.28,
+      "max_rss_kib": 858524
+    },
+    "cycle2_GNU": {
+      "status": "RECORDED",
+      "wall_seconds": 69.82,
+      "max_rss_kib": 151464
+    },
+    "measured_initial_directory_preparation_wall_s": 233.11817479133606,
+    "preparation_measurement_scope": "fresh isolated-directory creation to first active process; prior source reading outside this measured interval",
+    "report_precommit_elapsed_s": 390.803,
+    "data_estimate": {
+      "full_round_bytes": 86941904,
+      "compact_round_bytes": 35907195,
+      "energy_assembly_bytes": 22023941,
+      "estimated_new_peak_without_dedup_bytes": 1631430336,
+      "method": "4 full local gate rounds +21 compact replay +21 compact assembly +64MiB tooling reserve; no old captures copied; dedup only completed new data"
+    },
+    "stage_end_peak_new_data": {
+      "logical_bytes": 1574285278,
+      "unique_inode_bytes": 892255280,
+      "allocated_unique_bytes": 893440000,
+      "files": 901
+    },
+    "final_new_data": {
+      "logical_bytes": 1574285278,
+      "unique_inode_bytes": 370803850,
+      "allocated_unique_bytes": 372183040,
+      "files": 901
+    },
+    "resource_policy": "MONITORED_ONLY_STAGE_END; peak process RSS is not concurrent process-tree sum; no memory/disk hard isolation",
+    "warnings": [],
+    "lossless_new_data_hardlinks": 412,
+    "build_wall_s": 18.752741812728345,
+    "full21_wall_s": 3.2935469220392406,
+    "same_state_no_solve_assembly_total_s": 14.408562923315912,
+    "local_native_G_calls": 4,
+    "full_chain_native_G_calls": 21,
+    "G_calls_after_original21": 0,
+    "CFD_S_M1_runs": 0,
+    "native_builds": 1,
+    "debug_cycles": 2,
+    "remaining_publication_note": "GitHub push/PR/CI after this precommit point is outside active batch, measured at delivery."
+  },
+  "stages_cycle1": [
+    {
+      "name": "build-1",
+      "exit_code": 0,
+      "wall_seconds": 18.752741812728345,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 18.75,
+        "max_rss_kib": 858524
+      }
+    },
+    {
+      "name": "dependencies",
+      "exit_code": 0,
+      "wall_seconds": 0.012594529893249273,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 0.01,
+        "max_rss_kib": 3072
+      }
+    },
+    {
+      "name": "probe-legacy",
+      "exit_code": 0,
+      "wall_seconds": 0.578066079877317,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 0.57,
+        "max_rss_kib": 97536
+      }
+    },
+    {
+      "name": "probe-fixed",
+      "exit_code": 0,
+      "wall_seconds": 0.5750618898309767,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 0.57,
+        "max_rss_kib": 96768
+      }
+    },
+    {
+      "name": "single-round1",
+      "exit_code": 0,
+      "wall_seconds": 1.976593831088394,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 1.97,
+        "max_rss_kib": 96768
+      }
+    },
+    {
+      "name": "single-round2",
+      "exit_code": 1,
+      "wall_seconds": 0.043510104063898325,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 0.04,
+        "max_rss_kib": 60672
+      }
+    }
+  ],
+  "stages_cycle2": [
+    {
+      "name": "dependencies",
+      "exit_code": 0,
+      "wall_seconds": 0.012123630847781897,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 0.01,
+        "max_rss_kib": 3072
+      }
+    },
+    {
+      "name": "single-round2",
+      "exit_code": 0,
+      "wall_seconds": 2.0169346961192787,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 2.01,
+        "max_rss_kib": 96768
+      }
+    },
+    {
+      "name": "two-rounds",
+      "exit_code": 0,
+      "wall_seconds": 3.398466827813536,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 3.39,
+        "max_rss_kib": 97220
+      }
+    },
+    {
+      "name": "chain21",
+      "exit_code": 0,
+      "wall_seconds": 3.2935469220392406,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 3.29,
+        "max_rss_kib": 99044
+      }
+    },
+    {
+      "name": "energy-0",
+      "exit_code": 0,
+      "wall_seconds": 0.6868670010007918,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 0.68,
+        "max_rss_kib": 96768
+      }
+    },
+    {
+      "name": "energy-1",
+      "exit_code": 0,
+      "wall_seconds": 0.7013769578188658,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 0.69,
+        "max_rss_kib": 96768
+      }
+    },
+    {
+      "name": "energy-2",
+      "exit_code": 0,
+      "wall_seconds": 0.6790953320451081,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 0.67,
+        "max_rss_kib": 96768
+      }
+    },
+    {
+      "name": "energy-3",
+      "exit_code": 0,
+      "wall_seconds": 0.6814898708835244,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 0.67,
+        "max_rss_kib": 96768
+      }
+    },
+    {
+      "name": "energy-4",
+      "exit_code": 0,
+      "wall_seconds": 0.6834844411350787,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 0.68,
+        "max_rss_kib": 96768
+      }
+    },
+    {
+      "name": "energy-5",
+      "exit_code": 0,
+      "wall_seconds": 0.6828692359849811,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 0.68,
+        "max_rss_kib": 96768
+      }
+    },
+    {
+      "name": "energy-6",
+      "exit_code": 0,
+      "wall_seconds": 0.6865722541697323,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 0.68,
+        "max_rss_kib": 96768
+      }
+    },
+    {
+      "name": "energy-7",
+      "exit_code": 0,
+      "wall_seconds": 0.6859856504015625,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 0.68,
+        "max_rss_kib": 96768
+      }
+    },
+    {
+      "name": "energy-8",
+      "exit_code": 0,
+      "wall_seconds": 0.6959563801065087,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 0.69,
+        "max_rss_kib": 96768
+      }
+    },
+    {
+      "name": "energy-9",
+      "exit_code": 0,
+      "wall_seconds": 0.6869616191834211,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 0.68,
+        "max_rss_kib": 96768
+      }
+    },
+    {
+      "name": "energy-10",
+      "exit_code": 0,
+      "wall_seconds": 0.6867695478722453,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 0.68,
+        "max_rss_kib": 96768
+      }
+    },
+    {
+      "name": "energy-11",
+      "exit_code": 0,
+      "wall_seconds": 0.6844002460129559,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 0.68,
+        "max_rss_kib": 96768
+      }
+    },
+    {
+      "name": "energy-12",
+      "exit_code": 0,
+      "wall_seconds": 0.6847805418074131,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 0.68,
+        "max_rss_kib": 96768
+      }
+    },
+    {
+      "name": "energy-13",
+      "exit_code": 0,
+      "wall_seconds": 0.683062634896487,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 0.68,
+        "max_rss_kib": 96768
+      }
+    },
+    {
+      "name": "energy-14",
+      "exit_code": 0,
+      "wall_seconds": 0.6855618460103869,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 0.68,
+        "max_rss_kib": 96768
+      }
+    },
+    {
+      "name": "energy-15",
+      "exit_code": 0,
+      "wall_seconds": 0.688965667039156,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 0.68,
+        "max_rss_kib": 96768
+      }
+    },
+    {
+      "name": "energy-16",
+      "exit_code": 0,
+      "wall_seconds": 0.6858328091911972,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 0.68,
+        "max_rss_kib": 96768
+      }
+    },
+    {
+      "name": "energy-17",
+      "exit_code": 0,
+      "wall_seconds": 0.6822629501111805,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 0.68,
+        "max_rss_kib": 96768
+      }
+    },
+    {
+      "name": "energy-18",
+      "exit_code": 0,
+      "wall_seconds": 0.6828057528473437,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 0.68,
+        "max_rss_kib": 96768
+      }
+    },
+    {
+      "name": "energy-19",
+      "exit_code": 0,
+      "wall_seconds": 0.6872989637777209,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 0.68,
+        "max_rss_kib": 96768
+      }
+    },
+    {
+      "name": "energy-20",
+      "exit_code": 0,
+      "wall_seconds": 0.6861632210202515,
+      "resources": {
+        "status": "RECORDED",
+        "wall_seconds": 0.68,
+        "max_rss_kib": 96768
+      }
+    }
+  ],
+  "engineering_history": [
+    {
+      "cycle": 1,
+      "native_build": "PASS",
+      "lifecycle_probes": "PASS",
+      "round1_full": "PASS",
+      "round2_single": "case-context error before G: original iter1/snapshot has no system/controlDict link",
+      "full21_executions": 0,
+      "artifacts_preserved": true
+    },
+    {
+      "cycle": 2,
+      "new_native_builds": 0,
+      "CXX_and_binary_unchanged": true,
+      "repair": "fresh read-only case views reference original field/time/metadata and complete constant/system; no changes to old snapshots",
+      "local_remaining_G_calls": 3,
+      "full21_executions": 1,
+      "all_gates": "PASS"
+    }
+  ],
+  "provenance": {
+    "binary_SHA256": "96bde4effbae1df8d1eb323b0837dbe33597cbce39a0c4d3306c505ff1d0ddc0",
+    "tool_sources_SHA256": {
+      "run_once.py": "b46efbed9a58342400ba1f3ef76198471f721af1f80519e39633d3ea0fa38100",
+      "check_native.py": "3ed52b67bb9485f61b78af70613a7138c98e316a9a401845d256a25130947fb3",
+      "oracle.py": "2c769e2fa9d273ee0ba25ae29b1cbd4ed9bfe69fb0c4a31cf258b2f62e321837",
+      "format_checks.py": "2df67f03fc3a795c8c80c2cfd3ad4c9bba23dae84c633f44ae16703f5499c335",
+      "extra_checks.py": "1d10dabfe7f5a685b73446be96ccfad78d0363e1c6da92307a7ff610455e94a1",
+      "solver/readControls.H": "64da838052840665f30f49280dfcccaf60e8dc40f86245698d951bd8b654e3da",
+      "solver/nativeNonEquilibrium.C": "d02c7ec7caebcddee6cc4d612c40dc447b3a2be9198993a9f5c44a99cebcb671",
+      "solver/oneG.H": "88e3ff8dace565db6487a44fd106b71bcbbfbaf8382a8180977d2aeeb7e7e411",
+      "solver/thermalReplay.H": "ea413d3d9990eab7a1007c3396d6285a045111b27254e7ed63416793520d020d",
+      "solver/assembleOnly.H": "cba377fa28657a6d0b0c0e9bb457cec320eee4993fec36b3aa774b09e3b2e02d",
+      "solver/thermalData.H": "0561b2bc7768fde84d6f3e0ed309debcf6b732564202d104c2c27e76bd17a76c",
+      "solver/Make/files": "ac8d705c0bc1fd223d1c94c5e3f81312fccf632a8b813bb08176e914a2a66136",
+      "solver/Make/options": "271fd8811640102072ef68abfb0df28f90d2f6653b0989224a4424e76050943a"
+    },
+    "consumed_sources_SHA256": {
+      "OpenFOAM-v2512/src/OpenFOAM/db/Time/Time.H": "b46f578c717721755422fe8eb3749cc280d683e250952c0437e1e394d246114c",
+      "OpenFOAM-v2512/src/OpenFOAM/fields/GeometricFields/GeometricField/GeometricField.C": "b1de340737a0d928ce88cbfb12409ec4ee0889d1cc97aae042caa8d0bd71160d",
+      "OpenFOAM-v2512/src/OpenFOAM/fields/GeometricFields/GeometricField/GeometricField.H": "f0b4587e49bef54073233bcb07775c29e1da8392dce1b2a109576024745826fa",
+      "OpenFOAM-v2512/src/OpenFOAM/matrices/lduMatrix/lduMatrix/lduMatrixATmul.C": "e2f1fb9de03bfbd7454ae5d98f1bdf91a105465d98aabfb10809ef13efbbfcae",
+      "OpenFOAM-v2512/src/OpenFOAM/matrices/lduMatrix/smoothers/symGaussSeidel/symGaussSeidelSmoother.C": "bd54dc8cfa4cd69c4ab9df031e2c3f02fbc33452a0f625b4b23b5e198ad2405a",
+      "OpenFOAM-v2512/src/OpenFOAM/matrices/lduMatrix/solvers/smoothSolver/smoothSolver.C": "b23dafc9e5b71ab3e355beca0334aaac51d68e22cecd747361050476f4af14ea",
+      "OpenFOAM-v2512/src/OpenFOAM/meshes/meshState/meshState.H": "3b1525f13cd381744d23542df2a249cb1084fa0b331a45bb9206d07dd01bd086",
+      "OpenFOAM-v2512/src/finiteVolume/fields/fvPatchFields/fvPatchField/fvPatchField.H": "189c32397b38d056248cc712df1f2a7dc655b7886d475ea0cc843dba80aeeb71",
+      "OpenFOAM-v2512/src/finiteVolume/finiteVolume/ddtSchemes/EulerDdtScheme/EulerDdtScheme.C": "7c13af1cf0d954a802d742e32d97c74fb9a6b3fecb8cff49a474d856bacff2e9",
+      "OpenFOAM-v2512/src/finiteVolume/fvMatrices/fvMatrix/fvMatrix.C": "f833cc39d86039f47ebb6d7685939df1af50ff1b4395c86a7dace863ecc3b192",
+      "OpenFOAM-v2512/src/finiteVolume/fvMatrices/fvMatrix/fvMatrixSolve.C": "9065053a1bde494de9c9d0f6959767c84eadce709c81c5673dbb46b676c557f3",
+      "applications/solvers/laserbeamFoam/TEqn.H": "8542f190581444d0be58cc497ae6a7f1d524eed0998958abb35cd777940c92f2",
+      "applications/solvers/laserbeamFoam/createFields.H": "69a36578b1f99b468c4d34aff0529e751d591bd8c3b25f9afb2d041e8c8f7ea6",
+      "applications/solvers/laserbeamFoam/laserbeamFoam.C": "ebbb6768fb47c5940d7253c7285a9fc5a34095d7100d49a5db0cd701977e9110",
+      "applications/solvers/laserbeamFoam/readControls.H": "64da838052840665f30f49280dfcccaf60e8dc40f86245698d951bd8b654e3da",
+      "applications/solvers/laserbeamFoam/updateProps.H": "c8f260a46675cca76729aaff0b168f55e617d11cc8ccbdf47a17ff4f024c2d8b",
+      "OpenFOAM-v2512/src/OpenFOAM/primitives/functions/Polynomial/Polynomial.H": "c272e803afd8c3dd45bc21323733ee27301c6044d5e44b109d570ae1ec44d7eb",
+      "OpenFOAM-v2512/src/OpenFOAM/primitives/functions/Polynomial/Polynomial.C": "2d9bf48a14700bc76d43a8d2b681c2960e619013e67a57968bc75b604bbf35ac",
+      "prior-private-tool/tphase-header-noneq-20261018-001/run_once.py": "1d18e896b4ffbb17bde616edead35a2570c456223d05597cba19a6e1fed134cb",
+      "prior-private-tool/tphase-header-noneq-20261018-001/geometry.json": "ad59a01bcef905c57d8eaddd40ce0a2bceb2e85f1a5933dad422e09c2e25a14b",
+      "prior-private-tool/tphase-header-noneq-20261018-001/check_native.py": "1b394478ff2f5936be2297fb5e7ab0d531d17976d9bc07490a1aad8040c9c768",
+      "prior-private-tool/tphase-header-noneq-20261018-001/oracle.py": "2c769e2fa9d273ee0ba25ae29b1cbd4ed9bfe69fb0c4a31cf258b2f62e321837",
+      "prior-private-tool/tphase-header-noneq-20261018-001/initCorrectPhi.H": "d8311ce9af0571879297bd792b60ed86ee7fdc1314cac72e7b442df35e279bb3",
+      "prior-private-tool/tphase-header-noneq-20261018-001/createFields.H": "69a36578b1f99b468c4d34aff0529e751d591bd8c3b25f9afb2d041e8c8f7ea6",
+      "prior-private-tool/tphase-header-noneq-20261018-001/readControls.H": "64da838052840665f30f49280dfcccaf60e8dc40f86245698d951bd8b654e3da",
+      "prior-private-tool/tphase-header-noneq-20261018-001/nativeNonEquilibrium.C": "e2cd47c0d4dc02b92c38d6293e69669eaccc7e3ced588b82c73c076d1d191db8",
+      "prior-private-tool/tphase-header-noneq-20261018-001/oneG.H": "88e3ff8dace565db6487a44fd106b71bcbbfbaf8382a8180977d2aeeb7e7e411",
+      "prior-private-tool/tphase-header-noneq-20261018-001/thermalReplay.H": "6149efbf033185568675bb7f052879c6c329dcf0c50571d212fda36d0a1f4a54",
+      "prior-private-tool/tphase-header-noneq-20261018-001/updateKappaCp.H": "521971158e6d3ff4ea54a45de42359412b8721bc6532551ac0b2006be3793c8e",
+      "prior-private-tool/tphase-header-noneq-20261018-001/assembleOnly.H": "cba377fa28657a6d0b0c0e9bb457cec320eee4993fec36b3aa774b09e3b2e02d",
+      "prior-private-tool/tphase-header-noneq-20261018-001/correctPhi.esi.H": "05856aa966b50d628a4f62899a8d1d9d0652f1b9baaf92e38744ef78ef3ea675",
+      "prior-private-tool/tphase-header-noneq-20261018-001/updateYDim.H": "c9daa0bcc2201dec95f53615f5010affc29893b00b2b3429e168ee2fdcb17152",
+      "prior-private-tool/tphase-header-noneq-20261018-001/setInitialDeltaT.H": "627472691db82d773d8a06f2f8c63ad6fd19734f2c9eabe88c31e412bc12a167",
+      "prior-private-tool/tphase-header-noneq-20261018-001/UEqn.H": "586cc973acc489390ba3e2079d39be16d6d7f5137ff80dd76852c71db179082d",
+      "prior-private-tool/tphase-header-noneq-20261018-001/updateProps.H": "c8f260a46675cca76729aaff0b168f55e617d11cc8ccbdf47a17ff4f024c2d8b",
+      "prior-private-tool/tphase-header-noneq-20261018-001/TEqn.H": "5fdc11880cdd1a2c376475acfbfbe129dc1922902e6af9cbbe59841b47550452",
+      "prior-private-tool/tphase-header-noneq-20261018-001/rhofs.H": "02311b8b993f0087f28a9a37a59887e452e003531751f3303902ceae41fec66b",
+      "prior-private-tool/tphase-header-noneq-20261018-001/pEqn.H": "f09dbd0b7fd6ae8bf55fca80a561c19ee7745ac21191f8ee3203eb40ecc4ffca",
+      "prior-private-tool/tphase-header-noneq-20261018-001/thermalData.H": "8b31c6304c15e55cea8f625671146bd9b87dfe5dbd4bead714c2119d2c5a2e2b",
+      "prior-private-tool/tphase-header-noneq-20261018-001/laserbeamFoam.C": "a19bcac0194187d3e7faac4cd1c224a601be1599c878d405f9e8e9d5a3136079",
+      "prior-private-tool/tphase-header-noneq-20261018-001/setDeltaT.H": "43792b990dba883408ae6e23da9109767a837c7cbd4207a7a3d1852f2131634d",
+      "prior-private-tool/tphase-header-noneq-20261018-001/alphaEqnSubCycle.H": "18876f2adbfd288f2733653c64fbb38b3d971143d3d8a82b6a7524914f6982e4",
+      "prior-private-tool/tphase-header-noneq-20261018-001/alphaControls.H": "8e9308777208495a1c87b615ada3f0a147553a19da3fa93963ce44fcd4f2a8fc",
+      "prior-private-tool/tphase-header-noneq-20261018-001/alphaSuSp.H": "e0592e0a83ccf26f985fec8d36ab21baf23573b8ef5e89b0037149dc8f8cd463",
+      "prior-private-tool/tphase-header-noneq-20261018-001/createPorosity.H": "fe2f66cba2bf3e613bbb1333cc02f6025c4d036864f720b663f42b33d3503334",
+      "prior-private-tool/tphase-header-noneq-20261018-001/firstIter.H": "ec4666005d736981dd7ee65b4109827e95051e2fcbc46059d02db9f1faefd016",
+      "prior-private-tool/tphase-header-noneq-20261018-001/alphaEqn.H": "b05056ce6ea249a8043ff0a50c630c95af8200eee9f85fa6422ca5d45442b146",
+      "prior-private-tool/tphase-header-noneq-20261018-001/porousAlphaCourantNo.H": "7c8aca216844e12a9bdfda4efb82d9927a2efba71b986293ddff4c270e481d3a",
+      "prior-private-tool/tphase-header-noneq-20261018-001/porousCourantNo.H": "0872d870f51dbae9b33feb9476fa4b5cc467f061ada445ee41cb97d25fdc754f",
+      "prior-private-tool/tphase-header-noneq-20261018-001/setRDeltaT.H": "cb3add4c23f3c01c94b1c837b061a17ae96d126a7ce7185ee982e124ffea1e44",
+      "prior-private-tool/tphase-header-noneq-20261018-001/createAlphaFluxes.H": "77b142f1d144f09bbea41218c65c7e839e4745549853faf16fb4917351f09c5f",
+      "prior-private-tool/tphase-header-noneq-20261018-001/CourantNo.H": "400b1dacfa1e99b65f8e5a1808c621114458922798d7415287f0e5d9be52a73d",
+      "prior-private-tool/tphase-header-noneq-20261018-001/alphaCourantNo.H": "efc35048731c6ad07f209530e654cc1790ddb01be227cbded7de9b6922d6bfb9",
+      "prior-private-tool/tphase-header-noneq-20261018-001/files": "62b9ed46fd7c5d6652fd373736bbfd61cc578ca11a4da04abfc2fd326022d069",
+      "prior-private-tool/tphase-header-noneq-20261018-001/options": "271fd8811640102072ef68abfb0df28f90d2f6653b0989224a4424e76050943a",
+      "benchmarks/performance/M1-stage2.json": "a3b5801452c9f54391b65998174f7e0b6837e328bc5c366b6cfe17db43a1c6d0",
+      "OpenFOAM-v2512/src/OpenFOAM/primitives/hashes/SHA1/SHA1.H": "9f59210e1a7245c7c01ad3e6dfe35b01ee5ff806573ab4d4526961d880e3aba9",
+      "OpenFOAM-v2512/src/OpenFOAM/primitives/hashes/SHA1/SHA1I.H": "58b595f7d2d0e2b4974dbc0ffbb57a4ddfc036ad79fca1a851c2992c9f21dd85",
+      "OpenFOAM-v2512/src/OpenFOAM/primitives/Scalar/scalarImpl.H": "8347772bf0e4eca30818805e245339560b835512ed510ab5b2bd8108283d26c0",
+      "OpenFOAM-v2512/src/OpenFOAM/primitives/Scalar/scalarImpl.txx": "c5aafe022fab77bd82877fa37fc77bc1e2bdd60998467e1634a66edd0cb03208",
+      "prior-private-tool/tphase-real-chain-20261018-001/initCorrectPhi.H": "d8311ce9af0571879297bd792b60ed86ee7fdc1314cac72e7b442df35e279bb3",
+      "prior-private-tool/tphase-real-chain-20261018-001/createFields.H": "69a36578b1f99b468c4d34aff0529e751d591bd8c3b25f9afb2d041e8c8f7ea6",
+      "prior-private-tool/tphase-real-chain-20261018-001/readControls.H": "64da838052840665f30f49280dfcccaf60e8dc40f86245698d951bd8b654e3da",
+      "prior-private-tool/tphase-real-chain-20261018-001/nativeNonEquilibrium.C": "e2cd47c0d4dc02b92c38d6293e69669eaccc7e3ced588b82c73c076d1d191db8",
+      "prior-private-tool/tphase-real-chain-20261018-001/oneG.H": "88e3ff8dace565db6487a44fd106b71bcbbfbaf8382a8180977d2aeeb7e7e411",
+      "prior-private-tool/tphase-real-chain-20261018-001/thermalReplay.H": "0a10569e54362c300afdaea1dcc382e22496d941d90ab4203a1bedd0a0dc7e8e",
+      "prior-private-tool/tphase-real-chain-20261018-001/updateKappaCp.H": "521971158e6d3ff4ea54a45de42359412b8721bc6532551ac0b2006be3793c8e",
+      "prior-private-tool/tphase-real-chain-20261018-001/assembleOnly.H": "cba377fa28657a6d0b0c0e9bb457cec320eee4993fec36b3aa774b09e3b2e02d",
+      "prior-private-tool/tphase-real-chain-20261018-001/correctPhi.esi.H": "05856aa966b50d628a4f62899a8d1d9d0652f1b9baaf92e38744ef78ef3ea675",
+      "prior-private-tool/tphase-real-chain-20261018-001/updateYDim.H": "c9daa0bcc2201dec95f53615f5010affc29893b00b2b3429e168ee2fdcb17152",
+      "prior-private-tool/tphase-real-chain-20261018-001/setInitialDeltaT.H": "627472691db82d773d8a06f2f8c63ad6fd19734f2c9eabe88c31e412bc12a167",
+      "prior-private-tool/tphase-real-chain-20261018-001/UEqn.H": "586cc973acc489390ba3e2079d39be16d6d7f5137ff80dd76852c71db179082d",
+      "prior-private-tool/tphase-real-chain-20261018-001/updateProps.H": "c8f260a46675cca76729aaff0b168f55e617d11cc8ccbdf47a17ff4f024c2d8b",
+      "prior-private-tool/tphase-real-chain-20261018-001/TEqn.H": "005e67a5534c687762d3c4efed1877db4dd31b82640c6d5ef379c76eb57a7396",
+      "prior-private-tool/tphase-real-chain-20261018-001/rhofs.H": "02311b8b993f0087f28a9a37a59887e452e003531751f3303902ceae41fec66b",
+      "prior-private-tool/tphase-real-chain-20261018-001/pEqn.H": "f09dbd0b7fd6ae8bf55fca80a561c19ee7745ac21191f8ee3203eb40ecc4ffca",
+      "prior-private-tool/tphase-real-chain-20261018-001/thermalData.H": "58d1afb1c7179471afbc03bb617161619d200fac170f44a8fbbd9f99e8a83920",
+      "prior-private-tool/tphase-real-chain-20261018-001/laserbeamFoam.C": "a19bcac0194187d3e7faac4cd1c224a601be1599c878d405f9e8e9d5a3136079",
+      "prior-private-tool/tphase-real-chain-20261018-001/setDeltaT.H": "43792b990dba883408ae6e23da9109767a837c7cbd4207a7a3d1852f2131634d",
+      "prior-private-tool/tphase-real-chain-20261018-001/alphaEqnSubCycle.H": "18876f2adbfd288f2733653c64fbb38b3d971143d3d8a82b6a7524914f6982e4",
+      "prior-private-tool/tphase-real-chain-20261018-001/alphaControls.H": "8e9308777208495a1c87b615ada3f0a147553a19da3fa93963ce44fcd4f2a8fc",
+      "prior-private-tool/tphase-real-chain-20261018-001/alphaSuSp.H": "e0592e0a83ccf26f985fec8d36ab21baf23573b8ef5e89b0037149dc8f8cd463",
+      "prior-private-tool/tphase-real-chain-20261018-001/createPorosity.H": "fe2f66cba2bf3e613bbb1333cc02f6025c4d036864f720b663f42b33d3503334",
+      "prior-private-tool/tphase-real-chain-20261018-001/firstIter.H": "ec4666005d736981dd7ee65b4109827e95051e2fcbc46059d02db9f1faefd016",
+      "prior-private-tool/tphase-real-chain-20261018-001/alphaEqn.H": "b05056ce6ea249a8043ff0a50c630c95af8200eee9f85fa6422ca5d45442b146",
+      "prior-private-tool/tphase-real-chain-20261018-001/porousAlphaCourantNo.H": "7c8aca216844e12a9bdfda4efb82d9927a2efba71b986293ddff4c270e481d3a",
+      "prior-private-tool/tphase-real-chain-20261018-001/porousCourantNo.H": "0872d870f51dbae9b33feb9476fa4b5cc467f061ada445ee41cb97d25fdc754f",
+      "prior-private-tool/tphase-real-chain-20261018-001/setRDeltaT.H": "cb3add4c23f3c01c94b1c837b061a17ae96d126a7ce7185ee982e124ffea1e44",
+      "prior-private-tool/tphase-real-chain-20261018-001/createAlphaFluxes.H": "77b142f1d144f09bbea41218c65c7e839e4745549853faf16fb4917351f09c5f",
+      "prior-private-tool/tphase-real-chain-20261018-001/CourantNo.H": "400b1dacfa1e99b65f8e5a1808c621114458922798d7415287f0e5d9be52a73d",
+      "prior-private-tool/tphase-real-chain-20261018-001/alphaCourantNo.H": "efc35048731c6ad07f209530e654cc1790ddb01be227cbded7de9b6922d6bfb9",
+      "prior-private-tool/tphase-real-chain-20261018-001/files": "44fa51d9d8d6b3fd5398f3ddda4ce84a007d26ddb850a433e32209376cb25bba",
+      "prior-private-tool/tphase-real-chain-20261018-001/options": "e009b37c982de06277821035ef921e78c79f3217abf27f2a75b459d55cfac16e",
+      "prior-private-tool/tphase-real-chain-20261018-001/thermalObserve": "1724a84b2414d068dc4c8d7bddf0622ef0a224d3c9792847f402eb4aa7d9c9b8",
+      "OpenFOAM-v2512/src/OpenFOAM/fields/GeometricFields/GeometricField/GeometricFieldI.H": "ca286a74759ca200a88797ce486795742c310ee8181d4c785deeb51fb39f9fc9",
+      "OpenFOAM-v2512/src/OpenFOAM/expressionTemplates/GeometricFieldExpression.H": "ba9b13d7cd62d364ebc95894a94bf5a25d724fde4b0e3e7adeae727da47d63ae",
+      "prior-private-tool/tphase-bitexact-20261018-002/readControls.H": "64da838052840665f30f49280dfcccaf60e8dc40f86245698d951bd8b654e3da",
+      "prior-private-tool/tphase-bitexact-20261018-002/nativeNonEquilibrium.C": "d02c7ec7caebcddee6cc4d612c40dc447b3a2be9198993a9f5c44a99cebcb671",
+      "prior-private-tool/tphase-bitexact-20261018-002/oneG.H": "88e3ff8dace565db6487a44fd106b71bcbbfbaf8382a8180977d2aeeb7e7e411",
+      "prior-private-tool/tphase-bitexact-20261018-002/thermalReplay.H": "51587f3672581fcbe58817ae5f49f68ab60a0163963c98ddd8b67258d987dd21",
+      "prior-private-tool/tphase-bitexact-20261018-002/assembleOnly.H": "cba377fa28657a6d0b0c0e9bb457cec320eee4993fec36b3aa774b09e3b2e02d",
+      "prior-private-tool/tphase-bitexact-20261018-002/thermalData.H": "1a3e77b1ff7468475130ef08872286988b188fa79ca2432a7ae3ea2ef99c608c",
+      "prior-private-tool/tphase-bitexact-20261018-002/files": "2f8ffb3a3aa982e06e2253a61b494caf8fa4d5c14e3c255273d7709f5fb80c2a",
+      "prior-private-tool/tphase-bitexact-20261018-002/options": "271fd8811640102072ef68abfb0df28f90d2f6653b0989224a4424e76050943a"
+    },
+    "library_SHA256": {
+      "libfiniteVolume.so": "37dd5600be16cef1c6e320107e913c4cefad66beee1e76b2a43b461244c6efb0",
+      "libmeshTools.so": "1a388110176dfb2386ab1dcac573263143e6be34b1671487b62c3f8cf4c0b987",
+      "libOpenFOAM.so": "4a7b095aa31ddc63a20959ac72d24bf5b0195dca64b781553d52e2fd30461640",
+      "libstdc++.so.6": "ff0825e113603c3866680d5d52216bc6d8eedf3a59f52a0aef67ff01994db128",
+      "libm.so.6": "3dd5511ae94785c9f921429b0f2b2f7aabb461b6f0e6de6dfdbef15f24bdfee6",
+      "libgcc_s.so.1": "fc9d43b2f6c20e53b009238f767c5b949d202389e20de9e202ea684b4ba3729a",
+      "libc.so.6": "b2cf6c33b74d2f22543b7a469a75b538911e690f769d0b238843a49465b83793",
+      "libPstream.so": "f8dd06d0b9d43d31b19d4827aeafff8c0bd4fd56686e67aecc2bf1b8e22dee67",
+      "libfileFormats.so": "b891639662b3b526e40a8ba5241af91fc8ce0c615f76c15a929249bf856abc30",
+      "libsurfMesh.so": "1fd19dc49d8538ca377b330d7ea2ed274d27789e85eecd803586c887802c6f04",
+      "libz.so.1": "64c206f0146cc58bbddc4f22054436f4ff278f5a554aa3ce6921ddf7e9133370",
+      "libmpi.so.40": "27d2d690a5d1f971cf90e28e54e945519df7c1528a954ae4bfc8a436bfbb1982",
+      "libopen-rte.so.40": "69b31a92a4fb7e2f494a027a7d4dddff4e516aab5158827165e12730d7c0ff57",
+      "libopen-pal.so.40": "2a03b97563b724c6e42f853b90e2dc0619de3486628a7b065b74f7b30e5c35a1",
+      "libhwloc.so.15": "2efe6e32d0d3454b2bce0d3b8cd437f48691475717be4b431f96bcc2d4d9bc54",
+      "libevent_core-2.1.so.7": "2d04f8e4a4cd0cf3dfe214f655298b6819cf7b1ce5677c461b904830bcdb2f8f",
+      "libevent_pthreads-2.1.so.7": "2c12e1fbd54ac804e4de1badcb318217ada877ae18cab8b3ce89cf3626635537",
+      "libudev.so.1": "08b989e58a49b85468db9be8f5f915d756ae70865a291bb524bc87d9fedf6dda"
+    },
+    "native_git_trees": {
+      "src": "711ac074d22461cc72e715d4e2a704ae545df3af",
+      "applications": "6f9bac7ef814a1e202239c86a48d024e1c25d954",
+      "Allwmake": "7928602c808ae452e59e5c17ae217a47941d4975"
+    },
+    "frozen_M1_definition_SHA256": "a3b5801452c9f54391b65998174f7e0b6837e328bc5c366b6cfe17db43a1c6d0",
+    "cycle1_protected_files": 10228,
+    "cycle2_protected_files": 10351,
+    "both_protected_unchanged": true,
+    "cycle2_tools_unchanged": true,
+    "cycle2_consumed_sources_unchanged": true,
+    "source_diff_cycle1_SHA256": "82d217f46a937c9730edf2d6c75b94cc7670545b15c88ed5d61a059ce33fd1a3",
+    "controller_diff_cycle2_SHA256": "e04ee752307ce0b6d0afba6eed8fce3d385f193c91a1e09c7807ea3725afff5f",
+    "local_evidence_SHA256": {
+      "tphase-previter-20261018-001": {
+        "progress.json": "344c68fe18a75d46fc39d035b47d8f454c87a6ed5c884a9763ad3952ae8ecbaa",
+        "protected-before.json": "d026108602639f0daa1fd2dfec8d97de37986108d4cebd3c3168b1e1b6d54bb9",
+        "protected-after.json": "d026108602639f0daa1fd2dfec8d97de37986108d4cebd3c3168b1e1b6d54bb9",
+        "batch.time.txt": "7bed6de31b036f4eadcd3076b1620a401fc38846c6724c3c523dc0f906efe1b1",
+        "batch.log": "2004ea39b5c401b59b2dd52ab3d94af97fde517e97a32786ee9d5abbff126b47",
+        "batch.exit.txt": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3",
+        "preregister.json": "78ef39dc2f7ce03112a301840a4159d8336dae7a70fd2cb21b946886ac3f3e5f"
+      },
+      "tphase-previter-20261018-002": {
+        "progress.json": "f17840d9e95db79b88834fb6d9188e573321fd4354634cb978b6da5815febbdc",
+        "protected-before.json": "ff99acb7d26ec5763260e4540775b1fc3adbf9f0f480f84eb44e7e227129c14b",
+        "protected-after.json": "ff99acb7d26ec5763260e4540775b1fc3adbf9f0f480f84eb44e7e227129c14b",
+        "batch.time.txt": "6b179e1a7c480a122d388dde67a6de279103b7bf7d961bc6b9fa1cd44be04b30",
+        "batch.log": "2e8c1f11f8232e9ee3a6e31438f4d8396d7ffbde31c65fbc9528561bf686167f",
+        "batch.exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "preregister.json": "7ded68d3f47865686318314dc98974cd63715c16ad4eb75def3657b169635cf1"
+      }
+    }
+  },
+  "eligibility": "ELIGIBLE_TO_REQUEST_INDEPENDENT_CONVERGENCE_REFERENCE_DESIGN_ONLY; no reference experiment or algorithm/AI work authorized",
+  "retained_risks": [
+    "pressure_initial_guess_NO_GO",
+    "MAG_NO_BENEFIT_closed",
+    "258_original_thermal_cap_steps_unconverged",
+    "M1_physical_accuracy_and_grid_convergence_UNVERIFIED",
+    "EXP014_to_EXP023_failures_and_negative_results_retained",
+    "AI_NOT_STARTED"
+  ],
+  "PR5": "DRAFT_DO_NOT_MERGE",
+  "mean_increment_note": "Native volume-weighted mean and independent NumPy summation differ by roundoff (terminal about2.95e-18), within unchanged5e-12 cross arithmetic budget; native metrics/events themselves match byte-for-byte."
+}
