@@ -118,6 +118,13 @@ Also follow the existing `.agents/skills/laserbeamfoam/SKILL.md` conventions.
   timeIndex mismatch stopped full-chain validation. This quota is consumed;
   no extra repair/G/CFD/reference/AI is authorized. Preserve raw captures and
   both controller-error histories. Only propose a fresh zero-CFD lifecycle fix.
+- DEC-028 explicitly grants a fresh non-CFD batch: at most three isolated
+  build/debug cycles, native lifecycle proof and round1/round2 single-G plus
+  continuous-two gates, then one original 21-G replay and no-solve independent
+  residuals only after exact parity. Never force prevIter timeIndex or weaken
+  metadata/byte checks. 600 s hard deadline; 8 GiB/3 GiB MONITORED_ONLY warnings.
+  No S/M1/Time advance/22nd G/continuation/accelerator/AI. PR5 stays Draft,
+  unmerged. Passing establishes reference-design request eligibility only.
 - Use new run directories; keep raw data and private paths in ignored runs/ and
   validation/. CI/mock success is not OpenFOAM execution or physical validation.
 - Check PROJECT_HUB at new PRs, major feature completion, registered workstation
