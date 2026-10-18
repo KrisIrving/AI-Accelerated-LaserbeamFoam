@@ -382,7 +382,6 @@ solver耗时比13.392，超过8倍单元增幅；按单元步数归一仍约1.67
 - 注册SHA256=8532e73221d220ac86a1c105c13f7e9b63111cbceadd353793731425cc3fc7ea；观察源码投影精确还原原版，原库来源相同，5578保护SHA及工具/消费来源不变，两项诊断另确认原S/回放/源码不变。主批次217.53 s，构建208.39 s，S solver0.42 s；峰值1234456 KiB（约1.18 GiB）。两项诊断GNU0.92/4.11 s，合计进程222.56 s，最后诊断在原起点528.316 s内结束，未触发1200 s截止。rank1/thread1环境/CPU0；8 GiB/3 GiB MONITORED_ONLY，非硬资源隔离。
 - 末次审计逻辑39.157 MB/唯一inode38.843 MB/实际分配40.542 MB，241个新工件硬链接保留所有路径/字节，旧数据不动。原始工具/字段/矩阵/日志本地留存，公开仅脱敏记录；编写/报告/Git另计。尚无传统算法研究资格；后续只建议另批二进制位保真格式/混合符号零门槛，再申请新S/M1。压力NO_GO、MAG关闭、258步及M1物理/网格缺口保留。
 
-
 ## EXP-023 — binary64恢复与真实M1链：第二轮prevIter元数据失败
 
 - 2026-10-18，DEC-027新授权，起点97563b8d0d56e93406a58d440146adcadf7fefea；授权/离线构建HEAD=8522a838ee6e64d9fe8bdb06b475e69c8a7a3081。报告：[位保真链验证](../validation/T_PHASE_BITEXACT_CHAIN_20261018.md)、[21行原生/部分独立残差](../validation/T_PHASE_BITEXACT_CHAIN_20261018-residuals.csv)、[逐轮验收/SHA](../validation/T_PHASE_BITEXACT_CHAIN_20261018-integrity.csv)、[来源/资源JSON](../validation/T_PHASE_BITEXACT_CHAIN_20261018-summary.json)。INCONCLUSIVE；PR #5保持Draft、不合并。
