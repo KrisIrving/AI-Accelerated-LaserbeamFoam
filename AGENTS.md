@@ -75,6 +75,12 @@ Also follow the existing `.agents/skills/laserbeamfoam/SKILL.md` conventions.
   is consumed. Only eligibility to request a separate real-state observation
   is established. No further build/replay/CFD, collector, acceleration or AI
   is authorized; retain all risks and PR #5 Draft/unmerged.
+- DEC-024 is a fresh explicitly approved thermal observation batch: one isolated
+  build, non-equilibrium manufactured G roundtrip first, then one S and at most
+  one frozen M1 collecting only step738 and its original thermal chain. Exact
+  output/event/protection gates and a 1200 s deadline apply; failure stops with
+  no retry. No convergence continuation, numerical changes, acceleration or AI.
+  PR #5 remains Draft/unmerged; prior allowances remain consumed.
 - Use new run directories; keep raw data and private paths in ignored runs/ and
   validation/. CI/mock success is not OpenFOAM execution or physical validation.
 - Check PROJECT_HUB at new PRs, major feature completion, registered workstation
