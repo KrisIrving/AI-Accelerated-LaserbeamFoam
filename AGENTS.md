@@ -130,6 +130,12 @@ Also follow the existing `.agents/skills/laserbeamfoam/SKILL.md` conventions.
   Native endpoint remains NONCONVERGED_OBSERVED. This quota is consumed; only
   request eligibility for reference design is established, no further G,
   continuation, algorithm or AI work. Preserve all old failures and PR5 Draft.
+- DEC-029 authorizes only mathematical/algorithm/protocol design using EXP-024
+  evidence: zero CFD, G/residual evaluations, numerical solves, builds or AI/
+  algorithm implementation. Do not promote old observational residual drafts
+  to truth criteria. Specify native patch semantics, two distinct routes,
+  preregistered calibration/crosschecks and bounded future costs; all future
+  execution remains PROPOSED. PR5 stays Draft/unmerged; old risks remain.
 - Use new run directories; keep raw data and private paths in ignored runs/ and
   validation/. CI/mock success is not OpenFOAM execution or physical validation.
 - Check PROJECT_HUB at new PRs, major feature completion, registered workstation
