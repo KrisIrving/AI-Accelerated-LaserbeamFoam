@@ -45,7 +45,10 @@ Also follow the existing `.agents/skills/laserbeamfoam/SKILL.md` conventions.
 - DEC-018 subsequently authorizes pressure-system collection/replay only: non-CFD
   tests, at most one S and one fixed M1, exact field/event equivalence, 1200 s
   batch deadline. No AI training/integration; report via a new PR, merge only
-  after all numerical/protection/CI gates pass. Earlier allowances stay closed.
+  after all numerical/protection/CI gates pass. EXP-014 stopped at the pre-CFD
+  replay build gate: zero CFD, INCONCLUSIVE, no retry; its PR stays Draft because
+  numerical gates did not pass. This batch allowance is consumed. Earlier
+  allowances stay closed.
 - Use new run directories; keep raw data and private paths in ignored runs/ and
   validation/. CI/mock success is not OpenFOAM execution or physical validation.
 - Check PROJECT_HUB at new PRs, major feature completion, registered workstation

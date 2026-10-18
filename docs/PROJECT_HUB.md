@@ -18,6 +18,8 @@
 | AI 模块 | NOT_STARTED；尚未选择或实现 | [开发计划](research/DEVELOPMENT_PLAN.md) |
 | MPI 固定验证矩阵 | 已撤销为强制开发门槛；保留定向验证及已知风险 | [DEC-002](research/DECISION_LOG.md)、[MPI 风险](research/MPI_RISKS.md) |
 
+最新DEC-018/EXP-014压力系统前置结果为[INCONCLUSIVE](validation/PRESSURE_SYSTEM_FEASIBILITY_20261018.md)：离线工具构建遗漏接口参数，按失败停止；零新CFD、零采集系统/回放/AI。3343保护SHA一致；不据此否决科学假设，也不建议现在批准AI。新PR仅交付失败记录并保持Draft，数值门槛未通过，不合并；PR #4的阶段2历史及其已合并状态不变。
+
 ## 已完成、正在执行与下一步
 
 已完成的重要里程碑：独立 aiLaserbeamFoam 源码与编译入口；用户回传 v2512 双求解器编译及 Plate2D 串行短程 A/B PASS；正式研究治理文件；S 工具及文献候选库；用户回传 S 三维基础运行及自动归档验收。S归档核验来自用户提供的ChatGPT检查结果，Codex未取得原包，不能宣称直接核验。
