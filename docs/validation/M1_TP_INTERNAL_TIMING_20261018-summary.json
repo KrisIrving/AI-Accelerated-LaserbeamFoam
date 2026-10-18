@@ -1,0 +1,1176 @@
+{
+  "schema": "stage2-tp-internal-v1",
+  "decision": "DEC-014",
+  "status": "M1_TP_INTERNAL_TIMING_PASSED",
+  "source_commit": "a14e5e1d3ad181ca71db6edb979000373d917332",
+  "base_build_commit": "2d3b2591bb8fec521448f9e47662ab595983f737",
+  "binary_sha256": "7f0b32d8aa70577a0c5219bbb0f4729529daa08aaa1e83a45ac1606874ad721f",
+  "generated_source_sha256": "e6ebc937e086da81439b37d914702b8e33565e9d827065a85d78d35b422f1a0d",
+  "protected_files": 2703,
+  "protected_sha_unchanged": true,
+  "dependency_origins_match_baseline": true,
+  "batch_limit_seconds": 1200,
+  "resource_policy": "MONITORED_ONLY",
+  "elapsed_seconds": 360.29258681600913,
+  "new_data_bytes": 128920356,
+  "baseline_median_seconds": 205.96,
+  "prior_coarse_seconds": 205.07,
+  "evidence": "DIRECT_EXCLUSIVE_BOUNDARY_WALL_WITH_EXACT_OUTPUT_AND_EVENT_EQUIVALENCE; SINGLE_M1",
+  "limitation": "Solve is the whole native API including setup, residual and logs; T_POST_PHASE includes T boundary, Tcorr, epsilon1 correction/residual/logging. T_OTHER includes sources/control/temporary destruction/gradT; P_OTHER includes predicted flux and force preparation; P_UPDATE includes flux/velocity/pressure/continuity and cleanup. No pure-kernel shares or AI speedup measured.",
+  "grouping": {
+    "T": [
+      "T_OTHER",
+      "T_ASSEMBLY",
+      "T_SOLVE",
+      "T_POST_PHASE"
+    ],
+    "P": [
+      "P_OTHER",
+      "P_ASSEMBLY",
+      "P_SOLVE",
+      "P_UPDATE"
+    ]
+  },
+  "provenance": {
+    "private_files_sha256": {
+      "observer.py": "458b3007042a2b98c39d0d290ccaeff56e9a5e5536a1c036f3928e72b4a89158",
+      "run_internal.py": "da3ddae79de8958e112aea51e511b7ca33128d6681f852816fb0081bd50e7d27",
+      "stageTiming.H": "8f3c8e6407785d2d83af6e61367af2408641e2e676f98ebf73cc51fea98671da",
+      "test_observer.py": "5d4ab23e67cb3ff8da9ed97d8f4b9c0ab8e002c15f96730aa94fac948165eb9c"
+    },
+    "generated_sources_sha256": {
+      "laserbeamFoam.C": "e6ebc937e086da81439b37d914702b8e33565e9d827065a85d78d35b422f1a0d",
+      "TEqn.H": "a3534a584c9efcb1c4b2ae340313b2ab5cd1c4bcff0fefe8c0ed3a3ede105f38",
+      "pEqn.H": "0e2fe6a74619fa1c0ac7e8e10fc113afd2c23a14f636837d9482dc33f1debd3d",
+      "stageTiming.H": "8f3c8e6407785d2d83af6e61367af2408641e2e676f98ebf73cc51fea98671da",
+      "Make/options": "a999b694d4f10e9bb10ddcf6042ccd30a0ffd2e30740bce181826342782ed65e",
+      "Make/files": "fa90b7de576d595d83be67aa65fd3e2ae9875e3f355715603e3dbded2a70a156"
+    },
+    "protected_before_sha256": "d974413c6cc86500a83bf37140790e031de0f3cb2db51d160c7b98f57b14b6c4",
+    "protected_after_sha256": "d974413c6cc86500a83bf37140790e031de0f3cb2db51d160c7b98f57b14b6c4",
+    "protected_scope": "Tracked native sources/tutorials/benchmark/profiling/scripts plus every pre-existing runs/ and validation/ entry; current experiment directory excluded. Content SHA, not metadata.",
+    "manifest_encoding": "Result-map SHA is UTF8 json.dumps sort_keys=True separators=(comma,colon).",
+    "publisher_sha256": "1ea7dd979a6b9327f38ade7c49dd36a4b54efe297eb357645414492f0c6f7520"
+  },
+  "runs": [
+    {
+      "id": "S",
+      "status": "PASSED",
+      "actual_executable": "laserbeamFoamTPInternal",
+      "check": {
+        "status": "SMOKE_CHECKS_PASSED",
+        "issues": [],
+        "wall_seconds": null
+      },
+      "case_bytes": 1235090,
+      "timing_closure": "EXACT_INTEGER_NS_ALL_LEAVES_PARENTS_AND_BINS",
+      "event_trace_sha256": "ebf67f8461696b839d1e892b164d319f8d51fa9a9e7ea572bf4e1a30e93b368a",
+      "matched_baselines": 1,
+      "solver": {
+        "status": "RECORDED",
+        "wall_seconds": 0.33,
+        "max_rss_kib": 127488
+      },
+      "internal_total_seconds": 0.222260657,
+      "external_uncovered_seconds": 0.10773934300000002,
+      "comparison": {
+        "status": "ALL_BYTE_IDENTICAL_AND_NATIVE_CHECKED",
+        "physical_fields": 19,
+        "output_times": 1,
+        "uniform_files": 3,
+        "physical_manifest_sha256": "06e030b5b07e880add8c2538e827e7b1af081a45328015cdcac66d1159b0dda8",
+        "uniform_manifest_sha256": "f8e9329bf06bd42f99ff1320299fbda1a5d90ff65d5c90bc74040316555d4bc8"
+      },
+      "leaves": {
+        "initialization": {
+          "calls": 1,
+          "wall_nanoseconds": 21147295,
+          "wall_seconds": 0.021147295,
+          "solver_fraction": 0.06408271212121212
+        },
+        "other": {
+          "calls": 71,
+          "wall_nanoseconds": 4425115,
+          "wall_seconds": 0.004425115,
+          "solver_fraction": 0.013409439393939394
+        },
+        "VOF": {
+          "calls": 10,
+          "wall_nanoseconds": 6769618,
+          "wall_seconds": 0.006769618,
+          "solver_fraction": 0.02051399393939394
+        },
+        "updateProps": {
+          "calls": 10,
+          "wall_nanoseconds": 3872005,
+          "wall_seconds": 0.003872005,
+          "solver_fraction": 0.011733348484848484
+        },
+        "laser_deposition": {
+          "calls": 10,
+          "wall_nanoseconds": 85662159,
+          "wall_seconds": 0.085662159,
+          "solver_fraction": 0.2595823
+        },
+        "mixture_correct": {
+          "calls": 10,
+          "wall_nanoseconds": 2309302,
+          "wall_seconds": 0.002309302,
+          "solver_fraction": 0.006997884848484849
+        },
+        "U_equation": {
+          "calls": 10,
+          "wall_nanoseconds": 15910179,
+          "wall_seconds": 0.015910179,
+          "solver_fraction": 0.04821266363636363
+        },
+        "MTHD_solve": {
+          "calls": 0,
+          "wall_nanoseconds": 0,
+          "wall_seconds": 0.0,
+          "solver_fraction": 0.0
+        },
+        "T_OTHER": {
+          "calls": 20,
+          "wall_nanoseconds": 4678413,
+          "wall_seconds": 0.004678413,
+          "solver_fraction": 0.01417700909090909
+        },
+        "P_OTHER": {
+          "calls": 30,
+          "wall_nanoseconds": 19434659,
+          "wall_seconds": 0.019434659,
+          "solver_fraction": 0.05889290606060606
+        },
+        "turbulence_correct": {
+          "calls": 10,
+          "wall_nanoseconds": 13785,
+          "wall_seconds": 1.3785e-05,
+          "solver_fraction": 4.177272727272727e-05
+        },
+        "native_output": {
+          "calls": 10,
+          "wall_nanoseconds": 26531165,
+          "wall_seconds": 0.026531165,
+          "solver_fraction": 0.08039746969696969
+        },
+        "T_ASSEMBLY": {
+          "calls": 10,
+          "wall_nanoseconds": 3451301,
+          "wall_seconds": 0.003451301,
+          "solver_fraction": 0.010458487878787878
+        },
+        "T_SOLVE": {
+          "calls": 10,
+          "wall_nanoseconds": 1928183,
+          "wall_seconds": 0.001928183,
+          "solver_fraction": 0.005842978787878788
+        },
+        "T_POST_PHASE": {
+          "calls": 10,
+          "wall_nanoseconds": 537654,
+          "wall_seconds": 0.000537654,
+          "solver_fraction": 0.0016292545454545456
+        },
+        "P_ASSEMBLY": {
+          "calls": 30,
+          "wall_nanoseconds": 5298187,
+          "wall_seconds": 0.005298187,
+          "solver_fraction": 0.01605511212121212
+        },
+        "P_SOLVE": {
+          "calls": 30,
+          "wall_nanoseconds": 3624839,
+          "wall_seconds": 0.003624839,
+          "solver_fraction": 0.010984360606060605
+        },
+        "P_UPDATE": {
+          "calls": 30,
+          "wall_nanoseconds": 16666798,
+          "wall_seconds": 0.016666798,
+          "solver_fraction": 0.05050544848484848
+        }
+      },
+      "parent_wall_nanoseconds": {
+        "initialization": 21147295,
+        "other": 4425115,
+        "VOF": 6769618,
+        "updateProps": 3872005,
+        "laser_deposition": 85662159,
+        "mixture_correct": 2309302,
+        "U_equation": 15910179,
+        "MTHD_solve": 0,
+        "T_OTHER": 10595551,
+        "P_OTHER": 45024483,
+        "turbulence_correct": 13785,
+        "native_output": 26531165
+      },
+      "timing_files_sha256": {
+        "stage-timing.csv": "8c73ab2cae3832166b4ce1947900f123a59d398c58d50a42aa87b70f72031a60",
+        "stage-timing.csv.bins.csv": "340c7e956e0e48ca41421f93f70ba1d5b272914d6de76b863f4655948d40a9e4",
+        "stage-timing.csv.parents.csv": "8207d130b7ee428b0e45c6e5fdaf45bfcd8ea9254247b45804555e152091fac8",
+        "numeric-check.json": "4f707353ac7bab968f5440b9a5f6f571ec2297c3e9957b0f988632656d6c45a5"
+      }
+    },
+    {
+      "id": "M1",
+      "status": "PASSED",
+      "actual_executable": "laserbeamFoamTPInternal",
+      "check": {
+        "status": "EXPLORATION_CHECKS_PASSED",
+        "issues": [],
+        "wall_seconds": 96.1189512880519
+      },
+      "case_bytes": 120966519,
+      "timing_closure": "EXACT_INTEGER_NS_ALL_LEAVES_PARENTS_AND_BINS",
+      "event_trace_sha256": "4c36dd0e972911d793fb61a5bcbe246add2491623623a0f367f7b43f8c62f319",
+      "matched_baselines": 3,
+      "solver": {
+        "status": "RECORDED",
+        "wall_seconds": 205.01,
+        "max_rss_kib": 242180
+      },
+      "internal_total_seconds": 204.872072782,
+      "external_uncovered_seconds": 0.1379272179999873,
+      "comparison": {
+        "status": "ALL_BYTE_IDENTICAL_AND_NATIVE_CHECKED",
+        "physical_fields": 190,
+        "output_times": 10,
+        "uniform_files": 30,
+        "physical_manifest_sha256": "c1b550526988af2fd01110a6f2977abf7f1649ef9e456a3ab2edd8b1d1a7696c",
+        "uniform_manifest_sha256": "f43f7f73127ab74e2313aa3b287798e50094e8968339bd5caf8b6522c3de76f1"
+      },
+      "leaves": {
+        "initialization": {
+          "calls": 1,
+          "wall_nanoseconds": 216033730,
+          "wall_seconds": 0.21603373,
+          "solver_fraction": 0.0010537716696746502
+        },
+        "other": {
+          "calls": 7001,
+          "wall_nanoseconds": 1697365132,
+          "wall_seconds": 1.697365132,
+          "solver_fraction": 0.008279426037754256
+        },
+        "VOF": {
+          "calls": 1000,
+          "wall_nanoseconds": 8693445258,
+          "wall_seconds": 8.693445258,
+          "solver_fraction": 0.04240498150334131
+        },
+        "updateProps": {
+          "calls": 1000,
+          "wall_nanoseconds": 4698738105,
+          "wall_seconds": 4.698738105,
+          "solver_fraction": 0.02291955565582167
+        },
+        "laser_deposition": {
+          "calls": 1000,
+          "wall_nanoseconds": 23568754856,
+          "wall_seconds": 23.568754856,
+          "solver_fraction": 0.11496392788644458
+        },
+        "mixture_correct": {
+          "calls": 1000,
+          "wall_nanoseconds": 2244736035,
+          "wall_seconds": 2.244736035,
+          "solver_fraction": 0.010949397761084825
+        },
+        "U_equation": {
+          "calls": 1000,
+          "wall_nanoseconds": 18977554319,
+          "wall_seconds": 18.977554319,
+          "solver_fraction": 0.09256892014535877
+        },
+        "MTHD_solve": {
+          "calls": 0,
+          "wall_nanoseconds": 0,
+          "wall_seconds": 0.0,
+          "solver_fraction": 0.0
+        },
+        "T_OTHER": {
+          "calls": 8244,
+          "wall_nanoseconds": 30805863362,
+          "wall_seconds": 30.805863362,
+          "solver_fraction": 0.15026517419638066
+        },
+        "P_OTHER": {
+          "calls": 3000,
+          "wall_nanoseconds": 24283576552,
+          "wall_seconds": 24.283576552,
+          "solver_fraction": 0.11845069290278523
+        },
+        "turbulence_correct": {
+          "calls": 1000,
+          "wall_nanoseconds": 1525808,
+          "wall_seconds": 0.001525808,
+          "solver_fraction": 7.4426027998634215e-06
+        },
+        "native_output": {
+          "calls": 1000,
+          "wall_nanoseconds": 4144158346,
+          "wall_seconds": 4.144158346,
+          "solver_fraction": 0.020214420496561147
+        },
+        "T_ASSEMBLY": {
+          "calls": 7244,
+          "wall_nanoseconds": 31265989050,
+          "wall_seconds": 31.26598905,
+          "solver_fraction": 0.15250958026437736
+        },
+        "T_SOLVE": {
+          "calls": 7244,
+          "wall_nanoseconds": 13740892604,
+          "wall_seconds": 13.740892604,
+          "solver_fraction": 0.06702547487439638
+        },
+        "T_POST_PHASE": {
+          "calls": 7244,
+          "wall_nanoseconds": 3330317147,
+          "wall_seconds": 3.330317147,
+          "solver_fraction": 0.016244657075264624
+        },
+        "P_ASSEMBLY": {
+          "calls": 3000,
+          "wall_nanoseconds": 6104733755,
+          "wall_seconds": 6.104733755,
+          "solver_fraction": 0.02977773647626945
+        },
+        "P_SOLVE": {
+          "calls": 3000,
+          "wall_nanoseconds": 12962529164,
+          "wall_seconds": 12.962529164,
+          "solver_fraction": 0.06322876525047559
+        },
+        "P_UPDATE": {
+          "calls": 3000,
+          "wall_nanoseconds": 18135859559,
+          "wall_seconds": 18.135859559,
+          "solver_fraction": 0.08846329232232575
+        }
+      },
+      "parent_wall_nanoseconds": {
+        "initialization": 216033730,
+        "other": 1697365132,
+        "VOF": 8693445258,
+        "updateProps": 4698738105,
+        "laser_deposition": 23568754856,
+        "mixture_correct": 2244736035,
+        "U_equation": 18977554319,
+        "MTHD_solve": 0,
+        "T_OTHER": 79143062163,
+        "P_OTHER": 61486699030,
+        "turbulence_correct": 1525808,
+        "native_output": 4144158346
+      },
+      "timing_files_sha256": {
+        "stage-timing.csv": "52fa233c7c0527114be006550d86f4d154e14a68d3b3fc394061b922c6eb44c3",
+        "stage-timing.csv.bins.csv": "d6aeded78a86094d766f3fea44b022cb36f8704430fc8a0d600f48700cc265e7",
+        "stage-timing.csv.parents.csv": "790c1393e8a66eb0ba848e601f3f6c8d9c6e5ec81c0f03ae99117c7ad2b9a30f",
+        "numeric-check.json": "a4f9ae3ffff38b649bc1240ab40656035ee5a3baa43d0201499182c4c63ccc25"
+      },
+      "relative_wall_change_vs_205_96": -0.004612546125461359,
+      "relative_wall_change_vs_205_07": -0.00029258302043211337,
+      "unresolved_thermal_steps": [
+        738,
+        739,
+        740,
+        741,
+        742,
+        743,
+        744,
+        745,
+        746,
+        747,
+        748,
+        749,
+        750,
+        751,
+        752,
+        753,
+        754,
+        755,
+        756,
+        757,
+        758,
+        759,
+        760,
+        761,
+        762,
+        764,
+        765,
+        766,
+        767,
+        768,
+        769,
+        770,
+        771,
+        773,
+        774,
+        775,
+        776,
+        777,
+        778,
+        779,
+        780,
+        781,
+        782,
+        783,
+        784,
+        785,
+        786,
+        787,
+        788,
+        789,
+        790,
+        791,
+        792,
+        793,
+        794,
+        795,
+        796,
+        797,
+        798,
+        799,
+        800,
+        801,
+        802,
+        803,
+        804,
+        805,
+        806,
+        807,
+        808,
+        809,
+        810,
+        811,
+        812,
+        813,
+        814,
+        815,
+        816,
+        817,
+        818,
+        819,
+        820,
+        821,
+        822,
+        823,
+        824,
+        825,
+        826,
+        827,
+        828,
+        829,
+        830,
+        831,
+        833,
+        834,
+        835,
+        836,
+        837,
+        838,
+        839,
+        840,
+        841,
+        842,
+        843,
+        845,
+        846,
+        847,
+        848,
+        849,
+        850,
+        851,
+        852,
+        853,
+        854,
+        855,
+        856,
+        857,
+        858,
+        860,
+        861,
+        862,
+        863,
+        864,
+        865,
+        866,
+        867,
+        868,
+        869,
+        870,
+        871,
+        872,
+        873,
+        874,
+        875,
+        876,
+        877,
+        878,
+        879,
+        880,
+        881,
+        882,
+        883,
+        884,
+        885,
+        886,
+        887,
+        888,
+        889,
+        890,
+        891,
+        892,
+        893,
+        894,
+        895,
+        896,
+        897,
+        898,
+        899,
+        900,
+        901,
+        902,
+        903,
+        904,
+        905,
+        906,
+        907,
+        908,
+        909,
+        910,
+        911,
+        912,
+        913,
+        914,
+        915,
+        916,
+        917,
+        918,
+        919,
+        920,
+        921,
+        922,
+        923,
+        924,
+        925,
+        926,
+        927,
+        928,
+        929,
+        930,
+        931,
+        932,
+        933,
+        934,
+        935,
+        936,
+        937,
+        938,
+        939,
+        940,
+        941,
+        942,
+        943,
+        944,
+        945,
+        946,
+        947,
+        948,
+        949,
+        950,
+        951,
+        952,
+        953,
+        954,
+        955,
+        956,
+        957,
+        958,
+        959,
+        960,
+        961,
+        962,
+        963,
+        964,
+        965,
+        966,
+        967,
+        968,
+        969,
+        970,
+        971,
+        972,
+        973,
+        974,
+        975,
+        976,
+        977,
+        978,
+        979,
+        980,
+        981,
+        982,
+        983,
+        984,
+        985,
+        986,
+        987,
+        988,
+        989,
+        990,
+        991,
+        992,
+        993,
+        994,
+        995,
+        996,
+        997,
+        998,
+        999,
+        1000
+      ],
+      "unresolved_steps_sha256": "efbf97b740265fae66c64300f060a520f64374260d813cff2fa0ec79ef94795b",
+      "source_sha256": {
+        "laserbeamFoam.C": "ebbb6768fb47c5940d7253c7285a9fc5a34095d7100d49a5db0cd701977e9110",
+        "TEqn.H": "8542f190581444d0be58cc497ae6a7f1d524eed0998958abb35cd777940c92f2",
+        "pEqn.H": "f09dbd0b7fd6ae8bf55fca80a561c19ee7745ac21191f8ee3203eb40ecc4ffca",
+        "readControls.H": "64da838052840665f30f49280dfcccaf60e8dc40f86245698d951bd8b654e3da"
+      },
+      "original_check": {
+        "status": "EXPLORATION_CHECKS_PASSED",
+        "issues": [],
+        "steps": 1000,
+        "output_times_s": [
+          1e-06,
+          2e-06,
+          3e-06,
+          4e-06,
+          5e-06,
+          6e-06,
+          7e-06,
+          8e-06,
+          9e-06,
+          1e-05
+        ],
+        "diagnostic_events": 29491,
+        "linear_summaries": {
+          "pcorr": {
+            "solves": 1,
+            "iterations_total": 0,
+            "iterations_max": 0,
+            "initial_residual_max": 0,
+            "final_residual_max": 0,
+            "final_residual_greater_than_initial_count": 0
+          },
+          "T": {
+            "solves": 7244,
+            "iterations_total": 8705,
+            "iterations_max": 3,
+            "initial_residual_max": 0.9999999999999344,
+            "final_residual_max": 9.975659964123749e-10,
+            "final_residual_greater_than_initial_count": 0
+          },
+          "p_rgh": {
+            "solves": 3000,
+            "iterations_total": 16099,
+            "iterations_max": 25,
+            "initial_residual_max": 0.9999999999824484,
+            "final_residual_max": 0.029783820806010105,
+            "final_residual_greater_than_initial_count": 0
+          }
+        },
+        "offline_check_seconds": 96.1189512880519
+      },
+      "physical_bins": {
+        "1": {
+          "time_start_us": 0,
+          "time_end_us": 1,
+          "unresolved_thermal_steps": 0,
+          "leaves": {
+            "T_OTHER": {
+              "calls": 200,
+              "wall_nanoseconds": 541862293
+            },
+            "T_ASSEMBLY": {
+              "calls": 100,
+              "wall_nanoseconds": 467380494
+            },
+            "T_SOLVE": {
+              "calls": 100,
+              "wall_nanoseconds": 268700402
+            },
+            "T_POST_PHASE": {
+              "calls": 100,
+              "wall_nanoseconds": 50042800
+            },
+            "P_OTHER": {
+              "calls": 300,
+              "wall_nanoseconds": 2415389767
+            },
+            "P_ASSEMBLY": {
+              "calls": 300,
+              "wall_nanoseconds": 606378665
+            },
+            "P_SOLVE": {
+              "calls": 300,
+              "wall_nanoseconds": 302239282
+            },
+            "P_UPDATE": {
+              "calls": 300,
+              "wall_nanoseconds": 1816164034
+            }
+          },
+          "T_parent_ns": 1327985989,
+          "P_parent_ns": 5140171748
+        },
+        "2": {
+          "time_start_us": 1,
+          "time_end_us": 2,
+          "unresolved_thermal_steps": 0,
+          "leaves": {
+            "T_OTHER": {
+              "calls": 200,
+              "wall_nanoseconds": 536694296
+            },
+            "T_ASSEMBLY": {
+              "calls": 100,
+              "wall_nanoseconds": 470793987
+            },
+            "T_SOLVE": {
+              "calls": 100,
+              "wall_nanoseconds": 267374559
+            },
+            "T_POST_PHASE": {
+              "calls": 100,
+              "wall_nanoseconds": 49435677
+            },
+            "P_OTHER": {
+              "calls": 300,
+              "wall_nanoseconds": 2402778533
+            },
+            "P_ASSEMBLY": {
+              "calls": 300,
+              "wall_nanoseconds": 605703311
+            },
+            "P_SOLVE": {
+              "calls": 300,
+              "wall_nanoseconds": 288589529
+            },
+            "P_UPDATE": {
+              "calls": 300,
+              "wall_nanoseconds": 1728341761
+            }
+          },
+          "T_parent_ns": 1324298519,
+          "P_parent_ns": 5025413134
+        },
+        "3": {
+          "time_start_us": 2,
+          "time_end_us": 3,
+          "unresolved_thermal_steps": 0,
+          "leaves": {
+            "T_OTHER": {
+              "calls": 346,
+              "wall_nanoseconds": 1125964266
+            },
+            "T_ASSEMBLY": {
+              "calls": 246,
+              "wall_nanoseconds": 1089046369
+            },
+            "T_SOLVE": {
+              "calls": 246,
+              "wall_nanoseconds": 578432411
+            },
+            "T_POST_PHASE": {
+              "calls": 246,
+              "wall_nanoseconds": 116269927
+            },
+            "P_OTHER": {
+              "calls": 300,
+              "wall_nanoseconds": 2407620447
+            },
+            "P_ASSEMBLY": {
+              "calls": 300,
+              "wall_nanoseconds": 602382955
+            },
+            "P_SOLVE": {
+              "calls": 300,
+              "wall_nanoseconds": 639939527
+            },
+            "P_UPDATE": {
+              "calls": 300,
+              "wall_nanoseconds": 1752369723
+            }
+          },
+          "T_parent_ns": 2909712973,
+          "P_parent_ns": 5402312652
+        },
+        "4": {
+          "time_start_us": 3,
+          "time_end_us": 4,
+          "unresolved_thermal_steps": 0,
+          "leaves": {
+            "T_OTHER": {
+              "calls": 400,
+              "wall_nanoseconds": 1350867707
+            },
+            "T_ASSEMBLY": {
+              "calls": 300,
+              "wall_nanoseconds": 1331692946
+            },
+            "T_SOLVE": {
+              "calls": 300,
+              "wall_nanoseconds": 702348198
+            },
+            "T_POST_PHASE": {
+              "calls": 300,
+              "wall_nanoseconds": 141410620
+            },
+            "P_OTHER": {
+              "calls": 300,
+              "wall_nanoseconds": 2413730840
+            },
+            "P_ASSEMBLY": {
+              "calls": 300,
+              "wall_nanoseconds": 607422810
+            },
+            "P_SOLVE": {
+              "calls": 300,
+              "wall_nanoseconds": 1338033260
+            },
+            "P_UPDATE": {
+              "calls": 300,
+              "wall_nanoseconds": 1791467289
+            }
+          },
+          "T_parent_ns": 3526319471,
+          "P_parent_ns": 6150654199
+        },
+        "5": {
+          "time_start_us": 4,
+          "time_end_us": 5,
+          "unresolved_thermal_steps": 0,
+          "leaves": {
+            "T_OTHER": {
+              "calls": 400,
+              "wall_nanoseconds": 1361581961
+            },
+            "T_ASSEMBLY": {
+              "calls": 300,
+              "wall_nanoseconds": 1342820458
+            },
+            "T_SOLVE": {
+              "calls": 300,
+              "wall_nanoseconds": 705145735
+            },
+            "T_POST_PHASE": {
+              "calls": 300,
+              "wall_nanoseconds": 141968032
+            },
+            "P_OTHER": {
+              "calls": 300,
+              "wall_nanoseconds": 2431581201
+            },
+            "P_ASSEMBLY": {
+              "calls": 300,
+              "wall_nanoseconds": 610765695
+            },
+            "P_SOLVE": {
+              "calls": 300,
+              "wall_nanoseconds": 1651438492
+            },
+            "P_UPDATE": {
+              "calls": 300,
+              "wall_nanoseconds": 1864010113
+            }
+          },
+          "T_parent_ns": 3551516186,
+          "P_parent_ns": 6557795501
+        },
+        "6": {
+          "time_start_us": 5,
+          "time_end_us": 6,
+          "unresolved_thermal_steps": 0,
+          "leaves": {
+            "T_OTHER": {
+              "calls": 400,
+              "wall_nanoseconds": 1365791755
+            },
+            "T_ASSEMBLY": {
+              "calls": 300,
+              "wall_nanoseconds": 1347599338
+            },
+            "T_SOLVE": {
+              "calls": 300,
+              "wall_nanoseconds": 708123737
+            },
+            "T_POST_PHASE": {
+              "calls": 300,
+              "wall_nanoseconds": 142842695
+            },
+            "P_OTHER": {
+              "calls": 300,
+              "wall_nanoseconds": 2443695356
+            },
+            "P_ASSEMBLY": {
+              "calls": 300,
+              "wall_nanoseconds": 616075009
+            },
+            "P_SOLVE": {
+              "calls": 300,
+              "wall_nanoseconds": 1799760619
+            },
+            "P_UPDATE": {
+              "calls": 300,
+              "wall_nanoseconds": 1840300178
+            }
+          },
+          "T_parent_ns": 3564357525,
+          "P_parent_ns": 6699831162
+        },
+        "7": {
+          "time_start_us": 6,
+          "time_end_us": 7,
+          "unresolved_thermal_steps": 0,
+          "leaves": {
+            "T_OTHER": {
+              "calls": 400,
+              "wall_nanoseconds": 1378701249
+            },
+            "T_ASSEMBLY": {
+              "calls": 300,
+              "wall_nanoseconds": 1360199777
+            },
+            "T_SOLVE": {
+              "calls": 300,
+              "wall_nanoseconds": 709881347
+            },
+            "T_POST_PHASE": {
+              "calls": 300,
+              "wall_nanoseconds": 145974215
+            },
+            "P_OTHER": {
+              "calls": 300,
+              "wall_nanoseconds": 2445225782
+            },
+            "P_ASSEMBLY": {
+              "calls": 300,
+              "wall_nanoseconds": 616453542
+            },
+            "P_SOLVE": {
+              "calls": 300,
+              "wall_nanoseconds": 1794157139
+            },
+            "P_UPDATE": {
+              "calls": 300,
+              "wall_nanoseconds": 1807221822
+            }
+          },
+          "T_parent_ns": 3594756588,
+          "P_parent_ns": 6663058285
+        },
+        "8": {
+          "time_start_us": 7,
+          "time_end_us": 8,
+          "unresolved_thermal_steps": 61,
+          "leaves": {
+            "T_OTHER": {
+              "calls": 1515,
+              "wall_nanoseconds": 5902384976
+            },
+            "T_ASSEMBLY": {
+              "calls": 1415,
+              "wall_nanoseconds": 6059203578
+            },
+            "T_SOLVE": {
+              "calls": 1415,
+              "wall_nanoseconds": 2525161536
+            },
+            "T_POST_PHASE": {
+              "calls": 1415,
+              "wall_nanoseconds": 646806475
+            },
+            "P_OTHER": {
+              "calls": 300,
+              "wall_nanoseconds": 2443942889
+            },
+            "P_ASSEMBLY": {
+              "calls": 300,
+              "wall_nanoseconds": 614357352
+            },
+            "P_SOLVE": {
+              "calls": 300,
+              "wall_nanoseconds": 1811194297
+            },
+            "P_UPDATE": {
+              "calls": 300,
+              "wall_nanoseconds": 1876228088
+            }
+          },
+          "T_parent_ns": 15133556565,
+          "P_parent_ns": 6745722626
+        },
+        "9": {
+          "time_start_us": 8,
+          "time_end_us": 9,
+          "unresolved_thermal_steps": 97,
+          "leaves": {
+            "T_OTHER": {
+              "calls": 2183,
+              "wall_nanoseconds": 8597405585
+            },
+            "T_ASSEMBLY": {
+              "calls": 2083,
+              "wall_nanoseconds": 8874825338
+            },
+            "T_SOLVE": {
+              "calls": 2083,
+              "wall_nanoseconds": 3615151006
+            },
+            "T_POST_PHASE": {
+              "calls": 2083,
+              "wall_nanoseconds": 943186705
+            },
+            "P_OTHER": {
+              "calls": 300,
+              "wall_nanoseconds": 2442295250
+            },
+            "P_ASSEMBLY": {
+              "calls": 300,
+              "wall_nanoseconds": 613087274
+            },
+            "P_SOLVE": {
+              "calls": 300,
+              "wall_nanoseconds": 1671144472
+            },
+            "P_UPDATE": {
+              "calls": 300,
+              "wall_nanoseconds": 1847498109
+            }
+          },
+          "T_parent_ns": 22030568634,
+          "P_parent_ns": 6574025105
+        },
+        "10": {
+          "time_start_us": 9,
+          "time_end_us": 10,
+          "unresolved_thermal_steps": 100,
+          "leaves": {
+            "T_OTHER": {
+              "calls": 2200,
+              "wall_nanoseconds": 8644609274
+            },
+            "T_ASSEMBLY": {
+              "calls": 2100,
+              "wall_nanoseconds": 8922426765
+            },
+            "T_SOLVE": {
+              "calls": 2100,
+              "wall_nanoseconds": 3660573673
+            },
+            "T_POST_PHASE": {
+              "calls": 2100,
+              "wall_nanoseconds": 952380001
+            },
+            "P_OTHER": {
+              "calls": 300,
+              "wall_nanoseconds": 2437316487
+            },
+            "P_ASSEMBLY": {
+              "calls": 300,
+              "wall_nanoseconds": 612107142
+            },
+            "P_SOLVE": {
+              "calls": 300,
+              "wall_nanoseconds": 1666032547
+            },
+            "P_UPDATE": {
+              "calls": 300,
+              "wall_nanoseconds": 1812258442
+            }
+          },
+          "T_parent_ns": 22179989713,
+          "P_parent_ns": 6527714618
+        }
+      },
+      "late_7_to_10_us": {
+        "T_parent_seconds": 59.344114912,
+        "fraction_of_all_T_wall": 0.7498334445257773,
+        "T_SOLVE_seconds": 9.800886215,
+        "T_ASSEMBLY_seconds": 23.856455681,
+        "T_POST_PHASE_seconds": 2.542373181,
+        "T_OTHER_seconds": 23.144399835,
+        "T_calls": 5598,
+        "unresolved_steps": 258,
+        "note": "Bins contain 300 physical steps, including 42 not classified unresolved. No exact wall assignment to all 258 capped steps; bin10 consists of 100 unresolved steps."
+      },
+      "parents_seconds": {
+        "T": 79.143062163,
+        "P": 61.48669903
+      },
+      "optimistic_solver_speedup_bounds": {
+        "T_OTHER": 1.1768377258802714,
+        "T_ASSEMBLY": 1.1799543413268945,
+        "T_SOLVE": 1.0718406270153764,
+        "T_POST_PHASE": 1.0165129035304334,
+        "P_OTHER": 1.1343664976526637,
+        "P_ASSEMBLY": 1.030691664782171,
+        "P_SOLVE": 1.0674964846325388,
+        "P_UPDATE": 1.0970485242966288
+      },
+      "bounds_assumption": "Entire measured leaf becomes zero cost, all other costs fixed, no inference/conversion/verification/fallback overhead; not achievable AI benefit."
+    }
+  ],
+  "batch_gnu_resources": {
+    "status": "RECORDED",
+    "wall_seconds": 360.39,
+    "max_rss_kib": 1189764
+  },
+  "private_preflight_tests": {
+    "passed": 2,
+    "scope": "native main/header projection; disabled timer; independent parents/leaves/bins equality and corrupted CSV rejection; no CFD"
+  },
+  "group_bounds": {
+    "both_solve_APIs": {
+      "leaves": [
+        "T_SOLVE",
+        "P_SOLVE"
+      ],
+      "wall_seconds": 26.703421768,
+      "solver_fraction": 0.13025424012487197,
+      "zero_cost_solver_speedup_ceiling": 1.1497612821286682,
+      "solver_speedup_if_group_halved_zero_new_overhead": 1.0696641452116842
+    },
+    "T_assembly_plus_other": {
+      "leaves": [
+        "T_ASSEMBLY",
+        "T_OTHER"
+      ],
+      "wall_seconds": 62.071852412,
+      "solver_fraction": 0.302774754460758,
+      "zero_cost_solver_speedup_ceiling": 1.4342567289378463,
+      "solver_speedup_if_group_halved_zero_new_overhead": 1.1783939729016701
+    },
+    "P_prediction_plus_update": {
+      "leaves": [
+        "P_OTHER",
+        "P_UPDATE"
+      ],
+      "wall_seconds": 42.419436110999996,
+      "solver_fraction": 0.20691398522511095,
+      "zero_cost_solver_speedup_ceiling": 1.260897281468066,
+      "solver_speedup_if_group_halved_zero_new_overhead": 1.115395459849754
+    }
+  },
+  "late_capped_step_wall_bounds": {
+    "capped_steps": 258,
+    "T_seconds_lower_bound": 22.179989713,
+    "T_seconds_upper_bound": 59.344114912,
+    "basis": "All 100 steps in bin10 are capped; all 258 capped steps lie within bins8-10, which also contain 42 other steps. Nonnegative measured costs imply bounds, not exact capped-step timing."
+  },
+  "budget_scope": "Active build through S, M1, original checks, exact baseline/event comparisons and final protected hashes. Excludes observer preparation/preflight tests and subsequent public reporting/Git.",
+  "new_data_scope": "Current private experiment directory plus both fresh cases at end of controlled batch; excludes prior local data and reporting files added later."
+}
