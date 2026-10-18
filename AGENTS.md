@@ -106,6 +106,14 @@ Also follow the existing `.agents/skills/laserbeamfoam/SKILL.md` conventions.
   format diagnostics also failed. This quota is consumed. PR5 remains Draft
   and unmerged because a core format gate failed. No further execution is
   authorized by these results. Earlier quotas remain consumed.
+- DEC-027 is a fresh staged grant after stopped EXP-022: at most three isolated
+  pre-CFD engineering cycles, restore every captured binary64 bit directly, reuse
+  old S snapshots and parity if the online observer is unchanged. All format,
+  native G, independent arithmetic/provenance gates must pass before one frozen
+  M1 step738 capture and original 21-G replay. No extra G/continuation, algorithms,
+  AI or changed physics/numerics. 1200 s hard batch deadline; no failed CFD rerun.
+  Preserve signs of zero and exact comparisons. PR5 stays Draft/unmerged,
+  overriding DEC-026's historical conditional merge. Older quotas remain closed.
 - Use new run directories; keep raw data and private paths in ignored runs/ and
   validation/. CI/mock success is not OpenFOAM execution or physical validation.
 - Check PROJECT_HUB at new PRs, major feature completion, registered workstation
