@@ -2,6 +2,8 @@
 
 状态核对日期：2026-10-18。本页是导航与状态摘要，不替代正式计划或原始证据。各主题以导航表中的权威文件为准；发生冲突时回查正式文件和 Git 历史，不根据本页自行改计划。
 
+最新DEC-024/EXP-020的[真实单步热状态采集门槛](validation/T_PHASE_REAL_CAPTURE_20261018.md)为**INCONCLUSIVE**：唯一隔离构建因头文件依赖顺序失败，已停止，零S/M1/G或真实采集；4750保护SHA不变。四项交付未执行而未满足，不是数值/AI失败。本批额度消耗，不修补重建或恢复旧额度；PR #5仍Draft，科学风险与压力NO_GO保留。
+
 最新[零CFD热制造解/原生G验证](validation/T_PHASE_MANUFACTURED_REPLAY_20261018.md)四项门槛全部PASS：一次构建、三类平衡状态完整重放逐字节一致、六负例拒绝，23.90 s/791.79 MiB、4225保护SHA不变。只获得申请真实单步采集/参考设计的前置资格，不自动执行；[数学/文献审查](research/T_PHASE_FIXED_POINT_REVIEW_20261018.md)、压力初值NO_GO、258步及物理/网格缺口保留，AI未启动，PR #5 Draft/unmerged。
 
 ## 目标与 Current Status

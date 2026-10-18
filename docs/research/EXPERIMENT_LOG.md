@@ -354,3 +354,12 @@ solver耗时比13.392，超过8倍单元增幅；按单元步数归一仍约1.67
 - 主动批次23.90 s、控制器23.8353 s，唯一构建17.3406 s；峰值810792 KiB/791.79 MiB，新增末次约3.78 MB。300 s硬截止内退出0，rank1/线程环境1/CPU0，1 GiB/200 MiB MONITORED_ONLY阶段后观察未越界，非内存/磁盘硬隔离；工具编写及最终报告/Git不计主动执行。
 - 4225项批次前后保护内容SHA一致，26项消费源/输入、8项私有工具及实际库/二进制SHA留证；原始工具/数组/日志本机保留，仅提交[脱敏报告/JSON/CSV](../validation/T_PHASE_MANUFACTURED_REPLAY_20261018.md)。原版、三基线、旧失败及研究负结果不改。
 - 只获得申请下一轮真实单步采集/数值参考设计的前置资格；任意非平衡G、真实T回放状态、收敛参考与物理/网格准确性仍未验证。不实现采集器/AI，不恢复旧额度，压力初值NO_GO、258步风险及MAG关闭保持，PR #5 Draft/unmerged。
+
+## EXP-020 — 真实单步热状态采集：唯一构建失败停止
+
+- 2026-10-18，DEC-024；负责人明确批准新批次，起点a908d7997fce984ad51e23e450dc09ce6670381d，实际执行HEAD=9d2d2cd94d9a6d85e307d03e00db8e31b05dc746。报告：[真实单步热状态采集](../validation/T_PHASE_REAL_CAPTURE_20261018.md)、[脱敏SHA/资源JSON](../validation/T_PHASE_REAL_CAPTURE_20261018-summary.json)。PR #5保持Draft、不合并。
+- INCONCLUSIVE。唯一wmake隔离构建失败（exit2）：新增thermalReplay.H先于Polynomial.H引入，Polynomial<8>未声明，继发polycp_m/g错误。为集成工具的头文件依赖遗漏，不是原生物理、固定点/AI算法失败。没有修补重建、重试或续算；零S/M1、零原生G、零真实状态/残差数据。原制造框架平衡证据不扩展为非平衡/真实链验证。
+- CAPTURE_FAIL / G_CHAIN_REPLAY_FAIL / NUMERICAL_PARITY_FAIL / INDEPENDENT_RESIDUAL_EVALUATION_FAIL均指NOT_RUN_BUILD_GATE_FAILED，不能解释为已经测得数值不一致或独立F_E超标；PROVENANCE_PASS。没有分轮结果可报告，不生成空表冒充测量。
+- 预注册SHA256=622d9fd8b2449d4ece020270104da8b3bdb7819f0f895d047208d59c8b53227d，44项工具/16项消费来源内容不变；4750项保护内容SHA不变。编译失败工件/全部日志留新本地目录，只推脱敏摘要。首次后台包装器在控制器入口前退出、尚无构建/CFD；保留空日志后换持久会话，实际仅一个主动批次。
+- GNU批次17.55 s，控制器17.3792 s，唯一构建11.66 s，峰值797208 KiB（778.52 MiB），末次主动数据1650796 B；rank1/thread1/CPU0，1200秒硬截止未触发；8 GiB/3 GiB MONITORED_ONLY阶段后观察，非cgroup/磁盘硬隔离。编写/最终报告/Git另计。
+- 完成后停止；本次额度已消耗，不具备另批独立收敛参考的新增资格。仅建议另行批准一次隔离包含依赖修复和非CFD非平衡G配对门槛，不自动恢复CFD额度。原258步未收敛、压力初值NO_GO、M1物理/网格缺口、MAG关闭及AI未启动保持。

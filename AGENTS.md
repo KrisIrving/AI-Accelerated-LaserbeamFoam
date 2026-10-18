@@ -80,6 +80,8 @@ Also follow the existing `.agents/skills/laserbeamfoam/SKILL.md` conventions.
   one frozen M1 collecting only step738 and its original thermal chain. Exact
   output/event/protection gates and a 1200 s deadline apply; failure stops with
   no retry. No convergence continuation, numerical changes, acceleration or AI.
+  EXP-020 stopped at its sole build (header dependency order); zero CFD/G.
+  This quota is consumed; no repair/rebuild or restored CFD is authorized.
   PR #5 remains Draft/unmerged; prior allowances remain consumed.
 - Use new run directories; keep raw data and private paths in ignored runs/ and
   validation/. CI/mock success is not OpenFOAM execution or physical validation.
