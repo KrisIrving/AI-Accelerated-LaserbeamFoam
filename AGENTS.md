@@ -42,6 +42,10 @@ Also follow the existing `.agents/skills/laserbeamfoam/SKILL.md` conventions.
 - DEC-016 authorizes only T_LOCAL_NATIVE_MAG_GRADALPHA native-field tests first;
   stop without CFD if its conservative cost screen rejects a 2% solver gain.
   Only otherwise one S and one M1 OFF/ON pair, with unchanged exact checks.
+- DEC-018 subsequently authorizes pressure-system collection/replay only: non-CFD
+  tests, at most one S and one fixed M1, exact field/event equivalence, 1200 s
+  batch deadline. No AI training/integration; report via a new PR, merge only
+  after all numerical/protection/CI gates pass. Earlier allowances stay closed.
 - Use new run directories; keep raw data and private paths in ignored runs/ and
   validation/. CI/mock success is not OpenFOAM execution or physical validation.
 - Check PROJECT_HUB at new PRs, major feature completion, registered workstation
