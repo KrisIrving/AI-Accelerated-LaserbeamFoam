@@ -2,13 +2,15 @@
 
 状态核对日期：2026-10-18。本页是导航与状态摘要，不替代正式计划或原始证据。各主题以导航表中的权威文件为准；发生冲突时回查正式文件和 Git 历史，不根据本页自行改计划。
 
+最新[阶段2收尾审查与唯一AI候选](research/STAGE2_CLOSEOUT_20261018.md)汇总可信费用及缺口：压力初值预测仅PROPOSED，P_SOLVE6.32%、零成本极端上限1.06750×；尚未实施、训练或新增CFD。
+
 ## 目标与 Current Status
 
 研究实质性的 AI 加速算法，保留高保真 LPBF CFD 的必要预测与数值能力，逐步交付可靠、可复现、可维护的开源 aiLaserbeamFoam。完整模拟约 2 倍、挑战 3 倍以上是长期愿景，尚无实测支持。完整定义见[研究章程](research/RESEARCH_CHARTER.md)。
 
 | 项目 | 当前状态 | 依据 |
 | --- | --- | --- |
-| 正式阶段 | 阶段2 CURRENT：三原M1基线与DEC-014内部互斥计时通过；T组装/准备及p预测/更新成本更大，AI净收益未测 | [EXP-007/008/010](research/EXPERIMENT_LOG.md)、[内部计时](validation/M1_TP_INTERNAL_TIMING_20261018.md) |
+| 正式阶段 | 阶段2限定研究BOUNDED_STUDY_CLOSED（DEC-017）；MAG候选NO_BENEFIT停止，阶段3仍未启动；细内核/AI净收益未测 | [EXP-007/008/010](research/EXPERIMENT_LOG.md)、[内部计时](validation/M1_TP_INTERNAL_TIMING_20261018.md) |
 | Plate2D 串行 A/B | 用户实测 PASS；仅当前短程数值等价 | [RESULTS](validation/RESULTS.md)、[EXP-000](research/EXPERIMENT_LOG.md) |
 | 三维 S | 新一次Codex本机真实执行通过：LOCAL_CODEX_CFD_AUTOMATION_VERIFIED，19场检查及23文件归档核验通过；未观察到熔化，仍为PROPOSED探针；旧S历史保留 | [EXP-004](research/EXPERIMENT_LOG.md)、[本机实证](validation/LOCAL_CODEX_CFD_AUTOMATION_20261017.md) |
 | M负载与历史探索 | 原M1已批准固定性能开发用途；物理准确性/网格收敛参考未批准。早期沉积错层、IC阈值证据保留，阈值探索结束；M2/M3不在本批执行范围 | [DEC-011](research/DECISION_LOG.md)、[EXP-005/006](research/EXPERIMENT_LOG.md) |
@@ -50,7 +52,7 @@
 
 ## GitHub 状态与版本追溯
 
-截至上述核对日期：[PR #3](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/pull/3) 已由负责人手动合并，合并提交5e08097d420af3cfb746eda8ec1833da1d068395已核验属于main历史；PR #2亦已合并。本轮从最新main新建`feat/threeD-progressive-m-exploration`，通过[Draft PR #4](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/pull/4)交付，OPEN / DRAFT / 未合并。新M工具与本页更新目前位于该分支，不代表main已接收；不继续使用已合并PR #3分支，不自动合并。
+[PR #3](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/pull/3) 合并提交5e08097d420af3cfb746eda8ec1833da1d068395属于main历史；PR #2亦已合并。`feat/threeD-progressive-m-exploration`通过[PR #4](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/pull/4)交付；DEC-017新增授权：审查与最终CI通过后自主Ready并采用Merge Commit，保留历史。实际状态/合并SHA以PR及Git历史为准；此前Draft限制属于历史，不授权任何新增CFD或AI。
 
 | 关键提交 | 含义与边界 |
 | --- | --- |

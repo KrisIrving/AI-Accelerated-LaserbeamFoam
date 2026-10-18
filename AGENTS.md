@@ -17,7 +17,12 @@ Also follow the existing `.agents/skills/laserbeamfoam/SKILL.md` conventions.
 - Every approved plan change appends a dated decision with old/new scope,
   rationale, approval evidence and Git traceability. Never erase historical
   decisions or lower accuracy requirements to make a failed test pass.
-- The current stage is limited Stage 2 performance analysis. MPI matrices are not gates
+- DEC-017 closes the bounded Stage 2 study and authorizes PR #4 review, Ready
+  transition and Merge Commit only after review/checks pass. Earlier Draft-only
+  decisions remain historical; completed experiment allowances are exhausted.
+  MAG caching is closed NO_BENEFIT. The next AI candidate is PROPOSED only;
+  no AI implementation, new CFD or changed numerical standards are authorized.
+  MPI matrices are not gates
   to AI research. Validate MPI when an actual change or workload requires it;
   retain known communication/ray-transfer risks.
 - Preserve upstream solvers, libraries and tutorials. DEC-011 explicitly

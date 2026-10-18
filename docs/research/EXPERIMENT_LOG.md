@@ -292,3 +292,12 @@ solver耗时比13.392，超过8倍单元增幅；按单元步数归一仍约1.67
 - 主动批83.592秒/GNU83.65秒（build12.55/native66.94），native RSS207588 KiB、build/批最大693644 KiB，新本地12281317字节；1200秒系统截止、线程1/CPU0、8 GiB/3 GiB MONITORED_ONLY未触警戒。无重试/续算、无安装/sudo，日志本地、进程独立阻塞完成后集中分析。
 - 3189项原版tracked源码/教程/框架/配置及运行前全部runs/validation内容SHA前后一致，清单SHA均7e582f47e0412f926f67ff1f32891750977aa45fa0e7af7e72f7e604e7ea12af；二进制SHA=0bd14242ec4704566c58eda3dfb5dbd2d5e5cd73870a1e66229d2b8672a4da07。原字段/日志/测试源码/二进制本地保留，不覆盖旧结果。
 - [否决报告](../validation/MAG_CACHE_NATIVE_20261018.md)、[JSON](../validation/MAG_CACHE_NATIVE_20261018-summary.json)10136字节/SHA256=c473003ceb0a4dbdfa83aa72076d8452e276437971951eed6af467877d17c5ed、[聚合CSV](../validation/MAG_CACHE_NATIVE_20261018-trials.csv)5519字节/SHA256=b0a8c53a4835f35f1cc28d4ca6882f4a9a4918146222642ae761efe680bf253e。停止本候选投入，不扩展其他优化；258步非线性未收敛风险保持，不当物理/AI真值。PR #4继续Draft，不合并。
+
+
+## EXP-013 — 阶段2收尾与合并审查（零新CFD）
+
+- 2026-10-18；DEC-017；审查起点a1e5e1f7df54e1d8667c59f14f7e5ffee936e6aa，最新main 5e08097d420af3cfb746eda8ec1833da1d068395。负责人批准审查通过后Ready及Merge Commit，旧Draft限制保留为历史，不恢复任何实验额度。
+- 297项Python测试、9组shell/mock及shell语法通过；原生源/库/教程/构建入口相对main无改动。3189保护内容SHA再读一致；40项私有源码/输入/清单SHA吻合；冻结树、配置及三例75项输入吻合；DEC/EXP历史只追加。
+- 75文件/28既有分支提交及163历史blob审阅：无tracked原始runs/validation或匹配凭据；私有路径模式仅合成脱敏测试夹具。起点两项CI成功、无未处理审查；最终分支提交仍须CI成功、正常GitHub合并许可。未把模式扫描宣称为完备安全证明。
+- MAG候选NO_BENEFIT正式关闭；阶段2限定研究收尾、阶段3未启动。258步相变非线性未收敛、物理/网格参考缺口及API/内核成本边界继续公开。
+- [完整收尾与唯一AI候选](STAGE2_CLOSEOUT_20261018.md)建议压力初值预测+原生PCG校正，仅PROPOSED；P_SOLVE12.963 s/6.32%，零成本极端solver上限1.06750×。未来数值合同、矩阵采集、离线及CFD预算均须另批，本轮没有AI实现、训练、采集或新增CFD。合并结果/实际SHA以PR #4及Git历史为准。

@@ -35,7 +35,7 @@
 - `chore/bootstrap-ubuntu2512`：PR #1 已合并，已验证提交 `98f99de8` 保留在历史中。
 - `feat/ai-laserbeamfoam-solver`：从 PR #1 的 merge commit 建立，交付独立入口和串行 A/B；不堆叠在未合并 PR 上。
 - PR #2 已由用户合并（`532ed068`）；随后从更新的main建立 `feat/research-plan-smoke-benchmark`，交付PR #3。
-- PR #3 已由负责人合并（`5e08097d`）；新的 `feat/threeD-progressive-m-exploration` 从最新main开发DEC-006授权的M探索，通过[Draft PR #4](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/pull/4)交付，不自动合并。后续DEC-011批准原M1固定性能用途和限定阶段2，保留物理/网格参考缺口，原阶段顺序不变。
+- PR #3 已由负责人合并（`5e08097d`）；新的 `feat/threeD-progressive-m-exploration` 从最新main开发DEC-006授权的M探索，通过[PR #4](https://github.com/KrisIrving/AI-Accelerated-LaserbeamFoam/pull/4)交付；DEC-017随后授权审查/CI通过后Ready及Merge Commit，实际状态/SHA见PR与Git历史。后续DEC-011批准原M1固定性能用途和限定阶段2，保留物理/网格参考缺口，原阶段顺序不变。
 - 后续 `fix/...`、`feat/...`、`experiment/...`：独立开发，经 Pull Request 合入；不会向官方上游推送。
 - 测试或编译未验证时可以提交工具和文档，但必须明确记录未验证状态；不得把静态检查改写为运行通过。
 
@@ -70,3 +70,5 @@ DEC-013/EXP-009完成[T/p内部只读分析](docs/validation/M1_TP_INTERNAL_ANAL
 DEC-015/EXP-011已完成[重复计算依赖审计](docs/validation/M1_REUSE_DEPENDENCY_AUDIT_20261018.md)，零新CFD/优化实现。仅提出单次TEqn内原生mag(gradAlpha)只读缓存；需处理tmp被乘法复用、patch及注册风险，未证数值等价或收益。T_OTHER不是候选可加速份额，未来S→同二进制M1 OFF/ON协议仅PROPOSED；258步风险保持，AI未启动。
 
 DEC-016/EXP-012的[单项缓存筛选](docs/validation/MAG_CACHE_NATIVE_20261018.md)最终NO_BENEFIT：非CFD原生字段/tmp测试通过，但最大完整mag批均136.501 μs，2倍安全系数×全部7244次也只约solver0.9602%，不足2%目标。已停止，无新S/M1/优化求解器/AI；不将微基准外推当实测CFD收益，3189项保护SHA一致，258步风险保持。
+
+DEC-017/EXP-013完成[阶段2限定研究收尾审查](docs/research/STAGE2_CLOSEOUT_20261018.md)，MAG缓存NO_BENEFIT正式停止；允许PR #4条件自主合并、不再要求Draft。阶段3仍未启动；压力初值预测仅为下一阶段建议，不授权AI/新CFD，258步非线性未收敛及物理/网格缺口保持。前述阶段2CURRENT/批次授权均为历史，不恢复额度。
