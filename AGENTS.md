@@ -97,11 +97,15 @@ Also follow the existing `.agents/skills/laserbeamfoam/SKILL.md` conventions.
   Capture only step738 first TEqn and its original 21-G chain. Exact output,
   event, replay, residual arithmetic and protection gates apply; failed CFD
   gates stop without reruns. After all real-chain gates pass, one copied frozen
-  context may continue at most64 G /120s, under a1200s batch deadline. No Time
+  context may continue at most 64 G / 120 s, under a 1200 s batch deadline. No Time
   advance, numerical/physics changes or AI. Nonconvergence is separate from
   replay failure. Conditional PR5 Ready/Merge Commit is explicitly authorized
   after all actual technical/safety gates, final CI and review pass; retain all
-  negative history and risks. Earlier quotas remain consumed.
+  negative history and risks. EXP-022 stopped at the S signed-zero snapshot
+  byte gate: one build and S, zero M1/continuation; two permitted non-CFD text
+  format diagnostics also failed. This quota is consumed. PR5 remains Draft
+  and unmerged because a core format gate failed. No further execution is
+  authorized by these results. Earlier quotas remain consumed.
 - Use new run directories; keep raw data and private paths in ignored runs/ and
   validation/. CI/mock success is not OpenFOAM execution or physical validation.
 - Check PROJECT_HUB at new PRs, major feature completion, registered workstation

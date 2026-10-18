@@ -2,6 +2,8 @@
 
 状态核对日期：2026-10-18。本页是导航与状态摘要，不替代正式计划或原始证据。各主题以导航表中的权威文件为准；发生冲突时回查正式文件和 Git 历史，不根据本页自行改计划。
 
+最新DEC-026/EXP-022的[真实热链验证](validation/T_PHASE_REAL_CHAIN_20261018.md)在S格式门槛**INCONCLUSIVE**停止：完整构建、非CFD、S19场/3 uniform及原事件PASS；完整G状态回放因±0符号位不保真FAIL，5578保护SHA不变。唯一S后零M1/真实21轮/延拓，两个允许的非CFD文本格式诊断亦FAIL，保留证据、不重跑CFD。尚无传统算法资格，PR #5 Draft/unmerged；原科学风险与负结果不变。
+
 最新DEC-025/EXP-021的[回放头依赖修复/非平衡G门槛](validation/T_PHASE_HEADER_NONEQUILIBRIUM_20261018.md)四项PASS：唯一非CFD构建，三类各一次直接G/回放、195项文件及原事件字节相同，独立残差算术/原线性/边界通过；25.14 s/799.72 MiB，4910保护SHA不变。单G终态仍不满足联合非线性草案，不冒充收敛。只具备申请下一次受控S/M1采集的资格；零S/M1/真实热采集/推进，不恢复step738方案，AI未启动，PR #5 Draft/unmerged。
 
 最新DEC-024/EXP-020的[真实单步热状态采集门槛](validation/T_PHASE_REAL_CAPTURE_20261018.md)为**INCONCLUSIVE**：唯一隔离构建因头文件依赖顺序失败，已停止，零S/M1/G或真实采集；4750保护SHA不变。四项交付未执行而未满足，不是数值/AI失败。本批额度消耗，不修补重建或恢复旧额度；PR #5仍Draft，科学风险与压力NO_GO保留。

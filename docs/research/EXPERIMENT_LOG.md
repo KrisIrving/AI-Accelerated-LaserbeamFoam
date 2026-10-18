@@ -372,3 +372,12 @@ solver耗时比13.392，超过8倍单元增幅；按单元步数归一仍约1.67
 - RESIDUAL_PASS不是非线性收敛：单G同态F_E最大固定缩放缺陷约0.059815/0.040852/0.032226，均超过原2e-9；epsilon增量约0.35，糊状相变/温度缺陷0.883056。联合草案正确拒绝三终态，没有延长校正、改源或放宽标准；不据此解释M1真实258步。
 - 注册SHA256=5345a37f772d01109f60384f6dddd25dc9e84bd0facecd217017efadb3253102；43工具/18消费来源/96输入固定，4910项保护SHA不变。GNU批次25.14 s、构建18.32 s、峰值818916 KiB（799.72 MiB），末次主动数据4192070 B；rank1/thread1环境/CPU0，300秒系统截止未触发，退出0。1 GiB/200 MiB MONITORED_ONLY，非硬内存/磁盘隔离；编写/报告/Git另计。原始数据/工具/日志留本机。
 - 仅具备申请下一次受控S/M1采集的非CFD前置资格，不自动恢复step738或历史额度；完整CFD观测求解器构建、真实21轮链及数值参考仍未验收。本批结束，不自动新实验或AI。压力NO_GO、258步风险、M1物理/网格缺口及MAG关闭保持。
+
+## EXP-022 — 真实热链自主验证：S符号零恢复门槛失败停止
+
+- 2026-10-18，DEC-026新一次性分阶段明确授权，起点06f072e97814d95efc571d9c531d47ad16c408b3；执行HEAD=d23dc893427973986878c07c018f639930089ed9。报告：[真实链门槛停止](../validation/T_PHASE_REAL_CHAIN_20261018.md)、[位差CSV](../validation/T_PHASE_REAL_CHAIN_20261018-signedzero.csv)、[来源/资源JSON](../validation/T_PHASE_REAL_CHAIN_20261018-summary.json)。INCONCLUSIVE；PR #5 Draft，不合并。
+- BUILD_PASS / NONCFD_GATE_PASS / S_PARITY_PASS；CAPTURE_COMPLETENESS_FAIL / G_CHAIN_REPLAY_FAIL（S单G失败，M1真实21轮未执行）；M1_PARITY、真实INDEPENDENT_RESIDUAL_EVALUATION及EXPLORATORY_REFERENCE均NOT_RUN。PROVENANCE_PASS。只有一次完整观测构建、唯一S；原检查issues为空、19场/3 uniform/完整事件与原S字节一致。未使用剩余预CFD构建额度、无S重跑/续算、零M1/延拓/AI。
+- S step5原生2次线性迭代；9个矩阵/源/初终值/指标/几何文件完全一致，但入口/出口全状态分别3314/3051个binary64零值符号位不一致，全部−0→+0，数值数组/时间/维度/类型/标志相等。严格字节门槛不放宽，停止后续科学实验。完整原二进制状态仍保存，不把数值相等写成回放PASS。
+- 源码核实v2512 ScalarRead会把±ScalarVSMALL区间归零，Field uniform压缩也可合并混合符号零；当前元数据恢复跳过值数组、依赖ASCII读值。允许范围内两次新副本非CFD格式诊断（-0.0 token；从原metadata数组逐项科学计数法/nonuniform）均FAIL，保留全部失败证据；没有追加构建/CFD或恢复原S门槛，不继续第三种方案。真实F_E未评价，不宣称新M1收敛/不收敛结论。
+- 注册SHA256=8532e73221d220ac86a1c105c13f7e9b63111cbceadd353793731425cc3fc7ea；观察源码投影精确还原原版，原库来源相同，5578保护SHA及工具/消费来源不变，两项诊断另确认原S/回放/源码不变。主批次217.53 s，构建208.39 s，S solver0.42 s；峰值1234456 KiB（约1.18 GiB）。两项诊断GNU0.92/4.11 s，合计进程222.56 s，最后诊断在原起点528.316 s内结束，未触发1200 s截止。rank1/thread1环境/CPU0；8 GiB/3 GiB MONITORED_ONLY，非硬资源隔离。
+- 末次审计逻辑39.157 MB/唯一inode38.843 MB/实际分配40.542 MB，241个新工件硬链接保留所有路径/字节，旧数据不动。原始工具/字段/矩阵/日志本地留存，公开仅脱敏记录；编写/报告/Git另计。尚无传统算法研究资格；后续只建议另批二进制位保真格式/混合符号零门槛，再申请新S/M1。压力NO_GO、MAG关闭、258步及M1物理/网格缺口保留。
