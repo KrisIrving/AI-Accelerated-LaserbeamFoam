@@ -83,6 +83,12 @@ Also follow the existing `.agents/skills/laserbeamfoam/SKILL.md` conventions.
   EXP-020 stopped at its sole build (header dependency order); zero CFD/G.
   This quota is consumed; no repair/rebuild or restored CFD is authorized.
   PR #5 remains Draft/unmerged; prior allowances remain consumed.
+- DEC-025 explicitly approves a fresh non-CFD header-dependency repair gate:
+  one isolated native single-G build, unchanged manufactured inputs/budgets and
+  non-equilibrium direct/snapshot parity/residual tests, 300 s hard deadline.
+  Zero S/M1, real capture, time advance, acceleration or AI. Failure stops; old
+  EXP-020 artifacts stay read-only. Passing grants request eligibility only.
+  Keep PR #5 Draft and unmerged; earlier quotas remain consumed.
 - Use new run directories; keep raw data and private paths in ignored runs/ and
   validation/. CI/mock success is not OpenFOAM execution or physical validation.
 - Check PROJECT_HUB at new PRs, major feature completion, registered workstation
