@@ -42,3 +42,5 @@ DEC-016/EXP-012已用原生非CFD完整mag测量否决T_LOCAL_NATIVE_MAG_GRADALP
 2026-10-18 DEC-017关闭阶段2限定实验链及MAG候选，授权条件自主合并PR #4；当前无运行额度。此前CURRENT/批次授权段落是历史，不续算或重跑。下一阶段仅[压力初值研究提案](STAGE2_CLOSEOUT_20261018.md)，数值验收/资源及AI实施须另批，阶段3仍NOT_STARTED。
 
 DEC-018随后只批准压力系统采集/原生离线验证，未批准AI训练/接入。EXP-014在前置工具构建失败后停止，零CFD/系统采集/回放，结论[INCONCLUSIVE](../validation/PRESSURE_SYSTEM_FEASIBILITY_20261018.md)；本批额度结束，不重试，新PR不满足数值合并门槛而保持Draft。阶段3 AI仍NOT_STARTED，不调整物理/数值标准或258步风险。
+
+DEC-019另行授权的EXP-015仅非CFD接口/合成验证已全部PASS，唯一构建额度结束；[证据](../validation/PRESSURE_REPLAY_INTERFACE_20261018.md)建立申请受控CFD的前置资格，不代表真实采集/全场事件等价或AI收益通过。不运行S/M1、不采集真实系统，阶段3 AI仍NOT_STARTED，PR #5保持Draft不合并；原258步风险保持。

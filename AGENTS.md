@@ -52,7 +52,9 @@ Also follow the existing `.agents/skills/laserbeamfoam/SKILL.md` conventions.
 - DEC-019 is a fresh, non-CFD-only authorization after EXP-014: one isolated
   native replay build, then synthetic format/boundary/reference/residual/PCG
   tests if build passes, 300 s deadline, no rebuild after failure. No S/M1,
-  real-system collection or AI. Append evidence to Draft PR #5; do not merge.
+  real-system collection or AI. EXP-015 passed all four synthetic gates with
+  one build; that quota is consumed. Only eligibility to request future CFD
+  is established, not execution permission. Keep PR #5 Draft; do not merge.
 - Use new run directories; keep raw data and private paths in ignored runs/ and
   validation/. CI/mock success is not OpenFOAM execution or physical validation.
 - Check PROJECT_HUB at new PRs, major feature completion, registered workstation

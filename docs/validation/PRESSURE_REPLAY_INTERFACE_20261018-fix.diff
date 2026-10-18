@@ -1,0 +1,16 @@
+--- a/replay.C
++++ b/replay.C
+@@ -6,11 +6,11 @@
+ using namespace PressureData;
+ static scalar norm(const lduMatrix& a,const scalarField& x,const scalarField& b,const FieldField<Field,scalar>& bc,const lduInterfaceFieldPtrsList& iface)
+ {
+-    scalarField ax(x.size()),row(x.size());a.Amul(ax,x,bc,iface);a.sumA(row,bc,iface);row*=gAverage(x,a.mesh().comm());
++    scalarField ax(x.size()),row(x.size());a.Amul(ax,x,bc,iface,0);a.sumA(row,bc,iface);row*=gAverage(x,a.mesh().comm());
+     return gSum((mag(ax-row)+mag(b-row))(),a.mesh().comm())+solverPerformance::small_;
+ }
+ static scalar residual(const lduMatrix& a,const scalarField& x,const scalarField& b,const FieldField<Field,scalar>& bc,const lduInterfaceFieldPtrsList& iface)
+-{scalarField ax(x.size());a.Amul(ax,x,bc,iface);return gSumMag(scalarField(b-ax),a.mesh().comm());}
++{scalarField ax(x.size());a.Amul(ax,x,bc,iface,0);return gSumMag(scalarField(b-ax),a.mesh().comm());}
+ static void load(const Data& d,const fvMesh& mesh,lduMatrix& a,scalarField& b,FieldField<Field,scalar>& bc,FieldField<Field,scalar>& ic)
+ {
+     require(d.diag.size()==mesh.nCells()&&d.rhs.size()==mesh.nCells()&&d.x0.size()==mesh.nCells()&&d.delta.size()==mesh.nCells(),"cell sizes");

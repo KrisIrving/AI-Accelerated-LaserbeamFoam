@@ -18,7 +18,9 @@
 | AI 模块 | NOT_STARTED；尚未选择或实现 | [开发计划](research/DEVELOPMENT_PLAN.md) |
 | MPI 固定验证矩阵 | 已撤销为强制开发门槛；保留定向验证及已知风险 | [DEC-002](research/DECISION_LOG.md)、[MPI 风险](research/MPI_RISKS.md) |
 
-最新DEC-018/EXP-014压力系统前置结果为[INCONCLUSIVE](validation/PRESSURE_SYSTEM_FEASIBILITY_20261018.md)：离线工具构建遗漏接口参数，按失败停止；零新CFD、零采集系统/回放/AI。3343保护SHA一致；不据此否决科学假设，也不建议现在批准AI。新PR仅交付失败记录并保持Draft，数值门槛未通过，不合并；PR #4的阶段2历史及其已合并状态不变。
+此前DEC-018/EXP-014压力系统前置结果为[INCONCLUSIVE](validation/PRESSURE_SYSTEM_FEASIBILITY_20261018.md)：离线工具构建遗漏接口参数，按失败停止；零新CFD、零采集系统/回放/AI。3343保护SHA一致；不据此否决科学假设，也不建议现在批准AI。新PR仅交付失败记录并保持Draft，数值门槛未通过，不合并；PR #4的阶段2历史及其已合并状态不变。
+
+最新DEC-019/EXP-015已在新批次通过[压力回放接口与合成前置验证](validation/PRESSURE_REPLAY_INTERFACE_20261018.md)：BUILD/FORMAT/RESIDUAL/REPLAY全部PASS，只构建一次、零CFD；4个原生停止通过却不满足原尺度残差的负例正确拒绝。16.02 s/654.57 MiB，3398保护SHA一致。具备申请后续受控CFD的前置资格，不自动授权采集或AI；PR #5保持Draft、不合并，EXP-014原失败历史保留。
 
 ## 已完成、正在执行与下一步
 
