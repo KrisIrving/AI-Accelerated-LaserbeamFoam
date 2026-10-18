@@ -2,6 +2,8 @@
 
 状态核对日期：2026-10-18。本页是导航与状态摘要，不替代正式计划或原始证据。各主题以导航表中的权威文件为准；发生冲突时回查正式文件和 Git 历史，不根据本页自行改计划。
 
+最新DEC-030/EXP-026的[独立参考可行性](validation/T_PHASE_REFERENCE_FEASIBILITY_20261018.md)为**INCONCLUSIVE**：唯一构建/完整C重载/预注册校准/保护PASS；阻尼G两种子均线搜索拒绝，Newton两种子因保守充分条件未获认证而未执行Krylov/更新，不能推断根不存在或Newton失败。没有合格根、四路一致性或端点G验证。G9/R46/Jv6/准备2，57.27 s/840.63 MiB/约0.426 GiB；零CFD/Time推进/AI、无降标或重试。额度结束，暂停将此C用于加速比较，PR #5 Draft、不合并；原258步、压力NO_GO、MAG关闭及物理/网格缺口保留。仅建议另批只读审查条件认证，不自动追加实验。[预注册](research/T_PHASE_REFERENCE_PREREG_20261018.json)及全部失败已归档。
+
 最新DEC-029/EXP-025完成唯一[独立收敛参考设计](research/T_PHASE_REFERENCE_DESIGN_20261018.md)，**REFERENCE_DESIGN_READY仅为设计状态**：定义同态能量/内部相变根并保留原patch约束，提出阻尼G及消元半光滑Newton两路线、校准/多初值联合验收与INCONCLUSIVE规则。旧2e-9/1e-8门槛未升级为真值；未来四分支离线实验仍PROPOSED，未知根存在/唯一与算法净收益。零CFD/G/求解/组装/构建/算法实现/AI，25项小证据SHA不变，PR #5 Draft、不合并；258步、压力NO_GO及物理/网格缺口保留。
 
 最新DEC-028/EXP-024的[真实21轮终验](validation/T_PHASE_PREVITER_FINAL_20261018.md)**全部技术门槛PASS，NONCONVERGED_OBSERVED**：原生探针证明prev隐藏旧层导致索引漂移，按构造顺序修复，不硬写索引；局部两轮及唯一连续21轮完整二进制/事件逐字节一致，21态独立残差算术PASS。终态epsilon增量0.07114668、F_E最大固定缩放3.50212e-4、相变/温度缺陷0.00497068仍超原门槛/联合草案；末五轮观察到两种完整状态交替，不能当收敛参考。零CFD/S/M1/Time推进/延拓/AI；241.73 s、838.40 MiB、0.832 GiB阶段后数据峰值，10351保护SHA不变。只具备申请独立收敛参考**设计**资格，本额度结束；PR #5 Draft、不合并。EXP-014至023失败历史、压力NO_GO、MAG关闭和科学风险不改。

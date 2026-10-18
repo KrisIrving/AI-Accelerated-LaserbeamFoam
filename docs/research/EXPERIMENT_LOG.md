@@ -410,3 +410,13 @@ solver耗时比13.392，超过8倍单元增幅；按单元步数归一仍约1.67
 - 两路线为受保护外层阻尼原G与内部Gamma消元后的全局化半光滑Newton，均为已有传统技术，不选择AI或声称创新。核对原生API/字段操作及PETSc官方手册、Hintermüller–Ito–Kunisch DOI与Benson–Munson作者稿；其收敛条件不自动适用于本问题。
 - 旧F_E2e-9/相变1e-8不升级为真值门槛；联合合同必须在未来经制造根/负例、舍入/线性误差及场值敏感性校准，预注册后失败即拒绝、不调宽。唯一拟议实验为同C两路线×两种子，先校准后有界求根/交叉复核；600秒/52G/400R/510Jv/24Jacobian准备仅为待批预算。现有费用外推约300秒只覆盖部分组装/G，新增Jacobian/Krylov/核验成本未知，不保证完成或加速。
 - 25项约325.5 kB定向源码/摘要前后SHA不变，报告嵌入关键来源及入口/几何已核验SHA；不冒称本轮重验10351原始内容。生产Git树/冻结输入不变，全部旧验证报告及日志历史保留。压力初值NO_GO、MAG关闭、258步未收敛及M1物理/网格缺口继续公开。本轮设计结束，未来参考实验/传统求解器/AI仍须另行明确批准。
+
+## EXP-026 — 冻结738步独立参考可行性：未取得可验收根
+
+- 2026-10-18，DEC-030新离线授权，实际唯一构建/执行HEAD=fcd1a0d7f886fab13aed4dad8b1baa9bfbd84c7e。报告：[独立参考可行性](../validation/T_PHASE_REFERENCE_FEASIBILITY_20261018.md)；[预注册](T_PHASE_REFERENCE_PREREG_20261018.json)在构建/数值前冻结，公共SHA e93782640fdbeeef25c1b8576247021e66125317aa420d53b32d8fedd63d09c0，本地含路径清单版SHA e10b27f735b4f639363fa8b030cc9d49fd1252a309e49dcbe138c89e36bd5d13。[校准](../validation/T_PHASE_REFERENCE_FEASIBILITY_20261018-calibration.csv)、[四分支](../validation/T_PHASE_REFERENCE_FEASIBILITY_20261018-branches.csv)、[所有试步](../validation/T_PHASE_REFERENCE_FEASIBILITY_20261018-trials.csv)、[残差](../validation/T_PHASE_REFERENCE_FEASIBILITY_20261018-residuals.csv)、[费用](../validation/T_PHASE_REFERENCE_FEASIBILITY_20261018-costs.csv)、[来源/资源](../validation/T_PHASE_REFERENCE_FEASIBILITY_20261018-summary.json)全部脱敏。PR #5 Draft、不合并。
+- BUILD/完整C字节重载/CALIBRATION/PROVENANCE均PASS；唯一构建19.236 s。校准R24请求/Jv6，复用原冷固/糊状/全液独立制造源，最大能量交叉2.02e-16、单侧Jv相对误差2.96e-9；温度/相变/patch/Euler旧层负例检出，重载一致。一个非法patch请求在原生组装前拒绝但计R；历史非零线性工件只读复核，无新校准G。原始oneG/组装/binary64恢复数值体不变。
+- 四分支未取得合格根：A入口G7/R12、接受6步后五个阻尼全部拒绝；最后接受态F_E最大4.03690e-4、相变/温度缺陷0.0280281。A原21轮终态G2/R8，接受一次1/4阻尼后下一方向五步全拒；F_E最大1.75106e-4、相变/温度0.00291017。按预注册分类CYCLING_OR_STAGNATION，具体是线搜索拒绝，不宣称观察到新周期。该种子1/2试探虽使能量达5.97863e-15，仍有相变缺陷0.0107910，正确拒绝，不能用单一能量小认证根。
+- B两初值各R1/准备1，完整非正交导数组合的保守逆敏感性充分界最小裕量−6.33779455e-4/−6.33778944e-4 W/K，未认证即停止；真实C的辅助Krylov/Newton更新/终点G均NOT_RUN。负裕量不证明Jacobian奇异/病态、Newton失败或根不存在；不换认证方法绕过原规则。四路根差/终点干净复核NOT_RUN，整体INCONCLUSIVE，REFERENCE未通过。
+- 全批G9/R46/Jv6/准备2，45次原生R组装；其中求根G9/R22/准备2、无求根Jv。原生G真实线性加舍入最坏7.77990e-10<1e-9，全部已执行R能量交叉最坏2.73e-16。s固定为EXP-024入口，S_T=3710.4316126698473 K，P_ref=1224.53399598741 W；内部/patch/全场、绝对/有符号能量全部保留，未降低标准或把原21轮当真值。
+- 统一600 s timeout下GNU主动57.27 s（控制器57.107 s）、CPU user52.92/system4.30 s；峰值子进程860808 KiB=840.63 MiB，阶段末观测分配峰值457105408 B≈0.426 GiB，无观察警戒触发。rank1/thread1/CPU0，RSS8 GiB/数据3 GiB MONITORED_ONLY而非硬隔离。新工具准备观测窗口616.59 s（更早源码阅读不含），报告/Git另计且未精确计时；原始源码、候选/矩阵/日志全部本地保留。2543保护项/14工具SHA前后不变，另批后SHA审计25个真实输入与EXP-024预期相同，不冒充本批前后重验全部三基线。
+- 零新S/M1/CFD/Time推进/AI/生产修改，无构建重试/续跑/放宽阈值；额度结束。暂停将此C用于固定点加速比较，缺口为可信根及真实C条件认证，而不是已证明无根或所有传统方法无效。后续只提出另批只读数学审查认证是否过度保守，不自动求解。压力NO_GO、MAG NO_BENEFIT、258步非线性未收敛和物理/网格缺口保留。

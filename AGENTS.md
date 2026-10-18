@@ -146,3 +146,19 @@ Also follow the existing `.agents/skills/laserbeamfoam/SKILL.md` conventions.
 - Read the charted change process before treating a new chat suggestion as a
   plan amendment. The charter and Git history are the lasting authority;
   AGENTS.md only assists execution.
+
+DEC-030 grants one fresh offline reference-feasibility batch, superseding DEC-029's
+historical design-only scope for this batch alone. Preregister before one isolated
+native build; calibration must pass before damped native G and complete reduced
+semismooth Newton, each from entry/end21 seeds. Hard 600 s and global G52/R400/
+Jv510/preparation24 ceilings; calibration R24/Jv6 included. No threshold changes,
+new CFD/Time advance/production changes/AI. Stop at failed technical/calibration
+gates. Four independently verified roots and endpoint G/crosschecks are required
+for a frozen-C reference candidate; no physical/uniqueness claims. Raw tools/data
+stay local, PR #5 Draft/unmerged; all historical failures and risks remain.
+EXP-026 consumed DEC-030: one build and calibration passed, damped branches
+stopped at preregistered line-search rejection, Newton branches stopped before
+Krylov because a sufficient conditioning certificate was not established.
+INCONCLUSIVE, no verified root or four-way comparison; not proof of no root or
+Newton failure. G9/R46/Jv6/preparation2, zero CFD/Time/AI. No remaining execution
+permission; keep PR #5 Draft and all risks/failed evidence.

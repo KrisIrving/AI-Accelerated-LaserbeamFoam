@@ -1,0 +1,121 @@
+{
+  "decision": "DEC-030",
+  "experiment": "EXP-026",
+  "base_commit": "fcd1a0d7f886fab13aed4dad8b1baa9bfbd84c7e",
+  "design_sha256": "ab7c3122e06906f872953feae1c596196b585b563899aa815d3a9567fe170d5a",
+  "frozen_entry_sha256": "dc7dd9fa38811cfc400d5fc8d1e3a56a76f83ad014cb84d3f708147ca1f6aebc",
+  "geometry_sha256": "ac46636ab440fb96a7851752f14ed4b6dab4f7434a07355801264c33f81f8a3a",
+  "fixed_cell_scale_sha256": "322cb57d92dec439752c37bf3678e62a53082245e6c0116fab38e23a5c2372a9",
+  "temperature_scale_K": 3710.4316126698473,
+  "P_ref": "max(1 W, entry L1 storage + sensible-convection-minus-Sp + diffusion + latent + total-source); frozen before candidates",
+  "acceptance": {
+    "FE_max_fixed_scaled": 2e-09,
+    "phase_projection_internal": 1e-08,
+    "phase_temperature_internal": 1e-08,
+    "native_linear_true_plus_gamma256_strict": 1e-09,
+    "T_zeroGradient_K": 1e-06,
+    "absolute_and_signed_energy_over_P_ref": 1e-08,
+    "pairwise_T_over_fixed_scale": 1e-08,
+    "pairwise_phase_internal": 1e-08,
+    "clean_endpoint_G_T_over_fixed_scale": 1e-08,
+    "clean_endpoint_G_phase_all": 1e-08,
+    "native_phase_increment_diagnostic": 1e-06,
+    "noise_fraction_strict": 0.1
+  },
+  "boundary": "T zeroGradient owner; epsilon calculated captured patch; beta_patch=0; no imposed patch Gamma. Report internal/patch/full defects separately.",
+  "merit": "mean((FE/s)^2)+mean(R_phi_internal^2)",
+  "A": {
+    "direction": "unmodified native G(z)-z",
+    "weights": [
+      0.5,
+      0.25,
+      0.125,
+      0.0625,
+      0.03125
+    ],
+    "armijo_c": 0.0001,
+    "max_G_per_seed": 24
+  },
+  "B": {
+    "H": "FE(T,Gamma(T);C)",
+    "derivative": "analytic complete face/Euler/latent/nonorth-gradient/radiation/evaporation/damper Jv",
+    "Gamma_prime": "strict mushy 1/delta; pure and exact threshold 0 (outside selector)",
+    "auxiliary": "right positive-diagonal preconditioned GMRES(20), no restart, two fixed MGS passes, projected L2 <=1e-11 early exit; separate true fixed-RHS L1 residual+gamma256 <1e-9 required",
+    "preconditioner": "diagonal mass/latent/source plus orthogonal diffusion; never called complete Jacobian",
+    "first_step": "min(1,0.99*min(-T_i/dT_i where dT_i<0))",
+    "backtracking": "lambda0/2^j for j=0..4; same Armijo c=1e-4",
+    "max_Newton_per_seed": 12,
+    "max_Krylov_Jv_per_Newton": 20,
+    "extra_true_residual_Jv_per_Newton": 1,
+    "conditioning": "sufficient row-dominance inverse sensitivity bound includes absolute composition of nonorthogonal transport; uncertifiable => branch INCONCLUSIVE"
+  },
+  "seeds": [
+    "original TEqn entry",
+    "original iteration21 endpoint"
+  ],
+  "branch_order": [
+    "A-entry",
+    "A-end21",
+    "B-entry",
+    "B-end21"
+  ],
+  "calibration": {
+    "max_R": 24,
+    "max_Jv": 6,
+    "R_schedule": "3 unchanged known roots + 12 directional trials + 3 clip-side bases + T/phase/patch negatives + 2 real entry reloads + Euler-old-layer negative = 24 requests; invalid patch R is rejected before native assembly",
+    "known_roots": "reuse original independent eight-cell nonorthogonal solid/mushy/liquid sources, no native-output fitting",
+    "directions": "alternating +/-1K direction at solid/mushy/liquid roots; Ts exact exterior negative; Tl exact exterior positive; Ts+0.01K interior positive",
+    "one_sided_steps_K": [
+      0.0001,
+      5e-05
+    ],
+    "Jv_relative_error_max": 2e-06,
+    "Jv_error_times_target_Terror_over_s_strict": 2e-10,
+    "known_T_error_and_roundoff_bound_over_ST_strict": 1e-09,
+    "root_FE_noise_strict": 2e-10,
+    "phase_noise_strict": 1e-09,
+    "T_boundary_noise_K_strict": 1e-07,
+    "linear": "independently re-evaluate immutable original nonzero-sweep manufactured native Ax-b, fixed original norm; no new G",
+    "reload": "new native utility must first restore full real entry byte-exact; every numerical call restores original C anew"
+  },
+  "counters": {
+    "G": 52,
+    "R": 400,
+    "Jv": 510,
+    "PREP": 24
+  },
+  "cost_policy": "every requested G/R/Jv/preparation charged before execution, including invalid trials/rejections/reload numerical calls; cached residual reuse no reevaluation; absolute-operator error-bound arithmetic and format-only reload wall time included, not extra signed Jv or R",
+  "resources": {
+    "hard_active_seconds": 600,
+    "one_native_build": 1,
+    "rank": 1,
+    "threads": 1,
+    "cpu": 0,
+    "rss_warning_bytes": 8589934592,
+    "data_warning_bytes": 3221225472,
+    "warning_policy": "MONITORED_ONLY; monotone retained data stage-end peak; no hard memory/disk isolation"
+  },
+  "stops": "first technical/calibration/protection failure or any global cap/deadline; branch invalid direction/aux/native linear failure/five rejected trials/iteration cap stops branch, no tuning; repeated same-cut state >=3 or five active-switch accepted steps without1% merit reduction => CYCLING_OR_STAGNATION; insufficient crosschecks => INCONCLUSIVE",
+  "candidate": "all four full joint checks, two clean residual reloads each, one original endpoint G each, all pairwise root checks; no claim of global uniqueness/physical truth",
+  "new_CFD": 0,
+  "Time_advances": 0,
+  "AI": false,
+  "tools_sha256": {
+    "legacy_verify.py": "fdfb853c3720f4348543fe759aeb06f6b5da41959f25ecd2f1e530c83395ab37",
+    "run_once.py": "9d107ebbb2a9f7a1407c195ba92d25c494a1d44152a8ab0b02dac060a6f92eda",
+    "check_native.py": "3ed52b67bb9485f61b78af70613a7138c98e316a9a401845d256a25130947fb3",
+    "oracle.py": "2c769e2fa9d273ee0ba25ae29b1cbd4ed9bfe69fb0c4a31cf258b2f62e321837",
+    "numerics.py": "f2ec5a37b79970aa857adcd8a03ea29ecae0f33ab00104f00174eba5a44f4091",
+    "source.diff": "cd284f5bdc0e17d418561006eda1dc61d2b2e8af0a2db05b9de8b8b297d46e8f",
+    "solver/readControls.H": "64da838052840665f30f49280dfcccaf60e8dc40f86245698d951bd8b654e3da",
+    "solver/nativeNonEquilibrium.C": "d02c7ec7caebcddee6cc4d612c40dc447b3a2be9198993a9f5c44a99cebcb671",
+    "solver/oneG.H": "88e3ff8dace565db6487a44fd106b71bcbbfbaf8382a8180977d2aeeb7e7e411",
+    "solver/thermalReplay.H": "ef91cfb2aa53c6e024654b87ea905a096743f95fed31c760fd98b08d66b35552",
+    "solver/assembleOnly.H": "cba377fa28657a6d0b0c0e9bb457cec320eee4993fec36b3aa774b09e3b2e02d",
+    "solver/thermalData.H": "0561b2bc7768fde84d6f3e0ed309debcf6b732564202d104c2c27e76bd17a76c",
+    "solver/Make/files": "b3943ff5094d2fdf357073840d7a6299566e7c1ed3949e17b13a5a8a2ec958e0",
+    "solver/Make/options": "271fd8811640102072ef68abfb0df28f90d2f6653b0989224a4424e76050943a"
+  },
+  "protected_manifest_sha256": "c40cb27c4c02b55025704323ec505def4261f9d58e7cc4efcb545d3f42fba681",
+  "protected_files": 2543
+}
