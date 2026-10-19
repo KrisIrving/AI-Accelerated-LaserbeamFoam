@@ -2,6 +2,8 @@
 
 状态核对日期：2026-10-19。本页是导航与状态摘要，不替代正式计划或原始证据。各主题以导航表中的权威文件为准；发生冲突时回查正式文件和 Git 历史，不根据本页自行改计划。
 
+最新DEC-033/EXP-029完成[RHS算术与非线性根后验认证设计](research/T_PHASE_RHS_POSTERIOR_DESIGN_20261019.md)：**PAUSE_RECOMMENDED，非线性认证NOT_READY**。两RHS数学形式在相同输入/边界假设下等价，但实际差值的舍入归因未证明，旧gamma256不是完整组装误差界；原EXP-028独立FAIL/整体INCONCLUSIVE不改。定义条件式区间/分项诊断与全邻域B/q自映射协议，缺已验证稀疏B、所有clip侧算子上界及32k费用证据，不以点态小残差替代根存在。零CFD/G/R/Jv/组装/求解/构建/实现/状态更新/AI，不建议申请新的求根或加速数值批次；PR #5 Draft、不合并，全部历史失败和风险保留。
+
 最新DEC-032/EXP-028的[有限Newton方向认证](validation/T_PHASE_NEWTON_DIRECTION_20261019.md)为**整体INCONCLUSIVE、入口CERTIFIED、终态INCONCLUSIVE**：复用原二进制，校准/来源PASS；两原生固定RHS真实线性检查均PASS，终态独立逐面RHS同尺度交叉2.21598e-9>1e-9，按预注册停止后续诊断，不称GMRES失败。入口两个微小步长Merit下降但未接受状态、不证明根。G0/R22/Jv20/准备2，7.07 s/94.50 MiB/31.48 MiB；零CFD/G/Time推进/原生构建/AI，无降标重试。额度结束，只可申请根存在/后验误差认证设计；PR #5 Draft、不合并，原风险及全部失败保留。
 
 最新DEC-031/EXP-027的[Newton条件与Merit只读审查](research/T_PHASE_CERTIFICATE_MERIT_REVIEW_20261019.md)判**CURRENT_CERTIFICATE_CORRECT仅限点态充分逆界**，符号反例证明有过度保守性；负裕量不证明奇异，完整非线性根/误差认证仍UNVERIFIED。原失败五步Phi均增加，不能归咎于下降幅度要求过严，也不能据此认定稳定周期。RESEARCH_CONTINUE仅建议另批方向认证与后验认证设计；本轮零CFD/G/R/Jv/求解/组装/构建/实现/AI，未修改EXP-026或门槛。尚无可信根或加速基准，PR #5保持Draft、不合并；全部风险保留。

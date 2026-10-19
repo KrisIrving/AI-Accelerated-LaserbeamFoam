@@ -182,3 +182,12 @@ the preregistered independent face-RHS check at the same fixed norm; no end21
 step diagnostics followed. Overall INCONCLUSIVE, G0/R22/Jv20/preparation2. Zero
 CFD/build/G/accepted nonlinear state/AI. Only request eligibility for subsequent
 root-existence/posterior-error design, no further numerical permission; PR5 Draft.
+
+DEC-033/EXP-029 permits and completes only read-only RHS arithmetic and posterior
+root-certificate design. Zero CFD/G/R/Jv/assembly/solve/build/numerical implementation,
+state update or AI. End21 RHS discrepancy is not proven to be solely roundoff;
+old independent FAIL/INCONCLUSIVE and fixed 1e-9 norm remain unchanged. A conditional
+interval arithmetic protocol is defined, but the 32k neighborhood/all-clip-side
+sparse inverse/operator certificate and cost bound are NOT_READY. PAUSE_RECOMMENDED:
+no new root or acceleration batch is recommended or authorized. Preserve historical
+failures, pressure NO_GO, MAG closure, 258-step and physical/grid risks; PR5 Draft.
