@@ -1,0 +1,4 @@
+regime,linear_iterations,direct_replay_byte_identical,paired_files,matrix_error,relax_error,linear_true_plus_bound,FE_arithmetic_cross_error,boundary_T_defect_K,T_update_K,epsilon_increment,phase_temperature_defect,FE_max_fixed_scaled,active_set_changes,T_patch_changed_values,epsilon_patch_changed_values,joint_nonlinear_convergence
+solid,2,True,65,1.464636087422271e-16,7.323180437111355e-17,2.808886497199771e-11,1.9319675886393487e-16,0.0,199.93586512921524,0.35,0.0,0.05981499368016712,4,24,0,False
+mushy,2,True,65,1.1102230246251565e-16,9.957594305873705e-17,2.458815128334813e-11,9.423531315206782e-17,0.0,189.9914191393159,0.34925744492499466,0.8830559423213412,0.04085185151384159,3,24,24,False
+liquid,2,True,65,2.521189013907652e-16,8.442060407474789e-17,4.490693840640612e-11,1.93207163888696e-16,0.0,185.53849675164156,0.35,0.0,0.03222645107238706,4,24,0,False

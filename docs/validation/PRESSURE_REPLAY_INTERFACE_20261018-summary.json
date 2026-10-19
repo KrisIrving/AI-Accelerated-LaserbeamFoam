@@ -1,0 +1,173 @@
+{
+  "schema": "pressure-replay-interface-validation-v1",
+  "decision": "DEC-019",
+  "experiment": "EXP-015",
+  "status": "ALL_NON_CFD_GATES_PASSED",
+  "gates": {
+    "BUILD": "PASS",
+    "FORMAT": "PASS",
+    "RESIDUAL": "PASS",
+    "REPLAY": "PASS"
+  },
+  "native_builds_attempted": 1,
+  "rebuilds": 0,
+  "new_cfd_runs": 0,
+  "physical_time_advances": 0,
+  "S_M1_attempts": 0,
+  "real_pressure_systems": 0,
+  "AI_training": false,
+  "AI_integration": false,
+  "native_tests": {
+    "format": "PASS",
+    "residual": "PASS",
+    "replay": "PASS",
+    "comparisons": 12,
+    "format_negative_cases": 10,
+    "changed_norm_cases": 8,
+    "native_stop_but_fixed_rejected": 4,
+    "time_advances": 0
+  },
+  "independent_oracle": {
+    "status": "PASS",
+    "fixtures": [
+      {
+        "name": "reference_active",
+        "cells": 2048,
+        "internal_faces": 5632,
+        "boundary_faces": 1024,
+        "reference_active": true,
+        "exact_residual": 0,
+        "roundtrip_sha256": "ea9cdb6bb19d0f412795c32a410a3b796964dc6ab0a5270f4241173eb99c8522",
+        "coefficient_oracle": "EXACT_DYADIC_MATCH",
+        "residual_oracle": "FIXED_TARGET_INTERVAL_CERTIFIED"
+      },
+      {
+        "name": "reference_inactive",
+        "cells": 2048,
+        "internal_faces": 5632,
+        "boundary_faces": 1024,
+        "reference_active": false,
+        "exact_residual": 0,
+        "roundtrip_sha256": "bc823998d9b2b651f4cf2bfac5659475a4fa815bfba63f013b8f476992a3b2a5",
+        "coefficient_oracle": "EXACT_DYADIC_MATCH",
+        "residual_oracle": "FIXED_TARGET_INTERVAL_CERTIFIED"
+      }
+    ],
+    "comparisons": 12,
+    "fixed_rejected": 4,
+    "new_cfd_runs": 0,
+    "oracle": "independent Python struct decoder and math.fsum sparse stencil"
+  },
+  "residual_contract": {
+    "solver": "native PCG",
+    "preconditioner": "native DIC",
+    "component": 0,
+    "absolute_tolerance": 1e-07,
+    "relative_tolerances": [
+      0.05,
+      0
+    ],
+    "default_minIter": 0,
+    "default_maxIter": 1000,
+    "normalization_small": 1e-20,
+    "acceptance": "strict recomputed ||b-Ax||_1 / N(original_x0) < max(1e-7, relTol * original_initial_residual); variant normalization never relaxes this target",
+    "independent_roundoff": "128*machine_epsilon*sum(|b|+|diag*x|+sum(|offdiag*x_neighbor|))/N(original_x0); whole independent interval must remain on same side of original target; not a solver-tolerance change",
+    "negative_control": "All 4 large-offset solves pass their own native stopping rule but fail fixed-original true-residual criterion; correctly rejected."
+  },
+  "replay_contract": {
+    "native_fvMatrix_vs_ldu_pairs": 4,
+    "pair_solution": "BYTE_IDENTICAL",
+    "pair_initial_final_residuals_iterations": "EXACTLY_EQUAL",
+    "strategy_determinism_pairs": 12,
+    "linear_solves_total": 32,
+    "pressure_reference": "Native setReference active with zeroGradient; inactive with fixedValue; full expected diagonal/source updates independently exact",
+    "matrix": "Two manufactured symmetric positive-definite graph pressure systems on a copied native mesh, dyadic coefficients, exactly known solution; not real CFD pressure samples",
+    "supported_scope": "Serial noncoupled scalar DP/Int32 only; coupled/dynamic/MPI systems not validated"
+  },
+  "resources": {
+    "batch_budget_seconds": 300,
+    "controller_wall_seconds": 15.959463237784803,
+    "outer_wall_seconds": 16.02,
+    "build_wall_seconds": 11.2,
+    "native_test_wall_seconds": 0.08,
+    "independent_oracle_wall_seconds": 0.23,
+    "peak_rss_kib": 670280,
+    "native_test_rss_kib": 62976,
+    "observed_new_data_bytes": 5531540,
+    "data_scope": "Private directory at batch final observation, excludes subsequent public evidence and metadata writes",
+    "rss_warning_kib": 1048576,
+    "new_data_warning_bytes": 209715200,
+    "rss_data_policy": "MONITORED_ONLY",
+    "warning_crossed": false,
+    "outer_exit": 0,
+    "cpu_affinity": [
+      0
+    ],
+    "threads": 1,
+    "ranks": 1
+  },
+  "provenance": {
+    "runtime_commit": "6cc79354108ffe7c8364e60b098c1ed810dcd3bd",
+    "starting_commit": "415e97534cb1b0ea85f374d5e16eef2fa545a817",
+    "private_sources_sha256": {
+      "pressureData.H": "bde57c96ddac6593766259c41776cacf137304c900c48f0386aa6834b000c82e",
+      "run_once.py": "490df4fa7da192b6dbd487f59ec0d5ba6d3189a86e548a5868c23ad7e4b73088",
+      "syntheticTests.H": "f06284a2bfae25ee21c48333ca188cfcff6729a648433cae9d66efdc51d80e9a",
+      "tool/Make/files": "15b47cc9ee3eed9baa394fee6c8af4338ddd84fda3b3c669268cfcce8bb02253",
+      "tool/Make/options": "715763e556d976e1f40ee7495bb376203e82894c3fe01ec8c570b06585e3ab0a",
+      "tool/replay.C": "4dcbd3e8b49a9ebc7a47041ad3f2bbe6381c0c18b02d5c9b88e0a2df96fc8139",
+      "verify_synthetic.py": "95dbf3883a3de1760a790e2547c59e5b65ab383061d8db157f2b25eab7c43dc9"
+    },
+    "serializer_unchanged_from_EXP014": true,
+    "old_failed_replay_sha256": "fc327cae08e04e0e739f9b51b0eb09bb229d10241b5fa39eff9dff95b0a9160b",
+    "old_failed_batch_unchanged": true,
+    "interface_only_fix_sha256": "4a155ea386f2a54fbace2f8667a297473c54da9daaed63381a1f0fd3bd8d428f",
+    "binary_sha256": "5f86bd837f5ecc75cc57867970fb84ca9a451063e08e52f6a7a4fd0ab4c5dd1c",
+    "native_sources_sha256": {
+      "src/OpenFOAM/matrices/lduMatrix/lduMatrix/lduMatrix.H": "366e48c9a9c5c3e1179bd0551a1614ccb198762a865865790b4e5a219233ee05",
+      "src/OpenFOAM/matrices/lduMatrix/lduMatrix/lduMatrixSolver.C": "862fe16f0069b21e199298c43771d486794cdf0ae2588bedf69b9dfeb9baface",
+      "src/OpenFOAM/matrices/lduMatrix/solvers/PCG/PCG.C": "960db216a27f21161164d686f2e3e123e017b62f3c9ed2d3e9c04f06f652c82b",
+      "src/finiteVolume/fvMatrices/fvScalarMatrix/fvScalarMatrix.C": "3f85e208715fab50c0dc71b447157f9ca734e3e6e2cdda3edc72bc60d3825639",
+      "src/finiteVolume/fvMatrices/fvMatrix/fvMatrix.C": "f833cc39d86039f47ebb6d7685939df1af50ff1b4395c86a7dace863ecc3b192",
+      "src/OpenFOAM/matrices/LduMatrix/LduMatrix/SolverPerformance.C": "43aa81c7d127632fa7281aecdf5deed88a364d594abf02828ea1bc357ef7c910",
+      "src/OpenFOAM/matrices/lduMatrix/solvers/PCG/PCG.H": "90a3243262985a30fb26be7d9abd6de484c5591347ec80cea5ca02166f044db0",
+      "src/OpenFOAM/matrices/LduMatrix/LduMatrix/SolverPerformance.H": "188d22e2ad2414cda6c5eb047392e156433f76bc15b50e0ad380875a030e8e02"
+    },
+    "native_sources_match_EXP014": true,
+    "native_libraries_sha256": {
+      "libfiniteVolume.so": "37dd5600be16cef1c6e320107e913c4cefad66beee1e76b2a43b461244c6efb0",
+      "libmeshTools.so": "1a388110176dfb2386ab1dcac573263143e6be34b1671487b62c3f8cf4c0b987",
+      "libOpenFOAM.so": "4a7b095aa31ddc63a20959ac72d24bf5b0195dca64b781553d52e2fd30461640"
+    },
+    "native_library_origins_verified": true,
+    "protected_files": 3398,
+    "protected_before_sha256": "2896533f8b18094fd20835de5cafdc22ef43fddf0a3c8b58fb4beb6c4b2c4461",
+    "protected_after_sha256": "2896533f8b18094fd20835de5cafdc22ef43fddf0a3c8b58fb4beb6c4b2c4461",
+    "protected_sha_unchanged": true,
+    "protected_scope": "Batch-window tracked checkout files plus all prior runs/validation content; new isolated directory excluded. Subsequent result/governance append outside this window.",
+    "build_log_sha256": "010c4cf0446a8f1ef83b139bd1364b7b4a2a1b97cd1480f409dd69cc26050b85",
+    "synthetic_log_sha256": "ce1281af032f1cb25eb822852e803b780028c96ca52fb33a8e641a2f890e398c",
+    "raw_tests_csv_sha256": "d2b3c4c4f430a0bd0cc36f5424ba4e6a11fb83cdf8f132b99e056ba2c23e15a0",
+    "progress_sha256": "a68efce4e3453b45e28078263796bd921b15480f967291d076c1405ef5d0360f",
+    "independent_oracle_sha256": "0fe56500452bba848b34bb3a7117b90011ddfff4824ee6a751c428e1b5ec71cb",
+    "outer_time_sha256": "f5db1f876653c247cc3402460a0c5ececdacff95afd1d4dc3d139fcf22bf6ce0",
+    "native_sources_compared_against_EXP014": [
+      "src/OpenFOAM/matrices/lduMatrix/lduMatrix/lduMatrix.H",
+      "src/OpenFOAM/matrices/lduMatrix/lduMatrix/lduMatrixSolver.C",
+      "src/OpenFOAM/matrices/lduMatrix/solvers/PCG/PCG.C",
+      "src/finiteVolume/fvMatrices/fvScalarMatrix/fvScalarMatrix.C",
+      "src/finiteVolume/fvMatrices/fvMatrix/fvMatrix.C",
+      "src/OpenFOAM/matrices/LduMatrix/LduMatrix/SolverPerformance.C"
+    ],
+    "old_failure_evidence_hashes_reverified": 6
+  },
+  "disposition": {
+    "eligible_to_request_controlled_CFD_collection": true,
+    "CFD_authorized_by_this_result": false,
+    "AI_development_authorized_or_recommended_now": false,
+    "reason": "Synthetic prerequisites pass. Real matrix/boundary capture completeness and full native field/event parity remain untested and require a separately approved S gate then bounded frozen M1 observation. No iteration/capture/inference/fallback gains on real systems are measured.",
+    "PR": "5_DRAFT_NO_MERGE",
+    "original_unresolved_thermal_steps": 258,
+    "MAG_cache": "CLOSED_NO_BENEFIT"
+  }
+}

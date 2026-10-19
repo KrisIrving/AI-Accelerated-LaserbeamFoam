@@ -1,0 +1,143 @@
+{
+  "schema": "stage3-direction-read-only-reassessment-v1",
+  "decision": "DEC-021",
+  "experiment": "EXP-017",
+  "date": "2026-10-18",
+  "base_head": "7e27b28a9237586e60a1ac02ea826698a2930613",
+  "main_base": "a8861ea9c0d4514f10606da5d3fb9568b4c86f92",
+  "scope": {
+    "CFD": 0,
+    "builds": 0,
+    "matrix_replays": 0,
+    "AI_training": false,
+    "AI_implementation": false,
+    "original_physics_or_numerical_changes": false
+  },
+  "pressure_closure": {
+    "pipeline_status": "OBSERVATION_AND_NATIVE_REPLAY_PASSED",
+    "research_status": "NO_GO_FOR_AI_INITIAL_GUESS_DEVELOPMENT_AT_PRESENT",
+    "original_replays_passed": 33,
+    "M1_systems": 30,
+    "original_iterations": 160,
+    "zero_with_fallback_iterations": 532,
+    "extrapolation_with_fallback_iterations": 194,
+    "zero_fixed_standard_rejections": 20,
+    "extrapolation_fixed_standard_rejections": 2,
+    "original_core_median_sum_ms": 121.818736,
+    "extrapolation_charged_component_median_sum_ms": 169.799974,
+    "cost_boundary": "Ordered warm component medians; fallback charged, not live integrated; online history, inference and integration control not separately included. Not CFD performance.",
+    "applicability": "Fixed M1; 30 preselected midpoint systems; serial DPInt32 noncoupled boundaries; reference inactive in real data; no generalization evidence."
+  },
+  "stage2_costs": {
+    "source_commit": "a14e5e1d3ad181ca71db6edb979000373d917332",
+    "external_solver_seconds": 205.01,
+    "groups": {
+      "T_assembly_plus_other": {
+        "leaves": [
+          "T_ASSEMBLY",
+          "T_OTHER"
+        ],
+        "wall_seconds": 62.071852412,
+        "solver_fraction": 0.302774754460758,
+        "zero_cost_solver_speedup_ceiling": 1.4342567289378463,
+        "solver_speedup_if_group_halved_zero_new_overhead": 1.1783939729016701
+      },
+      "P_prediction_plus_update": {
+        "leaves": [
+          "P_OTHER",
+          "P_UPDATE"
+        ],
+        "wall_seconds": 42.419436110999996,
+        "solver_fraction": 0.20691398522511095,
+        "zero_cost_solver_speedup_ceiling": 1.260897281468066,
+        "solver_speedup_if_group_halved_zero_new_overhead": 1.115395459849754
+      }
+    },
+    "boundary": "Measured mutually exclusive region costs, not avoidable kernel fractions or AI forecasts."
+  },
+  "sole_candidate": {
+    "name": "Constrained acceleration of the native T/phase nonlinear fixed-point problem",
+    "status": "NOT_READY",
+    "AI_method_selected": false,
+    "novelty": "UNVERIFIED; no literature novelty claim",
+    "missing": [
+      "independent converged discrete reference and approved residual/energy/trajectory contract",
+      "verified complete T single-step replay state",
+      "avoidable operation costs including rejection and fallback",
+      "independent state validation and repeated end-to-end net benefit",
+      "literature differentiation"
+    ],
+    "screen_only": {
+      "historical_baseline_seconds": 205.96,
+      "proposed_net_solver_fraction": 0.02,
+      "required_net_seconds": 4.1192,
+      "zero_overhead_min_fraction_of_T_envelope": 0.06636180232964432,
+      "authorized_as_new_acceptance_standard": false
+    }
+  },
+  "risks_retained": {
+    "unconverged_thermal_steps": 258,
+    "M1_physical_accuracy": "UNVERIFIED",
+    "M1_grid_convergence": "UNVERIFIED",
+    "MAG_candidate": "CLOSED_NO_BENEFIT"
+  },
+  "PR_audit_at_base_head": {
+    "number": 5,
+    "draft": true,
+    "merged": false,
+    "commits": 7,
+    "changed_files": 16,
+    "unique_public_blobs_scanned": 32,
+    "unexpected_non_doc_paths": [],
+    "private_path_or_credential_pattern_matches": [],
+    "native_source_input_build_tool_diff": false,
+    "review_submissions": 0,
+    "review_threads": 0,
+    "markdown_navigation_CI": {
+      "run_id": 39107865168,
+      "status": "success"
+    },
+    "history": "All previous nonblank DEC/EXP lines retained at every commit; 415e9753 removed one extra blank line before DEC-018.",
+    "limits": "Content and pattern review of the PR; no exhaustive security proof, no rescan of large local raw data. Documentation CI is not CFD validation."
+  },
+  "protected_consumed_files": {
+    "count": 27,
+    "bytes": 230516,
+    "before_after_SHA256_equal": true,
+    "SHA256": {
+      "applications/solvers/laserbeamFoam/TEqn.H": "8542f190581444d0be58cc497ae6a7f1d524eed0998958abb35cd777940c92f2",
+      "applications/solvers/laserbeamFoam/pEqn.H": "f09dbd0b7fd6ae8bf55fca80a561c19ee7745ac21191f8ee3203eb40ecc4ffca",
+      "applications/solvers/laserbeamFoam/UEqn.H": "586cc973acc489390ba3e2079d39be16d6d7f5137ff80dd76852c71db179082d",
+      "applications/solvers/laserbeamFoam/laserbeamFoam.C": "ebbb6768fb47c5940d7253c7285a9fc5a34095d7100d49a5db0cd701977e9110",
+      "applications/solvers/laserbeamFoam/updateProps.H": "c8f260a46675cca76729aaff0b168f55e617d11cc8ccbdf47a17ff4f024c2d8b",
+      "applications/solvers/laserbeamFoam/updateKappaCp.H": "521971158e6d3ff4ea54a45de42359412b8721bc6532551ac0b2006be3793c8e",
+      "benchmarks/performance/M1-stage2.json": "a3b5801452c9f54391b65998174f7e0b6837e328bc5c366b6cfe17db43a1c6d0",
+      "docs/research/STAGE2_CLOSEOUT_20261018.md": "9b93f45e3841d68448960b57d9dd63fcc546c3637908f05f0f4caaf644772769",
+      "docs/validation/M1_TP_INTERNAL_TIMING_20261018.md": "bd86a83827bb13565065fa723be6a26b9591bca138778373af29dd7c7da473fd",
+      "docs/validation/M1_TP_INTERNAL_TIMING_20261018-summary.json": "7262c05e1bd9e4c17afb891de3aab7b583af9cc54a0f9a2e74d3e98fe4c2f753",
+      "docs/validation/M1_TP_INTERNAL_TIMING_20261018-modules.csv": "ba8a292e21838137ae24acf8ea08078efeffc8297e12196cb9818d125b18b333",
+      "docs/validation/M1_TP_INTERNAL_TIMING_20261018-bins.csv": "e668829a7cb832e560a3843121ac5002085dff9c889f8938abd8bb98a22fe34e",
+      "docs/validation/M1_REUSE_DEPENDENCY_AUDIT_20261018.md": "29d6561e32de77570f01674fec596a566409b9b314702a5064f895728d5237ee",
+      "docs/validation/M1_REUSE_DEPENDENCY_AUDIT_20261018.json": "a2b2934cd8ff4f0b8106778bc801783163b61189ea006c3965887aef4db94bb5",
+      "docs/validation/MAG_CACHE_NATIVE_20261018.md": "b3821a9d258b3cea5362068ca8d2d717ce5d8f22ac58c7cea87764fb7de7a0a2",
+      "docs/validation/MAG_CACHE_NATIVE_20261018-summary.json": "c473003ceb0a4dbdfa83aa72076d8452e276437971951eed6af467877d17c5ed",
+      "docs/validation/PRESSURE_SYSTEM_FEASIBILITY_20261018.md": "2fb3e887310a5153f80c9d65b5cca7c9d04ba257a5c108fc75f3171af31cc773",
+      "docs/validation/PRESSURE_SYSTEM_FEASIBILITY_20261018-summary.json": "e69db54dae247d46fa77fac9d7c9c0d3d70c871f6c1037d90c9fc3d690fe52b4",
+      "docs/validation/PRESSURE_REPLAY_INTERFACE_20261018.md": "33af3e8c93b26bed82e86cabf678a06d456447da2306913a48320dbea9898a13",
+      "docs/validation/PRESSURE_REPLAY_INTERFACE_20261018-summary.json": "2a89982f24b6cbf2994decbac0ac06fd8e79aa2d1155af11d233e92f461ec068",
+      "docs/validation/PRESSURE_REPLAY_INTERFACE_20261018-comparisons.csv": "d2b3c4c4f430a0bd0cc36f5424ba4e6a11fb83cdf8f132b99e056ba2c23e15a0",
+      "docs/validation/PRESSURE_REPLAY_INTERFACE_20261018-fix.diff": "4a155ea386f2a54fbace2f8667a297473c54da9daaed63381a1f0fd3bd8d428f",
+      "docs/validation/REAL_PRESSURE_REPLAY_20261018.md": "8e43e33c5e0c63cd41e60582e42ce107fc41f8d76d756025f86a409e579393ae",
+      "docs/validation/REAL_PRESSURE_REPLAY_20261018-summary.json": "3944639c6eca289f2da884cac19fced4480121ebc578c2840a41ee1933275f39",
+      "docs/validation/REAL_PRESSURE_REPLAY_20261018-comparisons.csv": "53c8cc547df3234b0fcc7b100aaf7748443d30ca9456ecea4e2b7158c82cb3bf",
+      "docs/validation/REAL_PRESSURE_REPLAY_20261018-bins.csv": "1a9473b22e666952951d185fae08f4f4607fb239692a16a4b504d25f8b76da48",
+      "docs/validation/REAL_PRESSURE_REPLAY_20261018-datasets.csv": "a56a3b5d56a80644f818dc23c997c55376b1e1b28b8dbb07ea3d1cab44e63721"
+    }
+  },
+  "disposition": {
+    "stage3_AI": "NOT_STARTED",
+    "PR": "DRAFT_UNMERGED",
+    "new_experiment_authorized": false,
+    "candidate_is_formal_route_change": false
+  }
+}

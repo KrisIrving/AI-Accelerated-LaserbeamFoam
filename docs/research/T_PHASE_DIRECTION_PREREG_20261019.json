@@ -1,0 +1,94 @@
+{
+  "decision": "DEC-032",
+  "experiment": "EXP-028",
+  "base_commit": "f3aef9b8b886e3c0ba65a1103ede4cd9a38c9a0f",
+  "scope": "DIRECTION_CERTIFICATION_ONLY; no G, accepted state, nonlinear root solve, Time advancement, CFD, build, native interface change or AI",
+  "seeds": [
+    "original TEqn entry T",
+    "original corrector21 endpoint T"
+  ],
+  "frozen_context": "EXP024 verified step738 first TEqn C; original fields/oldTime/prevIter/types/dimensions retained; derived internal Gamma only, original calculated patch fixed",
+  "native_binary_sha256": "f0571540b80d79e8717f6acf4894aa3c2d9a3afb72b8a56c466c0933318fbe0d",
+  "expected_library_sha256": {
+    "libfiniteVolume.so": "37dd5600be16cef1c6e320107e913c4cefad66beee1e76b2a43b461244c6efb0",
+    "libmeshTools.so": "1a388110176dfb2386ab1dcac573263143e6be34b1671487b62c3f8cf4c0b987",
+    "libOpenFOAM.so": "4a7b095aa31ddc63a20959ac72d24bf5b0195dca64b781553d52e2fd30461640",
+    "libstdc++.so.6": "ff0825e113603c3866680d5d52216bc6d8eedf3a59f52a0aef67ff01994db128",
+    "libm.so.6": "3dd5511ae94785c9f921429b0f2b2f7aabb461b6f0e6de6dfdbef15f24bdfee6",
+    "libgcc_s.so.1": "fc9d43b2f6c20e53b009238f767c5b949d202389e20de9e202ea684b4ba3729a",
+    "libc.so.6": "b2cf6c33b74d2f22543b7a469a75b538911e690f769d0b238843a49465b83793",
+    "libPstream.so": "f8dd06d0b9d43d31b19d4827aeafff8c0bd4fd56686e67aecc2bf1b8e22dee67",
+    "libfileFormats.so": "b891639662b3b526e40a8ba5241af91fc8ce0c615f76c15a929249bf856abc30",
+    "libsurfMesh.so": "1fd19dc49d8538ca377b330d7ea2ed274d27789e85eecd803586c887802c6f04",
+    "libz.so.1": "64c206f0146cc58bbddc4f22054436f4ff278f5a554aa3ce6921ddf7e9133370",
+    "libmpi.so.40": "27d2d690a5d1f971cf90e28e54e945519df7c1528a954ae4bfc8a436bfbb1982",
+    "libopen-rte.so.40": "69b31a92a4fb7e2f494a027a7d4dddff4e516aab5158827165e12730d7c0ff57",
+    "libopen-pal.so.40": "2a03b97563b724c6e42f853b90e2dc0619de3486628a7b065b74f7b30e5c35a1",
+    "libhwloc.so.15": "2efe6e32d0d3454b2bce0d3b8cd437f48691475717be4b431f96bcc2d4d9bc54",
+    "libevent_core-2.1.so.7": "2d04f8e4a4cd0cf3dfe214f655298b6819cf7b1ce5677c461b904830bcdb2f8f",
+    "libevent_pthreads-2.1.so.7": "2c12e1fbd54ac804e4de1badcb318217ada877ae18cab8b3ce89cf3626635537",
+    "libudev.so.1": "08b989e58a49b85468db9be8f5f915d756ae70865a291bb524bc87d9fedf6dda"
+  },
+  "entry_state_sha256": "dc7dd9fa38811cfc400d5fc8d1e3a56a76f83ad014cb84d3f708147ca1f6aebc",
+  "scale_sha256": "322cb57d92dec439752c37bf3678e62a53082245e6c0116fab38e23a5c2372a9",
+  "temperature_scale_K": 3710.4316126698473,
+  "P_ref_W": 1224.53399598741,
+  "kernel": "Exact copies of DEC030 analytic full face/Euler/latent/nonorth/source Jv; unchanged inherited GMRES(20), two MGS passes, right positive diagonal preconditioner, projected L2 1e-11 early exit; final extra direct Jv independent of recurrence",
+  "old_margin": "record only, no positivity gate in this NEW experiment; original code and prior conclusions unchanged",
+  "rhs": "native complete same-state unrelaxed matrix A(T)*T-b(T); frozen per seed before Krylov; norm = sum(abs(original H_native)); independent face RHS also checked with this SAME norm",
+  "true_linear_strict": 1e-09,
+  "roundoff": "original gamma256 * sum(absolute-composition-Jv-bound + abs(H_native))/fixed_native_RHS_L1; report projected/preconditioned/weighted norms separately, no replacement of true norm",
+  "calibration": {
+    "schedule": "3 original known roots + 3 clip-side bases + 6 directions * 2 trial R = 18 R; 6 Jv; reuse immutable old format/negative/nonzero-sweep evidence SHA",
+    "directions": "alternating +/-1 at solid/mushy/liquid; exact Ts exterior negative; exact Tl exterior positive; Ts+0.01K interior positive",
+    "h_K": [
+      0.0001,
+      5e-05
+    ],
+    "Gamma_prime": "strict mushy 1/delta; exact threshold and pure phase0, outside selector",
+    "Jv_relative_FD_max": 2e-06,
+    "induced_FE_at_target_Terror_strict": 2e-10,
+    "known_root_FE_cross_and_noise_strict": 2e-10,
+    "phase_noise_strict": 1e-09,
+    "T_boundary_noise_K_strict": 1e-07,
+    "original_linear_strict": 1e-09
+  },
+  "real_diagnostic": {
+    "per_seed_R": 3,
+    "normalization": "u=d/max(abs(d)), no new Jv; use final charged Jd divided by the same norm",
+    "h_K": [
+      0.0001,
+      5e-05
+    ],
+    "activity_side": "entire segment stays in original pure/mushy interval; at exact Ts/Tl only original exterior side allowed. Invalid predefined sample counted/rejected, not retuned",
+    "FD_checks": "native and independent face residual differences versus reused Ju; relative <=2e-6 and induced FE <2e-10",
+    "merit": "original fixed-s Phi, no weights or tolerances changed; report base/trial Phi and difference/h, predictions and activity. Diagnostics never accepted or propagated"
+  },
+  "caps": {
+    "G": 0,
+    "R": 24,
+    "Jv": 48,
+    "PREP": 2,
+    "hard_seconds": 120
+  },
+  "accounting": "count before every requested action, including failed/rejected samples; no action exceeds its category cap; cache reuse/linear scaling adds no Jv. All restore/hash/independent arithmetic/I/O work counted in wall. No retry, no source edits after preregistration. Provenance/calibration/interface/time failure stops batch; a fixed-seed linear/side failure stops that direction, only the other preplanned independent seed may proceed if trusted/budgeted. No nonlinear candidate acceptance.",
+  "resources": {
+    "rank": 1,
+    "threads": 1,
+    "CPU": 0,
+    "RSS_warning_bytes": 1073741824,
+    "data_warning_bytes": 209715200,
+    "warning_policy": "MONITORED_ONLY; maximum child/controller RSS and retained data stage-end observations, not hard memory/disk isolation"
+  },
+  "new_sources_sha256": {
+    "legacy_verify.py": "fdfb853c3720f4348543fe759aeb06f6b5da41959f25ecd2f1e530c83395ab37",
+    "check_native.py": "3ed52b67bb9485f61b78af70613a7138c98e316a9a401845d256a25130947fb3",
+    "frozen_controller.py": "9d107ebbb2a9f7a1407c195ba92d25c494a1d44152a8ab0b02dac060a6f92eda",
+    "calibration_method.txt": "62c963fe3235c141384767fdb578737b78df86602bf6f6d9117559dda8fd399c",
+    "run_direction.py": "072b5cf460ad7dc406c3f17be845b6b1e19ccc99e571bce49ab6fd278a82ab70",
+    "oracle.py": "2c769e2fa9d273ee0ba25ae29b1cbd4ed9bfe69fb0c4a31cf258b2f62e321837",
+    "numerics.py": "f2ec5a37b79970aa857adcd8a03ea29ecae0f33ab00104f00174eba5a44f4091"
+  },
+  "protected_files": 1211,
+  "protected_manifest_sha256": "42dae049cbe05198e2c61b02669310674300a4314c1065fc2db49f9e93a4adb3"
+}

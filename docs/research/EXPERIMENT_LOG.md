@@ -300,3 +300,147 @@ solver耗时比13.392，超过8倍单元增幅；按单元步数归一仍约1.67
 - 75文件/28既有分支提交及163历史blob审阅：无tracked原始runs/validation或匹配凭据；私有路径模式仅合成脱敏测试夹具。起点两项CI成功、无未处理审查；最终分支提交仍须CI成功、正常GitHub合并许可。未把模式扫描宣称为完备安全证明。
 - MAG候选NO_BENEFIT正式关闭；阶段2限定研究收尾、阶段3未启动。258步相变非线性未收敛、物理/网格参考缺口及API/内核成本边界继续公开。
 - [完整收尾与唯一AI候选](STAGE2_CLOSEOUT_20261018.md)建议压力初值预测+原生PCG校正，仅PROPOSED；P_SOLVE12.963 s/6.32%，零成本极端solver上限1.06750×。未来数值合同、矩阵采集、离线及CFD预算均须另批，本轮没有AI实现、训练、采集或新增CFD。合并结果/实际SHA以PR #4及Git历史为准。
+
+## EXP-014 — 压力系统前置构建失败，INCONCLUSIVE
+
+- 日期2026-10-18；DEC-018；基准main a8861ea9c0d4514f10606da5d3fb9568b4c86f92，授权/运行HEAD 7f28ed8549c7abee5739aac35e03451237f9db43。
+- 唯一阶段build-replay返回2：新增离线工具两处lduMatrix::Amul遗漏v2512要求的direction参数。是工具实现错误，不是原版求解器/科学假设失败。按失败停止、不重试，未修复/重建或执行后续阶段；新CFD=0、S/M1=0、真实系统0/30、离线回放/AI均未开始。
+- 格式/残差/数值等价门槛NOT_STARTED/NOT_TESTED，不冒充通过。3343项批次前后保护SHA一致，40项实际源码SHA核对一致；原版/冻结输入/原历史场未改，258步相变未收敛风险保持。
+- 外层11.07 s，构建6.62 s，峰值552624 KiB，新增私有数据末次观察约1.07 MB；1200 s系统截止未触发，8 GiB/3 GiB MONITORED_ONLY未越警戒。原件/日志/失败标记保留本机。
+- [脱敏失败报告与来源](../validation/PRESSURE_SYSTEM_FEASIBILITY_20261018.md)及JSON给出INCONCLUSIVE；迭代/采集开销/推理验证回退预算均UNMEASURED，目前不建议批准AI开发。只建议另行授权修复与新的原生前置门槛，不自动恢复运行额度；MAG候选仍关闭。
+- 新PR只提交证据与记录，保持Draft不合并：数值门槛未通过，文档CI不能替代该门槛。
+
+## EXP-015 — 新批次压力回放接口修复：全部非CFD门槛通过
+
+- 2026-10-18；DEC-019；起点415e97534cb1b0ea85f374d5e16eef2fa545a817，授权/运行HEAD 6cc79354108ffe7c8364e60b098c1ed810dcd3bd。新隔离目录中经v2512签名/标量源码确认两处Amul补component=0；只构建一次且通过，没有修补后重建；不是EXP-014自动重试。
+- BUILD_PASS / FORMAT_PASS / RESIDUAL_PASS / REPLAY_PASS。两个2048单元制造SPD系统，有效/无效参考、内部/非耦合边界及精确解独立验证；完整格式/解逐位往返，10个坏输入拒绝。四对原生fvMatrix与ldu解/残差/次数完全相同；12组重复解逐位相同，32次纯线性代数求解，零物理时间推进。
+- 12组原生停止均通过，但4组大偏置初值不满足原始尺度真实Ax-b标准，正确拒绝；8个替代初值均改变归一化。严格原始固定门槛不变，独立Python舍入区间在同一侧认证，不用次数推算费用或宣称AI收益。
+- 外层16.02 s，控制器15.959 s，构建11.20 s，原生测试0.08 s；峰值670280 KiB/654.57 MiB，新增私有数据约5.53 MB；300 s截止内退出0，1 GiB/200 MiB MONITORED_ONLY警戒未越界。
+- 3398保护内容SHA一致，旧失败40项源码与6项证据SHA核对一致，6项原生源与EXP-014哈希一致；原版、冻结输入、旧原场和失败工件只读。原始数组/拓扑/源码/日志留本地，[脱敏报告/JSON/CSV/接口diff](../validation/PRESSURE_REPLAY_INTERFACE_20261018.md)追溯实际版本。
+- 具备申请下一次受控CFD采集的非CFD前置资格；真实采集完整性及S/M1全场/事件等价仍未验证，任何新CFD须另批。本轮CFD=0、S/M1=0、真实系统=0，不AI，258步未收敛风险及MAG关闭保持。PR #5维持Draft，不合并。
+
+## EXP-016 — 真实压力系统采集/回放通过，AI初值研究当前NO_GO
+
+- 2026-10-18；DEC-020；起点f2696ca3d1582e6781838f31c7bf21fe9fd4998e，授权/运行HEAD 73491dd5；新批次复用EXP-015回放二进制/序列化头，原版投影与冻结输入/库来源通过，旧额度不恢复。
+- 唯一S0.33 s、step5三真实系统完整通过后，唯一M1204.86 s完成step50/150/…/950×三位置30系统。S19场/3 uniform等价；M1190场/10时刻/30 uniform对三原版逐字节一致、原检查issues空，完整事件/T/p/epsilon及258步热校正轨迹相同。
+- 原始初值全部33系统回放解逐位一致、初/终残差/次数与在线日志精确相同，固定真实残差通过。30 M1样本原生160迭代；零初值455、含失败回退532，10/30接收；外推170、含回退194，28/30接收，无净迭代节省。外推step750-c3及950-c2虽满足新初值原生停止，仍违反原始固定尺度/相对目标，正确拒绝，不降标。
+- 原生核心中位数合计121.819 ms，外推127.558 ms；计参考尺度、复制/特征、核验及失败原生回退169.800 ms，零初值396.332 ms。是独立分量记账，不是在线回退或整CFD性能；不以迭代数换算时间。新固定尺度/核验中位相加约801.431 μs/调用，对3000次的2.404 s仅筛选情景，非全M1实测。
+- 全批389.79 s、全检查合96.206 s；峰值1176260 KiB（约1.122 GiB）、M1 RSS243008 KiB；新增约245.74 MB，1200 s退出0，8 GiB/3 GiB MONITORED_ONLY未越警戒。压力solve边界12.876952 s/6.2857%，固定其他工作时零成本极端上限1.06707×；不是纯迭代份额或AI收益。
+- 3493保护SHA一致，实际源码/二进制/库、字段/uniform/事件及33数据集SHA留证；原矩阵/场/日志本机保留，仅发布[脱敏报告/JSON/CSV](../validation/REAL_PRESSURE_REPLAY_20261018.md)。EXP-014/015及旧原场不改。
+- 执行/数值链路PASS；研究建议NO_GO针对当前批准AI初值开发的收益证据，不是普遍不可能证明或永久路线变更。下一项仅提既有系统PCG内部成本/下界只读审计，不自动执行。本轮不AI、不M2/M3、不重试/续算；258步风险及MAG关闭保持，PR #5维持Draft，不合并。
+
+## EXP-017 — 零新增计算的压力研究收尾与方向重评
+
+- 2026-10-18；DEC-021；起点7e27b28a9237586e60a1ac02ea826698a2930613。仅复用小型公开证据/原生源码与Git历史，零新CFD、构建、矩阵回放或AI；不是新的性能实验。
+- 固化EXP-016链路PASS/研究NO_GO：33原生回放通过；30 M1原迭代160，外推含回退194，2个原尺度真实残差拒绝；分量计费121.819→169.800 ms，尚未单列历史维护/推理成本。30样本不能认证泛化或完整CFD收益；旧失败与原始系统保留。
+- EXP-010同次205.01 s计时中，T组装/准备62.071852 s（30.2775%），p预测/更新42.419436 s（20.6914%）。仅为互斥包围区间；依赖变化阻止整体缓存，未测可避免份额。不得以次数换算时间或重开MAG。
+- 唯一研究候选为受约束T–相变固定点加速，NOT_READY：缺独立收敛参考/误差合同、完整T回放状态、可省费用与创新性论证。不能把258个上限退出步当真值，不能减校正换速度；M1物理/网格参考仍UNVERIFIED，不选择AI方法或授权实现。
+- 起点PR7提交/16文件/32公开blob审核，仅文档治理/脱敏证据；无原版/输入改动或匹配敏感数据。历史非空DEC/EXP内容保留，起点Markdown CI成功、无审查线程；保留Draft/unmerged，最终CI另核。27项消费来源SHA不变，不冒充重审全部原场，证据见[简短评估/JSON](STAGE3_DIRECTION_REASSESSMENT_20261018.md)。
+
+## EXP-018 — T–相变固定点数学与文献只读审查
+
+- 2026-10-18；DEC-022；main原版a8861ea9、证据起点9f658caa。零新增CFD、构建、原生回放或算法/AI实现；不是新数值实验。必要源码与小型证据约405 kB/34项归档窗口前后SHA一致，原版消费源/冻结benchmark匹配main；未重扫大日志或旧原场。
+- [唯一报告](T_PHASE_FIXED_POINT_REVIEW_20261018.md)定义G_native,C及理想G_*，区分旧时间层/入口冻结/当轮/prevIter；完整T/l场在冻结C及固定边界路径下条件封闭，两个内部数组不足。实查l为calculated patch、原生relax(1)仍修正对角，不能简化成纯Picard/恒等松弛。未证压缩性、根存在/唯一或收敛。
+- 独立验收草案区分原l增量、完整固定点残差、温度/相分数互补一致性、同态未松弛离散能量/潜热与边界缺陷；当前仅日志可保留258步未达门槛事实，不能认证能量/完整收敛或物理真值。逐热校正快照、Euler旧层/NO_WRITE冻结量及热矩阵缺失，现有场不足回放，压力矩阵不可替代。
+- 核实Walker–Ni2011、Tóth–Kelley2015、Zhang/O'Donoghue/Boyd2020、Kang/Wang/Zhu2025及传统阻尼/Aitken/半光滑相关原文/DOI；报告明确全文与仅摘要/节选访问范围、假设不满足及费用/失败边界。不以LPBF应用宣称创新，不选择AI。Kang的ITEM/TEM不等同于本T潜热源校正。
+- 最终NOT_READY；唯一未来提案为零CFD的8单元非正交制造状态/独立残差/单次G往返门槛，未实现、未批准运行。原版次数/标准、压力初值NO_GO、MAG关闭与258步及物理/网格风险均保留，PR #5 Draft/unmerged。
+
+## EXP-019 — 零CFD热制造解与原生G回放门槛通过
+
+- 2026-10-18；DEC-023；起点282f6d48424ca768ac500b0b9088eb3d624e51d0，实际运行HEAD de688dd7（完整SHA见JSON）。新隔离目录，只构建一次。MANUFACTURED_RESIDUAL_PASS / NATIVE_G_REPLAY_PASS / NEGATIVE_CONTROLS_PASS / PROVENANCE_PASS；BUILD/FORMAT亦PASS。零S/M1、零物理时间推进、零真实采集/AI/加速算法。
+- 独立8单元剪切非正交逐面/Euler计算在原生执行前制造已知T/相分数与平衡源；原材料/辐射/蒸发/阻尼及原生BC/数值/停止语义保留。三组矩阵最大缩放误差1.681e-16，原生同态未松弛F_E最大2.722e-16；固定预算分别5e-12。完整快照及三组原生G的10文件/组逐字节一致；所有源、旧层及边界参与核对。
+- 正例平衡G各0线性迭代，不能冒充非平衡覆盖；三个组装后+1 K线性恢复探针各2次原生迭代，最大T误差1.415e-10 K、相变一致性2.005e-12。含gamma256的独立真实残差上界最大1.772e-11<原1e-9；保持未扰动T参考归一化也通过，不降标。
+- 六项负例全部拒绝。特别是冷固T+10 K的实际原生G：epsilon增量=0，但输出T偏差0.025413 K、同态能量缺陷8.92879e-6>既定2e-9；只从已产出状态集中分析，不追加G。证明该构造下增量单判不足，不解释真实258步或AI成败。
+- 主动批次23.90 s、控制器23.8353 s，唯一构建17.3406 s；峰值810792 KiB/791.79 MiB，新增末次约3.78 MB。300 s硬截止内退出0，rank1/线程环境1/CPU0，1 GiB/200 MiB MONITORED_ONLY阶段后观察未越界，非内存/磁盘硬隔离；工具编写及最终报告/Git不计主动执行。
+- 4225项批次前后保护内容SHA一致，26项消费源/输入、8项私有工具及实际库/二进制SHA留证；原始工具/数组/日志本机保留，仅提交[脱敏报告/JSON/CSV](../validation/T_PHASE_MANUFACTURED_REPLAY_20261018.md)。原版、三基线、旧失败及研究负结果不改。
+- 只获得申请下一轮真实单步采集/数值参考设计的前置资格；任意非平衡G、真实T回放状态、收敛参考与物理/网格准确性仍未验证。不实现采集器/AI，不恢复旧额度，压力初值NO_GO、258步风险及MAG关闭保持，PR #5 Draft/unmerged。
+
+## EXP-020 — 真实单步热状态采集：唯一构建失败停止
+
+- 2026-10-18，DEC-024；负责人明确批准新批次，起点a908d7997fce984ad51e23e450dc09ce6670381d，实际执行HEAD=9d2d2cd94d9a6d85e307d03e00db8e31b05dc746。报告：[真实单步热状态采集](../validation/T_PHASE_REAL_CAPTURE_20261018.md)、[脱敏SHA/资源JSON](../validation/T_PHASE_REAL_CAPTURE_20261018-summary.json)。PR #5保持Draft、不合并。
+- INCONCLUSIVE。唯一wmake隔离构建失败（exit2）：新增thermalReplay.H先于Polynomial.H引入，Polynomial<8>未声明，继发polycp_m/g错误。为集成工具的头文件依赖遗漏，不是原生物理、固定点/AI算法失败。没有修补重建、重试或续算；零S/M1、零原生G、零真实状态/残差数据。原制造框架平衡证据不扩展为非平衡/真实链验证。
+- CAPTURE_FAIL / G_CHAIN_REPLAY_FAIL / NUMERICAL_PARITY_FAIL / INDEPENDENT_RESIDUAL_EVALUATION_FAIL均指NOT_RUN_BUILD_GATE_FAILED，不能解释为已经测得数值不一致或独立F_E超标；PROVENANCE_PASS。没有分轮结果可报告，不生成空表冒充测量。
+- 预注册SHA256=622d9fd8b2449d4ece020270104da8b3bdb7819f0f895d047208d59c8b53227d，44项工具/16项消费来源内容不变；4750项保护内容SHA不变。编译失败工件/全部日志留新本地目录，只推脱敏摘要。首次后台包装器在控制器入口前退出、尚无构建/CFD；保留空日志后换持久会话，实际仅一个主动批次。
+- GNU批次17.55 s，控制器17.3792 s，唯一构建11.66 s，峰值797208 KiB（778.52 MiB），末次主动数据1650796 B；rank1/thread1/CPU0，1200秒硬截止未触发；8 GiB/3 GiB MONITORED_ONLY阶段后观察，非cgroup/磁盘硬隔离。编写/最终报告/Git另计。
+- 完成后停止；本次额度已消耗，不具备另批独立收敛参考的新增资格。仅建议另行批准一次隔离包含依赖修复和非CFD非平衡G配对门槛，不自动恢复CFD额度。原258步未收敛、压力初值NO_GO、M1物理/网格缺口、MAG关闭及AI未启动保持。
+
+## EXP-021 — 回放头依赖修复与非平衡G门槛
+
+- 2026-10-18，DEC-025；负责人明确回复“批准本次非CFD新批次”，起点6b5dc548979b7b184b38a9be19145a57d5d02b81，执行HEAD=8e432de090b81d3bdcf85b44d6eca614d72fc102。报告：[非平衡G门槛](../validation/T_PHASE_HEADER_NONEQUILIBRIUM_20261018.md)、[三组CSV](../validation/T_PHASE_HEADER_NONEQUILIBRIUM_20261018-comparisons.csv)、[脱敏SHA/资源JSON](../validation/T_PHASE_HEADER_NONEQUILIBRIUM_20261018-summary.json)。PR #5 Draft/unmerged。
+- BUILD_PASS / NON_EQUILIBRIUM_G_REPLAY_PASS / RESIDUAL_PASS / PROVENANCE_PASS。新副本回放头显式包含fvCFD.H和Polynomial.H，正文/G/序列化/残差器保持EXP-020；最小非CFD入口唯一wmake通过。旧失败工件不改，不修补重建。零S/M1、真实热采集、物理推进或AI。
+- 原96个制造输入/源按字节复用；三母状态各一次非平衡直接G和一次回放，各2次原生线性迭代；完整内场/patch/实际Euler旧层/prevIter/标志、两矩阵/源/事件等195项文件比较逐字节一致。clip活动集变化4/3/4单元；三组T各24个patch值变化，糊状epsilon另24值变化；原生T/epsilon事件字节相同。独立矩阵/relax/逐面Euler交叉误差最坏2.522e-16/9.958e-17/1.933e-16，零梯度边界缺陷0；真实线性加舍入界最坏4.491e-11，严格<原1e-9。
+- RESIDUAL_PASS不是非线性收敛：单G同态F_E最大固定缩放缺陷约0.059815/0.040852/0.032226，均超过原2e-9；epsilon增量约0.35，糊状相变/温度缺陷0.883056。联合草案正确拒绝三终态，没有延长校正、改源或放宽标准；不据此解释M1真实258步。
+- 注册SHA256=5345a37f772d01109f60384f6dddd25dc9e84bd0facecd217017efadb3253102；43工具/18消费来源/96输入固定，4910项保护SHA不变。GNU批次25.14 s、构建18.32 s、峰值818916 KiB（799.72 MiB），末次主动数据4192070 B；rank1/thread1环境/CPU0，300秒系统截止未触发，退出0。1 GiB/200 MiB MONITORED_ONLY，非硬内存/磁盘隔离；编写/报告/Git另计。原始数据/工具/日志留本机。
+- 仅具备申请下一次受控S/M1采集的非CFD前置资格，不自动恢复step738或历史额度；完整CFD观测求解器构建、真实21轮链及数值参考仍未验收。本批结束，不自动新实验或AI。压力NO_GO、258步风险、M1物理/网格缺口及MAG关闭保持。
+
+## EXP-022 — 真实热链自主验证：S符号零恢复门槛失败停止
+
+- 2026-10-18，DEC-026新一次性分阶段明确授权，起点06f072e97814d95efc571d9c531d47ad16c408b3；执行HEAD=d23dc893427973986878c07c018f639930089ed9。报告：[真实链门槛停止](../validation/T_PHASE_REAL_CHAIN_20261018.md)、[位差CSV](../validation/T_PHASE_REAL_CHAIN_20261018-signedzero.csv)、[来源/资源JSON](../validation/T_PHASE_REAL_CHAIN_20261018-summary.json)。INCONCLUSIVE；PR #5 Draft，不合并。
+- BUILD_PASS / NONCFD_GATE_PASS / S_PARITY_PASS；CAPTURE_COMPLETENESS_FAIL / G_CHAIN_REPLAY_FAIL（S单G失败，M1真实21轮未执行）；M1_PARITY、真实INDEPENDENT_RESIDUAL_EVALUATION及EXPLORATORY_REFERENCE均NOT_RUN。PROVENANCE_PASS。只有一次完整观测构建、唯一S；原检查issues为空、19场/3 uniform/完整事件与原S字节一致。未使用剩余预CFD构建额度、无S重跑/续算、零M1/延拓/AI。
+- S step5原生2次线性迭代；9个矩阵/源/初终值/指标/几何文件完全一致，但入口/出口全状态分别3314/3051个binary64零值符号位不一致，全部−0→+0，数值数组/时间/维度/类型/标志相等。严格字节门槛不放宽，停止后续科学实验。完整原二进制状态仍保存，不把数值相等写成回放PASS。
+- 源码核实v2512 ScalarRead会把±ScalarVSMALL区间归零，Field uniform压缩也可合并混合符号零；当前元数据恢复跳过值数组、依赖ASCII读值。允许范围内两次新副本非CFD格式诊断（-0.0 token；从原metadata数组逐项科学计数法/nonuniform）均FAIL，保留全部失败证据；没有追加构建/CFD或恢复原S门槛，不继续第三种方案。真实F_E未评价，不宣称新M1收敛/不收敛结论。
+- 注册SHA256=8532e73221d220ac86a1c105c13f7e9b63111cbceadd353793731425cc3fc7ea；观察源码投影精确还原原版，原库来源相同，5578保护SHA及工具/消费来源不变，两项诊断另确认原S/回放/源码不变。主批次217.53 s，构建208.39 s，S solver0.42 s；峰值1234456 KiB（约1.18 GiB）。两项诊断GNU0.92/4.11 s，合计进程222.56 s，最后诊断在原起点528.316 s内结束，未触发1200 s截止。rank1/thread1环境/CPU0；8 GiB/3 GiB MONITORED_ONLY，非硬资源隔离。
+- 末次审计逻辑39.157 MB/唯一inode38.843 MB/实际分配40.542 MB，241个新工件硬链接保留所有路径/字节，旧数据不动。原始工具/字段/矩阵/日志本地留存，公开仅脱敏记录；编写/报告/Git另计。尚无传统算法研究资格；后续只建议另批二进制位保真格式/混合符号零门槛，再申请新S/M1。压力NO_GO、MAG关闭、258步及M1物理/网格缺口保留。
+
+## EXP-023 — binary64恢复与真实M1链：第二轮prevIter元数据失败
+
+- 2026-10-18，DEC-027新授权，起点97563b8d0d56e93406a58d440146adcadf7fefea；授权/离线构建HEAD=8522a838ee6e64d9fe8bdb06b475e69c8a7a3081。报告：[位保真链验证](../validation/T_PHASE_BITEXACT_CHAIN_20261018.md)、[21行原生/部分独立残差](../validation/T_PHASE_BITEXACT_CHAIN_20261018-residuals.csv)、[逐轮验收/SHA](../validation/T_PHASE_BITEXACT_CHAIN_20261018-integrity.csv)、[来源/资源JSON](../validation/T_PHASE_BITEXACT_CHAIN_20261018-summary.json)。INCONCLUSIVE；PR #5保持Draft、不合并。
+- 唯一窄原生构建PASS，29状态原始binary64逐分量memcpy恢复，原生对象建好后覆盖全部内部/patch/旧层/prevIter/冻结数组及标志；没有ScalarRead或符号零归一化。混合/均匀两组各102400分量/174数组全字节相同，9类不兼容/损坏负例拒绝。真实旧S完整before/after/矩阵/源/线性/事件与独立算术PASS；线上观察器二进制及库未改，复用EXP-022原19场/3 uniform/173事件证据，零新增S。EXP-022原失败记录不改。
+- 唯一冻结M1采齐step738第一次TEqn原生21轮。原检查EXPLORATION_CHECKS_PASSED、issues=[]；190场/30 uniform/10时刻对三基线逐字节一致；完整T/p/epsilon事件/258个未收敛上限步轨迹不变，所选原生事件24491行三基线原字节一致。1000步/dt1e-8、方程、边界、材料、原生smoothSolver/symGaussSeidel/容差/退出规则不变。
+- 连续21G只执行一次。第1轮全部状态/快照/矩阵/源/事件字节一致，独立算术/原线性/边界PASS。第2轮所有浮点数组、9个矩阵/源/初终值/指标/几何文件仍一致，但T_prevIter、epsilon1_prevIter在before/after的timeIndex原生0、回放738，前后各4字节不符。严格门槛FAIL，停止2–21轮独立残差及3–21轮完整验收，不再修复/重放。隐藏prevIter旧层/构造顺序只为待证解释，不宣称修复或完整C已验证。
+- BUILD/NONCFD_FORMAT/BIT_EXACT_RESTORE/S_G_REPLAY/S_PARITY/M1_PARITY/PROVENANCE均PASS；G_CHAIN_REPLAY_21_FAIL，整链RESIDUAL_EVALUATION_NOT_RUN（仅首轮PASS）；NONLINEAR_CONVERGENCE_STATUS_FAIL仅依据原生终轮epsilon增量0.07114668063610671>1e-6，独立终态F_E/相变缺陷未知。首轮F_E最大固定缩放0.0049226720、L1 86.4566 W、相变/温度缺陷0.05380794，能量交叉2.1853e-16、真实线性加舍入3.8699e-12、边界0 K；不是第21轮值或收敛参考。
+- 三工程循环/一次构建，完整保留两次控制器工程中止：制造cp正值假设错误套用原calculated patch零值（只修适用域，数值预算不变）；把MONITORED_ONLY数据警戒误作硬门槛（按原政策纠正，仅验收已有G，无CFD/G重跑）。最终真实元数据失败停止，无第四次修复。6468/6796保护SHA及消费来源、工具/冻结原版树和库不变。
+- 同一绝对1200秒截止，主动起点至最终停止733.58 s；GNU26.31+389.08+25.90 s；构建18.44 s、M1 solver234.07 s、原检查95.3163 s、21G29.67 s、首轮同态无求解组装1.30 s。峰值853988 KiB（833.97 MiB）；rank1/thread1/CPU0。数据实际曾越3 GiB警戒至3.575 GiB，不隐瞒；仅本批新完成工件2688个SHA校验硬链接保留所有路径/原字节，末次逻辑3.889 GB/唯一709.30 MB/分配711.86 MB。8 GiB/3 GiB均MONITORED_ONLY，不冒充硬隔离。初始工具准备约169.72 s、最终报告/Git另计，修复间隔已含733.58 s。
+- 本批结束，无延拓/第22G/传统加速器/AI。不具备独立收敛参考实验资格；唯一未来建议为另批零CFD复用本次真实快照修复prevIter生命周期并重验完整链，不能自动执行或新增S/M1。压力初值NO_GO、MAG关闭、258步和M1物理/网格缺口保留。
+
+## EXP-024 — prevIter生命周期修复、真实21轮位保真及独立残差终验
+
+- 2026-10-18，DEC-028新非CFD授权，起点1371a10d578939f30136af34a949b86b4c4de6e3；授权/唯一工具实际构建HEAD=69d662ec8c844f34c75751a6c40a3aa5fa8422bf。报告：[真实21轮终验](../validation/T_PHASE_PREVITER_FINAL_20261018.md)、[21轮残差](../validation/T_PHASE_PREVITER_FINAL_20261018-residuals.csv)、[11项逐轮完整性/SHA](../validation/T_PHASE_PREVITER_FINAL_20261018-integrity.csv)、[来源/费用JSON](../validation/T_PHASE_PREVITER_FINAL_20261018-summary.json)。全部技术门槛PASS，NONCONVERGED_OBSERVED；PR #5 Draft、不合并。
+- 原生生命周期因果探针：旧恢复先oldTime再复制prev，prev带1层历史，metadata恢复索引0后真实storePrevIter触发storeOldTimes推进到738；新顺序先构造prev、再建父场oldTime，prev无历史，赋值保留原索引0。v2512命名复制构造/强制赋值/时间层分支与原TEqn/Euler顺序对应，原生prev在0建立无历史，后续赋值不复制父场历史。不是硬写timeIndex0或删元数据。原binary64/标志恢复、oneG/组装数值体不变。
+- 一次原生构建、两次调试循环。首循环探针及第1轮完整回放PASS，第2轮独立case缺system/controlDict引用，G执行前退出；日志/源码保留。第二循环只建立只读上下文视图，复用相同C++和二进制，原快照不改。第1/2轮单G和连续两G全部完整状态/ASCII/矩阵/源/原事件字节相同（局部共4G）。随后唯一连续21G，每G立即比较11项完整二进制工件，21轮及42条原T/epsilon事件字节差0；22条生命周期记录保持prev无旧层、索引等于原捕获值。零新CFD/S/M1、Time推进或第22个链G。
+- 全链通过后才对21个输出态做同态无求解组装和独立逐面Euler诊断；沿用原入口固定尺度及检查预算。最大能量交叉2.61058e-16、潜热交叉1.96184e-18，均<5e-12；真实线性残差加gamma256全链最坏2.23432e-11<原1e-9，零梯度边界0 K。原生均值和独立求和终态相差约2.95e-18，明确区分舍入与原事件字节合同。
+- 第21轮仍未收敛：epsilon最大增量0.07114668063610671>原1e-6，原生平均4.4470602557926683e-6；同态F_E最大固定缩放0.000350211945696793>联合草案2e-9，L1 0.1752520366620431 W；相变/温度缺陷0.004970677026148695>草案1e-8，投影互补0.007930382176868655；潜热滞后L1 0.17521236636206405 W。第21次G输入态T增量1.97522081556 K，不冒充其输出态完整RG（未调用22G）。末17/19/21完整after状态SHA相同，18/20另一个相同SHA，观察窗口两种状态交替；不宣称延长原G必收敛或外推所有258步。
+- 同一个600秒绝对GNU timeout截止，原起点至最终停止241.73 s，含修复间隔；两进程GNU50.28/69.82 s，构建18.75 s、完整21G3.294 s、21次同态无求解组装合14.409 s。峰值进程858524 KiB（838.40 MiB），非并发树合计；rank1/thread1/CPU0。预估新数据未去重1.519 GiB，阶段后实际分配峰值0.832 GiB，末次逻辑1.574 GB/唯一370.80 MB/分配372.18 MB；412个仅本批新完成工件SHA校验硬链接，保留路径/字节，不链接旧数据。8 GiB/3 GiB MONITORED_ONLY警戒未触发，非内存/磁盘硬隔离。工具准备测量范围约233.12 s（目录创建至首执行，先前源码审查另计），报告/Git另计。
+- 10228/10351保护SHA、116项来源和工具不变，冻结原M1输入/原版Git树/原生库来源通过；EXP-014至023负结果/原失败工件与公开记录原样保留。额度结束，只具备申请独立收敛参考设计资格，不执行独立延拓参考、传统加速比较或AI。压力初值NO_GO、MAG关闭、258步未收敛及M1物理/网格缺口继续公开。
+
+## EXP-025 — 独立收敛参考数学与受控实验设计（无数值执行）
+
+- 2026-10-18，DEC-029设计授权，基准6363172da045af48b7c533bbf64e7b17208bc214。唯一新研究交付：[T–相变独立参考设计](T_PHASE_REFERENCE_DESIGN_20261018.md)。REFERENCE_DESIGN_READY仅指可申请未来受控离线实验，不是已取得根或批准新标准。零CFD/G/残差评价/数值求解/矩阵组装/构建、零算法实现或AI，PR #5 Draft、不合并。
+- 复用EXP-024的21轮/周期SHA与独立能量/相变证据，不重扫原场或大日志；明确观测窗口after切面的双状态重复，未做扰动/谱分析，不证明吸引周期、根不存在或全局唯一。内部同态F_E/R_phi根、原T/epsilon边界及冻结入口物性/旧层构成精确定义；calculated cp patch为0时只保留原边界更新，不向patch擅加内部Gamma温度约束。
+- 两路线为受保护外层阻尼原G与内部Gamma消元后的全局化半光滑Newton，均为已有传统技术，不选择AI或声称创新。核对原生API/字段操作及PETSc官方手册、Hintermüller–Ito–Kunisch DOI与Benson–Munson作者稿；其收敛条件不自动适用于本问题。
+- 旧F_E2e-9/相变1e-8不升级为真值门槛；联合合同必须在未来经制造根/负例、舍入/线性误差及场值敏感性校准，预注册后失败即拒绝、不调宽。唯一拟议实验为同C两路线×两种子，先校准后有界求根/交叉复核；600秒/52G/400R/510Jv/24Jacobian准备仅为待批预算。现有费用外推约300秒只覆盖部分组装/G，新增Jacobian/Krylov/核验成本未知，不保证完成或加速。
+- 25项约325.5 kB定向源码/摘要前后SHA不变，报告嵌入关键来源及入口/几何已核验SHA；不冒称本轮重验10351原始内容。生产Git树/冻结输入不变，全部旧验证报告及日志历史保留。压力初值NO_GO、MAG关闭、258步未收敛及M1物理/网格缺口继续公开。本轮设计结束，未来参考实验/传统求解器/AI仍须另行明确批准。
+
+## EXP-026 — 冻结738步独立参考可行性：未取得可验收根
+
+- 2026-10-18，DEC-030新离线授权，实际唯一构建/执行HEAD=fcd1a0d7f886fab13aed4dad8b1baa9bfbd84c7e。报告：[独立参考可行性](../validation/T_PHASE_REFERENCE_FEASIBILITY_20261018.md)；[预注册](T_PHASE_REFERENCE_PREREG_20261018.json)在构建/数值前冻结，公共SHA e93782640fdbeeef25c1b8576247021e66125317aa420d53b32d8fedd63d09c0，本地含路径清单版SHA e10b27f735b4f639363fa8b030cc9d49fd1252a309e49dcbe138c89e36bd5d13。[校准](../validation/T_PHASE_REFERENCE_FEASIBILITY_20261018-calibration.csv)、[四分支](../validation/T_PHASE_REFERENCE_FEASIBILITY_20261018-branches.csv)、[所有试步](../validation/T_PHASE_REFERENCE_FEASIBILITY_20261018-trials.csv)、[残差](../validation/T_PHASE_REFERENCE_FEASIBILITY_20261018-residuals.csv)、[费用](../validation/T_PHASE_REFERENCE_FEASIBILITY_20261018-costs.csv)、[来源/资源](../validation/T_PHASE_REFERENCE_FEASIBILITY_20261018-summary.json)全部脱敏。PR #5 Draft、不合并。
+- BUILD/完整C字节重载/CALIBRATION/PROVENANCE均PASS；唯一构建19.236 s。校准R24请求/Jv6，复用原冷固/糊状/全液独立制造源，最大能量交叉2.02e-16、单侧Jv相对误差2.96e-9；温度/相变/patch/Euler旧层负例检出，重载一致。一个非法patch请求在原生组装前拒绝但计R；历史非零线性工件只读复核，无新校准G。原始oneG/组装/binary64恢复数值体不变。
+- 四分支未取得合格根：A入口G7/R12、接受6步后五个阻尼全部拒绝；最后接受态F_E最大4.03690e-4、相变/温度缺陷0.0280281。A原21轮终态G2/R8，接受一次1/4阻尼后下一方向五步全拒；F_E最大1.75106e-4、相变/温度0.00291017。按预注册分类CYCLING_OR_STAGNATION，具体是线搜索拒绝，不宣称观察到新周期。该种子1/2试探虽使能量达5.97863e-15，仍有相变缺陷0.0107910，正确拒绝，不能用单一能量小认证根。
+- B两初值各R1/准备1，完整非正交导数组合的保守逆敏感性充分界最小裕量−6.33779455e-4/−6.33778944e-4 W/K，未认证即停止；真实C的辅助Krylov/Newton更新/终点G均NOT_RUN。负裕量不证明Jacobian奇异/病态、Newton失败或根不存在；不换认证方法绕过原规则。四路根差/终点干净复核NOT_RUN，整体INCONCLUSIVE，REFERENCE未通过。
+- 全批G9/R46/Jv6/准备2，45次原生R组装；其中求根G9/R22/准备2、无求根Jv。原生G真实线性加舍入最坏7.77990e-10<1e-9，全部已执行R能量交叉最坏2.73e-16。s固定为EXP-024入口，S_T=3710.4316126698473 K，P_ref=1224.53399598741 W；内部/patch/全场、绝对/有符号能量全部保留，未降低标准或把原21轮当真值。
+- 统一600 s timeout下GNU主动57.27 s（控制器57.107 s）、CPU user52.92/system4.30 s；峰值子进程860808 KiB=840.63 MiB，阶段末观测分配峰值457105408 B≈0.426 GiB，无观察警戒触发。rank1/thread1/CPU0，RSS8 GiB/数据3 GiB MONITORED_ONLY而非硬隔离。新工具准备观测窗口616.59 s（更早源码阅读不含），报告/Git另计且未精确计时；原始源码、候选/矩阵/日志全部本地保留。2543保护项/14工具SHA前后不变，另批后SHA审计25个真实输入与EXP-024预期相同，不冒充本批前后重验全部三基线。
+- 零新S/M1/CFD/Time推进/AI/生产修改，无构建重试/续跑/放宽阈值；额度结束。暂停将此C用于固定点加速比较，缺口为可信根及真实C条件认证，而不是已证明无根或所有传统方法无效。后续只提出另批只读数学审查认证是否过度保守，不自动求解。压力NO_GO、MAG NO_BENEFIT、258步非线性未收敛和物理/网格缺口保留。
+
+## EXP-027 — Newton充分界与联合Merit只读数学审查
+
+- 2026-10-19，DEC-031，起点8a8ff4b4286f3a4b109d4a755c4a8d26e75d281d；唯一研究交付为[条件认证与Merit审查](T_PHASE_CERTIFICATE_MERIT_REVIEW_20261019.md)。零CFD/G/R/Jv/求解/组装/构建/算法实现或AI，无新原场指标或数值实验；不改EXP-026及历史失败，PR #5 Draft、不合并。
+- CURRENT_CERTIFICATE_CORRECT仅指点态Jacobian充分逆界；逐项核对Euler旧层、潜热、Sp对流、完整非正交扩散和源项导数的符号/单位。符号两单元例证明把整个正交扩散作为扰动会失去有利对角；非正交组合绝对上界和对流抵消亦可能损失。实际最坏行分项/谱/条件数未知，不从保存的两个负裕量虚构排序，亦不归咎未执行的预条件GMRES。
+- 发现完整非线性误差认证尚不充分：点态逆界不能替代根存在/邻域包络；A的F_E(T,e)与H(T)差须计入潜热相变项。原endpoint未执行，此意见不追写成上轮失败或推翻其校准/INCONCLUSIVE记录。原五试步均Phi增大，不能说下降系数过严；原G方向尚未证下降，五点拒绝不证明新周期/极限停滞。
+- 核实Varah DOI 10.1016/0024-3795(75)90112-3、Dembo等10.1137/0719025、Rump 10.1017/S096249291000005X及作者原文；区分真实线性残差、局部条件估计与经验证非线性后验包络。建议RESEARCH_CONTINUE限于另批最小线性方向认证（G0/R24/Jv48/准备2/120 s提案），不是现在批准求根、加速或AI。20项定向证据/源码SHA不变，4项治理/入口仅追加记录或更新状态，不重扫原场/大日志。原258步及全部科学缺口保留。
+
+## EXP-028 — 有限Newton方向：入口认证、终态独立RHS检查未通过
+
+- 2026-10-19，DEC-032新批次，实际执行HEAD=f3aef9b8b886e3c0ba65a1103ede4cd9a38c9a0f。[报告](../validation/T_PHASE_NEWTON_DIRECTION_20261019.md)、[预注册](T_PHASE_DIRECTION_PREREG_20261019.json)、[校准](../validation/T_PHASE_NEWTON_DIRECTION_20261019-calibration.csv)、[方向](../validation/T_PHASE_NEWTON_DIRECTION_20261019-directions.csv)、[步长诊断](../validation/T_PHASE_NEWTON_DIRECTION_20261019-diagnostics.csv)、[Jv费用](../validation/T_PHASE_NEWTON_DIRECTION_20261019-jv-costs.csv)、[原生费用](../validation/T_PHASE_NEWTON_DIRECTION_20261019-calls.csv)、[哈希/资源](../validation/T_PHASE_NEWTON_DIRECTION_20261019-summary.json)均脱敏。公共预注册SHA d73ac2ce1302ce4968ee7fbffbe42820eb3e073708d1a1e3e4605d2e9ab01fe6，本地清单版7cf4556f3e41a82f2b4463c2d3c4bfab25803f78b8a42ebfa3a3763ca3fd63e1。零新CFD/G/Time推进/原生构建/AI，零接受的T/epsilon更新；PR #5 Draft、不合并。
+- CALIBRATION/PROVENANCE PASS，入口方向CERTIFIED，终态方向INCONCLUSIVE，独立联合TRUE_LINEAR_RESIDUAL FAIL（单独原生固定RHS两次均PASS），Merit诊断入口PASS/终态NOT_RUN。六制造/阈侧方向各两单侧步长通过，原生FD相对误差最大1.70e-8；完整C重载字节差0，1211保护项/7新源码SHA不变。原二进制f0571540...、Jv/GMRES及原guard保持，按新独立方法不以旧负裕量预拒方向。
+- 两种子均6次辅助GMRES+1次独立直接Jv；原生固定RHS真实L1加gamma256为入口3.01258e-12、终态2.52826e-12，均<1e-9。原预注册另要求独立逐面H、同一原生RHS尺度的交叉验收：入口3.53427e-12通过，终态2.21598e-9失败。原生/逐面终态H差L1=5.28894e-10 W，超过固定RHS对应2.38759e-10 W；不能拿原逐单元尺度交叉2.25850e-16或较大入口RHS范数替代该门槛。与相消/舍入放大相容，未做高精度归因，不证明Jacobian错误、根不存在或GMRES无效。
+- 入口方向最大28.9329912430 K；归一化方向1e-4/5e-5 K诊断无跨clip，Phi差分斜率−4.84341851e-10/−4.84342269e-10每K，与解析−4.84342688e-10相符；两条原生/逐面差分及边界/patch检查通过。采样不接受为状态，能量仍约5.1286e-3，非根。终态方向最大1.18003308650 K，严格独立门槛失败后不再做步长诊断，不重算/调参或用余额追加工作。
+- 计费G0/R22/Jv20/准备2：校准18R/6Jv，入口3R/7Jv/准备1，终态1R/7Jv/准备1。统一120 s timeout下GNU7.07 s（控制器6.895 s）、CPU6.31/0.72 s；峰值RSS96768 KiB=94.50 MiB，阶段末分配峰值33013760 B≈31.48 MiB。rank1/thread1/CPU0，1 GiB/200 MiB MONITORED_ONLY未触警，非硬隔离。工具准备观测窗口174.83 s，更早审查/报告/Git另计且未独立精确计时。原始方向/矩阵/日志/源码本地保留，无清理或旧数据修改。
+- 整体INCONCLUSIVE，有一个线性方向认证，非两方向共同通过或非线性参考。仅可申请独立根存在/后验误差认证设计，须首先解决终态固定尺度下独立RHS算术一致性；不自动求根/推进/AI。两方向均失败的暂停前提未成立，但本额度已结束。保留压力NO_GO、MAG关闭、原258步及物理/网格缺口、所有失败历史。
+
+## EXP-029 — RHS算术与根后验认证只读设计
+
+- 2026-10-19，DEC-033，基准0e93e77e7cd9b2d4e434f8e54ad2e05f108dca8b；仅一份[RHS与后验认证设计报告](T_PHASE_RHS_POSTERIOR_DESIGN_20261019.md)，无新数值批次。CFD/G/R/Jv/组装/求解/构建/数值实现/状态更新/AI均0；没有重载原场数组或反复处理大日志，旧失败和原始数据不变，PR #5 Draft、不合并。
+- 使用EXP-028终态原固定RHS 0.23875858569877612 W、两路径L1差5.288935276734949e-10 W和原绝对门槛2.3875858569877614e-10 W。核对原TEqn及v2512 Euler、标量Gauss修正扩散和fvMatrix patch贡献，区分精确代数等价与binary64运算图。现有预算不构成完整上游误差包络，未证实实际舍入根因；原生PASS/独立FAIL/整体INCONCLUSIVE保留，不事后改尺度或容差。
+- RHS协议可条件定义：同一精确目标、两路径逐组区间及实际图重现；高精度相近或包络相容不等于唯一归因。未来最小4次R等价遍历/120 s仅作成本上限候选，未实现、未执行、未证可完成，也不申请新的数值额度。
+- 根后验方案要求固定线性B、正温邻域、全部clip广义侧/线段斜率、完整非正交/源项及舍入包络，q<1且中心自映射；未消元epsilon差须经潜热算子传播。已有点态方向不能提供全空间界；稀疏B/近根中心/r/q和费用均未建立，NONLINEAR_POSTERIOR_CERTIFICATE_DESIGN=NOT_READY，结论PAUSE_RECOMMENDED。不是无根或Jacobian奇异证明，不再自动投入该C的求根/加速实验。
+- 15项定向证据/源码前后SHA一致，原生产树未修改，研究记录保留字节前缀。阅读/设计/报告/Git未独立精确计时，无主动数值批次资源成本。关键SHA嵌入报告；原压力NO_GO、MAG关闭、258步未收敛及M1物理/网格缺口继续公开。

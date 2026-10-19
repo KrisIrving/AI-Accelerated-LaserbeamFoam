@@ -1,0 +1,9 @@
+state,field,region,different_binary64_components,numerically_equal,only_signed_zero,live_negative_zero,replay_negative_zero,max_absolute_numeric_difference
+before,Deposition,internal,1972,True,True,1972,0,0.0
+before,Deposition,patch,1024,True,True,1024,0,0.0
+before,TRHS,internal,155,True,True,155,0,0.0
+before,TRHS,patch,108,True,True,108,0,0.0
+before,rhophicp,patch,55,True,True,55,0,0.0
+after,Deposition,internal,1972,True,True,1972,0,0.0
+after,Deposition,patch,1024,True,True,1024,0,0.0
+after,rhophicp,patch,55,True,True,55,0,0.0

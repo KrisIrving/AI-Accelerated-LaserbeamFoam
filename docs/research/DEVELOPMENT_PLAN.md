@@ -40,3 +40,15 @@ DEC-014执行结果见[EXP-010内部计时](../validation/M1_TP_INTERNAL_TIMING_
 DEC-016/EXP-012已用原生非CFD完整mag测量否决T_LOCAL_NATIVE_MAG_GRADALPHA约2%solver收益筛选，正确性范围通过但最终NO_BENEFIT，未进入S/M1。该候选停止投入；阶段2保持，不自动授权其他优化或AI。证据见[否决报告](../validation/MAG_CACHE_NATIVE_20261018.md)。
 
 2026-10-18 DEC-017关闭阶段2限定实验链及MAG候选，授权条件自主合并PR #4；当前无运行额度。此前CURRENT/批次授权段落是历史，不续算或重跑。下一阶段仅[压力初值研究提案](STAGE2_CLOSEOUT_20261018.md)，数值验收/资源及AI实施须另批，阶段3仍NOT_STARTED。
+
+DEC-018随后只批准压力系统采集/原生离线验证，未批准AI训练/接入。EXP-014在前置工具构建失败后停止，零CFD/系统采集/回放，结论[INCONCLUSIVE](../validation/PRESSURE_SYSTEM_FEASIBILITY_20261018.md)；本批额度结束，不重试，新PR不满足数值合并门槛而保持Draft。阶段3 AI仍NOT_STARTED，不调整物理/数值标准或258步风险。
+
+DEC-019另行授权的EXP-015仅非CFD接口/合成验证已全部PASS，唯一构建额度结束；[证据](../validation/PRESSURE_REPLAY_INTERFACE_20261018.md)建立申请受控CFD的前置资格，不代表真实采集/全场事件等价或AI收益通过。不运行S/M1、不采集真实系统，阶段3 AI仍NOT_STARTED，PR #5保持Draft不合并；原258步风险保持。
+
+DEC-020新批次EXP-016已通过真实S/M1采集、全场/事件/保护及原初值回放；[结果](../validation/REAL_PRESSURE_REPLAY_20261018.md)显示当前廉价策略含核验/回退不节省，暂不建议批准AI初值开发（NO_GO，非永久取消路线）。原始系统可供后续另批只读成本下界审计，本轮不自动执行；运行额度结束，阶段3 AI仍NOT_STARTED，PR #5保持Draft不合并，258步风险保持。
+
+DEC-021/EXP-017只读[方向重评](STAGE3_DIRECTION_REASSESSMENT_20261018.md)固化压力初值当前NO_GO；T组装/准备有较大观测成本，但唯一T–相变固定点研究候选NOT_READY，未选择AI方法。收敛参考、完整T状态/误差合同、可避免成本和创新性仍缺；不变更正式路线或授权新实验，阶段3 AI仍NOT_STARTED，PR #5保持Draft不合并。
+
+DEC-022/EXP-018完成[T–相变数学/文献前置审查](T_PHASE_FIXED_POINT_REVIEW_20261018.md)：可定义冻结上下文下的完整场G_C，但真实回放状态及独立收敛合同仍NOT_READY；仅提出一个未批准的零CFD制造解门槛，不授权工具/算法实现、采集、CFD或AI，不改压力初值NO_GO及正式阶段路线。
+
+DEC-023/EXP-019唯一[零CFD制造解与原生G门槛](../validation/T_PHASE_MANUFACTURED_REPLAY_20261018.md)全部PASS，额度结束。仅建立申请受控真实单步采集/独立参考设计的前置资格；平衡G重放不证明任意非平衡/真实M1回放或收敛，阶段3 AI仍NOT_STARTED，压力NO_GO及258步/物理/网格缺口保持，PR #5 Draft/unmerged。

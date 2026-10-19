@@ -1,8 +1,28 @@
 # 项目资料入口 · AI-Accelerated-LaserbeamFoam
 
-状态核对日期：2026-10-18。本页是导航与状态摘要，不替代正式计划或原始证据。各主题以导航表中的权威文件为准；发生冲突时回查正式文件和 Git 历史，不根据本页自行改计划。
+状态核对日期：2026-10-19。本页是导航与状态摘要，不替代正式计划或原始证据。各主题以导航表中的权威文件为准；发生冲突时回查正式文件和 Git 历史，不根据本页自行改计划。
 
-最新[阶段2收尾审查与唯一AI候选](research/STAGE2_CLOSEOUT_20261018.md)汇总可信费用及缺口：压力初值预测仅PROPOSED，P_SOLVE6.32%、零成本极端上限1.06750×；尚未实施、训练或新增CFD。
+最新DEC-033/EXP-029完成[RHS算术与非线性根后验认证设计](research/T_PHASE_RHS_POSTERIOR_DESIGN_20261019.md)：**PAUSE_RECOMMENDED，非线性认证NOT_READY**。两RHS数学形式在相同输入/边界假设下等价，但实际差值的舍入归因未证明，旧gamma256不是完整组装误差界；原EXP-028独立FAIL/整体INCONCLUSIVE不改。定义条件式区间/分项诊断与全邻域B/q自映射协议，缺已验证稀疏B、所有clip侧算子上界及32k费用证据，不以点态小残差替代根存在。零CFD/G/R/Jv/组装/求解/构建/实现/状态更新/AI，不建议申请新的求根或加速数值批次；PR #5 Draft、不合并，全部历史失败和风险保留。
+
+最新DEC-032/EXP-028的[有限Newton方向认证](validation/T_PHASE_NEWTON_DIRECTION_20261019.md)为**整体INCONCLUSIVE、入口CERTIFIED、终态INCONCLUSIVE**：复用原二进制，校准/来源PASS；两原生固定RHS真实线性检查均PASS，终态独立逐面RHS同尺度交叉2.21598e-9>1e-9，按预注册停止后续诊断，不称GMRES失败。入口两个微小步长Merit下降但未接受状态、不证明根。G0/R22/Jv20/准备2，7.07 s/94.50 MiB/31.48 MiB；零CFD/G/Time推进/原生构建/AI，无降标重试。额度结束，只可申请根存在/后验误差认证设计；PR #5 Draft、不合并，原风险及全部失败保留。
+
+最新DEC-031/EXP-027的[Newton条件与Merit只读审查](research/T_PHASE_CERTIFICATE_MERIT_REVIEW_20261019.md)判**CURRENT_CERTIFICATE_CORRECT仅限点态充分逆界**，符号反例证明有过度保守性；负裕量不证明奇异，完整非线性根/误差认证仍UNVERIFIED。原失败五步Phi均增加，不能归咎于下降幅度要求过严，也不能据此认定稳定周期。RESEARCH_CONTINUE仅建议另批方向认证与后验认证设计；本轮零CFD/G/R/Jv/求解/组装/构建/实现/AI，未修改EXP-026或门槛。尚无可信根或加速基准，PR #5保持Draft、不合并；全部风险保留。
+
+最新DEC-030/EXP-026的[独立参考可行性](validation/T_PHASE_REFERENCE_FEASIBILITY_20261018.md)为**INCONCLUSIVE**：唯一构建/完整C重载/预注册校准/保护PASS；阻尼G两种子均线搜索拒绝，Newton两种子因保守充分条件未获认证而未执行Krylov/更新，不能推断根不存在或Newton失败。没有合格根、四路一致性或端点G验证。G9/R46/Jv6/准备2，57.27 s/840.63 MiB/约0.426 GiB；零CFD/Time推进/AI、无降标或重试。额度结束，暂停将此C用于加速比较，PR #5 Draft、不合并；原258步、压力NO_GO、MAG关闭及物理/网格缺口保留。仅建议另批只读审查条件认证，不自动追加实验。[预注册](research/T_PHASE_REFERENCE_PREREG_20261018.json)及全部失败已归档。
+
+最新DEC-029/EXP-025完成唯一[独立收敛参考设计](research/T_PHASE_REFERENCE_DESIGN_20261018.md)，**REFERENCE_DESIGN_READY仅为设计状态**：定义同态能量/内部相变根并保留原patch约束，提出阻尼G及消元半光滑Newton两路线、校准/多初值联合验收与INCONCLUSIVE规则。旧2e-9/1e-8门槛未升级为真值；未来四分支离线实验仍PROPOSED，未知根存在/唯一与算法净收益。零CFD/G/求解/组装/构建/算法实现/AI，25项小证据SHA不变，PR #5 Draft、不合并；258步、压力NO_GO及物理/网格缺口保留。
+
+最新DEC-028/EXP-024的[真实21轮终验](validation/T_PHASE_PREVITER_FINAL_20261018.md)**全部技术门槛PASS，NONCONVERGED_OBSERVED**：原生探针证明prev隐藏旧层导致索引漂移，按构造顺序修复，不硬写索引；局部两轮及唯一连续21轮完整二进制/事件逐字节一致，21态独立残差算术PASS。终态epsilon增量0.07114668、F_E最大固定缩放3.50212e-4、相变/温度缺陷0.00497068仍超原门槛/联合草案；末五轮观察到两种完整状态交替，不能当收敛参考。零CFD/S/M1/Time推进/延拓/AI；241.73 s、838.40 MiB、0.832 GiB阶段后数据峰值，10351保护SHA不变。只具备申请独立收敛参考**设计**资格，本额度结束；PR #5 Draft、不合并。EXP-014至023失败历史、压力NO_GO、MAG关闭和科学风险不改。
+
+最新DEC-027/EXP-023的[binary64与真实链验证](validation/T_PHASE_BITEXACT_CHAIN_20261018.md)**INCONCLUSIVE**：完整旧S位恢复/格式/回放/独立算术PASS，零新S；唯一冻结M1采齐step738的21轮，190场/30 uniform/完整事件及258步轨迹对三基线一致。连续回放首轮全部PASS，第2轮prevIter timeIndex原生0/回放738导致严格FAIL，停止其余验收，终态独立能量/相变残差未知；不具备独立收敛参考资格。733.58 s、833.97 MiB峰值，6796保护SHA不变；曾越3 GiB观察警戒如实披露，全部原字节/路径保留。三个工程循环记录完整，无CFD/G重跑、延拓或AI。本额度结束，后续仅提议另批零CFD生命周期修复；PR #5 Draft/unmerged，原风险与负结果不变。
+
+最新DEC-026/EXP-022的[真实热链验证](validation/T_PHASE_REAL_CHAIN_20261018.md)在S格式门槛**INCONCLUSIVE**停止：完整构建、非CFD、S19场/3 uniform及原事件PASS；完整G状态回放因±0符号位不保真FAIL，5578保护SHA不变。唯一S后零M1/真实21轮/延拓，两个允许的非CFD文本格式诊断亦FAIL，保留证据、不重跑CFD。尚无传统算法资格，PR #5 Draft/unmerged；原科学风险与负结果不变。
+
+最新DEC-025/EXP-021的[回放头依赖修复/非平衡G门槛](validation/T_PHASE_HEADER_NONEQUILIBRIUM_20261018.md)四项PASS：唯一非CFD构建，三类各一次直接G/回放、195项文件及原事件字节相同，独立残差算术/原线性/边界通过；25.14 s/799.72 MiB，4910保护SHA不变。单G终态仍不满足联合非线性草案，不冒充收敛。只具备申请下一次受控S/M1采集的资格；零S/M1/真实热采集/推进，不恢复step738方案，AI未启动，PR #5 Draft/unmerged。
+
+最新DEC-024/EXP-020的[真实单步热状态采集门槛](validation/T_PHASE_REAL_CAPTURE_20261018.md)为**INCONCLUSIVE**：唯一隔离构建因头文件依赖顺序失败，已停止，零S/M1/G或真实采集；4750保护SHA不变。四项交付未执行而未满足，不是数值/AI失败。本批额度消耗，不修补重建或恢复旧额度；PR #5仍Draft，科学风险与压力NO_GO保留。
+
+最新[零CFD热制造解/原生G验证](validation/T_PHASE_MANUFACTURED_REPLAY_20261018.md)四项门槛全部PASS：一次构建、三类平衡状态完整重放逐字节一致、六负例拒绝，23.90 s/791.79 MiB、4225保护SHA不变。只获得申请真实单步采集/参考设计的前置资格，不自动执行；[数学/文献审查](research/T_PHASE_FIXED_POINT_REVIEW_20261018.md)、压力初值NO_GO、258步及物理/网格缺口保留，AI未启动，PR #5 Draft/unmerged。
 
 ## 目标与 Current Status
 
@@ -17,6 +37,12 @@
 | 论文物理验证 V | 候选研究，PROPOSED；没有新增强制阶段或已实现案例 | [文献与实验候选库](research/LITERATURE_VALIDATION_CANDIDATES.md) |
 | AI 模块 | NOT_STARTED；尚未选择或实现 | [开发计划](research/DEVELOPMENT_PLAN.md) |
 | MPI 固定验证矩阵 | 已撤销为强制开发门槛；保留定向验证及已知风险 | [DEC-002](research/DECISION_LOG.md)、[MPI 风险](research/MPI_RISKS.md) |
+
+此前DEC-018/EXP-014压力系统前置结果为[INCONCLUSIVE](validation/PRESSURE_SYSTEM_FEASIBILITY_20261018.md)：离线工具构建遗漏接口参数，按失败停止；零新CFD、零采集系统/回放/AI。3343保护SHA一致；不据此否决科学假设，也不建议现在批准AI。新PR仅交付失败记录并保持Draft，数值门槛未通过，不合并；PR #4的阶段2历史及其已合并状态不变。
+
+此前DEC-019/EXP-015已在新批次通过[压力回放接口与合成前置验证](validation/PRESSURE_REPLAY_INTERFACE_20261018.md)：BUILD/FORMAT/RESIDUAL/REPLAY全部PASS，只构建一次、零CFD；4个原生停止通过却不满足原尺度残差的负例正确拒绝。16.02 s/654.57 MiB，3398保护SHA一致。具备申请后续受控CFD的前置资格，不自动授权采集或AI；PR #5保持Draft、不合并，EXP-014原失败历史保留。
+
+最新DEC-020/EXP-016已完成[真实压力采集与原生回放](validation/REAL_PRESSURE_REPLAY_20261018.md)：唯一S→唯一M1，190场/30 uniform/事件及258步轨迹对三原版一致；33原初值回放通过，3493保护SHA不变。30 M1样本原迭代160，外推含回退194、零初值532，无净节省；采集链路PASS，但当前AI初值开发建议NO_GO。批次389.79 s，不训练/接入AI，不自动追加CFD，PR #5保持Draft、不合并。
 
 ## 已完成、正在执行与下一步
 

@@ -1,0 +1,7 @@
+case,perturb,scaled_energy,phase_defect,boundary_T_defect_K,rejected,native_phase_increment,native_T_change_K,scaled_energy_before
+solid,T_i,0.0035719295802782735,0.0,10.0,True,,,
+mushy,epsilon1_i,0.005724866388864104,0.05,0,True,,,
+solid,T_old_i,0.0017790299070600888,0.0,0,True,,,
+mushy,epsilon1_b,1.1088186365602498e-05,0.125,0,True,,,
+solid,T_b,1.2540868581499555e-06,0.0,25.0,True,,,
+solid,native_G_T_plus_10K,,,,True,0.0,9.999955254123506,0.0035580604737219293
