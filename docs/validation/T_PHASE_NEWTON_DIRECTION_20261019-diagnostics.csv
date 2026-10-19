@@ -1,0 +1,5 @@
+seed,h_K,status,reason,clip_side_crossings,native_assembly,accepted,FD_relative,FD_native_relative,FD_induced_FE,FD_native_induced_FE,trial_FE_max,trial_Phi,trial_phase_defect,trial_boundary_K,merit_change,merit_slope_per_K,weighted_H_difference_L2,T_perturbation_max_K,phase_perturbation_max
+entry,0.0001,PASS,,0,True,False,5.616517812234661e-08,7.044444391992111e-08,7.137543584284456e-17,7.804403936742926e-17,0.005128600104229692,7.0066929346769656e-09,0.0,0.0,-4.8434185094719147e-14,-4.843418509471915e-10,5.1753496643226755e-08,9.999999997489795e-05,2.2310119307533682e-08
+entry,5e-05,PASS,,0,True,False,1.1646203050771645e-07,1.3106762667309864e-07,1.4784401144203832e-16,1.5475381705450114e-16,0.005128608967153291,7.006717151748633e-09,0.0,0.0,-2.4217113427466186e-14,-4.843422685493237e-10,2.5876748274155137e-08,5.000000010113581e-05,1.115505732229849e-08
+end21,0.0001,NOT_RUN,pre-registered independent RHS gate failed,,,False,,,,,,,,,,,,,
+end21,5e-05,NOT_RUN,pre-registered independent RHS gate failed,,,False,,,,,,,,,,,,,

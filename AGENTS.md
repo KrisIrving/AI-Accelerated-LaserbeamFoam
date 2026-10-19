@@ -168,3 +168,17 @@ explicit assumptions but provably conservative; nonlinear root/error certificati
 remains unverified. No G/R/Jv/solve/build/implementation/AI is permitted. The
 proposed direction-only test and posterior root certification need fresh approval;
 EXP-026 remains INCONCLUSIVE, PR #5 Draft/unmerged, all historical risks retained.
+DEC-032 separately authorizes one bounded offline direction-only batch: reuse the
+existing native binary/Jv/GMRES, calibrate six manufactured/clip-side directions
+first, then at most one 20-step linear direction from each original T seed.
+No G, CFD/Time advance, accepted nonlinear state/root search, build/new native
+interface or AI. Caps R24/Jv48/preparation2, 120 s, CPU0/thread1; RSS1 GiB/data
+200 MiB MONITORED_ONLY. Keep old guards/results read-only; certify only fixed-RHS
+true linear residual plus roundoff <1e-9 and preregistered directional checks.
+PR #5 Draft/unmerged; subsequent root certification needs fresh authorization.
+EXP-028 consumed DEC-032: calibration/provenance passed; one entry direction was
+certified. Both native fixed-RHS direct linear checks passed, but end21 failed
+the preregistered independent face-RHS check at the same fixed norm; no end21
+step diagnostics followed. Overall INCONCLUSIVE, G0/R22/Jv20/preparation2. Zero
+CFD/build/G/accepted nonlinear state/AI. Only request eligibility for subsequent
+root-existence/posterior-error design, no further numerical permission; PR5 Draft.
